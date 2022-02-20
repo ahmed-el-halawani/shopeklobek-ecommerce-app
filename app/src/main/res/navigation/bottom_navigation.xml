@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/brandsFragment">
+
+    <fragment
+        android:id="@+id/brandsFragment"
+        android:name="com.stash.shopeklobek.ui.home.brands.BrandsFragment"
+        android:label="BrandsFragment" />
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.stash.shopeklobek.ui.home.categories.CategoriesFragment"
+        android:label="CategoriesFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.stash.shopeklobek.ui.home.cart.CartFragment"
+        android:label="CartFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" />
+</navigation>
