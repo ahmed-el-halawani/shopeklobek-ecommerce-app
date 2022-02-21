@@ -40,17 +40,16 @@ object NavigationExtension {
                         return
                     }
                     view.menu.forEach { item ->
-                        if(menuAndEquals[item.itemId]!=null){
-                            menuAndEquals[item.itemId]?.forEach {
+                        when {
+                            destination.matchDestination(item.itemId) -> item.isChecked = true
+                            menuAndEquals[item.itemId]!=null -> menuAndEquals[item.itemId]?.forEach {
                                 if (destination.matchDestination(it)) {
                                     item.isChecked = true
                                 }
                             }
-                        }else{
-                            if (destination.matchDestination(item.itemId)) {
-                                item.isChecked = true
-                            }
+                            else -> item.isChecked = false
                         }
+
                     }
                 }
             })
