@@ -22,13 +22,13 @@
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
-        android:id="@+id/loginFragment"
+        android:id="@+id/nav_login"
         android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"
         />
     <fragment
-        android:id="@+id/registerFragment"
+        android:id="@+id/nav_register"
         android:name="com.stash.shopeklobek.ui.authentication.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"
