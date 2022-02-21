@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityMainBinding
@@ -25,6 +26,32 @@ class MainActivity : AppCompatActivity() {
     var activityPermissionResultData = MutableLiveData<ActivityPermissionResultData?>()
 
 
+    var onBackNavController: NavController? = null
+
+    val drawerLayout by lazy{
+        binding.drawerLayout
+    }
+
+    val bottomNavAppBarConfiguration by lazy {
+       AppBarConfiguration(
+            setOf(
+                R.id.brandsFragment,
+                R.id.cartFragment, R.id.favoritesFragment, R.id.categoriesFragment,
+            ),drawerLayout
+        )
+    }
+
+    private val drawerAppBarConfiguration by lazy {
+       AppBarConfiguration(
+            setOf(
+                R.id.nav_profile, R.id.nav_settings, R.id.nav_home,R.id.nav_login,R.id.nav_register
+            ),drawerLayout
+        )
+    }
+
+    val mainNavController by lazy{
+        binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,22 +63,10 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
 
-
-        val navController = binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_profile, R.id.nav_settings, R.id.nav_home
-            ), drawerLayout
-        )
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        setupActionBarWithNavController(mainNavController, drawerAppBarConfiguration)
+        navView.setupWithNavController(mainNavController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,7 +77,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        return onBackNavController?.navigateUp(bottomNavAppBarConfiguration)?:false||
+                navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
 

@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
     app:startDestination="@id/brandsFragment">
 
     <fragment
+        android:id="@+id/nav_login"
+        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="LoginFragment" />
+    <fragment
         android:id="@+id/brandsFragment"
         android:name="com.stash.shopeklobek.ui.home.brands.BrandsFragment"
+        tools:layout="@layout/fragment_brands"
+
         android:label="BrandsFragment" />
     <fragment
         android:id="@+id/categoriesFragment"
+        tools:layout="@layout/fragment_categories"
+
         android:name="com.stash.shopeklobek.ui.home.categories.CategoriesFragment"
         android:label="CategoriesFragment" />
     <fragment
         android:id="@+id/cartFragment"
+        tools:layout="@layout/fragment_cart"
+
         android:name="com.stash.shopeklobek.ui.home.cart.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment" >
+        <action
+            android:id="@+id/action_cartFragment_to_nav_login"
+            app:destination="@id/nav_login" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
+        tools:layout="@layout/fragment_favorites"
+
         android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
         android:label="FavoritesFragment" />
 </navigation>

@@ -40,16 +40,15 @@ object NavigationExtension {
                         return
                     }
                     view.menu.forEach { item ->
-                        when {
-                            destination.matchDestination(item.itemId) -> item.isChecked = true
-                            menuAndEquals[item.itemId]!=null -> menuAndEquals[item.itemId]?.forEach {
+                        if (destination.matchDestination(item.itemId)) {
+                            item.isChecked = true
+                        }else if(menuAndEquals[item.itemId]!=null){
+                            menuAndEquals[item.itemId]?.forEach {
                                 if (destination.matchDestination(it)) {
                                     item.isChecked = true
                                 }
                             }
-                            else -> item.isChecked = false
                         }
-
                     }
                 }
             })
@@ -57,15 +56,6 @@ object NavigationExtension {
 
     internal fun NavDestination.matchDestination(@IdRes destId: Int): Boolean =
         hierarchy.any { it.id == destId }
-
-
-    fun <T>List<T>.where(p:(T)->Boolean): ArrayList<T> {
-        val l:ArrayList<T> = ArrayList()
-        forEach {
-            if(p(it)) l.add(it)
-        }
-        return l
-    }
 
 
     fun FragmentContainerView.findNavController2(activity:FragmentActivity):NavController{

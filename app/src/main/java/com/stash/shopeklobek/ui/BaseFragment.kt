@@ -20,6 +20,8 @@ abstract class BaseFragment<T : ViewBinding>(val viewBindingInflater:(LayoutInfl
         viewBindingInflater(layoutInflater)
     }
 
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return binding.root
     }
