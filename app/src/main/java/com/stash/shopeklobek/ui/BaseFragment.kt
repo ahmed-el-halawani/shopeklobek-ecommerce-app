@@ -24,11 +24,30 @@ abstract class BaseFragment<T : ViewBinding>(val viewBindingInflater:(LayoutInfl
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mainActivity.activityPermissionResultData.observe(viewLifecycleOwner){
+            if(it!=null)
+                onRequestPermissionsResult(it)
+        }
+        mainActivity.activityResultLiveData.observe(viewLifecycleOwner)
+        {
+            if(it!=null)
+                onActivityResult(it)
+        }
+    }
+
+
     override fun showLoading(message: String?) {
-        Toast.makeText(requireContext(), "showLoading", Toast.LENGTH_SHORT).show()
+        mainActivity.showLoading(message)
     }
 
     override fun hideLoading() {
-        Toast.makeText(requireContext(), "makeText", Toast.LENGTH_SHORT).show()
+        mainActivity.hideLoading()
     }
+
+
+    open fun onActivityResult(activityResultData: MainActivity.ActivityResultData) {}
+
+    open fun onRequestPermissionsResult(permissionResultData: MainActivity.ActivityPermissionResultData) {}
 }

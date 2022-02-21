@@ -16,5 +16,15 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@android:drawable/sym_call_incoming"
+            android:title="Lgoin" />
+
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@android:drawable/sym_call_missed"
+            android:title="register" />
     </group>
 </menu>
