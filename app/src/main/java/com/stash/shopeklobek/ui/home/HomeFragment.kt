@@ -3,8 +3,6 @@ package com.stash.shopeklobek.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import com.google.android.gms.location.R
 import com.stash.shopeklobek.databinding.FragmentHomeBinding
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.utils.NavigationExtension.setupWithNavController2
@@ -22,7 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun setupBottomNavBar() {
         val navHostFragment =
-            childFragmentManager.findFragmentById(binding.newsNavHostFragment.id) as NavHostFragment
+            childFragmentManager.findFragmentById(binding.homeNavHostFragment.id) as NavHostFragment
 
         binding.bottomNavigationView
             .setupWithNavController2(
