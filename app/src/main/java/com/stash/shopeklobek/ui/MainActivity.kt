@@ -84,10 +84,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         activityResultLiveData.postValue(ActivityResultData(requestCode, resultCode, data))
         activityResultLiveData.postValue(null)
-
     }
 
     override fun onRequestPermissionsResult(
@@ -135,6 +133,5 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var dialog: AlertDialog? = null
-
 
 }
