@@ -19,7 +19,7 @@
         android:title="Cart" />
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_favorite"
         android:title="Favorite" />
 
 </menu>
