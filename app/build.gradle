@@ -106,9 +106,11 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
 
     //image slider
-
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
+
+    //circleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 }

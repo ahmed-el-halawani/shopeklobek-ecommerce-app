@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/image_product_item"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/tt"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_favorite" />
+                app:srcCompat="@drawable/ic_baseline_favorite_red" />
         </LinearLayout>
 
 

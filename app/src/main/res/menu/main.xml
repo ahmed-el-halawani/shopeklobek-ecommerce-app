@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Logout"
+        android:orderInCategory="100"
+       android:icon="@drawable/ic_baseline_logout_24"
+        app:showAsAction="always"
+        android:title="logout" />
 </menu>

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.stash.shopeklobek.R
@@ -24,6 +25,7 @@ class ProductDetailsFragment: BaseFragment<FragmentProductDetailsBinding>(Fragme
         imageList.add(SlideModel("https://contents.mediadecathlon.com/p2028409/k\$521864b2fb7a7c73c4bf0cdfbb3a3a0f/kalenji-run-support-women-s-running-shoes-dark-grey.jpg?&f=800x800" ))
 
         imageSlider.setImageList(imageList,ScaleTypes.FIT)
+
     }
 
 
