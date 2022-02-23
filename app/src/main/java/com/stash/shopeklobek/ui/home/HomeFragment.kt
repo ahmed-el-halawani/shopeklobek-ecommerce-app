@@ -31,7 +31,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         super.onViewCreated(view, savedInstanceState)
         mainActivity.onBackNavController = navController
 
-
         setupBottomNavBar()
     }
 
@@ -47,7 +46,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         R.id.cartFragment,
                         listOf(
                             R.id.nav_login
-                        )
+                        ),
+                    ),
+                    Pair(
+                        R.id.categoriesFragment,
+                        listOf(
+                            R.id.product_details_fragment
+                        ),
                     ),
                 )
             )
