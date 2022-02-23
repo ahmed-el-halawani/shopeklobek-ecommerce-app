@@ -39,5 +39,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
 
 
         adapterFavorite.setFavorite(arrayList)
+
     }
 }
