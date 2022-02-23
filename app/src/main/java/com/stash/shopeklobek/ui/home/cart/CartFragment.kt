@@ -28,8 +28,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
 
         binding.apply {
 
-            btnProceedToCheckout.setOnClickListener{
-
+            btnProceedToCheckout.setOnClickListener {
+                println("herere")
+                findNavController().navigate(R.id.action_cartFragment_to_shappingAddressesFragment)
             }
 
             ItemTouchHelper(ViewHelpers.SwipeToRemove { position ->

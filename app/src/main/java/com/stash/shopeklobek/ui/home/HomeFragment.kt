@@ -45,7 +45,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     Pair(
                         R.id.cartFragment,
                         listOf(
-                            R.id.nav_login
+                            R.id.nav_login,
+                            R.id.shappingAddressesFragment,
                         ),
                     ),
                     Pair(
