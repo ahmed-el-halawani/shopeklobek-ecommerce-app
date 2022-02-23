@@ -4,10 +4,24 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
+    <color name="transparent">#00000000</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="item_details">#F3F4EF</color>
+
+    <color name="accent">#121212</color>
+    <color name="onAccent">#FFFFFF</color>
+    <color name="background">#f5f6f8</color>
+    <color name="onBackground">@color/black</color>
+
+    <color name="primary">#121212</color>
+    <color name="onPrimary">#FFFFFF</color>
+
+    <color name="textColor">@color/black</color>
+    <color name="textColorOnAccent">@color/white</color>
+    <color name="textSubTitleColor">@android:color/darker_gray</color>
+
 
 
 </resources>
