@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="AddressCardView">
+        <attr format="reference" name="locationImage"/>
+        <attr format="string" name="title"/>
+        <attr format="string" name="address"/>
+    </declare-styleable>
+</resources>

@@ -9,7 +9,7 @@
     android:paddingTop="55dp"
     android:paddingEnd="20dp"
     android:weightSum="3"
-    tools:context=".ui.product_details.ProductDetailsFragment">
+    tools:context=".ui.home.product_details.ProductDetailsFragment">
 
     <TextView
         android:id="@+id/tv_name_item"
