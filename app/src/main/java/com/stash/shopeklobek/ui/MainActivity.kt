@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     val bottomNavAppBarConfiguration by lazy {
-       AppBarConfiguration(
+        AppBarConfiguration(
             setOf(
                 R.id.brandsFragment,
                 R.id.cartFragment, R.id.favoritesFragment, R.id.categoriesFragment,
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val drawerAppBarConfiguration by lazy {
-       AppBarConfiguration(
+        AppBarConfiguration(
             setOf(
                 R.id.nav_profile, R.id.nav_settings, R.id.nav_home,R.id.nav_login,R.id.nav_register
             ),drawerLayout
