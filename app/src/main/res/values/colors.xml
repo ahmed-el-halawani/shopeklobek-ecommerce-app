@@ -15,6 +15,9 @@
     <color name="background">#f5f6f8</color>
     <color name="onBackground">@color/black</color>
 
+    <color name="primary">#121212</color>
+    <color name="onPrimary">#FFFFFF</color>
+
     <color name="textColor">@color/black</color>
     <color name="textColorOnAccent">@color/white</color>
     <color name="textSubTitleColor">@android:color/darker_gray</color>
