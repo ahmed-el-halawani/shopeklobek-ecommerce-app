@@ -1,0 +1,84 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     android:layout_margin="10dp"
+    
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        >
+
+
+        <TextView
+            android:textSize="20sp"
+             android:id="@+id/title_price"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_price_order"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/textSubTitleColor"
+            android:textSize="18sp"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="55.5$"
+            app:layout_constraintStart_toEndOf="@+id/title_price"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/title_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_price" />
+
+        <TextView
+            android:textColor="@color/textSubTitleColor"
+            android:id="@+id/tv_date_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2021-04-10 10:28:21.052"
+            android:textSize="18sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/title_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_order" />
+
+        <TextView
+            android:id="@+id/title_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/state"
+            android:textSize="20sp"
+             android:layout_marginStart="50dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_price_order"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_state_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="done"
+            android:textColor="@color/textSubTitleColor"
+            android:layout_marginTop="2dp"
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/title_state"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
