@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <com.stash.shopeklobek.utils.customviews.AddressCardView
-        android:id="@+id/addressCardView2"
+        android:id="@+id/cvCurrentLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:address="Street 135, Helwan, Cairo Governorate"
@@ -17,46 +17,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Current Location" />
 
-    <com.stash.shopeklobek.utils.customviews.AddressCardView
-        android:id="@+id/addressCardView"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/cvAddAddress"
+        layout="@layout/item_add_address"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:address="Street 135, Helwan, Cairo Governorate"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressCardView2"
-        app:title="Last Location" />
+        app:layout_constraintTop_toBottomOf="@+id/cvCurrentLocation" />
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPastLocation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressCardView">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/include"
-                layout="@layout/item_add_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_address_card" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/cvAddAddress"
+        tools:listitem="@layout/item_address_card" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
