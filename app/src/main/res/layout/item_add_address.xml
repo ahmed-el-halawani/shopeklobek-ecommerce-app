@@ -50,7 +50,7 @@
                 android:layout_gravity="center"
                 android:id="@+id/ivAddress"
                 android:layout_width="50dp"
-                android:layout_height="100dp"
+                android:layout_height="70dp"
                 app:srcCompat="@drawable/ic_circular_add" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
