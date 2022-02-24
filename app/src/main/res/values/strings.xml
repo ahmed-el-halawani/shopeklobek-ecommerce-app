@@ -20,4 +20,19 @@
     <string name="remove_image_description">remove_image_description</string>
     <string name="add_image_description">add_image_description</string>
 
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="user_name">User name</string>
+    <string name="address">Address</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="signup">SignUp</string>
+
+    <string name="favorite">favorites</string>
+    <string name="cart">cart</string>
+    <string name="orders">orders</string>
+    <string name="price">price :</string>
+    <string name="state">state :</string>
+    <string name="date">date :</string>
+
+
 </resources>
