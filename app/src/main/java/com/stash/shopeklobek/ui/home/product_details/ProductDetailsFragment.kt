@@ -1,15 +1,10 @@
-package com.stash.shopeklobek.ui.product_details
+package com.stash.shopeklobek.ui.home.product_details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentProductDetailsBinding
-import com.stash.shopeklobek.databinding.FragmentProfileBinding
 import com.stash.shopeklobek.ui.BaseFragment
 
 class ProductDetailsFragment: BaseFragment<FragmentProductDetailsBinding>(FragmentProductDetailsBinding::inflate){

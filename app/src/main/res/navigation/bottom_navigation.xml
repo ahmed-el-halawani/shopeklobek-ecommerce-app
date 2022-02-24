@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
+
     app:startDestination="@id/brandsFragment">
 
     <fragment
@@ -12,7 +13,7 @@
         android:label="LoginFragment" />
     <fragment
         android:id="@+id/product_details_fragment"
-        android:name="com.stash.shopeklobek.ui.product_details.ProductDetailsFragment"
+        android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
         tools:layout="@layout/fragment_product_details"
         android:label="ProductDetails" />
     <fragment
@@ -41,6 +42,9 @@
         <action
             android:id="@+id/action_cartFragment_to_nav_login"
             app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_cartFragment_to_shappingAddressesFragment"
+            app:destination="@id/shappingAddressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -48,4 +52,9 @@
 
         android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
         android:label="FavoritesFragment" />
+    <fragment
+        tools:layout="@layout/fragment_shipping_address"
+        android:id="@+id/shappingAddressesFragment"
+        android:name="com.stash.shopeklobek.ui.home.shipping_addresses.ShippingAddressesFragment"
+        android:label="ShappingAddressesFragment" />
 </navigation>

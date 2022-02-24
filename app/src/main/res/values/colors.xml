@@ -9,17 +9,22 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="item_details">#F3F4EF</color>
-    <color name="background">#f5f6f8</color>
 
     <color name="accent">#121212</color>
     <color name="onAccent">#FFFFFF</color>
-    <color name="primary">@color/background</color>
-    <color name="onPrimary">@color/black</color>
+    <color name="background">#f5f6f8</color>
+    <color name="onBackground">@color/black</color>
+
+    <color name="primary">#121212</color>
+    <color name="onPrimary">#FFFFFF</color>
 
     <color name="textColor">@color/black</color>
     <color name="textColorOnAccent">@color/white</color>
     <color name="textSubTitleColor">@android:color/darker_gray</color>
-
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
 
 
 </resources>
