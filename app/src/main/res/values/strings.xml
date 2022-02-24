@@ -19,5 +19,11 @@
     <string name="product_image">product_image</string>
     <string name="remove_image_description">remove_image_description</string>
     <string name="add_image_description">add_image_description</string>
+    <string name="favorite">favorites</string>
+    <string name="cart">cart</string>
+    <string name="orders">orders</string>
+    <string name="price">price :</string>
+    <string name="state">state :</string>
+    <string name="date">date :</string>
 
 </resources>

@@ -17,8 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="shoes orange "
-        android:textColor="@color/black"
-        android:textSize="27sp"
+         android:textSize="27sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="23.556$"
-        android:textColor="@color/black"
+        android:textColor="@color/textSubTitleColor"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_item" />
@@ -73,9 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/description"
-
-        android:textColor="@color/black"
         android:textSize="20sp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
 
@@ -93,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c "
-            android:textColor="@color/grey_font"
+            android:textColor="@color/textSubTitleColor"
             android:textSize="13sp" />
     </ScrollView>
 
@@ -115,8 +113,8 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="4"
-            android:background="@drawable/bg_bt_add_bag"
-            android:clickable="true"
+ style="@style/ButtonAddToCart"
+             android:clickable="true"
             android:padding="10dp"
             android:weightSum="4">
 
@@ -124,17 +122,19 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="3"
-                android:src="@drawable/bg_bt_add_bag" />
+                android:src="@drawable/icon_bag" />
 
             <TextView
                 android:id="@+id/button2"
+                style="@style/ButtonAddToCart"
+
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
                 android:layout_weight="2"
                 android:text="@string/add_to_cart"
-                android:textColor="@color/white" />
+                 />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
