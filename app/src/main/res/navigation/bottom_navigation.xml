@@ -56,5 +56,14 @@
         tools:layout="@layout/fragment_shipping_address"
         android:id="@+id/shappingAddressesFragment"
         android:name="com.stash.shopeklobek.ui.home.shipping_addresses.ShippingAddressesFragment"
-        android:label="ShappingAddressesFragment" />
+        android:label="ShappingAddressesFragment" >
+        <action
+            android:id="@+id/action_shappingAddressesFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_payment"
+        android:id="@+id/paymentFragment"
+        android:name="com.stash.shopeklobek.ui.home.payment_screen.PaymentFragment"
+        android:label="paymentFragment" />
 </navigation>
