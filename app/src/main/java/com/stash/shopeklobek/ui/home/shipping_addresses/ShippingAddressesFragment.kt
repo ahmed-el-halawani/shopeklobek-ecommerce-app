@@ -19,7 +19,11 @@ class ShippingAddressesFragment : BaseFragment<FragmentShippingAddressBinding>(F
 
 
         binding.apply {
-            addressCardView.setOnClickListener {
+            cvCurrentLocation.setOnClickListener {
+                println("here")
+            }
+
+            cvAddAddress.root.setOnClickListener {
                 println("here")
             }
 
@@ -33,7 +37,7 @@ class ShippingAddressesFragment : BaseFragment<FragmentShippingAddressBinding>(F
     }
 
     private fun setupRecycleView() {
-        binding.recyclerView.apply {
+        binding.rvPastLocation.apply {
             adapter = historyOfAddressessAdapter
             layoutManager = LinearLayoutManager(activity)
         }
