@@ -61,6 +61,10 @@ class SettingsPreferences(private val application:Application) {
         return settings
     }
 
+    fun getValue(): Settings {
+        return sp.getString(ALL_DATA_ROUTE,null)?.let { settingsFromJson(it) }?:Settings.getDefault()
+    }
+
 }
 
 data class Settings(

@@ -1,27 +1,51 @@
 package com.stash.shopeklobek.ui.profile
 
+import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.newcore.wezy.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentOrdersBinding
 import com.stash.shopeklobek.databinding.FragmentProfileBinding
 import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.Order
+import com.stash.shopeklobek.model.api.ApiService.api
+import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
 
-class OrdersFragment : BaseFragment<FragmentOrdersBinding>(FragmentOrdersBinding::inflate) {
+class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
+        FragmentOrdersBinding::inflate
+)
+
+{
+
+
 
     private lateinit var adapterOrder: AdapterOrder
     private lateinit var order: ArrayList<Order>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ProfileViewModel.create(this)
+
+
+        val bandle = Bundle().apply {
+            putString("id","")
+        }
+
+        findNavController().navigate(2,bandle)
+
+
+
         order=ArrayList<Order>()
         order.add(Order("55.5$","done","2021-04-10 10:28:21.052"))
         order.add(Order("88.5$","cancel","2021-04-10 10:28:21.052"))

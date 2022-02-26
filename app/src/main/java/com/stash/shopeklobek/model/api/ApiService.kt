@@ -23,6 +23,7 @@ object ApiService {
      var api = retro.create(ShopifyServices::class.java)
 
     private fun buildAuthClient(): OkHttpClient {
+
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor( provideLoggingInterceptor())
         httpClient.addInterceptor { chain ->
