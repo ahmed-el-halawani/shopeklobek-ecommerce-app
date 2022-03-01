@@ -37,13 +37,12 @@ interface ShopifyServices {
     suspend fun getDiscount(@Path("id") discountId:Long ):
             Response<Discount>
 
-    @POST("/customers.json")
+    @POST("customers.json")
     suspend fun register(@Body customer: CustomerModel):
             Response<CustomerModel>
 
-    @GET("customers.json?")
-    suspend fun login(@Query("email") email: String):
-            Response<CustomerLoginModel>
+    @GET("customers.json")
+    suspend fun login(): Response<CustomerLoginModel>
 
 
     @GET("smart_collections.json")

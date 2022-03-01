@@ -25,9 +25,9 @@ class LoginViewModel(application: Application,val productRepo: ProductRepo) : An
             ViewModelProvider(
                 context,
                 Factory(
-                    context.context as Application,
-                    ProductRepo(ApiService.api, SettingsPreferences(context.context as Application)
-                        ,context.context as Application)
+                    context.context?.applicationContext as Application,
+                    ProductRepo(ApiService.api, SettingsPreferences(context.context?.applicationContext as Application)
+                        ,context.context?.applicationContext as Application)
                 )
             )[LoginViewModel::class.java]
         }

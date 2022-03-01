@@ -1,11 +1,9 @@
 package com.stash.shopeklobek.ui.authentication.register
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.stash.shopeklobek.databinding.FragmentRegisterBinding
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.CustomerModel
@@ -18,7 +16,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     var userConfirmPassword: String? = null
     val viewModel:RegisterViewModel?=null
 
-    private val vm: RegisterViewModel by viewModels()
+    private val vm by lazy{
+        RegisterViewModel.create(this)
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,16 +32,17 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                         firstName = userName, email = userEmail, password = userPassword, passwordConfirmation = userConfirmPassword
                     ),null
                 )
-                Log.d("cus",""+customer.customer!!.firstName)
-                Log.d("cus",""+customer.customer!!.email)
-                Log.d("cus",""+customer.customer!!.password)
-                Log.d("cus",""+customer.customer!!.passwordConfirmation)
+                Log.d("cus",""+customer.customer?.firstName)
+                Log.d("cus",""+customer.customer?.email)
+                Log.d("cus",""+customer.customer?.password)
+                Log.d("cus",""+customer.customer?.passwordConfirmation)
                 vm.postData(customer)
-                vm.signupSuccess.observe(viewLifecycleOwner,{
-                    if (it!!){
+//                vm.postData()
+                vm.signupSuccess.observe(viewLifecycleOwner) {
+                    if (it!!) {
                         Toast.makeText(requireContext(), "Registered succssfully", Toast.LENGTH_LONG).show()
                     }
-                })
+                }
             }
 
         }
