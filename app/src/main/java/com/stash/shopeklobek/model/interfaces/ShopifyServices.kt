@@ -21,6 +21,14 @@ interface ShopifyServices {
     suspend fun getProductsFromType(@Query("product_type") productType: String):
             Response<ProductsModel>
 
+    @GET("products/{productID}/images.json")
+    suspend fun getProduct(@Path("productID") ProductId:Long ):
+            Response<Product>
+
+    @GET("products/{productID}/images.json")
+    suspend fun getProductImage(@Path("productID") ProductId:Long ):
+            Response<ProductImages>
+
     @POST("price_rules.json")
     suspend fun createDiscount(@Body priceRule:Discount):
             Response<Discount>
@@ -29,13 +37,14 @@ interface ShopifyServices {
     suspend fun getDiscount(@Path("id") discountId:Long ):
             Response<Discount>
 
-    @GET("products/{productID}/images.json")
-    suspend fun getProductImage(@Path("productID") ProductId:Long ):
-            Response<ProductImages>
-
     @POST("customers.json")
     suspend fun register(@Body customer: CustomerModel):
             Response<CustomerModel>
+
+    @GET("customers.json?")
+    suspend fun login(@Query("email") email: String):
+            Response<CustomerLoginModel>
+
 
     @GET("smart_collections.json")
     suspend fun smartCollection():
@@ -47,9 +56,6 @@ interface ShopifyServices {
                                @Body customer:EditCustomerModel):
             Response<EditCustomerModel>
 
-    @GET("customers.json?")
-    suspend fun login(@Query("email") email: String):
-            Response<CustomerLoginModel>
 
     @POST("orders.json")
     suspend fun addOrder(@Body order:AddOrderModel):

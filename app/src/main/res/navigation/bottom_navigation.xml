@@ -10,7 +10,17 @@
         android:id="@+id/nav_login"
         android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
         tools:layout="@layout/fragment_login"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <argument
+            android:name="arg"
+            app:argType="string" />
+        <argument
+            android:name="ahmed"
+            app:argType="boolean" />
+        <argument
+            android:name="s"
+            app:argType="com.stash.shopeklobek.model.entities.Address" />
+    </fragment>
     <fragment
         android:id="@+id/product_details_fragment"
         android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"

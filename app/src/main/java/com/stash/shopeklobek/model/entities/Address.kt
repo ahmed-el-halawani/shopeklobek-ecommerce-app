@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.model.entities
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Address(
 
@@ -22,4 +23,4 @@ data class Address(
     @SerializedName( "zip")
     val zip: String? = "",
 
-    )
+    ):Serializable
