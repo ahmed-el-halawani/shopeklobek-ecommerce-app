@@ -5,29 +5,118 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_gallery4"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/white"
-        android:text="Categories"
-        android:textAlignment="center"
-        android:textSize="96sp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@drawable/bg_filter"
+            android:orientation="horizontal"
+
+            android:weightSum="7">
+
+            <TextView
+                android:id="@+id/filterTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:layout_marginBottom="2.5dp"
+                android:layout_weight="3"
+                android:gravity="center|center_vertical"
+                android:text="@string/women"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_arrows" />
+
+            <TextView
+                android:id="@+id/filterTextView2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:layout_marginBottom="2.5dp"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:textColor="@color/textColor"
+                android:textSize="17sp"
+                android:text="@string/shoes" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/filterLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2.5dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_weight="2"
+            android:background="@drawable/bg_filter"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:text="@string/filter"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_filter" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bt_product_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="51dp"
-        android:layout_marginBottom="130dp"
-        android:text="product details"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="340dp"
+        android:text="@string/product_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
