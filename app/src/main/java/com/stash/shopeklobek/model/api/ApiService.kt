@@ -25,14 +25,6 @@ object ApiService {
     private fun buildAuthClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor( provideLoggingInterceptor())
-        httpClient.addInterceptor { chain ->
-            val newRequest = chain.request().newBuilder()
-                .addHeader("Content-Type", "application/json")
-                .addHeader("X-Shopify-Access-Token",Constants.API_KEY)
-                .build()
-            chain.proceed(newRequest)
-        }
-
         httpClient.connectTimeout(60, TimeUnit.SECONDS)
         httpClient.readTimeout(60, TimeUnit.SECONDS)
         return httpClient.build()
