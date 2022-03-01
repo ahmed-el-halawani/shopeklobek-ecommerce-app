@@ -19,6 +19,16 @@
     <string name="product_image">product_image</string>
     <string name="remove_image_description">remove_image_description</string>
     <string name="add_image_description">add_image_description</string>
+    <string name="women">Women</string>
+    <string name="men">Men</string>
+    <string name="kids">Kids</string>
+    <string name="sale">Sale</string>
+    <string name="product_details">product details</string>
+    <string name="filter">Filter</string>
+    <string name="shoes">Shoes</string>
+    <string name="accessories">Accessories</string>
+    <string name="clothes">Clothes</string>
+    <string name="apply">Apply</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>

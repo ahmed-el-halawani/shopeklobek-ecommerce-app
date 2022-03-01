@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.stash.shopeklobek.databinding.FragmentHomeBinding
 import com.stash.shopeklobek.databinding.FragmentLoginBinding
 import com.stash.shopeklobek.ui.BaseFragment
@@ -11,8 +12,14 @@ import com.stash.shopeklobek.ui.BaseFragment
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     var userEmail:String?=null
     var userPassword:String?=null
+
+    val args:LoginFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        LoginViewModel.create(this)
+
         binding.btnLogin.setOnClickListener {
             if(validteForm())
                 Toast.makeText(requireContext(),"Logged in sccesfully",Toast.LENGTH_LONG).show()
