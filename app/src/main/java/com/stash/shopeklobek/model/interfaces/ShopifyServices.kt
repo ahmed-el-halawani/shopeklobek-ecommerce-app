@@ -41,9 +41,8 @@ interface ShopifyServices {
     suspend fun register(@Body customer: CustomerModel):
             Response<CustomerModel>
 
-    @GET("customers.json?")
-    suspend fun login(@Query("email") email: String):
-            Response<CustomerLoginModel>
+    @GET("customers.json")
+    suspend fun login(): Response<CustomerLoginModel>
 
 
     @GET("smart_collections.json")
