@@ -44,7 +44,7 @@ class RegisterViewModel(application: Application,val authenticationRepo: Authent
         }
     }
 
-    fun postData(){
+    fun getData(){
         viewModelScope.launch {
             val response : Either<CustomerLoginModel, LoginErrors> = authenticationRepo.login("agomgaa528.ag@gmail.com")
 
