@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Customer(
     @SerializedName( "id")
-    val customerId: Long? = 0,
+    val customerId: Long? = null,
 
     @SerializedName( "email")
     val email: String?,

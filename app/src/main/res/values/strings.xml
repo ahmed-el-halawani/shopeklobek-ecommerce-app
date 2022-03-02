@@ -20,6 +20,16 @@
     <string name="remove_image_description" translatable="false">remove_image_description</string>
     <string name="add_image_description" translatable="false">add_image_description</string>
 
+    <string name="women" translatable="false">Women</string>
+    <string name="men" translatable="false">Men</string>
+    <string name="kids" translatable="false">Kids</string>
+    <string name="sale" translatable="false">Sale</string>
+    <string name="product_details" translatable="false">product details</string>
+    <string name="filter" translatable="false">Filter</string>
+    <string name="shoes" translatable="false">Shoes</string>
+    <string name="accessories" translatable="false">Accessories</string>
+    <string name="clothes" translatable="false">Clothes</string>
+
     <string name="email" translatable="false">Email</string>
     <string name="password" translatable="false">Password</string>
     <string name="user_name" translatable="false">User name</string>

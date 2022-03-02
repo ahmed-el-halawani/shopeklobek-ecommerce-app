@@ -21,15 +21,13 @@ class ProfileViewModel(application: Application,val productRepo: ProductRepo) : 
     }
 
     companion object{
-        fun create(context: Fragment){
-            ViewModelProvider(
+        fun create(context: Fragment):ProfileViewModel = ViewModelProvider(
                 context,
                 Factory(
-                    context.context as Application,
-                    ProductRepo(ApiService.api, SettingsPreferences(context.context as Application)
-                        ,context.context as Application)
+                    context.context?.applicationContext as Application,
+                    ProductRepo(ApiService.api, SettingsPreferences(context.context?.applicationContext as Application)
+                        ,context.context?.applicationContext as Application)
                 )
             )[ProfileViewModel::class.java]
-        }
     }
 }
