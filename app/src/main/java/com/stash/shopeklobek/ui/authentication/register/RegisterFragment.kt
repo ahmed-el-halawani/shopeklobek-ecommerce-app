@@ -10,7 +10,8 @@ import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.ui.BaseFragment
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
-    var userName: String? = null
+    var firstName: String? = null
+    var lastName: String? = null
     var userEmail: String? = null
     var userPassword: String? = null
     var userConfirmPassword: String? = null
@@ -29,13 +30,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             if (validateFrem()){
                 val customer = CustomerModel(
                     Customer(
-                        firstName = userName, email = userEmail, password = userPassword, passwordConfirmation = userConfirmPassword
-                    ),null
+                        firstName = firstName, lastName = lastName,email = userEmail, password = userPassword, passwordConfirmation = userConfirmPassword
+                    )
                 )
-                Log.d("cus",""+customer.customer?.firstName)
-                Log.d("cus",""+customer.customer?.email)
-                Log.d("cus",""+customer.customer?.password)
-                Log.d("cus",""+customer.customer?.passwordConfirmation)
                 vm.postData(customer)
 //                vm.postData()
                 vm.signupSuccess.observe(viewLifecycleOwner) {
@@ -44,12 +41,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     }
                 }
             }
-
         }
     }
 
     private fun validateFrem(): Boolean {
-        userName = binding.edtuserName.text.toString()
+        firstName = binding.edtFirstName.text.toString()
+        lastName=binding.edtLastName.text.toString()
         userEmail = binding.edtEmail.text.toString()
         userPassword = binding.edtPassword.text.toString()
         userConfirmPassword = binding.edtConfirm.text.toString()
@@ -58,12 +55,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             binding.edtEmail.setError("Required")
             return false
         }
-        if (userName!!.isEmpty()) {
-            binding.edtuserName.requestFocus()
-            binding.edtuserName.setError("Required")
+        if (firstName!!.isEmpty()) {
+            binding.edtFirstName.requestFocus()
+            binding.edtFirstName.setError("Required")
             return false
         }
-
+        if (lastName!!.isEmpty()) {
+            binding.edtLastName.requestFocus()
+            binding.edtLastName.setError("Required")
+            return false
+        }
         if (userPassword!!.isEmpty()) {
             binding.edtPassword.requestFocus()
             binding.edtPassword.setError("Required")
