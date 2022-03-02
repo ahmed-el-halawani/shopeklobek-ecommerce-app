@@ -19,8 +19,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private lateinit var order: ArrayList<Order>
     private lateinit var adapterFavorite: AdapterFavorite
 
+    private val profileViewModel by lazy{
+        ProfileViewModel.create(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
         order=ArrayList<Order>()
         order.add(Order("55.5$","done","2021-04-10 10:28:21.052"))
         adapterOrder = AdapterOrder(ArrayList())

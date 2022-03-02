@@ -35,7 +35,6 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ProfileViewModel.create(this)
 
 
         val bandle = Bundle().apply {
