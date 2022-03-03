@@ -3,10 +3,9 @@ package com.stash.shopeklobek.ui.splash
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import com.newcore.wezy.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ApiService
 import com.stash.shopeklobek.model.repositories.ProductRepo
-import com.stash.shopeklobek.ui.profile.ProfileViewModel
 
 class SplashViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
 

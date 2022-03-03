@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/checkout_navigation"
+    app:startDestination="@id/shippingAddressesFragment">
+
+    <fragment
+        android:id="@+id/shippingAddressesFragment"
+        android:name="com.stash.shopeklobek.ui.checkout.shipping_addresses.ShippingAddressesFragment"
+        android:label="ShippingAddressesFragment" >
+        <action
+            android:id="@+id/action_shippingAddressesFragment_to_paymentMethod"
+            app:destination="@id/paymentMethod" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentMethod"
+        android:name="com.stash.shopeklobek.ui.checkout.paymethod.PaymentMethod"
+        android:label="PaymentMethod" >
+        <action
+            android:id="@+id/action_paymentMethod_to_finish"
+            app:destination="@id/finish" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
+        android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/finish"
+        android:name="com.stash.shopeklobek.ui.checkout.finish.Finish"
+        android:label="Finish" />
+</navigation>

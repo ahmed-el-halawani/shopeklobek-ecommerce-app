@@ -1,12 +1,15 @@
-package com.stash.shopeklobek.ui.home.shipping_addresses
+package com.stash.shopeklobek.ui.checkout.shipping_addresses
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentShippingAddressBinding
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 
-class ShippingAddressesFragment : BaseFragment<FragmentShippingAddressBinding>(FragmentShippingAddressBinding::inflate) {
+class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBinding>(FragmentShippingAddressBinding::inflate) {
 
     private val historyOfAddressessAdapter by lazy {
         HistoryOfAddressesAdapter().apply {
@@ -21,6 +24,8 @@ class ShippingAddressesFragment : BaseFragment<FragmentShippingAddressBinding>(F
         binding.apply {
             cvCurrentLocation.setOnClickListener {
                 println("here")
+                viewmodel.pageLiveData.postValue(1)
+                findNavController().navigate(R.id.action_shippingAddressesFragment_to_paymentMethod)
             }
 
             cvAddAddress.root.setOnClickListener {

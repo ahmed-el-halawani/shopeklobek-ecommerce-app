@@ -1,4 +1,4 @@
-package com.stash.shopeklobek.ui.home.shipping_addresses
+package com.stash.shopeklobek.ui.checkout.shipping_addresses
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer

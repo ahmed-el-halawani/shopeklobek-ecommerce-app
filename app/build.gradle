@@ -108,11 +108,12 @@ dependencies {
     //image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
-    //circleImageView
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    // paypal
-    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+
+    //paypal checkout
+    implementation 'com.paypal.checkout:android-sdk:0.6.0'
+
+
 
 
 }

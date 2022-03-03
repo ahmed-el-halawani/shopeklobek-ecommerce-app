@@ -50,4 +50,10 @@
     <string name="apply">Apply</string>
 
 
+    <string-array name="checkout_stepper_list" translatable="false">
+        <item>Address</item>
+        <item>Payment Method</item>
+        <item>Finish</item>
+    </string-array>
+
 </resources>

@@ -1,20 +1,21 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
-import com.newcore.wezy.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.api.ApiService.api
+import androidx.lifecycle.MutableLiveData
+import com.newcore.wezy.shareprefrances.ISettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.Settings
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.Either
 import com.stash.shopeklobek.model.api.RepoErrors
 import com.stash.shopeklobek.model.entities.*
 import com.stash.shopeklobek.model.interfaces.ShopifyServices
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
-import retrofit2.Response
 
 class ProductRepo (
     val ShopifyServices: ShopifyServices,
     val settingsPreferences: SettingsPreferences,
     val application:Application
-) {
+) : ISettingsPreferences {
 
      suspend fun getMainCategories(): Either<MainCategories, RepoErrors> {
          return try {
@@ -88,5 +89,15 @@ class ProductRepo (
      suspend fun getAddress(customerId: Long): Either<Nothing,RepoErrors>{
         TODO("Not yet implemented")
     }
+
+
+    // settings repo
+    override fun insert(settings: Settings) = settingsPreferences.insert(settings)
+
+    override fun update(update: (Settings) -> Settings) = settingsPreferences.update(update)
+
+    override fun get(): MutableLiveData<Settings>  = settingsPreferences.get()
+
+    override fun getValue(): Settings = settingsPreferences.getValue()
 
 }

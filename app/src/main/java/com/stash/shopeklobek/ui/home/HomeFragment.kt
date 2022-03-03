@@ -43,13 +43,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 navController,
                 mapOf(
                     Pair(
-                        R.id.cartFragment,
-                        listOf(
-                            R.id.nav_login,
-                            R.id.shappingAddressesFragment,
-                        ),
-                    ),
-                    Pair(
                         R.id.categoriesFragment,
                         listOf(
                             R.id.product_details_fragment
