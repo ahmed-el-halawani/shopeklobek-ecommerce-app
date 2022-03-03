@@ -31,6 +31,10 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/checkoutNavColor</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
+    <style name="Theme.Shopeklobek.NoActionBar.splash">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
     
     
     <style name="ItemRatingBar" parent="android:style/Widget.Material.RatingBar.Small">

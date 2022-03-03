@@ -6,7 +6,6 @@ import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
-import com.newcore.wezy.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.utils.Constants.ALL_DATA_ROUTE

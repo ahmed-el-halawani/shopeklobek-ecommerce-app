@@ -1,4 +1,4 @@
-package com.newcore.wezy.shareprefrances
+package com.stash.shopeklobek.model.shareprefrances
 
 import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.shareprefrances.Settings

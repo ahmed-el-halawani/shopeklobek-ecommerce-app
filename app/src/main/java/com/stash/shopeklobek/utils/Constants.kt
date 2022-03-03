@@ -13,6 +13,10 @@ object Constants {
     const val CURRENCY_CONVERTER_API_KEY = "3e3890a19a7caef23423"
     const val CURRENCY_CONVERTER_API_BASE_URL= "https://free.currconv.com/api/v7/convert/"
 
+
+    //paypal
+    const val PAYPAL_CLIENT_ID = "AbUpfUV90zq_ES0bzQVCb5f2UPXPsXZA3xsG2CQTUDyD3q8RLZjCZMcwLIWfExuPzcqziEjwZHtVlQma"
+
     /*
     get request
 

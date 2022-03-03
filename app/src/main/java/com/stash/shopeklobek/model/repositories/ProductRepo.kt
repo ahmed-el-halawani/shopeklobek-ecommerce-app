@@ -2,7 +2,7 @@ package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.newcore.wezy.shareprefrances.ISettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.api.CurrencyApiService.currencyConverterApi
 import com.stash.shopeklobek.model.api.Either
 import com.stash.shopeklobek.model.api.RepoErrors
