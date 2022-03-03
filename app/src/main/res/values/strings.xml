@@ -49,6 +49,13 @@
     <string name="enter_coupon_here">Enter your voucher here</string>
     <string name="apply">Apply</string>
 
+    <string name="cart" translatable="false">cart</string>
+    <string name="orders" translatable="false">orders</string>
+    <string name="price" translatable="false">price :</string>
+    <string name="state" translatable="false">state :</string>
+    <string name="date" translatable="false">date :</string>
+    <string name="last_name" translatable="false">Last Name</string>
+    <string name="first_name" translatable="false">First Name</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>

@@ -42,30 +42,6 @@ class RegisterViewModel(application: Application,val authenticationRepo: Authent
         }
     }
 
-    fun postData(){
-        viewModelScope.launch {
-            val response : Either<CustomerLoginModel, LoginErrors> = authenticationRepo.login("agomgaa528.ag@gmail.com")
-
-            when(response){
-                is Either.Error -> when(response.errorCode){
-                    LoginErrors.NoInternetConnection -> {
-                        Toast.makeText(getApplication(), "NoInternetConnection"+response.message, Toast.LENGTH_SHORT).show()
-                    }
-                    LoginErrors.ServerError -> {
-
-                        Toast.makeText(getApplication(), "ServerError"+response.message, Toast.LENGTH_SHORT).show()
-                    }
-                    LoginErrors.CustomerNotFound ->{
-                        Toast.makeText(getApplication(), "CustomerNotFound"+response.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-                is Either.Success -> {
-                    Log.d("haa",""+response.data)
-//                    signupSuccess.postValue(true)
-                }
-            }
-        }
-    }
 
 
     class Factory(private val application: Application,val authenticationRepo: AuthenticationRepo) : ViewModelProvider.Factory {
