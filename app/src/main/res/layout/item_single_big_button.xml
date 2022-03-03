@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="10dp"
-                tools:text="Proceed to Checkout"
+                android:text="Proceed to Checkout"
                 android:textColor="@color/textColorOnAccent"
                 android:textSize="20sp" />
 

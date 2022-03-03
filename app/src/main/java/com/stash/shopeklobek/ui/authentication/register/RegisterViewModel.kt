@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import com.newcore.wezy.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ApiService
 import com.stash.shopeklobek.model.api.Either
 import com.stash.shopeklobek.model.api.LoginErrors
@@ -13,8 +13,6 @@ import com.stash.shopeklobek.model.api.RepoErrors
 import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
-import com.stash.shopeklobek.model.repositories.ProductRepo
-import com.stash.shopeklobek.ui.profile.ProfileViewModel
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(application: Application,val authenticationRepo: AuthenticationRepo) : AndroidViewModel(application) {

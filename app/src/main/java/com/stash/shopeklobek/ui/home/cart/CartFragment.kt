@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.ui.home.cart
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,6 +13,7 @@ import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCartBinding
 import com.stash.shopeklobek.databinding.FragmentHomeBinding
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.ui.checkout.CheckoutActivity
 import com.stash.shopeklobek.utils.ViewHelpers
 import kotlinx.coroutines.launch
 
@@ -29,8 +31,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         binding.apply {
 
             btnProceedToCheckout.setOnClickListener {
-                println("herere")
-                findNavController().navigate(R.id.action_cartFragment_to_shappingAddressesFragment)
+                startActivity(Intent(context,CheckoutActivity::class.java))
             }
 
             ItemTouchHelper(ViewHelpers.SwipeToRemove { position ->

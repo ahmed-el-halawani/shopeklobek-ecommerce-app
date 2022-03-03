@@ -5,16 +5,14 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import com.newcore.wezy.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ApiService
 import com.stash.shopeklobek.model.api.Either
 import com.stash.shopeklobek.model.api.LoginErrors
 import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
 import com.stash.shopeklobek.model.repositories.ProductRepo
-import com.stash.shopeklobek.ui.authentication.register.RegisterViewModel
-import com.stash.shopeklobek.ui.splash.SplashViewModel
-import kotlinx.coroutines.launch
+
 
 class LoginViewModel(application: Application,val AuthRepo: AuthenticationRepo) : AndroidViewModel(application) {
     val loginSuccess: MutableLiveData<Boolean?> = MutableLiveData()
