@@ -45,7 +45,7 @@
     <string name="date" translatable="false">date :</string>
     <string name="pay_with_paypal">Pay With Paypal</string>
     <string name="cash_on_delivery">Cash on delivery</string>
-    <string name="choose_the_pay_method">Choose the payment method</string>
+    <string name="choose_the_pay_method">Payment methods</string>
     <string name="enter_coupon_here">Enter your voucher here</string>
     <string name="apply">Apply</string>
 

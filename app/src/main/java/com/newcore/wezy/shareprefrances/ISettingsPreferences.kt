@@ -6,6 +6,6 @@ import com.stash.shopeklobek.model.shareprefrances.Settings
 interface ISettingsPreferences {
     fun insert(settings: Settings)
     fun update(update: (Settings) -> Settings)
-    fun get(): MutableLiveData<Settings>
-    fun getValue(): Settings
+    fun getSettingsLiveData(): MutableLiveData<Settings>
+    fun getSettings(): Settings
 }

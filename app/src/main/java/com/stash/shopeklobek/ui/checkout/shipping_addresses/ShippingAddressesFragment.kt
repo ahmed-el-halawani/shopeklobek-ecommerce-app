@@ -6,7 +6,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentShippingAddressBinding
-import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 
 class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBinding>(FragmentShippingAddressBinding::inflate) {
@@ -16,9 +15,18 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         }
     }
 
+    val shippingAddressViewModel by lazy {
+        ShippingAddressViewModel.create(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
+
+        shippingAddressViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
+            println("settings form view model")
+            println(it)
+        }
 
 
         binding.apply {

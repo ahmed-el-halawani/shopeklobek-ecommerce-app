@@ -3,7 +3,7 @@
     <string name="app_name">shopeklobek</string>
     <string name="pay_with_paypal">الدفع بواسط باى بال</string>
     <string name="cash_on_delivery">الدفع عند الاستلام</string>
-    <string name="choose_the_pay_method">اختر طريقة الدفع</string>
+    <string name="choose_the_pay_method">طرق الدفع</string>
     <string name="enter_coupon_here">أدخل قسيمة الشراء هنا</string>
     <string name="apply">تطبيق</string>
 </resources>

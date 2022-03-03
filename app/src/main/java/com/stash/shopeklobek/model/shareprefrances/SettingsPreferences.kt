@@ -8,7 +8,9 @@ import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import com.newcore.wezy.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.entities.Customer
+import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.utils.Constants.ALL_DATA_ROUTE
+import com.stash.shopeklobek.utils.CurrencyUtil
 
 class SettingsPreferences(private val application:Application) : ISettingsPreferences {
 
@@ -46,6 +48,7 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
             putString(ALL_DATA_ROUTE,settingsToJson(settings))
             apply()
         }
+        getSettingsLiveData()
     }
 
     override fun update(update:(Settings)-> Settings) {
@@ -53,14 +56,15 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
             putString(ALL_DATA_ROUTE,settingsToJson(update(settings.value?: Settings.getDefault())))
             apply()
         }
+        getSettingsLiveData()
     }
 
-    override fun get(): MutableLiveData<Settings> {
+    override fun getSettingsLiveData(): MutableLiveData<Settings> {
         sp.getString(ALL_DATA_ROUTE,null)?.let { settings.postValue(settingsFromJson(it)) }
         return settings
     }
 
-    override fun getValue(): Settings {
+    override fun getSettings(): Settings {
         return sp.getString(ALL_DATA_ROUTE,null)?.let { settingsFromJson(it) }?: Settings.getDefault()
     }
 
@@ -69,15 +73,21 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
 data class Settings(
     var language: Language,
     var customer:Customer?,
+    var currancy:Currency
     ){
         companion object{
             fun getDefault(): Settings = Settings(
                 Language.Default,
-                null
+                null,
+                CurrencyUtil.getCurrency(CurrenciesEnum.USD)
             )
         }
     }
 
 enum class Language{
     Arabic,English,Default
+}
+
+enum class CurrenciesEnum {
+    EGP, USD, EUR
 }

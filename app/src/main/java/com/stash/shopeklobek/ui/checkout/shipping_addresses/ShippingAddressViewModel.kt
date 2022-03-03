@@ -1,4 +1,4 @@
-package com.stash.shopeklobek.ui.splash
+package com.stash.shopeklobek.ui.checkout.shipping_addresses
 
 import android.app.Application
 import androidx.fragment.app.Fragment
@@ -8,33 +8,27 @@ import com.stash.shopeklobek.model.api.ApiService
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import kotlinx.coroutines.launch
 
-class SplashViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
+class ShippingAddressViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
 
-
-    init {
-        viewModelScope.launch {
-            println(productRepo.updateCurrency())
-        }
-    }
 
 
 
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SplashViewModel(application,productRepo) as T
+            return ShippingAddressViewModel(application,productRepo) as T
         }
     }
 
     companion object{
-        fun create(context: SplashFragment):SplashViewModel{
+        fun create(context: Fragment):ShippingAddressViewModel{
             return ViewModelProvider(
                 context,
                 Factory(
-                    context.application ,
-                    ProductRepo(ApiService.api, SettingsPreferences(context.application)
-                        ,context.application)
+                    context.context?.applicationContext as Application,
+                    ProductRepo(ApiService.api, SettingsPreferences(context.context?.applicationContext as Application)
+                        ,context.context?.applicationContext as Application)
                 )
-            )[SplashViewModel::class.java]
+            )[ShippingAddressViewModel::class.java]
         }
     }
 }

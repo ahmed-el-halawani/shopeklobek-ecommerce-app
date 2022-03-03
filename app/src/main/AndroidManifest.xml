@@ -16,7 +16,13 @@
         <activity
             android:name=".ui.checkout.CheckoutActivity"
             android:exported="false"
-            android:theme="@style/Theme.Shopeklobek.NoActionBar"
+            android:theme="@style/Theme.Shopeklobek.NoActionBar.checkout"
+            />
+
+        <activity
+            android:name=".ui.checkout.CheckoutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Shopeklobek.NoActionBar.checkout"
             />
         <activity
             android:name=".ui.MainActivity"
