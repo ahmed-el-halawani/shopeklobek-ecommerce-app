@@ -1,25 +1,12 @@
 package com.stash.shopeklobek.ui.profile
 
-import android.app.Application
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.newcore.wezy.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentOrdersBinding
-import com.stash.shopeklobek.databinding.FragmentProfileBinding
-import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.Order
-import com.stash.shopeklobek.model.api.ApiService.api
-import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.ui.BaseFragment
-import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
 
 class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
         FragmentOrdersBinding::inflate

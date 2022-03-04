@@ -1,7 +1,7 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
-import com.newcore.wezy.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ApiService.api
 import com.stash.shopeklobek.model.api.Either
 import com.stash.shopeklobek.model.api.LoginErrors
@@ -10,7 +10,6 @@ import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.model.interfaces.ShopifyServices
 import com.stash.shopeklobek.utils.NetworkingHelper
-import retrofit2.Response
 
 class AuthenticationRepo(
     val ShopifyServices: ShopifyServices,

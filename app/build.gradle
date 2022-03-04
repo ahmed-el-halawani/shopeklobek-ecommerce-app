@@ -40,7 +40,6 @@ android {
 
 dependencies {
 
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     def lifecycle_version = "2.5.0-alpha02"
     def navigation_version = "2.5.0-alpha02"
     def work_version = "2.7.1"
@@ -79,6 +78,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -108,7 +108,12 @@ dependencies {
     //image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
-    //circleImageView
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+    //paypal checkout
+    implementation 'com.paypal.checkout:android-sdk:0.6.0'
+
+
+
 
 }

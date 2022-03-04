@@ -21,9 +21,9 @@ interface ShopifyServices {
     suspend fun getProductsFromType(@Query("product_type") productType: String):
             Response<ProductsModel>
 
-    @GET("products/{productID}/images.json")
+    @GET("products/{productID}.json")
     suspend fun getProduct(@Path("productID") ProductId:Long ):
-            Response<Product>
+            Response<ProductModel>
 
     @GET("products/{productID}/images.json")
     suspend fun getProductImage(@Path("productID") ProductId:Long ):

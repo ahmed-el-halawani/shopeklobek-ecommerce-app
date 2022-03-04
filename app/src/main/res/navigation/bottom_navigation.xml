@@ -7,21 +7,6 @@
     app:startDestination="@id/brandsFragment">
 
     <fragment
-        android:id="@+id/nav_login"
-        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
-        tools:layout="@layout/fragment_login"
-        android:label="LoginFragment" >
-        <argument
-            android:name="arg"
-            app:argType="string" />
-        <argument
-            android:name="ahmed"
-            app:argType="boolean" />
-        <argument
-            android:name="s"
-            app:argType="com.stash.shopeklobek.model.entities.Address" />
-    </fragment>
-    <fragment
         android:id="@+id/product_details_fragment"
         android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
         tools:layout="@layout/fragment_product_details"
@@ -48,23 +33,11 @@
         tools:layout="@layout/fragment_cart"
 
         android:name="com.stash.shopeklobek.ui.home.cart.CartFragment"
-        android:label="CartFragment" >
-        <action
-            android:id="@+id/action_cartFragment_to_nav_login"
-            app:destination="@id/nav_login" />
-        <action
-            android:id="@+id/action_cartFragment_to_shappingAddressesFragment"
-            app:destination="@id/shappingAddressesFragment" />
-    </fragment>
+        android:label="CartFragment" />
     <fragment
         android:id="@+id/favoritesFragment"
         tools:layout="@layout/fragment_favorites"
 
         android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
         android:label="FavoritesFragment" />
-    <fragment
-        tools:layout="@layout/fragment_shipping_address"
-        android:id="@+id/shappingAddressesFragment"
-        android:name="com.stash.shopeklobek.ui.home.shipping_addresses.ShippingAddressesFragment"
-        android:label="ShappingAddressesFragment" />
 </navigation>
