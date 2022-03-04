@@ -57,4 +57,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         mainActivity.onBackNavController = null
     }
 
+
 }

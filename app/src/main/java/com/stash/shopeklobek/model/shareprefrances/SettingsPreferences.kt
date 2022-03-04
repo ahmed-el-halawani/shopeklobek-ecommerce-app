@@ -10,6 +10,7 @@ import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.utils.Constants.ALL_DATA_ROUTE
 import com.stash.shopeklobek.utils.CurrencyUtil
+import java.util.*
 
 class SettingsPreferences(private val application:Application) : ISettingsPreferences {
 
@@ -76,14 +77,15 @@ data class Settings(
     ){
         companion object{
             fun getDefault(): Settings = Settings(
-                Language.Default,
+                Language.English,
                 null,
                 CurrencyUtil.getCurrency(CurrenciesEnum.USD)
             )
+
         }
     }
 enum class Language{
-    Arabic,English,Default
+    English,Arabic,Default
 }
 
 enum class CurrenciesEnum {

@@ -1,10 +1,14 @@
 package com.stash.shopeklobek.ui
 
 import android.app.AlertDialog
+import android.app.Application
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -17,9 +21,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.orhanobut.hawk.Hawk
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityMainBinding
+import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var activityResultLiveData = MutableLiveData<ActivityResultData?>()
@@ -133,5 +141,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var dialog: AlertDialog? = null
+
+
+    override fun attachBaseContext(newBase: Context?) {
+        val language = Hawk.get("language")?:"en"
+        val locale = Locale(""+language)
+        val res = newBase!!.resources
+        val conf = res.configuration
+        conf.locale = locale
+        res.updateConfiguration(conf, res.displayMetrics)
+        super.attachBaseContext(newBase)
+    }
+
 
 }

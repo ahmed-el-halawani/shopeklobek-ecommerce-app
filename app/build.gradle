@@ -125,6 +125,7 @@ dependencies {
 
     //paypal checkout
     implementation 'com.paypal.checkout:android-sdk:0.6.0'
+    implementation "com.orhanobut:hawk:2.0.1"
 
 
 

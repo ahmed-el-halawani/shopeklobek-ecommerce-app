@@ -54,13 +54,16 @@ class FilterBottomSheet(var firstFilter : TextView , var secondFilter : TextView
                         categoryAdapter = CategoryAdapter(it.data.product,requireContext(),this.requireParentFragment())
                         recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
                         recyclerView.adapter = categoryAdapter
+                        dismiss()
                     }
                     is Either.Error -> when (it.errorCode) {
                         RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
                         RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+
                     }
                 }
             })
+
         }
         return (binding.root)
     }
