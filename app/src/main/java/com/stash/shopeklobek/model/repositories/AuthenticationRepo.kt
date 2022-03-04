@@ -18,21 +18,7 @@ class AuthenticationRepo(
     val application: Application
 ) {
 
-//      to update settings u can use this
-//        settingsPreferences.update {
-//            it.copy(
-//
-//            )
-//        }
-//        val z = CustomerModel(
-//            Customer(
-//                email = "ahmed"
-//            )
-//        )
-//    suspend fun signUp(customer: CustomerModel):Response<CustomerModel>{
-//    val res =api.register(customer)
-//        return res
-//    }
+
 
     suspend fun signUp(customer: CustomerModel): Either<CustomerModel, RepoErrors> {
         return try {

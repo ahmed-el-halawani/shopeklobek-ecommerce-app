@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.stash.shopeklobek.databinding.FragmentRegisterBinding
+import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.ui.BaseFragment
@@ -14,6 +15,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     var userEmail: String? = null
     var userPassword: String? = null
     var userConfirmPassword: String? = null
+    var addresses: List<Address>? = listOf()
 
 
     private val vm by lazy {
@@ -23,11 +25,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         super.onViewCreated(view, savedInstanceState)
         binding.btnRegister.setOnClickListener {
             if (validateFrem()) {
+
                 val customer = CustomerModel(
                     Customer(
                         firstName = firstName,
                         lastName = lastName,
                         email = userEmail,
+                        
                         password = userPassword,
                         passwordConfirmation = userConfirmPassword
                     )
