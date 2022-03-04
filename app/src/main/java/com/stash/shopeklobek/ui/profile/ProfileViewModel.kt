@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.api.ApiService
+import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.ProductRepo
 
 class ProfileViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
@@ -24,7 +24,7 @@ class ProfileViewModel(application: Application,val productRepo: ProductRepo) : 
                 context,
                 Factory(
                     context.context?.applicationContext as Application,
-                    ProductRepo(ApiService.api, SettingsPreferences(context.context?.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.context?.applicationContext as Application)
                         ,context.context?.applicationContext as Application)
                 )
             )[ProfileViewModel::class.java]

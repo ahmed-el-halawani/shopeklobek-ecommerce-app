@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object ApiService {
+object ShopifyApi {
     private lateinit var retrofit: Retrofit
     private val retro: Retrofit by lazy {
         retrofit = Retrofit.Builder()

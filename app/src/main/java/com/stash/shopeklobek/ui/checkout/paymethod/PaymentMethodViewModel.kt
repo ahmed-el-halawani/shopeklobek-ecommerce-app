@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.api.ApiService
+import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.ProductRepo
 
 class PaymentMethodViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
@@ -21,7 +21,7 @@ class PaymentMethodViewModel(application: Application, val productRepo: ProductR
                 context,
                 Factory(
                     context.context?.applicationContext as Application,
-                    ProductRepo(ApiService.api, SettingsPreferences(context.context?.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.context?.applicationContext as Application)
                         ,context.context?.applicationContext as Application)
                 )
             )[PaymentMethodViewModel::class.java]
