@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.stash.shopeklobek.databinding.FragmentRegisterBinding
-import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.ui.BaseFragment
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
     var firstName: String? = null
-    var lastName: String? = null
     var userEmail: String? = null
     var userPassword: String? = null
     var userConfirmPassword: String? = null
-    var addresses: List<Address>? = listOf()
+//    var addresses: List<Address>? = listOf()
 
 
     private val vm by lazy {
@@ -29,15 +27,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 val customer = CustomerModel(
                     Customer(
                         firstName = firstName,
-                        lastName = lastName,
+                        lastName = userPassword,
                         email = userEmail,
-                        
                         password = userPassword,
                         passwordConfirmation = userConfirmPassword
                     )
                 )
                 vm.postData(customer)
-//                vm.postData()
                 vm.signupSuccess.observe(viewLifecycleOwner) {
                     if (it!!) {
                         Toast.makeText(
@@ -46,6 +42,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                    else  Toast.makeText(
+                        requireContext(),
+                        "Unsuccessfull Register",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -53,7 +54,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     private fun validateFrem(): Boolean {
         firstName = binding.edtFirstName.text.toString()
-        lastName = binding.edtLastName.text.toString()
         userEmail = binding.edtEmail.text.toString()
         userPassword = binding.edtPassword.text.toString()
         userConfirmPassword = binding.edtConfirm.text.toString()
@@ -67,11 +67,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             binding.edtFirstName.error = "Required"
             return false
         }
-        if (lastName!!.isEmpty()) {
-            binding.edtLastName.requestFocus()
-            binding.edtLastName.error = "Required"
-            return false
-        }
+
         if (userPassword!!.isEmpty()) {
             binding.edtPassword.requestFocus()
             binding.edtPassword.error = "Required"

@@ -11,7 +11,6 @@ import com.stash.shopeklobek.model.api.Either
 import com.stash.shopeklobek.model.api.LoginErrors
 import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
-import com.stash.shopeklobek.model.repositories.ProductRepo
 import kotlinx.coroutines.launch
 
 
@@ -50,7 +49,6 @@ class LoginViewModel(application: Application,val AuthRepo: AuthenticationRepo) 
             return LoginViewModel(application,AuthRepo) as T
         }
     }
-
     companion object{
         fun create(context: Fragment): LoginViewModel {
             return ViewModelProvider(
