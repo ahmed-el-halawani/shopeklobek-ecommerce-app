@@ -16,7 +16,6 @@ interface ShopifyServices {
     @GET("products.json?")
     suspend fun getProductsByVendor(@Query("vendor") vendor: String):
             Response<ProductsModel>
-
     @GET("products.json?")
     suspend fun getProductsFromType(@Query("product_type") productType: String):
             Response<ProductsModel>
@@ -77,8 +76,8 @@ interface ShopifyServices {
     @PUT("customers/{customer_id}/addresses/{address_id}.json")
     suspend fun updateAddress(@Path("customer_id") customerId:Long,
                               @Path("address_id") addressId:Long,
-                           @Body address:AddressModel):
-            Response<CustomerAddressModel>
+                              @Body address:AddressModel):
+                              Response<CustomerAddressModel>
 
     @GET("customers/{customer_id}.json")
     suspend fun getAddress(@Path("customer_id") customerId:Long):

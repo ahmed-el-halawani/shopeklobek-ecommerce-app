@@ -51,6 +51,7 @@
 
     <string name="last_name" translatable="false">Last Name</string>
     <string name="first_name" translatable="false">First Name</string>
+    <string name="full_name">Full name</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>
