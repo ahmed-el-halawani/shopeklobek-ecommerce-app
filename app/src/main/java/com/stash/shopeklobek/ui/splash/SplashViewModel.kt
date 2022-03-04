@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.stash.shopeklobek.model.api.ApiService
+import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.ViewHelpers
@@ -35,7 +35,7 @@ class SplashViewModel(val app: Application, val productRepo: ProductRepo) : Andr
                 Factory(
                     context.application,
                     ProductRepo(
-                        ApiService.api, SettingsPreferences(context.application), context.application
+                        ShopifyApi.api, SettingsPreferences(context.application), context.application
                     )
                 )
             )[SplashViewModel::class.java]

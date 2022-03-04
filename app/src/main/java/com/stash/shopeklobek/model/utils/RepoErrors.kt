@@ -1,4 +1,4 @@
-package com.stash.shopeklobek.model.api
+package com.stash.shopeklobek.model.utils
 
 enum class RepoErrors {
     NoInternetConnection,
