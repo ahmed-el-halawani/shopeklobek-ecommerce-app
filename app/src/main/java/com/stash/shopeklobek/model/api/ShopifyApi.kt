@@ -4,36 +4,46 @@ import com.stash.shopeklobek.BuildConfig
 import com.stash.shopeklobek.model.interfaces.ShopifyServices
 import com.stash.shopeklobek.utils.BasciInterceptor
 import com.stash.shopeklobek.utils.Constants
+import okhttp3.Credentials
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object ApiService {
 
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(BasciInterceptor("bfe73f4cd7e7f8737d5928b2a439022e","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"))
-        .build()
-
+object ShopifyApi {
     private lateinit var retrofit: Retrofit
     private val retro: Retrofit by lazy {
         retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
+            .client(buildAuthClient())
             .build()
         retrofit
     }
 
-     var api = retro.create(ShopifyServices::class.java)
+    var api = retro.create(ShopifyServices::class.java)
+
+    private fun authInterceptor(chain: Interceptor.Chain): Response {
+        val credentials = Credentials.basic(Constants.apiKey, Constants.password);
+        return chain.proceed(
+            chain.request().newBuilder().header("Authorization", credentials)
+                .build()
+        )
+    }
 
     private fun buildAuthClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
-        httpClient.addInterceptor( provideLoggingInterceptor())
+        httpClient.addInterceptor(provideLoggingInterceptor())
+            .addInterceptor(::authInterceptor)
         httpClient.connectTimeout(60, TimeUnit.SECONDS)
         httpClient.readTimeout(60, TimeUnit.SECONDS)
-        return httpClient.build()
+        return httpClient
+
+            .build()
     }
 
     private fun provideLoggingInterceptor(): HttpLoggingInterceptor {

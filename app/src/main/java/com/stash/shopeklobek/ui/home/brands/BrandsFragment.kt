@@ -15,8 +15,8 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.stash.shopeklobek.databinding.FragmentBrandsBinding
 import com.stash.shopeklobek.databinding.FragmentHomeBinding
 import com.stash.shopeklobek.model.ModelFavorite
-import com.stash.shopeklobek.model.api.Either
-import com.stash.shopeklobek.model.api.RepoErrors
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {

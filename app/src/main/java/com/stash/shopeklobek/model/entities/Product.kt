@@ -13,3 +13,7 @@ data class Product(
     var inCart: Boolean = false,
     var variant_id:Long? =0
 )
+
+data class ProductModel(
+    @SerializedName( "product" ) val product:Product?
+)

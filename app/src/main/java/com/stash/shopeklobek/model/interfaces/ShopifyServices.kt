@@ -29,9 +29,9 @@ interface ShopifyServices {
                                     @Query("product_type") productType: String):
             Response<ProductsModel>
 
-    @GET("products/{productID}/images.json")
+    @GET("products/{productID}.json")
     suspend fun getProduct(@Path("productID") ProductId:Long ):
-            Response<Product>
+            Response<ProductModel>
 
     @GET("products/{productID}/images.json")
     suspend fun getProductImage(@Path("productID") ProductId:Long ):
@@ -49,9 +49,8 @@ interface ShopifyServices {
     suspend fun register(@Body customer: CustomerModel):
             Response<CustomerModel>
 
-    @GET("customers.json?")
-    suspend fun login(@Query("email") email: String):
-            Response<CustomerLoginModel>
+    @GET("customers.json")
+    suspend fun login(): Response<CustomerLoginModel>
 
 
 
@@ -82,8 +81,8 @@ interface ShopifyServices {
     @PUT("customers/{customer_id}/addresses/{address_id}.json")
     suspend fun updateAddress(@Path("customer_id") customerId:Long,
                               @Path("address_id") addressId:Long,
-                           @Body address:AddressModel):
-            Response<CustomerAddressModel>
+                              @Body address:AddressModel):
+                              Response<CustomerAddressModel>
 
     @GET("customers/{customer_id}.json")
     suspend fun getAddress(@Path("customer_id") customerId:Long):

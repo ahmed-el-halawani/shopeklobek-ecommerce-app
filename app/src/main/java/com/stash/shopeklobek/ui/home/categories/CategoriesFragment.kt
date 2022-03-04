@@ -1,27 +1,20 @@
 package com.stash.shopeklobek.ui.home.categories
 
-import android.media.metrics.LogSessionId
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCategoriesBinding
-import com.stash.shopeklobek.databinding.FragmentHomeBinding
-import com.stash.shopeklobek.model.api.Either
-import com.stash.shopeklobek.model.api.RepoErrors
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
-import com.stash.shopeklobek.ui.home.brands.BrandsAdapter
-import com.stash.shopeklobek.ui.home.brands.BrandsViewModel
 import com.stash.shopeklobek.utils.Constants.TAG
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCategoriesBinding::inflate) {

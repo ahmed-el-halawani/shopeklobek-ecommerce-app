@@ -15,8 +15,8 @@
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        
-        app:title="Current Location" />
+
+        app:title="Default Location" />
 
     <include
         android:id="@+id/cvAddAddress"

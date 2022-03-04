@@ -19,11 +19,24 @@
 
 
     </style>
+    
+    
     <style name="Theme.Shopeklobek.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
+    <style name="Theme.Shopeklobek.NoActionBar.checkout">
+        <item name="android:statusBarColor" tools:targetApi="l">@color/checkoutNavColor</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.Shopeklobek.NoActionBar.splash">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+    
+    
     <style name="ItemRatingBar" parent="android:style/Widget.Material.RatingBar.Small">
         <item name="maxHeight">18dp</item>
         <item name="minHeight">18dp</item>
@@ -50,5 +63,13 @@
     </style>
     <style name="Theme.Shopeklobek.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
 
+    </style>
+
+
+    <style name="Theme.Shopeklobek.AppBarOverlay.checkout" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:textColorPrimary">@color/onCheckoutNavColor</item>
+        <item name="android:textColorSecondary">@color/onCheckoutNavColor</item>
+        <item name="android:colorForeground">@color/onCheckoutNavColor</item>
+        <item name="android:background">@color/checkoutNavColor</item>
     </style>
 </resources>

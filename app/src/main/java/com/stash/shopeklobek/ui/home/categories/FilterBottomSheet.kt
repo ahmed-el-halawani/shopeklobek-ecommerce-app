@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentFilterBottomSheetBinding
-import com.stash.shopeklobek.model.api.Either
-import com.stash.shopeklobek.model.api.RepoErrors
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.RepoErrors
+
 
 class FilterBottomSheet(var firstFilter : TextView , var secondFilter : TextView,
                         var hashMap: HashMap<String,Long>, var recyclerView: RecyclerView) : BottomSheetDialogFragment(){
