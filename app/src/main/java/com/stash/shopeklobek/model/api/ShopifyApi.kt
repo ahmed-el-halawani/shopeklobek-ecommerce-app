@@ -2,6 +2,7 @@ package com.stash.shopeklobek.model.api
 
 import com.stash.shopeklobek.BuildConfig
 import com.stash.shopeklobek.model.interfaces.ShopifyServices
+import com.stash.shopeklobek.utils.BasciInterceptor
 import com.stash.shopeklobek.utils.Constants
 import okhttp3.Credentials
 import okhttp3.Interceptor
@@ -12,13 +13,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 object ShopifyApi {
     private lateinit var retrofit: Retrofit
     private val retro: Retrofit by lazy {
         retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
-            .client(buildAuthClient())
             .addConverterFactory(GsonConverterFactory.create())
+            .client(buildAuthClient())
             .build()
         retrofit
     }

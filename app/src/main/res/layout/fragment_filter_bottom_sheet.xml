@@ -109,12 +109,21 @@
                 android:background="@drawable/bg_filter">
 
                 <RadioButton
+                    android:id="@+id/allRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:checked="true"
+                    android:text="@string/all" />
+
+                <RadioButton
                     android:id="@+id/shoesRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:buttonTint="@color/black"
+                    android:checked="false"
                     android:text="@string/shoes" />
 
                 <RadioButton

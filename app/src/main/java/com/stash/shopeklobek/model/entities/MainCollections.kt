@@ -6,8 +6,8 @@ data class MainCollections(
     @SerializedName( "id")
     val collectionsId: Long?,
 
-    @SerializedName( "title")
-    val collectionsTitle: String?,
+    @SerializedName( "handle")
+    val collectionsHandle: String?,
 
     @SerializedName( "image")
     val collectionsImage: MainCollectionsImage?

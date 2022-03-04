@@ -49,7 +49,6 @@ class LoginViewModel(application: Application,val AuthRepo: AuthenticationRepo) 
             return LoginViewModel(application,AuthRepo) as T
         }
     }
-
     companion object{
         fun create(context: Fragment): LoginViewModel {
             return ViewModelProvider(

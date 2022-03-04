@@ -1,5 +1,8 @@
 package com.stash.shopeklobek.model.entities
 
+import com.google.gson.annotations.SerializedName
+
 data class SmartCollectionModel(
-    val smart_collections:List<SmartCollection> = listOf()
+    @SerializedName( "smart_collections")
+    val smart_collections : List<SmartCollection>? = listOf()
 )

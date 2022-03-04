@@ -82,7 +82,6 @@ data class Settings(
             )
         }
     }
-
 enum class Language{
     Arabic,English,Default
 }

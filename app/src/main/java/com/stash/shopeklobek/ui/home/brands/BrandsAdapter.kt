@@ -1,18 +1,19 @@
 package com.stash.shopeklobek.ui.home.brands
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
-import com.stash.shopeklobek.model.ModelFavorite
+import com.stash.shopeklobek.model.entities.SmartCollection
 
-class BrandsAdapter(var listFavorites: ArrayList<ModelFavorite>) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
+class BrandsAdapter(var listBrands: List<SmartCollection>, var context: Context) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_brand,parent,false)
@@ -21,12 +22,16 @@ class BrandsAdapter(var listFavorites: ArrayList<ModelFavorite>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.brandTextView.text = listFavorites[position].title
-        Glide.with(holder.brandImageView.context).load(listFavorites[position].image).into(holder.brandImageView)
+        holder.brandTextView.text = listBrands[position].title
+        Glide.with(holder.brandImageView.context).load(listBrands[position].image.src).into(holder.brandImageView)
+
+        holder.brandConstrainLayout.setOnClickListener {
+            Toast.makeText(context, ""+ listBrands[position].title, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int {
-        return listFavorites.size
+        return listBrands.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,10 +40,10 @@ class BrandsAdapter(var listFavorites: ArrayList<ModelFavorite>) : RecyclerView.
         get() = itemView.findViewById(R.id.brandImageView)
 
         val brandTextView : TextView
-        get() = itemView.findViewById(R.id.brandTextView)
+        get() = itemView.findViewById(R.id.categoryTitleTextView)
 
         val brandConstrainLayout : ConstraintLayout
-        get() = itemView.findViewById(R.id.brandConstrainLayout)
+        get() = itemView.findViewById(R.id.categoryConstrainLayout)
 
     }
 
