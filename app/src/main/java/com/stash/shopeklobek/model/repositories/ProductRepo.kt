@@ -1,114 +1,124 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
-import com.stash.shopeklobek.model.utils.Either
-import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.model.entities.*
+import com.stash.shopeklobek.model.entities.room.RoomCart
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.model.entities.room.RoomOrder
 import com.stash.shopeklobek.model.interfaces.ShopifyServices
+import com.stash.shopeklobek.model.room.ProductDatabase
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.Settings
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.utils.CurrencyUtil
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class ProductRepo(
     val shopifyServices: ShopifyServices,
     val settingsPreferences: ISettingsPreferences,
-    val application: Application
+    val application: Application,
 ) {
+    val database = ProductDatabase(application)
 
-    suspend fun getSmartCollection(): Either<SmartCollectionModel,RepoErrors>{
-        callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
+
+    suspend fun getSmartCollection(): Either<SmartCollectionModel, RepoErrors> {
+        callErrorsHandler(application, { shopifyServices.getSmartCollection() }, {
             Either.Success(it)
         })
         return try {
-            return  if(hasInternet(application.applicationContext)){
+            return if (hasInternet(application.applicationContext)) {
                 val res = shopifyServices.getSmartCollection()
-                if(res.isSuccessful){
+                if (res.isSuccessful) {
                     Either.Success(res.body()!!)
-                }else{
+                } else {
                     Either.Error(RepoErrors.ServerError, res.message())
                 }
-            }else{
+            } else {
                 Either.Error(RepoErrors.NoInternetConnection)
             }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
+        } catch (t: Throwable) {
+            Either.Error(RepoErrors.ServerError, t.message)
         }
     }
 
-    suspend fun getProductsByVendor(vendor: String): Either<Nothing,RepoErrors>{
+    suspend fun getProductsByVendor(vendor: String): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
 
     suspend fun getMainCategories(): Either<MainCategories, RepoErrors> {
         return try {
-            return  if(hasInternet(application.applicationContext)){
+            return if (hasInternet(application.applicationContext)) {
                 val res = shopifyServices.getMainCategories()
-                if(res.isSuccessful) {
+                if (res.isSuccessful) {
                     Either.Success(res.body()!!)
-                }else {
+                } else {
                     Either.Error(RepoErrors.ServerError, res.message())
                 }
-            }else{
+            } else {
                 Either.Error(RepoErrors.NoInternetConnection)
             }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
+        } catch (t: Throwable) {
+            Either.Error(RepoErrors.ServerError, t.message)
         }
     }
 
-    suspend fun getAllProduct() : Either<ProductsModel,RepoErrors>{
+    suspend fun getAllProduct(): Either<ProductsModel, RepoErrors> {
         return try {
-            return  if(hasInternet(application.applicationContext)){
+            return if (hasInternet(application.applicationContext)) {
                 val res = shopifyServices.getAllProducts()
-                if(res.isSuccessful) {
+                if (res.isSuccessful) {
                     Either.Success(res.body()!!)
-                }else {
+                } else {
                     Either.Error(RepoErrors.ServerError, res.message())
                 }
-            }else{
+            } else {
                 Either.Error(RepoErrors.NoInternetConnection)
             }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
+        } catch (t: Throwable) {
+            Either.Error(RepoErrors.ServerError, t.message)
         }
     }
 
-    suspend fun getProductsByGender(collectionId: Long): Either<ProductsModel,RepoErrors>{
+    suspend fun getProductsByGender(collectionId: Long): Either<ProductsModel, RepoErrors> {
         return try {
-            return  if(hasInternet(application.applicationContext)){
+            return if (hasInternet(application.applicationContext)) {
                 val res = shopifyServices.getProductsByGender(collectionId)
-                if(res.isSuccessful) {
+                if (res.isSuccessful) {
                     Either.Success(res.body()!!)
-                }else {
+                } else {
                     Either.Error(RepoErrors.ServerError, res.message())
                 }
-            }else{
+            } else {
                 Either.Error(RepoErrors.NoInternetConnection)
             }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
+        } catch (t: Throwable) {
+            Either.Error(RepoErrors.ServerError, t.message)
         }
     }
 
-    suspend fun getProductsFromType(collectionId: Long,productType: String): Either<ProductsModel,RepoErrors>{
+    suspend fun getProductsFromType(collectionId: Long, productType: String): Either<ProductsModel, RepoErrors> {
         return try {
-            return  if(hasInternet(application.applicationContext)){
-                val res = shopifyServices.getProductsFromType(collectionId,productType)
-                if(res.isSuccessful) {
+            return if (hasInternet(application.applicationContext)) {
+                val res = shopifyServices.getProductsFromType(collectionId, productType)
+                if (res.isSuccessful) {
                     Either.Success(res.body()!!)
-                }else {
+                } else {
                     Either.Error(RepoErrors.ServerError, res.message())
                 }
-            }else{
+            } else {
                 Either.Error(RepoErrors.NoInternetConnection)
             }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
+        } catch (t: Throwable) {
+            Either.Error(RepoErrors.ServerError, t.message)
         }
     }
 
@@ -123,11 +133,9 @@ class ProductRepo(
     suspend fun getProductImage(ProductId: Long): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
-
     suspend fun smartCollection(): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
-
     suspend fun updateCustomer(customerId: Long, customer: EditCustomerModel): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
@@ -154,6 +162,69 @@ class ProductRepo(
 
     suspend fun getAddress(customerId: Long): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
+    }
+
+    //room repo
+
+    fun getOrders(): LiveData<List<RoomOrder>> {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val customerId = settingsPreferences.getSettings().customer?.email
+                if (customerId != null) {
+                    callErrorsHandler(application, { shopifyServices.getOrders(customerId) }) {
+                        for (order in it.order) {
+                            if (order != null) {
+                                database.orderDao().upsert(
+                                    RoomOrder(
+                                        order.id ?: 0,
+                                        order
+                                    )
+                                )
+                            }
+                        }
+                        Either.Success(it)
+                    }
+                }
+            }catch (t:Throwable){}
+        }
+
+        return database.orderDao().getAll()
+    }
+
+    fun getFavorites(): LiveData<List<RoomFavorite>> {
+        return database.favoriteDao().getAll()
+    }
+
+    fun getCart(): LiveData<List<RoomCart>> {
+        return database.cartDao().getAll()
+    }
+
+    suspend fun addToCart(product: Products) {
+        database.cartDao().upsert(
+            RoomCart(
+                product.productId ?: 0,
+                product
+            )
+        )
+    }
+
+    fun addToFavorite(product: Products) {
+        CoroutineScope(Dispatchers.IO).launch {
+            database.favoriteDao().upsert(
+                RoomFavorite(
+                    product.productId ?: 0,
+                    product
+                )
+            )
+        }
+    }
+
+    suspend fun deleteFromCart(id: Long) {
+        database.cartDao().delete(id)
+    }
+
+    suspend fun deleteFromFavorite(id: Long) {
+        database.favoriteDao().delete(id)
     }
 
 
@@ -209,8 +280,10 @@ class ProductRepo(
     }
 
 
-    private suspend fun <S, R> callErrorsHandler(application: Application, suspendedCall: suspend () -> Response<S>,
-                                                 noErrors: ((S) -> Either<R, RepoErrors>)): Either<R, RepoErrors> {
+    private suspend fun <S, R> callErrorsHandler(
+        application: Application, suspendedCall: suspend () -> Response<S>,
+        noErrors: suspend ((S) -> Either<R, RepoErrors>)
+    ): Either<R, RepoErrors> {
         if (hasInternet(application)) {
             try {
                 val response = suspendedCall()

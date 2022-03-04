@@ -18,7 +18,15 @@ object Constants {
 
     //paypal
     const val PAYPAL_CLIENT_ID = "AbUpfUV90zq_ES0bzQVCb5f2UPXPsXZA3xsG2CQTUDyD3q8RLZjCZMcwLIWfExuPzcqziEjwZHtVlQma"
-    /*
+
+    //room
+    const val FAVORITES_TABLE = "FAVORITES_TABLE"
+    const val CART_TABLE = "CART_TABLE"
+    const val ORDER_TABLE = "ORDER_TABLE"
+    const val DATABASE_NAME = "shopeklobek"
+
+
+/*
     get request
 
     end point : https://shopeklobek2.myshopify.com/admin/api/2022-01/products.json

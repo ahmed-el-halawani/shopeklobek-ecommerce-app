@@ -20,6 +20,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityMainBinding
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
+import com.stash.shopeklobek.utils.ViewHelpers
 
 class MainActivity : AppCompatActivity() {
     var activityResultLiveData = MutableLiveData<ActivityResultData?>()
@@ -53,9 +54,14 @@ class MainActivity : AppCompatActivity() {
         binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
     }
 
+    val viewmodel by lazy {
+        MainViewModel.create(this)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewmodel.updateLanguage()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
