@@ -1,5 +1,6 @@
 package com.stash.shopeklobek.ui.splash
 
+import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.ViewHelpers
+import java.util.*
 
 class SplashViewModel(val app: Application, val productRepo: ProductRepo) : AndroidViewModel(app) {
 
@@ -15,9 +17,9 @@ class SplashViewModel(val app: Application, val productRepo: ProductRepo) : Andr
         productRepo.updateCurrency()
     }
 
-     fun updateLanguage() {
-        ViewHelpers.setAppLocaleWithoutRefresh(
-            ViewHelpers.localeFromLanguage(productRepo.getSettings().language), app.resources
+     fun updateLanguage(activity:Activity) {
+        ViewHelpers.setAppLocale(
+            activity, "ar", app.resources
         )
     }
 

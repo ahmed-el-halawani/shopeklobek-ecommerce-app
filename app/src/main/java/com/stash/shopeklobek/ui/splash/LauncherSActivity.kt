@@ -29,27 +29,29 @@ class LauncherSActivity : AppCompatActivity() {
         splashViewModel = SplashViewModel.create(this)
         Log.e("splashViewModel", "onCreate: splashViewModel" )
 
-        lifecycleScope.launch {
+        if(savedInstanceState==null){
+            lifecycleScope.launch {
                 splashViewModel.updateCurrency()
-                splashViewModel.updateLanguage()
 
                 PayPalCheckout.setConfig(
                     CheckoutConfig(
-                    application = application,
-                    clientId = PAYPAL_CLIENT_ID,
-                    environment = Environment.SANDBOX,
-                    returnUrl = BuildConfig.APPLICATION_ID+"://paypalpay",
-                    currencyCode = CurrencyCode.USD,
-                    userAction = UserAction.PAY_NOW,
-                    settingsConfig = SettingsConfig(
-                        loggingEnabled = true
+                        application = application,
+                        clientId = PAYPAL_CLIENT_ID,
+                        environment = Environment.SANDBOX,
+                        returnUrl = BuildConfig.APPLICATION_ID+"://paypalpay",
+                        currencyCode = CurrencyCode.USD,
+                        userAction = UserAction.PAY_NOW,
+                        settingsConfig = SettingsConfig(
+                            loggingEnabled = true
+                        )
                     )
                 )
-                )
 
-            withContext(Dispatchers.Main){
-                startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))
+                withContext(Dispatchers.Main){
+                    startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))
+                }
             }
         }
+
     }
 }
