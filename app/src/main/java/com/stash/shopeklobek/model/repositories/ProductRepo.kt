@@ -123,11 +123,9 @@ class ProductRepo(
     suspend fun getProductImage(ProductId: Long): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
-
     suspend fun smartCollection(): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
-
     suspend fun updateCustomer(customerId: Long, customer: EditCustomerModel): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }

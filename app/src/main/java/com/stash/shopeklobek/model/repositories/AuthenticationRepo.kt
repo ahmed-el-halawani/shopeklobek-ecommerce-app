@@ -19,12 +19,12 @@ class AuthenticationRepo(
 
 
 
+
     suspend fun signUp(customer: CustomerModel): Either<CustomerModel, RepoErrors> {
         return try {
             return if (NetworkingHelper.hasInternet(application.applicationContext)) {
                 val res =api.register(customer)
                 if (res.isSuccessful) {
-
                     settingsPreferences.update {
                         it.copy(
                             customer = res.body()?.customer
