@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.model.entities
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+
 
 data class Product(
     val id: Long,
@@ -15,5 +17,5 @@ data class Product(
 )
 
 data class ProductModel(
-    @SerializedName( "product" ) val product:Product?
+    @SerializedName( "product" ) val product:Products?
 )
