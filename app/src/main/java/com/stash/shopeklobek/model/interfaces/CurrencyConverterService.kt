@@ -1,6 +1,5 @@
 package com.stash.shopeklobek.model.interfaces
 
-import com.stash.shopeklobek.model.entities.MainCategories
 import com.stash.shopeklobek.model.entities.currencies.CurrencyConverterResult
 import com.stash.shopeklobek.utils.Constants
 import retrofit2.Response

@@ -1,11 +1,9 @@
 package com.stash.shopeklobek.ui.checkout
 
-import android.app.Activity
 import android.app.Application
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.api.ApiService
+import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.ProductRepo
 
 class CheckoutViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
@@ -24,7 +22,7 @@ class CheckoutViewModel(application: Application, val productRepo: ProductRepo) 
                 context,
                 Factory(
                     context.applicationContext as Application,
-                    ProductRepo(ApiService.api, SettingsPreferences(context.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.applicationContext as Application)
                         ,context.applicationContext as Application)
                 )
             )[CheckoutViewModel::class.java]

@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.api.ApiService
-import com.stash.shopeklobek.model.api.Either
-import com.stash.shopeklobek.model.api.LoginErrors
+import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.LoginErrors
 import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ class LoginViewModel(application: Application,val AuthRepo: AuthenticationRepo) 
                 Factory(
                     context.context?.applicationContext as Application,
                     AuthenticationRepo(
-                        ApiService.api,
+                        ShopifyApi.api,
                         SettingsPreferences(context.context?.applicationContext as Application),
                         context.context?.applicationContext as Application
                     )

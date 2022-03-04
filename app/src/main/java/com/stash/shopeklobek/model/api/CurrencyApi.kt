@@ -7,7 +7,7 @@ import com.stash.shopeklobek.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object CurrencyApiService {
+object CurrencyApi {
     private lateinit var retrofit: Retrofit
     private val retro: Retrofit by lazy {
         retrofit = Retrofit.Builder()

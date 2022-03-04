@@ -2,10 +2,10 @@ package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.api.ApiService.api
-import com.stash.shopeklobek.model.api.Either
-import com.stash.shopeklobek.model.api.LoginErrors
-import com.stash.shopeklobek.model.api.RepoErrors
+import com.stash.shopeklobek.model.api.ShopifyApi.api
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.LoginErrors
+import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.model.interfaces.ShopifyServices

@@ -43,15 +43,16 @@
     <string name="price" translatable="false">price :</string>
     <string name="state" translatable="false">state :</string>
     <string name="date" translatable="false">date :</string>
+    <string name="none" translatable="false">None</string>
+    <string name="all" translatable="false">All</string>
     <string name="pay_with_paypal">Pay With Paypal</string>
     <string name="cash_on_delivery">Cash on delivery</string>
     <string name="choose_the_pay_method">Payment methods</string>
     <string name="enter_coupon_here">Enter your voucher here</string>
     <string name="apply">Apply</string>
-
     <string name="last_name" translatable="false">Last Name</string>
     <string name="first_name" translatable="false">First Name</string>
-    <string name="full_name">Full name</string>
+    <string name="full_name" translatable="false">Full name</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>

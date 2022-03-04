@@ -21,15 +21,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/brandConstrainLayout"
+            android:id="@+id/categoryConstrainLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/brandTextView"
-                android:layout_width="100dp"
+                android:id="@+id/categoryTitleTextView"
+                android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -47,8 +47,8 @@
                 android:id="@+id/brandImageView"
                 android:layout_width="190dp"
                 android:layout_height="190dp"
-                android:background="#F2F2F2"
-                app:layout_constraintBottom_toTopOf="@+id/brandTextView"
+                android:background="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/categoryTitleTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

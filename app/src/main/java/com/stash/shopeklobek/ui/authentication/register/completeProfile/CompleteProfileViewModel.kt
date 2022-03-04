@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.stash.shopeklobek.model.api.ApiService
+import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 
@@ -31,7 +31,7 @@ class CompleteProfileViewModel(
                 Factory(
                     context.context?.applicationContext as Application,
                     AuthenticationRepo(
-                        ApiService.api,
+                        ShopifyApi.api,
                         SettingsPreferences(context.context?.applicationContext as Application),
                         context.context?.applicationContext as Application
                     )
