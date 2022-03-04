@@ -1,5 +1,9 @@
 package com.stash.shopeklobek.model.entities
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.stash.shopeklobek.utils.Constants
+
 
 data class Order(
     @SerializedName( "current_subtotal_price")
@@ -10,22 +14,16 @@ data class Order(
     val createdAt: String? = "",
 
     @SerializedName( "id")
-    val customerId: Long? = 0,
+    val id: Long? = 0,
 
     @SerializedName( "app_id")
     val orderNumber: Long? = 0,
-
-
-
-
 
     @SerializedName( "current_total_discounts")
     val totalDiscount: String? = "",
 
 //    @SerializedName( "quantity")
 //    val quantity: Long? = 0,
-
-
 
     @SerializedName( "line_items")
     val items: List<OrderDetails>? = listOf(),
