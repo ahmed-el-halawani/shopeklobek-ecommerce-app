@@ -77,7 +77,7 @@ data class Settings(
     ){
         companion object{
             fun getDefault(): Settings = Settings(
-                Language.English,
+                Language.Default,
                 null,
                 CurrencyUtil.getCurrency(CurrenciesEnum.USD)
             )
