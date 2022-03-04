@@ -43,6 +43,8 @@
     <string name="price">price :</string>
     <string name="state">state :</string>
     <string name="date">date :</string>
+    <string name="none">None</string>
+    <string name="all">All</string>
 
 
 </resources>

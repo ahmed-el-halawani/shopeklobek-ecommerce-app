@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
+import android.util.Log
 import com.newcore.wezy.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ApiService.api
 import com.stash.shopeklobek.model.api.Either
@@ -11,20 +12,41 @@ import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
 import retrofit2.Response
 
 class ProductRepo (
-    val ShopifyServices: ShopifyServices,
+    val shopifyServices: ShopifyServices,
     val settingsPreferences: SettingsPreferences,
     val application:Application
 ) {
 
+    suspend fun getSmartCollection(): Either<SmartCollectionModel,RepoErrors>{
+        return try {
+            return  if(hasInternet(application.applicationContext)){
+                val res = shopifyServices.getSmartCollection()
+                if(res.isSuccessful){
+                    Either.Success(res.body()!!)
+                }else{
+                    Either.Error(RepoErrors.ServerError, res.message())
+                }
+            }else{
+                Either.Error(RepoErrors.NoInternetConnection)
+            }
+        }catch (t:Throwable){
+            Either.Error(RepoErrors.ServerError,t.message)
+        }
+    }
+
+    suspend fun getProductsByVendor(vendor: String): Either<Nothing,RepoErrors>{
+        TODO("Not yet implemented")
+    }
+
      suspend fun getMainCategories(): Either<MainCategories, RepoErrors> {
          return try {
              return  if(hasInternet(application.applicationContext)){
-                 val res = ShopifyServices.getMainCategories()
-                 if(res.isSuccessful)
+                 val res = shopifyServices.getMainCategories()
+                 if(res.isSuccessful) {
                      Either.Success(res.body()!!)
-                 else
-                     Either.Error(RepoErrors.ServerError,res.message())
-
+                 }else {
+                     Either.Error(RepoErrors.ServerError, res.message())
+                 }
              }else{
                  Either.Error(RepoErrors.NoInternetConnection)
              }
@@ -33,16 +55,55 @@ class ProductRepo (
          }
      }
 
-     suspend fun getProducts(collectionId: Long): Either<Nothing,RepoErrors>{
-        TODO("Not yet implemented")
+    suspend fun getAllProduct() : Either<ProductsModel,RepoErrors>{
+        return try {
+            return  if(hasInternet(application.applicationContext)){
+                val res = shopifyServices.getAllProducts()
+                if(res.isSuccessful) {
+                    Either.Success(res.body()!!)
+                }else {
+                    Either.Error(RepoErrors.ServerError, res.message())
+                }
+            }else{
+                Either.Error(RepoErrors.NoInternetConnection)
+            }
+        }catch (t:Throwable){
+            Either.Error(RepoErrors.ServerError,t.message)
+        }
     }
 
-     suspend fun getProductsByVendor(vendor: String): Either<Nothing,RepoErrors>{
-        TODO("Not yet implemented")
+     suspend fun getProductsByGender(collectionId: Long): Either<ProductsModel,RepoErrors>{
+         return try {
+             return  if(hasInternet(application.applicationContext)){
+                 val res = shopifyServices.getProductsByGender(collectionId)
+                 if(res.isSuccessful) {
+                     Either.Success(res.body()!!)
+                 }else {
+                     Either.Error(RepoErrors.ServerError, res.message())
+                 }
+             }else{
+                 Either.Error(RepoErrors.NoInternetConnection)
+             }
+         }catch (t:Throwable){
+             Either.Error(RepoErrors.ServerError,t.message)
+         }
     }
 
-     suspend fun getProductsFromType(productType: String): Either<Nothing,RepoErrors>{
-        TODO("Not yet implemented")
+     suspend fun getProductsFromType(collectionId: Long,productType: String): Either<ProductsModel,RepoErrors>{
+         return try {
+             return  if(hasInternet(application.applicationContext)){
+                 val res = shopifyServices.getProductsFromType(collectionId,productType)
+                 if(res.isSuccessful) {
+                     Either.Success(res.body()!!)
+                 }else {
+                     Either.Error(RepoErrors.ServerError, res.message())
+                 }
+             }else{
+                 Either.Error(RepoErrors.NoInternetConnection)
+             }
+         }catch (t:Throwable){
+             Either.Error(RepoErrors.ServerError,t.message)
+         }
     }
 
      suspend fun createDiscount(priceRule: Discount): Either<Nothing,RepoErrors>{

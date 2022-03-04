@@ -1,24 +1,32 @@
 package com.stash.shopeklobek.model.interfaces
 
 import com.stash.shopeklobek.model.entities.*
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ShopifyServices {
 
-    @GET("custom_collections.json")
-    suspend fun getMainCategories(): Response<MainCategories>
-
-    @GET("products.json?")
-    suspend fun getProducts(@Query("collection_id") collectionId: Long):
-            Response<ProductsModel>
+    @GET("smart_collections.json")
+    suspend fun getSmartCollection(): Response<SmartCollectionModel>
 
     @GET("products.json?")
     suspend fun getProductsByVendor(@Query("vendor") vendor: String):
             Response<ProductsModel>
 
+    @GET("custom_collections.json")
+    suspend fun getMainCategories(): Response<MainCategories>
+
+    @GET("products.json")
+    suspend fun getAllProducts(): Response<ProductsModel>
+
     @GET("products.json?")
-    suspend fun getProductsFromType(@Query("product_type") productType: String):
+    suspend fun getProductsByGender(@Query("collection_id") collectionId: Long):
+            Response<ProductsModel>
+
+    @GET("products.json?")
+    suspend fun getProductsFromType(@Query("collection_id") collectionId: Long,
+                                    @Query("product_type") productType: String):
             Response<ProductsModel>
 
     @GET("products/{productID}/images.json")
@@ -45,10 +53,6 @@ interface ShopifyServices {
     suspend fun login(@Query("email") email: String):
             Response<CustomerLoginModel>
 
-
-    @GET("smart_collections.json")
-    suspend fun smartCollection():
-            Response<SmartCollectionModel>
 
 
     @PUT("customers/{id}.json")
