@@ -33,7 +33,6 @@
     <string name="email" translatable="false">Email</string>
     <string name="password" translatable="false">Password</string>
     <string name="user_name" translatable="false">User name</string>
-    <string name="address" translatable="false">Address</string>
     <string name="confirm_password" translatable="false">Confirm password</string>
     <string name="signup" translatable="false">SignUp</string>
 
@@ -53,6 +52,15 @@
     <string name="last_name" translatable="false">Last Name</string>
     <string name="first_name" translatable="false">First Name</string>
     <string name="full_name" translatable="false">Full name</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="currency">currency</string>
+    <string name="egp">EGP</string>
+    <string name="euro">EURO</string>
+    <string name="usd">USD</string>
+    <string name="Currency">Currency</string>
+    <string name="defaultAddress">There\'s no address to show right now !</string>
+    <string name="address">Address</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>

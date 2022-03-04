@@ -19,8 +19,6 @@ class RegisterViewModel(application: Application,val authenticationRepo: Authent
     fun postData(customer:CustomerModel){
         viewModelScope.launch {
             val response : Either<CustomerModel, RepoErrors> = authenticationRepo.signUp(customer)
-            Log.d("useeeer",""+customer.customer!!.firstName)
-            Log.d("useeeer",""+customer.customer!!.email)
 
             when(response){
                 is Either.Error -> when(response.errorCode){
@@ -33,7 +31,6 @@ class RegisterViewModel(application: Application,val authenticationRepo: Authent
                     }
                 }
                 is Either.Success -> {
-                    Log.d("haa",""+response.data)
                     signupSuccess.postValue(true)
                 }
             }
