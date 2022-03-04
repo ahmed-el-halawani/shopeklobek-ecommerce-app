@@ -44,11 +44,9 @@ interface ShopifyServices {
     @GET("customers.json")
     suspend fun login(): Response<CustomerLoginModel>
 
-
     @GET("smart_collections.json")
     suspend fun smartCollection():
             Response<SmartCollectionModel>
-
 
     @PUT("customers/{id}.json")
     suspend fun updateCustomer(@Path("id") customerId:Long,
