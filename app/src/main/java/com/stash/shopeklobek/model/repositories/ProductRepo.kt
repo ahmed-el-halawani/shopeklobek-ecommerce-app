@@ -21,6 +21,9 @@ class ProductRepo(
 ) {
 
     suspend fun getSmartCollection(): Either<SmartCollectionModel,RepoErrors>{
+        callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
+            Either.Success(it)
+        })
         return try {
             return  if(hasInternet(application.applicationContext)){
                 val res = shopifyServices.getSmartCollection()
@@ -206,14 +209,11 @@ class ProductRepo(
     }
 
 
-    private suspend fun <S, R> callErrorsHandler(
-        application: Application,
-        suspendedCall: suspend () -> Response<S>,
-        noErrors: ((S) -> Either<R, RepoErrors>)
-    ): Either<R, RepoErrors> {
+    private suspend fun <S, R> callErrorsHandler(application: Application, suspendedCall: suspend () -> Response<S>,
+                                                 noErrors: ((S) -> Either<R, RepoErrors>)): Either<R, RepoErrors> {
         if (hasInternet(application)) {
-            val response = suspendedCall()
             try {
+                val response = suspendedCall()
                 return if (response.isSuccessful) {
                     val data = response.body()
                     return if (data != null) {
