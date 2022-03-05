@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.entities.Order
-import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
+import com.stash.shopeklobek.model.entities.room.RoomOrder
 
-class AdapterOrder(var orders:ArrayList<Order>) :
+class AdapterOrder(var orders:List<RoomOrder>) :
     RecyclerView.Adapter<AdapterOrder.ViewHolder>() {
 
 
@@ -36,15 +36,15 @@ class AdapterOrder(var orders:ArrayList<Order>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.tvDate.text = orders[position].dat
-        holder.tvPrice.text = orders[position].price
-        holder.tvState.text = orders[position].state
+        holder.tvDate.text = orders[position].order.dat
+        holder.tvPrice.text = orders[position].order.price
+        holder.tvState.text = orders[position].order.state
 
 
     }
 
     @JvmName("setOrders1")
-    fun setOrders(orders: ArrayList<Order>) {
+    fun setOrders(orders: List<RoomOrder>) {
         this.orders = orders
         notifyDataSetChanged()
     }

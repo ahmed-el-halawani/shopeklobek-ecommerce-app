@@ -16,7 +16,10 @@ import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import java.lang.String
 
-class AdapterFavorite(var listFavorites:  List<RoomFavorite>) :
+class AdapterFavorite(
+    var listFavorites:  List<RoomFavorite>,
+    var favoritesViewModel: FavoritesViewModel?
+) :
     RecyclerView.Adapter<AdapterFavorite.ViewHolder>() {
 
 
@@ -28,6 +31,8 @@ class AdapterFavorite(var listFavorites:  List<RoomFavorite>) :
             get() = view.findViewById(R.id.tv_price_item)
         val imageItem: ImageView
             get() = view.findViewById(R.id.image_product_item)
+        val ivDeleteFavorite: ImageView
+            get() = view.findViewById(R.id.iv_delete_favorite)
 
 
     }
@@ -45,6 +50,12 @@ class AdapterFavorite(var listFavorites:  List<RoomFavorite>) :
         holder.tvTitle.text = listFavorites.get(position).product.title
         holder.tvPrice.text = listFavorites.get(position).product.variants[0]?.price
 
+        holder.ivDeleteFavorite.setOnClickListener {
+
+            favoritesViewModel?.deleteFavorite(listFavorites.get(position).id)
+            Toast.makeText(holder.imageItem.context,"deleted",Toast.LENGTH_LONG).show()
+        }
+
 
     }
 
@@ -52,6 +63,7 @@ class AdapterFavorite(var listFavorites:  List<RoomFavorite>) :
         this.listFavorites = favorite
         notifyDataSetChanged()
     }
+
 
     override fun getItemCount(): Int = listFavorites.size
 }

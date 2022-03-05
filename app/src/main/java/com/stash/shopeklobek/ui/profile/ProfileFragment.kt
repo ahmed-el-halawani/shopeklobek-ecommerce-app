@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentProfileBinding
-import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
@@ -38,21 +37,28 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             LinearLayoutManager(context)
         binding.reOrderList.adapter = adapterOrder
 
-        adapterOrder.setOrders(order)
 
-        adapterFavorite = AdapterFavorite(ArrayList())
+
+        adapterFavorite = AdapterFavorite(ArrayList(),null)
 
         binding.reFavorite.layoutManager =
             GridLayoutManager(context, 2)
         binding?.reFavorite?.adapter = adapterFavorite
         // get data from room
         profileViewModel.getFavorites()
+        profileViewModel.getOrders()
         profileViewModel.favorites.observe(viewLifecycleOwner, Observer {
             if (it!=null)
             adapterFavorite.setFavorite(it)
 
         })
 
+        profileViewModel.orders.observe(viewLifecycleOwner, Observer {
+            if (it!=null)
+            adapterOrder.setOrders(it)
+
+
+        })
 
         binding.tvMoreFavorite.setOnClickListener {
             findNavController().navigate(R.id.action_more_favorite)
