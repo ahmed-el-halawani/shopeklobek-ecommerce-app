@@ -30,12 +30,13 @@ class ProductRepo(
     val database = ProductDatabase(application)
 
 
-    suspend fun getSmartCollection(): Either<SmartCollectionModel, RepoErrors> {
-        callErrorsHandler(application, { shopifyServices.getSmartCollection() }, {
+    suspend fun getSmartCollection(): Either<SmartCollectionModel,RepoErrors>{
+        return callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
             Either.Success(it)
         })
-        return try {
-            return if (hasInternet(application.applicationContext)) {
+        /*return try {
+            return  if(hasInternet(application.applicationContext)){
+
                 val res = shopifyServices.getSmartCollection()
                 if (res.isSuccessful) {
                     Either.Success(res.body()!!)
@@ -45,13 +46,16 @@ class ProductRepo(
             } else {
                 Either.Error(RepoErrors.NoInternetConnection)
             }
-        } catch (t: Throwable) {
-            Either.Error(RepoErrors.ServerError, t.message)
-        }
+        }catch (t:Throwable){
+            Either.Error(RepoErrors.ServerError,t.message)
+        }*/
     }
 
-    suspend fun getProductsByVendor(vendor: String): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun getProductsByVendor(vendor: String): Either<ProductsModel,RepoErrors>{
+        return callErrorsHandler(application,{shopifyServices.getProductsByVendor(vendor)},{
+            Either.Success(it)
+        })
+
     }
 
     suspend fun getMainCategories(): Either<MainCategories, RepoErrors> {

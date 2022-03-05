@@ -18,10 +18,11 @@ import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.utils.Constants.TAG
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {
 
-    private val imageList = ArrayList<SlideModel>() // Create image list
+    private var imageList = ArrayList<SlideModel>() // Create image list
     private lateinit var brandsAdapter: BrandsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var brandsViewModel: BrandsViewModel
@@ -30,8 +31,8 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val favoriteViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
-        brandsViewModel = ViewModelProvider(this, favoriteViewModelFactory)[BrandsViewModel::class.java]
+        val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
+        brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
 
         imageList.add(SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years."))
@@ -53,7 +54,7 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         brandsViewModel.brands.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Either.Success -> {
-                    brandsAdapter = BrandsAdapter(it.data.smart_collections!!,requireContext())
+                    brandsAdapter = BrandsAdapter(it.data.smart_collections!!,requireContext(),this.requireParentFragment())
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2,RecyclerView.VERTICAL,false)
                     recyclerView.adapter = brandsAdapter
                 }
@@ -64,5 +65,22 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 }
             }
         })
+
+        brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+            when(it){
+                true ->{
+                    showLoading()
+                }
+                false ->{
+                    hideLoading()
+                }
+            }
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop: ")
+        imageList.clear()
     }
 }
