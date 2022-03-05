@@ -38,7 +38,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             LinearLayoutManager(context)
         binding.reOrderList.adapter = adapterOrder
 
-        adapterOrder.setOrders(order)
+
 
         adapterFavorite = AdapterFavorite(ArrayList())
 
@@ -47,12 +47,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding?.reFavorite?.adapter = adapterFavorite
         // get data from room
         profileViewModel.getFavorites()
+        profileViewModel.getOrders()
         profileViewModel.favorites.observe(viewLifecycleOwner, Observer {
             if (it!=null)
             adapterFavorite.setFavorite(it)
 
         })
 
+        profileViewModel.orders.observe(viewLifecycleOwner, Observer {
+            if (it!=null)
+            adapterOrder.setOrders(it)
+
+
+        })
 
         binding.tvMoreFavorite.setOnClickListener {
             findNavController().navigate(R.id.action_more_favorite)
