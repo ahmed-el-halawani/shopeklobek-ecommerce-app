@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.ui.home.categories
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.MainCategories
@@ -9,15 +10,18 @@ import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
+import com.stash.shopeklobek.utils.Constants.TAG
 import kotlinx.coroutines.launch
 
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
     val category = MutableLiveData<Either<MainCategories, RepoErrors>>()
 
-    val products = MutableLiveData<Either<ProductsModel,RepoErrors>>()
+    var products = MutableLiveData<Either<ProductsModel,RepoErrors>>()
+    var firstFilter = MutableLiveData<String>()
+    var secondFilter = MutableLiveData<String>()
 
-    val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
+    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
 
     fun getMainCategory() {
         viewModelScope.launch {
@@ -31,16 +35,20 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun getProductsByGender(collectionId : Long){
+    fun getProductsByGender(collectionId : Long, gender : String){
         viewModelScope.launch {
             products.value = repo.getProductsByGender(collectionId)
+            firstFilter.value = gender
+            secondFilter.value="all"
         }
     }
 
-    fun getProductsFromType (collectionId : Long, productType: String){
+    fun getProductsFromType (collectionId : Long, productType: String,gender : String){
         viewModelScope.launch {
             products.value = repo.getProductsFromType(collectionId,productType)
-        }
+            firstFilter.value = gender
+            secondFilter.value = productType
+            }
     }
 
 

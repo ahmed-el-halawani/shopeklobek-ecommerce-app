@@ -18,10 +18,11 @@ import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.utils.Constants.TAG
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {
 
-    private val imageList = ArrayList<SlideModel>() // Create image list
+    private var imageList = ArrayList<SlideModel>() // Create image list
     private lateinit var brandsAdapter: BrandsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var brandsViewModel: BrandsViewModel
@@ -64,5 +65,22 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 }
             }
         })
+
+        brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+            when(it){
+                true ->{
+                    showLoading()
+                }
+                false ->{
+                    hideLoading()
+                }
+            }
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop: ")
+        imageList.clear()
     }
 }

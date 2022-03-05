@@ -19,7 +19,9 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getSmartCollection()  {
         viewModelScope.launch {
+            loadingLiveData.postValue(true)
             brands.value= repo.getSmartCollection()
+            loadingLiveData.postValue(false)
         }
     }
 

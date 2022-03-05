@@ -2,7 +2,6 @@ package com.stash.shopeklobek.model.api
 
 import com.stash.shopeklobek.BuildConfig
 import com.stash.shopeklobek.model.interfaces.ShopifyServices
-import com.stash.shopeklobek.utils.BasciInterceptor
 import com.stash.shopeklobek.utils.Constants
 import okhttp3.Credentials
 import okhttp3.Interceptor
