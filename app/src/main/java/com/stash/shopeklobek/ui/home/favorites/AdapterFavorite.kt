@@ -13,9 +13,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.ModelFavorite
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import java.lang.String
 
-class AdapterFavorite(var listFavorites: ArrayList<ModelFavorite>) :
+class AdapterFavorite(var listFavorites:  List<RoomFavorite>) :
     RecyclerView.Adapter<AdapterFavorite.ViewHolder>() {
 
 
@@ -39,15 +40,15 @@ class AdapterFavorite(var listFavorites: ArrayList<ModelFavorite>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        Glide.with(holder.imageItem.context).load(listFavorites.get(position).image)
+        Glide.with(holder.imageItem.context).load(listFavorites.get(position).product.image)
             .into(holder.imageItem)
-        holder.tvTitle.text = listFavorites.get(position).title
-        holder.tvPrice.text = listFavorites.get(position).price
+        holder.tvTitle.text = listFavorites.get(position).product.title
+        holder.tvPrice.text = listFavorites.get(position).product.variants[0]?.price
 
 
     }
 
-    fun setFavorite(favorite: ArrayList<ModelFavorite>) {
+    fun setFavorite(favorite: List<RoomFavorite>) {
         this.listFavorites = favorite
         notifyDataSetChanged()
     }

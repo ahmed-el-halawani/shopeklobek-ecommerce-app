@@ -5,11 +5,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.repositories.ProductRepo
 
 class ProfileViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
 
 
+
+    var favorites = MutableLiveData<List<RoomFavorite>>()
+
+     fun getFavorites() {
+        favorites.value=productRepo.getFavorites().value
+    }
 
 
 
