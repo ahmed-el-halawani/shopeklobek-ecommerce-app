@@ -5,7 +5,7 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.databinding.FragmentOrdersBinding
-import com.stash.shopeklobek.model.Order
+import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.ui.BaseFragment
 
 class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
@@ -21,15 +21,6 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-        val bandle = Bundle().apply {
-            putString("id","")
-        }
-
-        findNavController().navigate(2,bandle)
-
 
 
         order=ArrayList<Order>()
@@ -53,7 +44,7 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
 
         binding.reOrderList.layoutManager =
             LinearLayoutManager(context)
-        binding?.reOrderList?.adapter = adapterOrder
+        binding.reOrderList.adapter = adapterOrder
 
         adapterOrder.setOrders(order)
 

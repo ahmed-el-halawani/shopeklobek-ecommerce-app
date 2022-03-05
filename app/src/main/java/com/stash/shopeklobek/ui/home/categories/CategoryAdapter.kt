@@ -1,5 +1,6 @@
 package com.stash.shopeklobek.ui.home.categories
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
+import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Products
+import com.stash.shopeklobek.model.repositories.ProductRepo
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.Constants.TAG
 
 class CategoryAdapter(var listProducts: List<Products>, var context: Context, var fragment: Fragment) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
