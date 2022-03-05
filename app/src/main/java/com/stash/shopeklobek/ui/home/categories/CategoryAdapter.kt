@@ -34,18 +34,9 @@ class CategoryAdapter(var listProducts: List<Products>, var context: Context, va
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryTitleTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price
-        val product = listProducts[position]
         Glide.with(holder.categoryImageView.context).load(listProducts[position].image.src).into(holder.categoryImageView)
-        val application = holder.itemView.context.applicationContext as Application
-        val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
         holder.categoryFavoriteImageView.setOnClickListener {
             //TODO()
-            CoroutineScope(Dispatchers.IO).launch {
-                repo.addToCart(product,product.variants[0]?.id?:0)
-                withContext(Dispatchers.Main){
-                    Toast.makeText(application, "added successfully", Toast.LENGTH_SHORT).show()
-                }
-            }
             Log.i(TAG, "onBindViewHolder: on click favorite")
             holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
         }
