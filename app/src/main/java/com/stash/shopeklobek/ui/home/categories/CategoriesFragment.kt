@@ -31,7 +31,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
         super.onViewCreated(view, savedInstanceState)
 
         binding.btProductDetails.setOnClickListener {
-            findNavController().navigate(R.id.action_product_details)
+            findNavController().navigate(R.id.product_details_fragment)
         }
         binding.filterLayout.setOnClickListener {
             val filterBottomSheet = FilterBottomSheet(hashMap)

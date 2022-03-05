@@ -34,7 +34,7 @@ class CategoryAdapter(var listProducts: List<Products>, var context: Context, va
         holder.categoryConstrainLayout.setOnClickListener { 
             //TODO
             Log.i(TAG, "onBindViewHolder: "+listProducts[position].productId)
-            fragment.findNavController().navigate(R.id.action_product_details)
+            fragment.findNavController().navigate(R.id.product_details_fragment)
         }
         
     }
