@@ -40,8 +40,10 @@ class ProductRepo(
         }*/
     }
 
-    suspend fun getProductsByVendor(vendor: String): Either<Nothing,RepoErrors>{
-        TODO("Not yet implemented")
+    suspend fun getProductsByVendor(vendor: String): Either<ProductsModel,RepoErrors>{
+        return callErrorsHandler(application,{shopifyServices.getProductsByVendor(vendor)},{
+            Either.Success(it)
+        })
     }
 
     suspend fun getMainCategories(): Either<MainCategories, RepoErrors> {
