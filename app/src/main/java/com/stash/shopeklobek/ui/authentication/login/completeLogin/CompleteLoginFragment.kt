@@ -32,6 +32,6 @@ var userPass:String?=null
                 Toast.makeText(requireContext(),"Logged in successfully",Toast.LENGTH_LONG).show()
             }
         }
-
+        vm.authenticationRepo.settingsPreferences.getSettings()
     }
 }
