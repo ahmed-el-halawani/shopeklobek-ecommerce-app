@@ -23,6 +23,15 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
         super.onViewCreated(view, savedInstanceState)
 
 
+
+        val bandle = Bundle().apply {
+            putString("id","")
+        }
+
+        findNavController().navigate(2,bandle)
+
+
+
         order=ArrayList<Order>()
         order.add(Order("55.5$","done","2021-04-10 10:28:21.052"))
         order.add(Order("88.5$","cancel","2021-04-10 10:28:21.052"))
@@ -44,7 +53,7 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(
 
         binding.reOrderList.layoutManager =
             LinearLayoutManager(context)
-        binding.reOrderList.adapter = adapterOrder
+        binding?.reOrderList?.adapter = adapterOrder
 
         adapterOrder.setOrders(order)
 

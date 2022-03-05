@@ -127,6 +127,12 @@ dependencies {
     implementation 'com.paypal.checkout:android-sdk:0.6.0'
     implementation "com.orhanobut:hawk:2.0.1"
 
+    //room
+    def roomVersion = "2.2.6"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+
 
 
 

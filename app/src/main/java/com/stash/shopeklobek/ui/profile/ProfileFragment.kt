@@ -2,7 +2,7 @@ package com.stash.shopeklobek.ui.profile
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +29,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
 
+
         order=ArrayList<Order>()
         order.add(Order("55.5$","done","2021-04-10 10:28:21.052"))
         adapterOrder = AdapterOrder(ArrayList())
@@ -44,10 +45,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.reFavorite.layoutManager =
             GridLayoutManager(context, 2)
         binding?.reFavorite?.adapter = adapterFavorite
-        var arrayList=ArrayList<ModelFavorite>()
-        arrayList.add(ModelFavorite("Sneakers","https://assets.brantu.com/product/3987777-71619/1000x1500/1640123440076-3987777-71619-0-3.jpeg","300.30$"))
-        arrayList.add(ModelFavorite("Ankle Boot","https://assets.brantu.com/product/7783897-42287/1000x1500/1637228503727-7783897-42287-0-3.jpeg","300.30$"))
-        adapterFavorite.setFavorite(arrayList)
+        // get data from room
+        profileViewModel.getFavorites()
+        profileViewModel.favorites.observe(viewLifecycleOwner, Observer {
+            if (it!=null)
+            adapterFavorite.setFavorite(it)
+
+        })
+
 
         binding.tvMoreFavorite.setOnClickListener {
             findNavController().navigate(R.id.action_more_favorite)
