@@ -6,4 +6,6 @@
     <string name="choose_the_pay_method">طرق الدفع</string>
     <string name="enter_coupon_here">أدخل قسيمة الشراء هنا</string>
     <string name="apply">تطبيق</string>
+    <string name="language">اللغه</string>
+
 </resources>
