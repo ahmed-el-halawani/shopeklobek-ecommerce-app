@@ -13,5 +13,15 @@ import com.stash.shopeklobek.utils.Constants.FAVORITES_TABLE
 )
 data class RoomCart(
     @PrimaryKey val id: Long,
-    val product:Products
-)
+    val product:Products,
+    val variantId:Long?=null,
+    var count:Int =1,
+){
+    fun variant():Variants?{
+        return product.variants.first{
+            it?.id == variantId
+        }
+    }
+
+}
+

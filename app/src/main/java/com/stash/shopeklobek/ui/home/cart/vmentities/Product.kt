@@ -1,4 +1,4 @@
-package com.stash.shopeklobek.model.entities
+package com.stash.shopeklobek.ui.home.cart.vmentities
 
 data class Product(
     val id: Long,
@@ -9,4 +9,3 @@ data class Product(
     var count: Int = 0,
     var variant_id:Long? =0
 )
-

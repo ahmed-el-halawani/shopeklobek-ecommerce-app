@@ -25,7 +25,7 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
 
     val settings:MutableLiveData<Settings> by lazy {
         MutableLiveData<Settings>().apply {
-            postValue(Settings.getDefault())
+            postValue(getSettings())
         }
     }
 
@@ -53,7 +53,7 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
 
     override fun update(update:(Settings)-> Settings) {
         sp.edit {
-            putString(ALL_DATA_ROUTE,settingsToJson(update(settings.value?: Settings.getDefault())))
+            putString(ALL_DATA_ROUTE,settingsToJson(update(getSettings())))
             apply()
         }
         getSettingsLiveData()
@@ -65,6 +65,7 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
     }
 
     override fun getSettings(): Settings {
+        println(sp.getString(ALL_DATA_ROUTE,null)?.let { settingsFromJson(it) })
         return sp.getString(ALL_DATA_ROUTE,null)?.let { settingsFromJson(it) }?: Settings.getDefault()
     }
 
@@ -81,7 +82,6 @@ data class Settings(
                 null,
                 CurrencyUtil.getCurrency(CurrenciesEnum.USD)
             )
-
         }
     }
 enum class Language{

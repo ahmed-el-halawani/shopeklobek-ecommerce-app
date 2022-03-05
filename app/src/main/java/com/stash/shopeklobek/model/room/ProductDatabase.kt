@@ -22,7 +22,7 @@ import com.stash.shopeklobek.utils.Constants.DATABASE_NAME
         RoomFavorite::class,
         RoomCart::class
     ],
-    version = 1
+    version = 2
 )
 abstract class ProductDatabase : RoomDatabase() {
 
