@@ -79,7 +79,7 @@ object ViewHelpers {
         ActivityCompat.recreate(reBuildActivity)
     }
 
-    fun setAppLocaleWithoutRefresh(localeCode: String? = null, resources: Resources) {
+    fun setAppLocale(localeCode: String? = null, resources: Resources) {
         val dm = resources.displayMetrics
         val config = resources.configuration
         config.setLocale(
@@ -92,7 +92,7 @@ object ViewHelpers {
 
     }
 
-    fun setAppLocaleWithoutRefresh(locale: Locale? = null, resources: Resources) {
+    fun setAppLocale(locale: Locale? = null, resources: Resources) {
         val dm = resources.displayMetrics
         val config = resources.configuration
         config.setLocale(locale)
