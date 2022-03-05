@@ -9,9 +9,12 @@ import com.paypal.checkout.config.Environment
 import com.paypal.checkout.config.SettingsConfig
 import com.paypal.checkout.createorder.CurrencyCode
 import com.paypal.checkout.createorder.UserAction
+import com.stash.shopeklobek.utils.CurrencyUtil
+import com.stash.shopeklobek.utils.ViewHelpers
 
 class MyApplication: Application() {
     override fun onCreate() {
+        CurrencyUtil.application = this
         Hawk.init(this).build()
         super.onCreate()
 

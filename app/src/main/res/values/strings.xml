@@ -61,6 +61,7 @@
     <string name="Currency">Currency</string>
     <string name="defaultAddress">There\'s no address to show right now !</string>
     <string name="address">Address</string>
+    <string name="pound">pound</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>

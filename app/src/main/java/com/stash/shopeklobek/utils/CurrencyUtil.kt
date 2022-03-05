@@ -1,10 +1,14 @@
 package com.stash.shopeklobek.utils
 
+import android.app.Application
 import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.model.entities.currencies.CurrencyConverterResult
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 
 object CurrencyUtil {
+
+    var application: Application? = null
 
     val currenciesList = listOf(
         Currency(
@@ -20,12 +24,12 @@ object CurrencyUtil {
         ),
     )
 
-    fun updateCurrencyValue(c: CurrencyConverterResult){
+    fun updateCurrencyValue(c: CurrencyConverterResult) {
         currenciesList.forEach {
-            it.converterValue = when(it.idEnum){
+            it.converterValue = when (it.idEnum) {
                 CurrenciesEnum.EGP -> c.egp
                 CurrenciesEnum.EUR -> c.eur
-                else ->  1.0
+                else -> 1.0
             }
         }
     }
@@ -41,6 +45,19 @@ object CurrencyUtil {
     fun getCurrency(id: CurrenciesEnum): Currency {
         return currenciesList.first {
             it.idEnum == id
+        }
+    }
+
+    fun convertCurrency(value: String?): String {
+        if (application == null) return value?:"0"
+
+        val settings = SettingsPreferences(application!!)
+        val currency = settings.getSettings().currancy
+
+        return try {
+            (currency.converterValue * (value?.toDouble()?:0.0)).toFixed().toString() + currency.currencySymbol
+        }catch (t:Throwable){
+            value?:"0"
         }
     }
 

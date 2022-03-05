@@ -29,7 +29,11 @@ data class Products(
     val options: List<Options?> = listOf(),
 
     @SerializedName( "image")
-    val image: Images
+    val image: Images,
+
+    @SerializedName( "images")
+    val images: List<Images>
+
 
 
 )
