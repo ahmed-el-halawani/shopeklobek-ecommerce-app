@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentProfileBinding
-import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
@@ -40,7 +39,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
 
-        adapterFavorite = AdapterFavorite(ArrayList())
+        adapterFavorite = AdapterFavorite(ArrayList(),null)
 
         binding.reFavorite.layoutManager =
             GridLayoutManager(context, 2)

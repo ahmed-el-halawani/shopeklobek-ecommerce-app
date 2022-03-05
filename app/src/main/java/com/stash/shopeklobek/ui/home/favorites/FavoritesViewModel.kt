@@ -20,6 +20,12 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
 
 
+    fun deleteFavorite(id: Long) {
+        viewModelScope.launch {
+            repo.deleteFromFavorite(id)
+        }
+    }
+
     fun getFavorites() {
        favorites.value=repo.getFavorites().value
         Log.d("getFavorites", repo.getFavorites().value?.get(0).toString())

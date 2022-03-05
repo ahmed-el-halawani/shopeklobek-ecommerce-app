@@ -11,7 +11,6 @@ import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.model.entities.room.RoomOrder
-import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
 
 class AdapterOrder(var orders:List<RoomOrder>) :
     RecyclerView.Adapter<AdapterOrder.ViewHolder>() {

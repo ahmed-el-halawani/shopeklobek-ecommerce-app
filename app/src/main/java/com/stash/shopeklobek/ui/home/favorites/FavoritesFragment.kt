@@ -2,17 +2,11 @@ package com.stash.shopeklobek.ui.home.favorites
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stash.shopeklobek.databinding.FragmentFavoritesBinding
-import com.stash.shopeklobek.model.entities.Images
-import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.ui.BaseFragment
-import com.stash.shopeklobek.ui.home.brands.BrandsViewModel
-import com.stash.shopeklobek.utils.NetworkingHelper
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
     private lateinit var adapterFavorite: AdapterFavorite
@@ -23,7 +17,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         val favoritesModelFactory = FavoritesViewModel.Factory(requireActivity().application)
         favoritesViewModel = ViewModelProvider(this, favoritesModelFactory)[FavoritesViewModel::class.java]
 
-        adapterFavorite = AdapterFavorite(ArrayList())
+        adapterFavorite = AdapterFavorite(ArrayList(),favoritesViewModel)
         binding.reFavorite.layoutManager = GridLayoutManager(context, 2)
         binding?.reFavorite?.adapter = adapterFavorite
         favoritesViewModel.getFavorites()
