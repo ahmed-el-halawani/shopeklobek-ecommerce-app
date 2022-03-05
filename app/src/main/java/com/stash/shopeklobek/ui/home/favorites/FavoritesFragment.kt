@@ -21,7 +21,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(FragmentFavorit
         binding.reFavorite.layoutManager = GridLayoutManager(context, 2)
         binding?.reFavorite?.adapter = adapterFavorite
         favoritesViewModel.getFavorites()
-
       // get data from room
         favoritesViewModel.favorites.observe(viewLifecycleOwner, Observer {
             if (it!=null){
