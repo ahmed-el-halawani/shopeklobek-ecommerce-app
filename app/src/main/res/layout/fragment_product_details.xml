@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingStart="20dp"
-    android:paddingTop="55dp"
+    android:paddingTop="20dp"
     android:paddingEnd="20dp"
     android:weightSum="3"
     tools:context=".ui.home.product_details.ProductDetailsFragment">

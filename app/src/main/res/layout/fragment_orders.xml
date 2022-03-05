@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.profile.OrdersFragment">
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/re_orderList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
