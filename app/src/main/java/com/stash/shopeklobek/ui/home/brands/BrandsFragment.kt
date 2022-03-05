@@ -31,8 +31,8 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val favoriteViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
-        brandsViewModel = ViewModelProvider(this, favoriteViewModelFactory)[BrandsViewModel::class.java]
+        val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
+        brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
 
         imageList.add(SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years."))
@@ -54,7 +54,7 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         brandsViewModel.brands.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Either.Success -> {
-                    brandsAdapter = BrandsAdapter(it.data.smart_collections!!,requireContext())
+                    brandsAdapter = BrandsAdapter(it.data.smart_collections!!,requireContext(),this.requireParentFragment())
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2,RecyclerView.VERTICAL,false)
                     recyclerView.adapter = brandsAdapter
                 }
