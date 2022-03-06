@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.ui.BaseFragment
@@ -19,6 +20,7 @@ import com.stash.shopeklobek.utils.Constants
 
 class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding::inflate) {
 
+    private val args : VendorFragmentArgs by navArgs()
     private lateinit var adapter: CategoryAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var brandsViewModel: BrandsViewModel
@@ -29,7 +31,7 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
         val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
         brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
-        brandsViewModel.getProductsByVendor("ADIDAS")
+        brandsViewModel.getProductsByVendor(args.vendor)
         recyclerView = binding.vendorRecyclerView
         brandsViewModel.vendors.observe(viewLifecycleOwner, Observer {
             when(it) {
@@ -45,8 +47,6 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
                 }
             }
         })
-
-
     }
 
 }
