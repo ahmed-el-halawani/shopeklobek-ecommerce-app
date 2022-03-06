@@ -33,10 +33,6 @@ interface ShopifyServices {
     suspend fun getProduct(@Path("productID") ProductId:Long ):
             Response<ProductModel>
 
-    @GET("products/{productID}/images.json")
-    suspend fun getProductImage(@Path("productID") ProductId:Long ):
-            Response<ProductImages>
-
     @POST("price_rules.json")
     suspend fun createDiscount(@Body priceRule:Discount):
             Response<Discount>

@@ -1,5 +1,6 @@
 package com.stash.shopeklobek.ui.profile
 
+import android.app.Application
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentProfileBinding
 import com.stash.shopeklobek.model.entities.Order
+import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
 
@@ -27,6 +29,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
 
+        binding.btnSighnout.setOnClickListener {
+            SettingsPreferences(context?.applicationContext as Application).update {
+                it.apply {
+                    customer = null
+                }
+            }
+        }
 
 
         order=ArrayList<Order>()

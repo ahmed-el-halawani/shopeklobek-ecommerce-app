@@ -13,6 +13,7 @@ import com.stash.shopeklobek.utils.Constants.FAVORITES_TABLE
 )
 data class RoomCart(
     @PrimaryKey val id: Long,
+    val customerEmail:String,
     val product:Products,
     val variantId:Long?=null,
     var count:Int =1,

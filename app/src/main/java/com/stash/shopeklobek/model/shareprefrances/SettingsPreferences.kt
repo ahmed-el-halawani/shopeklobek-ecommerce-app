@@ -24,9 +24,7 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
     }
 
     val settings:MutableLiveData<Settings> by lazy {
-        MutableLiveData<Settings>().apply {
-            postValue(getSettings())
-        }
+        MutableLiveData<Settings>(getSettings())
     }
 
     private val sp: SharedPreferences by lazy {
@@ -54,6 +52,7 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
     override fun update(update:(Settings)-> Settings) {
         sp.edit {
             putString(ALL_DATA_ROUTE,settingsToJson(update(getSettings())))
+
             apply()
         }
         getSettingsLiveData()

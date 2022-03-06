@@ -16,8 +16,13 @@ enum class RoomAddProductErrors{
     ProductAlreadyExist,
     ProductIdNotFound,
     RoomError,
+    NoLoginCustomer,
 }
 
 enum class RoomUpdateProductError{
     RoomError,
+}
+
+enum class RoomCustomerError{
+    NoLoginCustomer,
 }

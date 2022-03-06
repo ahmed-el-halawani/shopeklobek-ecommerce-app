@@ -32,7 +32,11 @@
         tools:layout="@layout/fragment_cart"
 
         android:name="com.stash.shopeklobek.ui.home.cart.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment" >
+        <action
+            android:id="@+id/action_cartFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         tools:layout="@layout/fragment_favorites"
@@ -48,4 +52,9 @@
             android:name="vendor"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        tools:layout="@layout/fragment_login"
+        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>

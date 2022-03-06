@@ -8,10 +8,9 @@ import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.entities.room.RoomOrder
 import com.stash.shopeklobek.model.repositories.ProductRepo
+import com.stash.shopeklobek.model.utils.Either
 
 class ProfileViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
-
-
 
     var favorites = MutableLiveData<List<RoomFavorite>>()
     var orders = MutableLiveData<List<RoomOrder>>()
@@ -19,12 +18,17 @@ class ProfileViewModel(application: Application,val productRepo: ProductRepo) : 
 
 
     fun getOrders()  {
-        orders.value=productRepo.getOrders().value
-
+        orders.value = when(val orders = productRepo.getOrders()){
+            is Either.Error -> TODO()
+            is Either.Success -> orders.data.value
+        }
     }
 
     fun getFavorites() {
-        favorites.value=productRepo.getFavorites().value
+        favorites.value = when(val favorite = productRepo.getFavorites()){
+            is Either.Error -> TODO()
+            is Either.Success -> favorite.data.value
+        }
     }
 
 

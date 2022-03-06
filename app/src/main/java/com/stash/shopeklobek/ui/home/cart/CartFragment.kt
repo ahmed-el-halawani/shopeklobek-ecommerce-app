@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCartBinding
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.utils.Either
@@ -22,25 +24,25 @@ import kotlinx.coroutines.launch
 class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate) {
 
 
-
     private val cartProductAdapter by lazy {
         CartProductsAdapter().apply {
             setOnDecrementClickListener {
                 println("setOnDecrementClickListener")
-                if(it.count>1){
+                if (it.count > 1) {
                     println("setOnDecrementClickListener")
                     lifecycleScope.launch {
-                        when(cartViewModel.updateCartProduct(
+                        when (cartViewModel.updateCartProduct(
                             it.copy(
                                 count = it.count - 1
-                            ))){
+                            )
+                        )) {
                             is Either.Error -> {
                                 Toast.makeText(context, "someThing wrong happened , please try again", Toast.LENGTH_SHORT).show()
                             }
                             is Either.Success -> Unit
                         }
                     }
-                }else{
+                } else {
                     deleteProductDialog(it)
                 }
             }
@@ -48,20 +50,22 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             setOnIncrementClickListener {
                 println("setOnIncrementClickListener")
 
-                if((it.variant()?.quantity)!=null && it.count<it.variant()?.quantity!!){
+                if ((it.variant()?.quantity) != null && it.count < it.variant()?.quantity!!) {
                     println("setOnIncrementClickListener")
 
                     lifecycleScope.launch {
-                        when(cartViewModel.updateCartProduct(it.copy(
-                            count = it.count + 1
-                        ))){
+                        when (cartViewModel.updateCartProduct(
+                            it.copy(
+                                count = it.count + 1
+                            )
+                        )) {
                             is Either.Error -> {
                                 Toast.makeText(context, "someThing wrong happened , please try again", Toast.LENGTH_SHORT).show()
                             }
                             is Either.Success -> Unit
                         }
                     }
-                }else{
+                } else {
                     messageDialog()
                 }
             }
@@ -80,11 +84,15 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.run {
+            if (cartViewModel.productRepo.getSettings().customer == null) {
+                println("herere")
+                cvCartDetails.visibility = View.GONE
+                findNavController().navigate(R.id.action_cartFragment_to_loginFragment2)
+            } else {
+                cartViewModel.getCartProducts()
 
-        cartViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner){
-            binding.apply {
-
-                cartViewModel.getCartProducts().observe(viewLifecycleOwner) { roomCarts->
+                cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
                     cvCartDetails.visibility = if (roomCarts.isEmpty()) View.GONE else View.VISIBLE
 
                     cartProductAdapter.differ.submitList(roomCarts)
@@ -93,7 +101,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                     var count = 0
 
                     roomCarts.forEach {
-                        price += (it.variant()?.price?.toDouble()?:0.0) * it.count
+                        price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
                         count += it.count
                     }
 
@@ -101,8 +109,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                     tvTotalItems.text = count.toString()
 
                 }
-
-
 
                 btnProceedToCheckout.setOnClickListener {
                     startActivity(Intent(context, CheckoutActivity::class.java))
@@ -127,13 +133,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         }
     }
 
-    private fun deleteProductDialog(roomCart: RoomCart){
+    private fun deleteProductDialog(roomCart: RoomCart) {
         AlertDialog.Builder(context).apply {
-            setNegativeButton("No"){d,i->
+            setNegativeButton("No") { d, i ->
                 cartProductAdapter.notifyDataSetChanged()
                 d.dismiss()
             }
-            setPositiveButton("yes"){d,i->
+            setPositiveButton("yes") { d, i ->
                 cartViewModel.deleteCartProduct(roomCart.id)
                 d.dismiss()
                 Toast.makeText(requireContext(), "product deleted successfully", Toast.LENGTH_SHORT).show()
@@ -143,16 +149,14 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         }.create().show()
     }
 
-    private fun messageDialog(){
+    private fun messageDialog() {
         AlertDialog.Builder(context).apply {
-            setNeutralButton("ok"){d,i->
+            setNeutralButton("ok") { d, i ->
                 d.dismiss()
             }
             setTitle("sorry, no more stock from this product \uD83D\uDE1E")
         }.create().show()
     }
-
-
 
 
 }
