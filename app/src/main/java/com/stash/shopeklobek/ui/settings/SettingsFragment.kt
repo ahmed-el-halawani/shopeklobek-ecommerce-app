@@ -42,6 +42,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                 vm.getCurrency(CurrenciesEnum.EUR)
             }
         }
+
+
     }
 
     val vm by lazy {
