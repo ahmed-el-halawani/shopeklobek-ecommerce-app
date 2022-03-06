@@ -34,21 +34,6 @@ class ProductRepo(
         return callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
             Either.Success(it)
         })
-        /*return try {
-            return  if(hasInternet(application.applicationContext)){
-
-                val res = shopifyServices.getSmartCollection()
-                if (res.isSuccessful) {
-                    Either.Success(res.body()!!)
-                } else {
-                    Either.Error(RepoErrors.ServerError, res.message())
-                }
-            } else {
-                Either.Error(RepoErrors.NoInternetConnection)
-            }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
-        }*/
     }
 
     suspend fun getProductsByVendor(vendor: String): Either<ProductsModel,RepoErrors>{
