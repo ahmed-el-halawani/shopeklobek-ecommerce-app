@@ -13,8 +13,7 @@ import com.stash.shopeklobek.model.room.ProductDatabase
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.Settings
-import com.stash.shopeklobek.model.utils.Either
-import com.stash.shopeklobek.model.utils.RepoErrors
+import com.stash.shopeklobek.model.utils.*
 import com.stash.shopeklobek.utils.CurrencyUtil
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
 import kotlinx.coroutines.CoroutineScope
@@ -23,32 +22,16 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class ProductRepo(
-    val shopifyServices: ShopifyServices,
-    val settingsPreferences: ISettingsPreferences,
-    val application: Application,
+    private val shopifyServices: ShopifyServices,
+    private val settingsPreferences: ISettingsPreferences,
+    private val application: Application,
 ) {
-    val database = ProductDatabase(application)
-
+    private val database = ProductDatabase(application)
 
     suspend fun getSmartCollection(): Either<SmartCollectionModel,RepoErrors>{
         return callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
             Either.Success(it)
         })
-        /*return try {
-            return  if(hasInternet(application.applicationContext)){
-
-                val res = shopifyServices.getSmartCollection()
-                if (res.isSuccessful) {
-                    Either.Success(res.body()!!)
-                } else {
-                    Either.Error(RepoErrors.ServerError, res.message())
-                }
-            } else {
-                Either.Error(RepoErrors.NoInternetConnection)
-            }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
-        }*/
     }
 
     suspend fun getProductsByVendor(vendor: String): Either<ProductsModel,RepoErrors>{
@@ -137,9 +120,11 @@ class ProductRepo(
     suspend fun getProductImage(ProductId: Long): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
+
     suspend fun smartCollection(): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
+
     suspend fun updateCustomer(customerId: Long, customer: EditCustomerModel): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
@@ -172,28 +157,27 @@ class ProductRepo(
 
     fun getOrders(): LiveData<List<RoomOrder>> {
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val customerId = settingsPreferences.getSettings().customer?.email
-                if (customerId != null) {
-                    callErrorsHandler(application, { shopifyServices.getOrders(customerId) }) {
-                        for (order in it.order) {
-                            if (order != null) {
-                                database.orderDao().upsert(
-                                    RoomOrder(
-                                        order.id ?: 0,
-                                        order
-                                    )
+            val customerId = settingsPreferences.getSettings().customer?.email
+            if (customerId != null) {
+                callErrorsHandler(application, { shopifyServices.getOrders(customerId) }) {
+                    for (order in it.order) {
+                        if (order != null) {
+                            database.orderDao().upsert(
+                                RoomOrder(
+                                    order.id ?: 0,
+                                    order
                                 )
-                            }
+                            )
                         }
-                        Either.Success(it)
                     }
+                    Either.Success(it)
                 }
-            }catch (t:Throwable){}
+            }
         }
 
         return database.orderDao().getAll()
     }
+
 
     fun getFavorites(): LiveData<List<RoomFavorite>> {
         return database.favoriteDao().getAll()
@@ -203,13 +187,31 @@ class ProductRepo(
         return database.cartDao().getAll()
     }
 
-    suspend fun addToCart(product: Products) {
-        database.cartDao().upsert(
-            RoomCart(
-                product.productId ?: 0,
-                product
+
+    suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {
+        try {
+            if (product.productId == null) return Either.Error(RoomAddProductErrors.ProductIdNotFound)
+            if (database.cartDao().getWithId(product.productId) != null) return Either.Error(RoomAddProductErrors.ProductAlreadyExist)
+            database.cartDao().upsert(
+                RoomCart(
+                    id = product.productId,
+                    product = product,
+                    variantId = variantId
+                )
             )
-        )
+            return Either.Success(Unit)
+        } catch (t: Throwable) {
+            return Either.Error(RoomAddProductErrors.RoomError)
+        }
+    }
+
+    suspend fun updateProductCart(roomCart: RoomCart): Either<Unit, RoomUpdateProductError> {
+        return try {
+            database.cartDao().upsert(roomCart)
+            Either.Success(Unit)
+        } catch (t: Throwable) {
+            Either.Error(RoomUpdateProductError.RoomError)
+        }
     }
 
     fun addToFavorite(product: Products) {
@@ -223,8 +225,10 @@ class ProductRepo(
         }
     }
 
-    suspend fun deleteFromCart(id: Long) {
-        database.cartDao().delete(id)
+    fun deleteFromCart(id: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            database.cartDao().delete(id)
+        }
     }
 
     suspend fun deleteFromFavorite(id: Long) {

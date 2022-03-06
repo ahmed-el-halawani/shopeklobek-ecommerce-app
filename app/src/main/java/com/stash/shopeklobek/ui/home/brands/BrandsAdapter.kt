@@ -28,8 +28,8 @@ class BrandsAdapter(var listBrands: List<SmartCollection>, var context: Context,
         Glide.with(holder.brandImageView.context).load(listBrands[position].image.src).into(holder.brandImageView)
 
         holder.brandConstrainLayout.setOnClickListener {
-            Toast.makeText(context, ""+ listBrands[position].title, Toast.LENGTH_SHORT).show()
-            fragment.findNavController().navigate(R.id.vendorFragment)
+            val action = BrandsFragmentDirections.actionBrandsFragmentToVendorFragment(listBrands[position].title)
+            fragment.findNavController().navigate(action)
 
         }
     }

@@ -7,7 +7,7 @@ data class SendedOrder(
     @SerializedName( "email")
     val email: String? = "",
 
-    @SerializedName( "financial_status")
+    @SerializedName( "financial_status") //pending , authorized
     val financialStatus: String? = "",
 
     @SerializedName( "billing_address")

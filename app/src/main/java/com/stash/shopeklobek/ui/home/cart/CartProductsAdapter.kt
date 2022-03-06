@@ -1,16 +1,17 @@
 package com.stash.shopeklobek.ui.home.cart
 
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.stash.shopeklobek.R
+import com.bumptech.glide.Glide
 import com.stash.shopeklobek.databinding.ItemCartProductBinding
+import com.stash.shopeklobek.model.entities.room.RoomCart
+import com.stash.shopeklobek.utils.CurrencyUtil.convertCurrency
 
 class CartProductsAdapter : RecyclerView.Adapter<CartProductsAdapter.ViewHolder>() {
-
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -23,62 +24,52 @@ class CartProductsAdapter : RecyclerView.Adapter<CartProductsAdapter.ViewHolder>
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        differ.currentList[position].also { rc ->
+            holder.binding.run {
 
-        holder.binding.apply{
+                Glide.with(root).load(rc.product.image.src).into(ivProductImage)
 
-            ivProductImage.setImageResource(R.drawable.test2)
+                tvPrice.text = convertCurrency(rc.variant()?.price)
 
-            tvPrice.text = "300"
+                tvCurrencyUnit.text = ""
 
-            tvCurrencyUnit.text = "$"
+                tvCounter.text = rc.count.toString()
 
-            tvCounter.text = "1"
+                tvProductTitle.text = rc.product.title
+                tvQuality.text = rc.product.productType
 
-            tvProductTitle.text = "Product Title test test test test"
-            tvQuality.text = "Good quality"
+                btnAdd.setOnClickListener {
+                    onIncrementClickListener?.invoke(rc)
+                }
 
-            btnRemove.setOnClickListener{
-                val count = Integer.parseInt(tvCounter.text.toString()) - 1
-                if(count<=0)
-                    return@setOnClickListener
-                try {
-                    tvCounter.text = (count).toString()
-                }catch (t:Throwable){
-                    tvCounter.text = "1"
+                btnRemove.setOnClickListener {
+                    onDecrementClickListener?.invoke(rc)
                 }
             }
-
-            btnAdd.setOnClickListener{
-                try {
-                    val count = Integer.parseInt(tvCounter.text.toString()) + 1
-                    tvCounter.text = (count).toString()
-                }catch (t:Throwable){
-                    tvCounter.text = "1"
-                }
-            }
-
-
-
         }
-
     }
 
     override fun getItemCount(): Int =
-        10
+        differ.currentList.size
 
 
-//    // set listeners
-//    fun setOnItemClickListener(onItemClickListener: ((WeatherLang) -> Unit)?) {
-//        this.onItemClickListener = onItemClickListener
-//    }
+    // set listeners
+    fun setOnIncrementClickListener(onItemClickListener: ((RoomCart) -> Unit)?) {
+        this.onIncrementClickListener = onItemClickListener
+    }
+
+    fun setOnDecrementClickListener(onItemClickListener: ((RoomCart) -> Unit)?) {
+        this.onDecrementClickListener = onItemClickListener
+    }
 
     // using DiffUtil to update our recycle
     // when update or change list of items
-    private val differCallback = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =  oldItem == newItem
+    private val differCallback = object : DiffUtil.ItemCallback<RoomCart>() {
+        override fun areItemsTheSame(oldItem: RoomCart, newItem: RoomCart): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
+        override fun areContentsTheSame(oldItem: RoomCart, newItem: RoomCart): Boolean =
             oldItem == newItem
     }
 
@@ -86,11 +77,10 @@ class CartProductsAdapter : RecyclerView.Adapter<CartProductsAdapter.ViewHolder>
 
 
     // private vars
-//    private var onItemClickListener: ((WeatherLang) -> Unit)? = null
+    private var onIncrementClickListener: ((RoomCart) -> Unit)? = null
+    private var onDecrementClickListener: ((RoomCart) -> Unit)? = null
 
     data class ViewHolder(val binding: ItemCartProductBinding) : RecyclerView.ViewHolder(binding.root)
-
-
 
 
 }

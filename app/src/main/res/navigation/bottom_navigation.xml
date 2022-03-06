@@ -16,7 +16,11 @@
         android:name="com.stash.shopeklobek.ui.home.brands.BrandsFragment"
         tools:layout="@layout/fragment_brands"
 
-        android:label="BrandsFragment" />
+        android:label="BrandsFragment" >
+        <action
+            android:id="@+id/action_brandsFragment_to_vendorFragment"
+            app:destination="@id/vendorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         tools:layout="@layout/fragment_categories"
@@ -39,5 +43,9 @@
         android:id="@+id/vendorFragment"
         android:name="com.stash.shopeklobek.ui.home.brands.VendorFragment"
         android:label="fragment_vendor"
-        tools:layout="@layout/fragment_vendor" />
+        tools:layout="@layout/fragment_vendor" >
+        <argument
+            android:name="vendor"
+            app:argType="string" />
+    </fragment>
 </navigation>

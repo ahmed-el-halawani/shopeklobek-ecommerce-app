@@ -53,7 +53,6 @@ interface ShopifyServices {
     suspend fun login(): Response<CustomerLoginModel>
 
 
-
     @PUT("customers/{id}.json")
     suspend fun updateCustomer(@Path("id") customerId:Long,
                                @Body customer:EditCustomerModel):

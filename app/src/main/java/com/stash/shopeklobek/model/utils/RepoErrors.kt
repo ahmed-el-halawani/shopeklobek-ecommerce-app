@@ -6,9 +6,18 @@ enum class RepoErrors {
     EmptyBody
 }
 
-
 enum class LoginErrors {
     NoInternetConnection,
     ServerError,
     CustomerNotFound,
+}
+
+enum class RoomAddProductErrors{
+    ProductAlreadyExist,
+    ProductIdNotFound,
+    RoomError,
+}
+
+enum class RoomUpdateProductError{
+    RoomError,
 }
