@@ -267,6 +267,26 @@ class ProductRepo(
         }
     }
 
+    suspend fun selectCurrency(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> {
+        return callErrorsHandler(
+            application = application,
+            suspendedCall = currencyConverterApi::getCurrenciesValueNow
+        )
+        { currencyValues ->
+            update {
+                it.currancy = CurrencyUtil.getCurrency(currencyEnum).apply {
+                    converterValue = when (idEnum) {
+                        CurrenciesEnum.EGP -> currencyValues.egp
+                        CurrenciesEnum.USD -> 1.0
+                        CurrenciesEnum.EUR -> currencyValues.eur
+                    }
+                }
+                it
+            }
+            Either.Success(Unit)
+        }
+    }
+
     suspend fun updateCurrency(): Either<Unit, RepoErrors> {
         return callErrorsHandler(
             application = application,
