@@ -22,7 +22,6 @@ import com.stash.shopeklobek.utils.Constants.TAG
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {
 
-    private var imageList = ArrayList<SlideModel>() // Create image list
     private lateinit var brandsAdapter: BrandsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var brandsViewModel: BrandsViewModel
@@ -34,14 +33,17 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
         brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
-
-        imageList.add(SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years."))
-        imageList.add(SlideModel("https://bit.ly/2BteuF2", "Elephants and tigers may become extinct."))
-        imageList.add(SlideModel("https://bit.ly/3fLJf72", "And people do that."))
+        val imageList = ArrayList<SlideModel>() // Create image list
+        imageList.add(SlideModel("https://cdn5.vectorstock.com/i/1000x1000/27/29/sale-banner-black-background-shop-now-vector-21582729.jpg"))
+        imageList.add(SlideModel("https://media.istockphoto.com/vectors/super-sale-banner-or-poster-design-with-80-discount-offer-and-on-vector-id1176999923?k=20&m=1176999923&s=612x612&w=0&h=Xnb177iy2-jdCQlvx9cQ1jZzEOe1lGrANTlfsl7CIvI="))
+        imageList.add(SlideModel("https://static.vecteezy.com/system/resources/previews/000/590/172/non_2x/dynamic-final-sale-banner-up-to-50-off-vector-illustration-modern-flash-sale-banners-sale-banner-template-design.jpg"))
 
         val imageSlider = binding.imageSlider
         imageSlider.setImageList(imageList)
         imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
+        imageSlider.setOnClickListener {
+            Toast.makeText(requireContext(), "From imageSlider", Toast.LENGTH_SHORT).show()
+        }
 
         imageSlider.setItemClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {
@@ -66,7 +68,7 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
             }
         })
 
-        brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+        /*brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             when(it){
                 true ->{
                     showLoading()
@@ -75,12 +77,6 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                     hideLoading()
                 }
             }
-        })
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i(TAG, "onStop: ")
-        imageList.clear()
+        })*/
     }
 }
