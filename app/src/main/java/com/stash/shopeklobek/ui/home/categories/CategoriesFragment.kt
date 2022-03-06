@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
@@ -67,7 +65,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
         categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
-                    categoryAdapter = CategoryAdapter(it.data.product,requireContext(),this.requireParentFragment())
+                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite)
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
                     recyclerView.adapter = categoryAdapter
                 }
