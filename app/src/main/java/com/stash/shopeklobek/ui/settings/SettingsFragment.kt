@@ -2,6 +2,7 @@ package com.stash.shopeklobek.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.orhanobut.hawk.Hawk
 import com.stash.shopeklobek.databinding.FragmentSettingsBinding
@@ -13,9 +14,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkLanguage()
-
-
-       setBtnListeners()
+        setBtnListeners()
     }
 
     private fun setBtnListeners() {
@@ -23,10 +22,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             if (i == binding.btnEArabic.id) {
                 Hawk.put("language", "ar")
                 requireActivity().finish()
-                requireActivity().startActivity(Intent(requireActivity(),MainActivity::class.java))            }
-            else {
+                requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
+            } else {
+                Hawk.put("language", "en")
                 requireActivity().finish()
-                requireActivity().startActivity(Intent(requireActivity(),MainActivity::class.java))
+                requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
             }
         }
     }
