@@ -124,6 +124,7 @@ class ProductRepo(
         }
     }
 
+
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
@@ -169,7 +170,6 @@ class ProductRepo(
     }
 
     //room repo
-
     fun getOrders(): LiveData<List<RoomOrder>> {
         CoroutineScope(Dispatchers.IO).launch {
             val customerId = settingsPreferences.getSettings().customer?.email
@@ -193,7 +193,6 @@ class ProductRepo(
         return database.orderDao().getAll()
     }
 
-
     fun getFavorites(): LiveData<List<RoomFavorite>> {
         return database.favoriteDao().getAll()
     }
@@ -202,6 +201,9 @@ class ProductRepo(
         return database.cartDao().getAll()
     }
 
+    suspend fun getCartAsync(): List<RoomCart> {
+        return database.cartDao().getAllAsync()
+    }
 
     suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {
         try {
@@ -249,7 +251,6 @@ class ProductRepo(
     suspend fun deleteFromFavorite(id: Long) {
         database.favoriteDao().delete(id)
     }
-
 
     // settings repo
     fun insert(settings: Settings) = settingsPreferences.insert(settings)
@@ -301,7 +302,6 @@ class ProductRepo(
             Either.Success(Unit)
         }
     }
-
 
     private suspend fun <S, R> callErrorsHandler(
         application: Application, suspendedCall: suspend () -> Response<S>,
