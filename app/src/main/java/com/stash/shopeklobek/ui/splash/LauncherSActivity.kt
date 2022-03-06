@@ -49,6 +49,7 @@ class LauncherSActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main){
                     startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))
+                    finishAffinity()
                 }
             }
         }
