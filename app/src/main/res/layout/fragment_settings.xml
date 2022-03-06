@@ -60,27 +60,25 @@
                 android:id="@+id/languageGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:gravity="end"
                 android:layout_marginTop="4dp"
+                android:gravity="end"
+                app:layout_constraintStart_toStartOf="parent"
 
                 app:layout_constraintTop_toBottomOf="@id/tvLanguage">
 
-            <RadioButton
-                android:id="@+id/btnEnglish"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLanguage" />
+                <RadioButton
+                    android:id="@+id/btnEnglish"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvLanguage" />
 
 
-
-            <RadioButton
-                android:id="@+id/btnEArabic"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="8dp"
-              />
+                <RadioButton
+                    android:id="@+id/btnEArabic"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
             </RadioGroup>
 
             <TextView
@@ -99,7 +97,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/currancy"
+        android:id="@+id/curency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -109,10 +107,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="4dp">
 
             <TextView
-                android:id="@+id/tvcurrency"
+                android:id="@+id/tvCurrency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -133,34 +132,48 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvcurrency" />
+                app:layout_constraintTop_toBottomOf="@id/tvCurrency" />
 
-            <RadioButton
-                android:id="@+id/btnEGP"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/currencyGroup"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvcurrency" />
+                android:gravity="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrency">
+
+                <RadioButton
+                    android:id="@+id/btnEGP"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvLanguage" />
+
+
+                <RadioButton
+                    android:id="@+id/btnEURO"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
+
+                <RadioButton
+                    android:id="@+id/btnUSD"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/tvEURO"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/euro"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvEGP" />
-
-            <RadioButton
-                android:id="@+id/btnEURO"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvEGP" />
 
             <TextView
@@ -168,36 +181,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/usd"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvEURO" />
 
-            <RadioButton
-                android:id="@+id/btnUSD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvEURO" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/AdressContaier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginHorizontal="2dp"
+        android:background="@color/transparent"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:layout_marginHorizontal="2dp"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/currancy"
+        app:cardCornerRadius="20dp"
 
-        app:cardCornerRadius="20dp">
+        app:layout_constraintTop_toBottomOf="@id/curency">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -231,10 +238,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
-                tools:text="Current Location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView3"
-                app:layout_constraintTop_toTopOf="@+id/cardView3" />
+                app:layout_constraintTop_toTopOf="@+id/cardView3"
+                tools:text="Current Location" />
 
             <TextView
                 android:id="@+id/tvAddress"
@@ -243,12 +250,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:maxLines="1"
-                tools:text="Street 135, Helwan, Cairo Governorate"
                 android:textColor="@color/textSubTitleColor"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardView3" />
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                tools:text="Street 135, Helwan, Cairo Governorate" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvAddressCard"
@@ -276,13 +283,14 @@
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/btnAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:cardCornerRadius="20dp"
         android:backgroundTint="@color/primary"
+        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/AdressContaier">
 
@@ -290,28 +298,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-          <TextView
-              android:id="@+id/tvAdaress"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="change address"
-              android:textColor="@color/white"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:textSize="22sp"
-              android:textStyle="bold"
-              app:layout_constraintTop_toTopOf="parent"
-              />
+            <TextView
+                android:id="@+id/tvAdaress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="change address"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_address"
-                android:backgroundTint="@color/white"
-               android:layout_marginStart="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
+                android:backgroundTint="@color/white"
+                android:foregroundGravity="right"
+                android:src="@drawable/ic_address"
                 app:layout_constraintStart_toEndOf="@id/tvAdaress"
-                app:layout_constraintTop_toTopOf="parent"
-                android:foregroundGravity="right"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

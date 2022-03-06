@@ -41,7 +41,6 @@ object ShopifyApi {
         httpClient.connectTimeout(60, TimeUnit.SECONDS)
         httpClient.readTimeout(60, TimeUnit.SECONDS)
         return httpClient
-
             .build()
     }
 
