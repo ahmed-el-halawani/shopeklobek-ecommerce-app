@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
@@ -14,6 +15,7 @@ import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.utils.*
+import com.stash.shopeklobek.utils.Constants.TAG
 import com.stash.shopeklobek.utils.CurrencyUtil
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
 import kotlinx.coroutines.CoroutineScope
@@ -215,6 +217,7 @@ class ProductRepo(
     }
 
     fun addToFavorite(product: Products) {
+        Log.i(TAG, "addToFavorite: repo")
         CoroutineScope(Dispatchers.IO).launch {
             database.favoriteDao().upsert(
                 RoomFavorite(

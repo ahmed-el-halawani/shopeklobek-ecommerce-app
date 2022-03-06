@@ -7,11 +7,6 @@
     app:startDestination="@id/brandsFragment">
 
     <fragment
-        android:id="@+id/product_details_fragment"
-        android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
-        tools:layout="@layout/fragment_product_details"
-        android:label="ProductDetails" />
-    <fragment
         android:id="@+id/brandsFragment"
         android:name="com.stash.shopeklobek.ui.home.brands.BrandsFragment"
         tools:layout="@layout/fragment_brands"
@@ -26,7 +21,11 @@
         tools:layout="@layout/fragment_categories"
 
         android:name="com.stash.shopeklobek.ui.home.categories.CategoriesFragment"
-        android:label="CategoriesFragment"/>
+        android:label="CategoriesFragment">
+        <action
+            android:id="@+id/action_categoriesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         tools:layout="@layout/fragment_cart"
@@ -47,5 +46,13 @@
         <argument
             android:name="vendor"
             app:argType="string" />
+        <action
+            android:id="@+id/action_vendorFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
 </navigation>
