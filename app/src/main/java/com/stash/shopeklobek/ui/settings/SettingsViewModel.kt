@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
 import com.stash.shopeklobek.model.repositories.ProductRepo
+import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.LoginErrors
@@ -16,9 +17,9 @@ import com.stash.shopeklobek.ui.authentication.login.LoginViewModel
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
-    val currencySuccess: MutableLiveData<Boolean?> = MutableLiveData()
 
-fun getCurrency(currency:String){
+
+fun getCurrency(currency:CurrenciesEnum){
 
     viewModelScope.launch {
         val response:Either<Unit,RepoErrors> = productRepo.selectCurrency(currency)
@@ -27,14 +28,13 @@ fun getCurrency(currency:String){
                 RepoErrors.NoInternetConnection -> {
                     Toast.makeText(getApplication(), "NoInternetConnection"+response.message, Toast.LENGTH_SHORT).show()
                 }
-                RepoErrors.ServerError -> {
-
+                   RepoErrors.ServerError -> {
                     Toast.makeText(getApplication(), "ServerError"+response.message, Toast.LENGTH_SHORT).show()
                 }
             }
             is Either.Success -> {
-                Log.d("haa",""+response.data)
-                currencySuccess.postValue(true)
+
+
             }
         }
     }
