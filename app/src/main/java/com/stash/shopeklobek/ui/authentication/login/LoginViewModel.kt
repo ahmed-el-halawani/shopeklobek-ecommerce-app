@@ -18,21 +18,24 @@ class LoginViewModel(application: Application,val AuthRepo: AuthenticationRepo) 
     val loginSuccess: MutableLiveData<Boolean?> = MutableLiveData()
 
 
-    fun getData(email:String){
+    fun getData(email:String,password:String){
         viewModelScope.launch {
-            val response : Either<CustomerLoginModel, LoginErrors> = AuthRepo.login(email)
+            val response : Either<CustomerLoginModel, LoginErrors> = AuthRepo.login(email,password)
 
             when(response){
                 is Either.Error -> when(response.errorCode){
                     LoginErrors.NoInternetConnection -> {
                         Toast.makeText(getApplication(), "NoInternetConnection"+response.message, Toast.LENGTH_SHORT).show()
+                        loginSuccess.postValue(false)
                     }
                     LoginErrors.ServerError -> {
 
                         Toast.makeText(getApplication(), "ServerError"+response.message, Toast.LENGTH_SHORT).show()
+                        loginSuccess.postValue(false)
                     }
                     LoginErrors.CustomerNotFound ->{
                         Toast.makeText(getApplication(), "CustomerNotFound"+response.message, Toast.LENGTH_SHORT).show()
+                        loginSuccess.postValue(false)
                     }
                 }
                 is Either.Success -> {

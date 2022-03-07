@@ -10,6 +10,7 @@ enum class LoginErrors {
     NoInternetConnection,
     ServerError,
     CustomerNotFound,
+    IncorrectEmailOrPassword
 }
 
 enum class RoomAddProductErrors{
