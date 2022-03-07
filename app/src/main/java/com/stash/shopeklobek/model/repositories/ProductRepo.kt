@@ -111,6 +111,13 @@ class ProductRepo(
         }
     }
 
+    suspend fun getAllDiscounts():Either<DiscountModel, RepoErrors>{
+        return callErrorsHandler(application, {shopifyServices.getAllDiscounts()}, {
+            Either.Success(it)
+        })
+    }
+
+
 
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
