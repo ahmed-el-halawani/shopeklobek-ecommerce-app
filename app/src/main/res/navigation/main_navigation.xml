@@ -29,12 +29,7 @@
         android:name="com.stash.shopeklobek.ui.profile.OrdersFragment"
         android:label="OrdersFragment">
     </fragment>
-    <fragment
-        android:id="@+id/CompleteLoginFragment"
-        tools:layout="@layout/complete_login_fragment"
-        android:name="com.stash.shopeklobek.ui.authentication.login.completeLogin.CompleteLoginFragment"
-        android:label="CompleteLoginFragment">
-    </fragment>
+
     <fragment
         android:id="@+id/FavoritesFragment"
         tools:layout="@layout/fragment_favorites"
@@ -51,9 +46,7 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"
         >
-        <action
-            android:id="@+id/action_nav_login_to_CompleteLoginFragment"
-            app:destination="@id/CompleteLoginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/loogin"

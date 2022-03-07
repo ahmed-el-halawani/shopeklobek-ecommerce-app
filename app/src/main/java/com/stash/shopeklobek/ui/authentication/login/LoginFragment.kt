@@ -10,6 +10,7 @@ import com.stash.shopeklobek.ui.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     var userEmail: String? = null
+    var userPassword: String? = null
 
     val vm by lazy {
         LoginViewModel.create(this)
@@ -28,12 +29,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.btnLogin.setOnClickListener {
             if (validteForm()) {
-                vm.getData(userEmail!!)
+                vm.getData(userEmail!!,userPassword!!)
                 vm.loginSuccess.observe(viewLifecycleOwner) {
                     if (it!!) {
-                        findNavController().navigate(R.id.action_nav_login_to_CompleteLoginFragment)
 
-                    }
+                       Toast.makeText(requireContext(),"Loggedin Successfully",Toast.LENGTH_LONG).show()
+
+                    }else   Toast.makeText(requireContext(),"please enter correct email or password",Toast.LENGTH_LONG).show()
+
                 }
             }
         }
@@ -42,9 +45,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun validteForm(): Boolean {
         userEmail = binding.edtEmail.text.toString()
+        userPassword = binding.edtPassword.text.toString()
         if (userEmail!!.isEmpty()) {
             binding.edtEmail.requestFocus()
             binding.edtEmail.error = "Required"
+            return false
+        }
+        if (userPassword!!.isEmpty()) {
+            binding.edtPassword.requestFocus()
+            binding.edtPassword.error = "Required"
             return false
         }
         return true
