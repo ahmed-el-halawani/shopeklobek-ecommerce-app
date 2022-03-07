@@ -20,16 +20,28 @@
         tools:listitem="@layout/item_product" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_empty_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_empty_favorite" />
+
+    <TextView
+        android:visibility="gone"
+         android:id="@+id/tvLoginFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="50sp"
+        android:text="@string/please_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_empty_favorite" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,10 +17,10 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
 
     var favorites = MutableLiveData<List<RoomFavorite>>()
-    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
+      val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
 
 
-    fun deleteFavorite(id: Long) {
+        fun deleteFavorite(id: Long) {
         viewModelScope.launch {
             repo.deleteFromFavorite(id)
         }
@@ -29,7 +29,9 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun getFavorites() {
          when(val favorite = repo.getFavorites()){
             is Either.Error -> {}
-            is Either.Success -> favorites.value = favorite.data.value
+            is Either.Success -> {favorites.value = favorite.data.value
+                 Log.d("getFavorites", favorite.data.toString())
+            }
         }
     }
 
