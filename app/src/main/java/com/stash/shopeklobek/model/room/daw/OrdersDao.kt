@@ -2,6 +2,7 @@ package com.stash.shopeklobek.model.room.daw
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.entities.room.RoomOrder
 import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.Constants.ORDER_TABLE
@@ -17,6 +18,9 @@ interface OrdersDao : BaseDao<RoomOrder> {
 
     @Query("SELECT * FROM $ORDER_TABLE WHERE id=:id")
     override suspend fun getWithId(id: Long): RoomOrder?
+
+    @Query("SELECT * FROM $ORDER_TABLE WHERE customerEmail=:customerEmail")
+    override fun getWithCustomerId(customerEmail: String):  LiveData<List<RoomOrder>>
 
     @Query("DELETE FROM $ORDER_TABLE WHERE id = :id")
     override suspend fun delete(id: Long)

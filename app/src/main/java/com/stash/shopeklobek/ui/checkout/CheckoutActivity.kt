@@ -54,7 +54,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         binding.apply {
             stepperIndicator.apply {
-                checkoutVM.pageLiveData.observe(this@CheckoutActivity) {
+                checkoutVM.pageIndexLiveData.observe(this@CheckoutActivity) {
                     currentStep = it
                 }
                 addOnStepClickListener {

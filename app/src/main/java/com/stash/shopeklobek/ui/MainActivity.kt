@@ -10,6 +10,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -29,6 +30,8 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
 
 import com.stash.shopeklobek.utils.ViewHelpers
+import com.stash.shopeklobek.utils.ViewHelpers.localeFromLanguage
+import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 
 import java.util.*
 
@@ -72,10 +75,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewmodel.updateLanguage()
+        if(savedInstanceState==null)
+            setAppLocale(this,resources)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         setSupportActionBar(binding.appBarMain.toolbar)
@@ -94,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
-        return onBackNavController?.navigateUp(bottomNavAppBarConfiguration)?:false||
+        return (navController.currentDestination?.id == R.id.homeNavHostFragment && onBackNavController?.navigateUp(bottomNavAppBarConfiguration)?:false)||
                 navController.navigateUp(drawerAppBarConfiguration) || super.onSupportNavigateUp()
     }
 
@@ -151,16 +156,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var dialog: AlertDialog? = null
 
-
-    override fun attachBaseContext(newBase: Context?) {
-        val language = Hawk.get("language")?:"en"
-        val locale = Locale(""+language)
-        val res = newBase!!.resources
-        val conf = res.configuration
-        conf.locale = locale
-        res.updateConfiguration(conf, res.displayMetrics)
-        super.attachBaseContext(newBase)
-    }
 
 
 }

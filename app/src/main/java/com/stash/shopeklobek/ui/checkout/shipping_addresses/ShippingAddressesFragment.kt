@@ -23,6 +23,8 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
 
+
+
         shippingAddressViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
             println("settings form view model")
             println(it)
@@ -32,7 +34,7 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         binding.apply {
             cvCurrentLocation.setOnClickListener {
                 println("here")
-                viewmodel.pageLiveData.postValue(1)
+                viewmodel.pageIndexLiveData.postValue(1)
                 findNavController().navigate(R.id.action_shippingAddressesFragment_to_paymentMethod)
             }
 

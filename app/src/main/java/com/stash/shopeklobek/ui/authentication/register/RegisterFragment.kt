@@ -41,6 +41,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                             "Registered succssfully",
                             Toast.LENGTH_LONG
                         ).show()
+
                     }
                     else  Toast.makeText(
                         requireContext(),

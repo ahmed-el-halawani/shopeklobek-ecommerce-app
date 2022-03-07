@@ -12,6 +12,7 @@ class ShippingAddressViewModel(application: Application, val productRepo: Produc
 
 
 
+
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ShippingAddressViewModel(application,productRepo) as T
@@ -24,7 +25,7 @@ class ShippingAddressViewModel(application: Application, val productRepo: Produc
                 context,
                 Factory(
                     context.context?.applicationContext as Application,
-                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.context?.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(context.context?.applicationContext as Application)
                         ,context.context?.applicationContext as Application)
                 )
             )[ShippingAddressViewModel::class.java]

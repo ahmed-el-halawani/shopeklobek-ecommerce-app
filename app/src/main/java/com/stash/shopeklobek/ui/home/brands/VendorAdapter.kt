@@ -1,24 +1,19 @@
-package com.stash.shopeklobek.ui.home.categories
+package com.stash.shopeklobek.ui.home.brands
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
-import com.stash.shopeklobek.ui.home.brands.BrandsFragmentDirections
-import com.stash.shopeklobek.utils.Constants.TAG
 
-class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit ) : RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_category,parent,false)
@@ -33,10 +28,10 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
             holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
         }
         holder.categoryConstrainLayout.setOnClickListener {
-            val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductDetailsFragment(listProducts[position])
+            val action = VendorFragmentDirections.actionVendorFragmentToProductDetailsFragment(listProducts[position])
             it.findNavController().navigate(action)
         }
-        
+
     }
 
     override fun getItemCount(): Int {
@@ -53,9 +48,9 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
 
         val categoryTitleTextView : TextView
             get() = itemView.findViewById(R.id.categoryTitleTextView)
-        
+
         val categoryConstrainLayout : ConstraintLayout
-        get() = itemView.findViewById(R.id.categoryConstrainLayout)
+            get() = itemView.findViewById(R.id.categoryConstrainLayout)
 
 
 

@@ -14,5 +14,6 @@ import com.stash.shopeklobek.utils.Constants.ORDER_TABLE
 )
 data class RoomOrder(
     @PrimaryKey val id: Long,
+    val customerEmail:String,
     val order:Order
 )

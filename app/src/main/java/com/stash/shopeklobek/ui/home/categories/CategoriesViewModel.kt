@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.MainCategories
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.ProductsModel
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
@@ -20,7 +21,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
 
-    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
+    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
 
     init {
         getMainCategory()
@@ -52,6 +53,11 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
             firstFilter.value = gender
             secondFilter.value = productType
             }
+    }
+
+    fun addToFavorite(product: Products){
+        Log.i(TAG, "addToFavorite: from viewmodel")
+        repo.addToFavorite(product)
     }
 
 

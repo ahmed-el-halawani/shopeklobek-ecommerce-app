@@ -21,7 +21,7 @@ class PaymentMethodViewModel(application: Application, val productRepo: ProductR
                 context,
                 Factory(
                     context.context?.applicationContext as Application,
-                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.context?.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(context.context?.applicationContext as Application)
                         ,context.context?.applicationContext as Application)
                 )
             )[PaymentMethodViewModel::class.java]

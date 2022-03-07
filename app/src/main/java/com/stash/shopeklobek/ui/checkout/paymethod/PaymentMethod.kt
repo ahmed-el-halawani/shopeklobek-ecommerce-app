@@ -2,14 +2,9 @@ package com.stash.shopeklobek.ui.checkout.paymethod
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.stash.shopeklobek.R
-import com.stash.shopeklobek.databinding.FragmentHomeBinding
-import com.stash.shopeklobek.databinding.FragmentLoginBinding
 import com.stash.shopeklobek.databinding.FragmentPaymentScreenBinding
-import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 
 class PaymentMethod : CheckoutBaseFragment<FragmentPaymentScreenBinding>(FragmentPaymentScreenBinding::inflate) {
@@ -31,7 +26,7 @@ class PaymentMethod : CheckoutBaseFragment<FragmentPaymentScreenBinding>(Fragmen
         }
 
         binding.btnToFinish.setOnClickListener {
-            viewmodel.pageLiveData.postValue(2)
+            viewmodel.pageIndexLiveData.postValue(2)
             findNavController().navigate(R.id.action_paymentMethod_to_finish)
         }
     }
