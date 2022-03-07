@@ -20,7 +20,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private lateinit var order: ArrayList<Order>
     private lateinit var adapterFavorite: AdapterFavorite
 
-    private val profileViewModel by lazy{
+    private val profileViewModel by lazy {
         ProfileViewModel.create(this)
     }
 
@@ -38,8 +38,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
 
 
-        order=ArrayList<Order>()
-        order.add(Order("55.5$","done","2021-04-10 10:28:21.052"))
+        order = ArrayList<Order>()
+        order.add(Order("55.5$", "done", "2021-04-10 10:28:21.052"))
         adapterOrder = AdapterOrder(ArrayList())
 
         binding.reOrderList.layoutManager =
@@ -48,7 +48,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
 
-        adapterFavorite = AdapterFavorite(ArrayList(),null)
+        adapterFavorite = AdapterFavorite(ArrayList(), null)
 
         binding.reFavorite.layoutManager =
             GridLayoutManager(context, 2)
@@ -57,14 +57,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         profileViewModel.getFavorites()
         profileViewModel.getOrders()
         profileViewModel.favorites.observe(viewLifecycleOwner, Observer {
-            if (it!=null)
-            adapterFavorite.setFavorite(it)
+            if (it != null)
+                adapterFavorite.setFavorite(it)
 
         })
 
         profileViewModel.orders.observe(viewLifecycleOwner, Observer {
-            if (it!=null)
-            adapterOrder.setOrders(it)
+            if (it != null)
+                adapterOrder.setOrders(it)
 
 
         })
@@ -79,4 +79,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         }
     }
+
 }

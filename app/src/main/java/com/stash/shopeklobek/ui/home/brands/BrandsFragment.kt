@@ -1,24 +1,21 @@
 package com.stash.shopeklobek.ui.home.brands
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.GridLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentBrandsBinding
-import com.stash.shopeklobek.databinding.FragmentHomeBinding
-import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
-import com.stash.shopeklobek.utils.Constants.TAG
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {
 
@@ -41,9 +38,6 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         val imageSlider = binding.imageSlider
         imageSlider.setImageList(imageList)
         imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
-        imageSlider.setOnClickListener {
-            Toast.makeText(requireContext(), "From imageSlider", Toast.LENGTH_SHORT).show()
-        }
 
         imageSlider.setItemClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {
@@ -56,7 +50,7 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         brandsViewModel.brands.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Either.Success -> {
-                    brandsAdapter = BrandsAdapter(it.data.smart_collections!!,requireContext(),this.requireParentFragment())
+                    brandsAdapter = BrandsAdapter(it.data.smart_collections!!)
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2,RecyclerView.VERTICAL,false)
                     recyclerView.adapter = brandsAdapter
                 }

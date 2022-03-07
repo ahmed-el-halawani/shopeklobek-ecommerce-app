@@ -7,54 +7,61 @@
     app:startDestination="@id/brandsFragment">
 
     <fragment
-        android:id="@+id/product_details_fragment"
-        android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
-        tools:layout="@layout/fragment_product_details"
-        android:label="ProductDetails" />
-    <fragment
         android:id="@+id/brandsFragment"
         android:name="com.stash.shopeklobek.ui.home.brands.BrandsFragment"
-        tools:layout="@layout/fragment_brands"
+        android:label="BrandsFragment"
 
-        android:label="BrandsFragment" >
+        tools:layout="@layout/fragment_brands">
         <action
             android:id="@+id/action_brandsFragment_to_vendorFragment"
             app:destination="@id/vendorFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
-        tools:layout="@layout/fragment_categories"
-
         android:name="com.stash.shopeklobek.ui.home.categories.CategoriesFragment"
-        android:label="CategoriesFragment"/>
+
+        android:label="CategoriesFragment"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_categoriesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        tools:layout="@layout/fragment_cart"
-
         android:name="com.stash.shopeklobek.ui.home.cart.CartFragment"
-        android:label="CartFragment" >
+
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_loginFragment2"
             app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        tools:layout="@layout/fragment_favorites"
-
         android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
-        android:label="FavoritesFragment" />
+
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/vendorFragment"
         android:name="com.stash.shopeklobek.ui.home.brands.VendorFragment"
         android:label="fragment_vendor"
-        tools:layout="@layout/fragment_vendor" >
+        tools:layout="@layout/fragment_vendor">
         <argument
             android:name="vendor"
             app:argType="string" />
+        <action
+            android:id="@+id/action_vendorFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
-        tools:layout="@layout/fragment_login"
         android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
 </navigation>

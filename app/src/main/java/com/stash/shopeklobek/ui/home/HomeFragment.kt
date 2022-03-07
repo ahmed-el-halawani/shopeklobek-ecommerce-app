@@ -45,8 +45,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     Pair(
                         R.id.categoriesFragment,
                         listOf(
-                            R.id.product_details_fragment
-                        ),
+                           // R.id.product_details_fragment
+                        )
+                        ,
                     ),
                 )
             )
