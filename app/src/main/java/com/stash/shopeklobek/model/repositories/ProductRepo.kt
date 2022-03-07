@@ -191,20 +191,15 @@ class ProductRepo(
         }
     }
 
-    fun getCart(): Either<LiveData<List<RoomCart>>, RoomCustomerError> {
-        val customerEmail = settingsPreferences.getSettings().customer?.email
-        return if (customerEmail != null) {
-            Either.Success(database.cartDao().getWithCustomerId(customerEmail = customerEmail))
-        } else {
-            Either.Error(RoomCustomerError.NoLoginCustomer)
-        }
+    fun getCart(): LiveData<List<RoomCart>> {
+        val customerEmail = settingsPreferences.getSettings().customer?.email?:"emm"
+        return database.cartDao().getWithCustomerId(customerEmail = customerEmail)
     }
 
 
     suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {
         try {
             val customerEmail = settingsPreferences.getSettings().customer?.email
-
                 ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
             if (product.productId == null) return Either.Error(RoomAddProductErrors.ProductIdNotFound)
             if (database.cartDao().getWithId(product.productId) != null) return Either.Error(RoomAddProductErrors.ProductAlreadyExist)

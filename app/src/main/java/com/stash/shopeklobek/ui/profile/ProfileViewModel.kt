@@ -18,16 +18,16 @@ class ProfileViewModel(application: Application,val productRepo: ProductRepo) : 
 
 
     fun getOrders()  {
-        orders.value = when(val orders = productRepo.getOrders()){
-            is Either.Error -> TODO()
-            is Either.Success -> orders.data.value
+         when(val order = productRepo.getOrders()){
+            is Either.Error -> {}
+            is Either.Success -> orders.value =order.data.value
         }
     }
 
     fun getFavorites() {
-        favorites.value = when(val favorite = productRepo.getFavorites()){
-            is Either.Error -> TODO()
-            is Either.Success -> favorite.data.value
+         when(val favorite = productRepo.getFavorites()){
+            is Either.Error -> {}
+            is Either.Success -> favorites.value =favorite.data.value
         }
     }
 
@@ -44,7 +44,7 @@ class ProfileViewModel(application: Application,val productRepo: ProductRepo) : 
                 context,
                 Factory(
                     context.context?.applicationContext as Application,
-                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.context?.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(context.context?.applicationContext as Application)
                         ,context.context?.applicationContext as Application)
                 )
             )[ProfileViewModel::class.java]

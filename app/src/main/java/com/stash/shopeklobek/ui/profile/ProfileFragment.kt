@@ -30,7 +30,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
         binding.btnSighnout.setOnClickListener {
-            SettingsPreferences(context?.applicationContext as Application).update {
+            SettingsPreferences.getInstance(context?.applicationContext as Application).update {
                 it.apply {
                     customer = null
                 }

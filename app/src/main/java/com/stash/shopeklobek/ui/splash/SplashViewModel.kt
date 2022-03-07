@@ -37,7 +37,7 @@ class SplashViewModel(val app: Application, val productRepo: ProductRepo) : Andr
                 Factory(
                     context.application,
                     ProductRepo(
-                        ShopifyApi.api, SettingsPreferences(context.application), context.application
+                        ShopifyApi.api, SettingsPreferences.getInstance(context.application), context.application
                     )
                 )
             )[SplashViewModel::class.java]

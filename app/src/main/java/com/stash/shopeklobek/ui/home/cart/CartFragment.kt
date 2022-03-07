@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCartBinding
 import com.stash.shopeklobek.model.entities.room.RoomCart
+import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.checkout.CheckoutActivity
@@ -76,6 +77,12 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         CartViewModel.create(this)
     }
 
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setupRecycleView()
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -85,44 +92,53 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            if (cartViewModel.productRepo.getSettings().customer == null) {
-                println("herere")
-                cvCartDetails.visibility = View.GONE
-                findNavController().navigate(R.id.action_cartFragment_to_loginFragment2)
-            } else {
-                cartViewModel.getCartProducts()
+            cartViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
+                if(it.customer == null){
+                    cartViewModel.isSettingsChanged = true
+                }
 
-                cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
-                    cvCartDetails.visibility = if (roomCarts.isEmpty()) View.GONE else View.VISIBLE
+                if (it.customer == null) {
+                    cvCartDetails.visibility = View.GONE
+                    findNavController().navigate(R.id.action_cartFragment_to_loginFragment2)
+                } else {
+                    if( cartViewModel.isNeedToRefresh(it.customer)){
+                        cartViewModel.getCartProductsEither()
+                    }
+                    cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
+                        cvCartDetails.visibility = if (roomCarts.isEmpty()) View.GONE else View.VISIBLE
 
-                    cartProductAdapter.differ.submitList(roomCarts)
+                        cartProductAdapter.differ.submitList(roomCarts)
 
-                    var price = 0.0
-                    var count = 0
+                        var price = 0.0
+                        var count = 0
 
-                    roomCarts.forEach {
-                        price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
-                        count += it.count
+                        roomCarts.forEach {
+                            price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
+                            count += it.count
+                        }
+
+                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(price.toString())
+                        tvTotalItems.text = count.toString()
+
                     }
 
-                    tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(price.toString())
-                    tvTotalItems.text = count.toString()
-
                 }
-
-                btnProceedToCheckout.setOnClickListener {
-                    startActivity(Intent(context, CheckoutActivity::class.java))
-                }
-
-                ItemTouchHelper(ViewHelpers.SwipeToRemove { position ->
-                    val product = cartProductAdapter.differ.currentList[position]
-
-                    deleteProductDialog(product)
-
-                }).attachToRecyclerView(rvCartProducts)
-
             }
+
+
+            btnProceedToCheckout.setOnClickListener {
+                startActivity(Intent(context, CheckoutActivity::class.java))
+            }
+
+            ItemTouchHelper(ViewHelpers.SwipeToRemove { position ->
+                val product = cartProductAdapter.differ.currentList[position]
+
+                deleteProductDialog(product)
+
+            }).attachToRecyclerView(rvCartProducts)
+
         }
+
 
     }
 

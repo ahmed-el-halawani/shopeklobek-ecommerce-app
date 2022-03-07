@@ -20,7 +20,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
 
-    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
+    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
 
     init {
         getMainCategory()

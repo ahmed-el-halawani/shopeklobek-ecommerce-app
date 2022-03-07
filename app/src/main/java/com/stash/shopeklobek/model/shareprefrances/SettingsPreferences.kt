@@ -2,6 +2,7 @@ package com.stash.shopeklobek.model.shareprefrances
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
@@ -18,17 +19,31 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
         private var instance: SettingsPreferences? = null
         private val Lock = Any()
 
-        operator fun invoke(application:Application) = instance ?:synchronized(Lock){
-            instance ?: SettingsPreferences(application)
+        val settings:MutableLiveData<Settings>  = MutableLiveData<Settings>()
+
+        fun getInstance(application:Application):SettingsPreferences{
+            return instance ?:synchronized(Lock){
+                instance ?: SettingsPreferences(application).also {
+                    instance = it
+                }
+            }
         }
+
+//        operator fun invoke(application:Application):SettingsPreferences {
+//            println("instance$instance")
+//            return instance ?:synchronized(Lock){
+//                instance ?: SettingsPreferences(application).also {
+//                    instance = it
+//                }
+//            }
+//        }
     }
 
-    val settings:MutableLiveData<Settings> by lazy {
-        MutableLiveData<Settings>(getSettings())
-    }
+    private var sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
 
-    private val sp: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
+    init {
+        Log.e("sharedPref", "new creation: ", )
+        settings.value = getSettings()
     }
 
     private fun settingsToJson(settings: Settings):String{
@@ -46,25 +61,23 @@ class SettingsPreferences(private val application:Application) : ISettingsPrefer
             putString(ALL_DATA_ROUTE,settingsToJson(settings))
             apply()
         }
-        getSettingsLiveData()
+        sp.getString(ALL_DATA_ROUTE,null)?.let { Companion.settings.postValue(settingsFromJson(it)) }
     }
 
     override fun update(update:(Settings)-> Settings) {
         sp.edit {
             putString(ALL_DATA_ROUTE,settingsToJson(update(getSettings())))
-
             apply()
         }
-        getSettingsLiveData()
+        sp.getString(ALL_DATA_ROUTE,null)?.let { settings.postValue(settingsFromJson(it)) }
     }
 
     override fun getSettingsLiveData(): MutableLiveData<Settings> {
-        sp.getString(ALL_DATA_ROUTE,null)?.let { settings.postValue(settingsFromJson(it)) }
+//        sp.getString(ALL_DATA_ROUTE,null)?.let { settings.postValue(settingsFromJson(it)) }
         return settings
     }
 
     override fun getSettings(): Settings {
-        println(sp.getString(ALL_DATA_ROUTE,null)?.let { settingsFromJson(it) })
         return sp.getString(ALL_DATA_ROUTE,null)?.let { settingsFromJson(it) }?: Settings.getDefault()
     }
 
