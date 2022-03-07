@@ -29,16 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 }
             }
         }
-        binding.btnAuto.setOnClickListener {
-            vm.getData("ibraheem@gmail.com")
-            vm.loginSuccess.observe(viewLifecycleOwner) {
-                if (it!!) {
 
-                    Toast.makeText(requireContext(), "Logged in sccesfully", Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-        }
     }
 
     private fun validteForm(): Boolean {
