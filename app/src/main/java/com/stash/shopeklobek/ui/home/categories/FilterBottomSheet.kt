@@ -16,8 +16,6 @@ class FilterBottomSheet(var hashMap: HashMap<String,Long>) : BottomSheetDialogFr
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        /*val categoryViewModelFactory = CategoriesViewModel.Factory(requireActivity().application)
-        categoriesViewModel = ViewModelProvider(this, categoryViewModelFactory)[CategoriesViewModel::class.java]*/
         binding = FragmentFilterBottomSheetBinding.inflate(inflater, container, false)
 
         binding.applyTextView.setOnClickListener {

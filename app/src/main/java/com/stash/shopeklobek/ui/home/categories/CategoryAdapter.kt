@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
+import com.stash.shopeklobek.ui.home.brands.BrandsFragmentDirections
 import com.stash.shopeklobek.utils.Constants.TAG
 
 class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
@@ -31,9 +32,9 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
             addToFavorite(listProducts[position])
             holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
         }
-        holder.categoryConstrainLayout.setOnClickListener { 
-            //TODO
-            it.findNavController().navigate(R.id.action_categoriesFragment_to_productDetailsFragment)
+        holder.categoryConstrainLayout.setOnClickListener {
+            val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductDetailsFragment(listProducts[position])
+            it.findNavController().navigate(action)
         }
         
     }

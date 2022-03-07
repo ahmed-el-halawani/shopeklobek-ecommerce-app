@@ -28,8 +28,8 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
             holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
         }
         holder.categoryConstrainLayout.setOnClickListener {
-            //TODO
-            it.findNavController().navigate(R.id.action_vendorFragment_to_productDetailsFragment)
+            val action = VendorFragmentDirections.actionVendorFragmentToProductDetailsFragment(listProducts[position])
+            it.findNavController().navigate(action)
         }
 
     }

@@ -1,7 +1,11 @@
 package com.stash.shopeklobek.model.entities
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Products(
     @SerializedName( "id")
     val productId: Long?,
@@ -34,6 +38,4 @@ data class Products(
     @SerializedName( "images")
     val images: List<Images>
 
-
-
-)
+) : Parcelable

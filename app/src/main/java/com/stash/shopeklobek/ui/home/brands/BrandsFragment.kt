@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.ui.home.brands
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import com.stash.shopeklobek.databinding.FragmentBrandsBinding
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.utils.Constants.TAG
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {
 
@@ -60,6 +62,15 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                         .show()
                     RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                     RepoErrors.EmptyBody -> Toast.makeText(requireContext(), "empty body!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        brandsViewModel.discounts.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Either.Success -> {
+
+                    Log.i(TAG, "onViewCreated: "+ (it.data.discount?.get(0)?.value ?: 0))
                 }
             }
         })

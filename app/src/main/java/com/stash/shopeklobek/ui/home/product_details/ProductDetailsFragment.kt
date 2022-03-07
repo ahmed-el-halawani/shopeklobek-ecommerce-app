@@ -1,15 +1,29 @@
 package com.stash.shopeklobek.ui.home.product_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.stash.shopeklobek.databinding.FragmentProductDetailsBinding
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.utils.Constants.TAG
 
 class ProductDetailsFragment: BaseFragment<FragmentProductDetailsBinding>(FragmentProductDetailsBinding::inflate){
+
+    private val args : ProductDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var myProduct : Products = args.product
+        Log.i(TAG, "onViewCreated: "+myProduct)
+
+
+
+
+
         val imageSlider =binding.imageSlider
         val imageList = ArrayList<SlideModel>()
 
@@ -20,7 +34,6 @@ class ProductDetailsFragment: BaseFragment<FragmentProductDetailsBinding>(Fragme
 
         imageSlider.setImageList(imageList,ScaleTypes.FIT)
     }
-
 
 
 

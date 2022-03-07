@@ -28,6 +28,9 @@ interface ShopifyServices {
                                     @Query("product_type") productType: String):
             Response<ProductsModel>
 
+    @GET("price_rules.json")
+    suspend fun getAllDiscounts():Response<DiscountModel>
+
     @GET("products/{productID}.json")
     suspend fun getProduct(@Path("productID") ProductId:Long ):
             Response<ProductModel>
@@ -36,8 +39,6 @@ interface ShopifyServices {
     suspend fun createDiscount(@Body priceRule:Discount):
             Response<Discount>
 
-    @GET("price_rules.json")
-    suspend fun getAllDiscounts():Response<DiscountModel>
 
     @GET("price_rules/{id}.json")
     suspend fun getDiscount(@Path("id") discountId:Long ):
