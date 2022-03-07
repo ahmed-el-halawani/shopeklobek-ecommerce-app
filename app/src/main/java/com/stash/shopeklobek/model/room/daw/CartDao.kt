@@ -24,4 +24,7 @@ interface CartDao : BaseDao<RoomCart> {
     @Query("DELETE FROM $CART_TABLE WHERE id = :id")
     override suspend fun delete(id: Long)
 
+    @Query("Select * from $CART_TABLE")
+    suspend fun getAllAsync(): List<RoomCart>
+
 }

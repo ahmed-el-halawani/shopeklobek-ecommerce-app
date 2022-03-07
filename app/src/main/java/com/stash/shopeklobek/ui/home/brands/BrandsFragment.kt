@@ -41,36 +41,42 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
 
         imageSlider.setItemClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {
-                Toast.makeText(requireContext(),"Clicked on Slider",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Clicked on Slider", Toast.LENGTH_SHORT).show()
             }
         })
         recyclerView = binding.brandRecyclerView
 
         brandsViewModel.getSmartCollection()
         brandsViewModel.brands.observe(viewLifecycleOwner, Observer {
-            when(it){
+            when (it) {
                 is Either.Success -> {
+
                     brandsAdapter = BrandsAdapter(it.data.smart_collections!!)
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2,RecyclerView.VERTICAL,false)
                     recyclerView.adapter = brandsAdapter
                 }
-                is Either.Error -> when(it.errorCode){
+                is Either.Error -> when (it.errorCode) {
                     RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT)
                         .show()
                     RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                    RepoErrors.EmptyBody -> Toast.makeText(requireContext(), "empty body!", Toast.LENGTH_SHORT).show()
                 }
             }
         })
+
 
         /*brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             when(it){
                 true ->{
                     showLoading()
                 }
-                false ->{
+                false -> {
                     hideLoading()
                 }
             }
+        })
+    }
+
         })*/
     }
 }

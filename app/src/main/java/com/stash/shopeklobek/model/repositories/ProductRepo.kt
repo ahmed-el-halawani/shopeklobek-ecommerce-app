@@ -111,6 +111,7 @@ class ProductRepo(
         }
     }
 
+
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
@@ -156,7 +157,6 @@ class ProductRepo(
     }
 
     //room repo
-
     fun getOrders(): Either<LiveData<List<RoomOrder>>, RoomCustomerError> {
         val customerEmail = settingsPreferences.getSettings().customer?.email
         if (customerEmail != null) {
@@ -198,6 +198,9 @@ class ProductRepo(
         return database.cartDao().getWithCustomerId(customerEmail = customerEmail)
     }
 
+    suspend fun getCartAsync(): List<RoomCart> {
+        return database.cartDao().getAllAsync()
+    }
 
     suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {
         try {
@@ -255,7 +258,6 @@ class ProductRepo(
     suspend fun deleteFromFavorite(id: Long) {
         database.favoriteDao().delete(id)
     }
-
 
     // settings repo
     fun insert(settings: Settings) = settingsPreferences.insert(settings)
@@ -327,7 +329,6 @@ class ProductRepo(
             Either.Success(Unit)
         }
     }
-
 
     private suspend fun <S, R> callErrorsHandler(
         application: Application, suspendedCall: suspend () -> Response<S>,
