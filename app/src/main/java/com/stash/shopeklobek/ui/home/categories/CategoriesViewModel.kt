@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.MainCategories
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.ProductsModel
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
@@ -16,14 +17,17 @@ import kotlinx.coroutines.launch
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
     val category = MutableLiveData<Either<MainCategories, RepoErrors>>()
-
     var products = MutableLiveData<Either<ProductsModel,RepoErrors>>()
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
 
     private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
 
-    fun getMainCategory() {
+    init {
+        getMainCategory()
+    }
+
+    private fun getMainCategory() {
         viewModelScope.launch {
             category.value= repo.getMainCategories()
         }
@@ -49,6 +53,11 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
             firstFilter.value = gender
             secondFilter.value = productType
             }
+    }
+
+    fun addToFavorite(product: Products){
+        Log.i(TAG, "addToFavorite: from viewmodel")
+        repo.addToFavorite(product)
     }
 
 

@@ -3,6 +3,7 @@ package com.stash.shopeklobek.ui.home.brands
 import android.app.Application
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.ProductsModel
 import com.stash.shopeklobek.model.entities.SmartCollectionModel
 import com.stash.shopeklobek.model.repositories.ProductRepo
@@ -32,6 +33,10 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
             loadingLiveData.postValue(true)
             vendors.value = repo.getProductsByVendor(vendor)
         }
+    }
+
+    fun addToFavorite(product: Products){
+        repo.addToFavorite(product)
     }
 
     class Factory(private val application: Application) : ViewModelProvider.Factory {

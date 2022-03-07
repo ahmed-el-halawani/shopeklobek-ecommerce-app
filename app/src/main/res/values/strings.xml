@@ -56,7 +56,7 @@
     <string name="english">English</string>
     <string name="currency">currency</string>
     <string name="egp">EGP</string>
-    <string name="euro">EURO</string>
+    <string name="euro">EUR</string>
     <string name="usd">USD</string>
     <string name="Currency">Currency</string>
     <string name="defaultAddress">There\'s no address to show right now !</string>

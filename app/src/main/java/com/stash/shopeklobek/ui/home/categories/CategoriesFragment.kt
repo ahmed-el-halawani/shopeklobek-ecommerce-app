@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
@@ -22,7 +20,7 @@ import com.stash.shopeklobek.utils.Constants.TAG
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCategoriesBinding::inflate) {
 
     private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var recyclerView: RecyclerView
+    private val recyclerView: RecyclerView by lazy { binding.categoryRecyclerView }
     private val categoriesViewModel: CategoriesViewModel by activityViewModels()
     private val hashMap:HashMap<String,Long> = HashMap()
 
@@ -30,9 +28,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btProductDetails.setOnClickListener {
-            findNavController().navigate(R.id.product_details_fragment)
-        }
         binding.filterLayout.setOnClickListener {
             val filterBottomSheet = FilterBottomSheet(hashMap)
             filterBottomSheet.show(parentFragmentManager,"TAG")
@@ -44,7 +39,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
         /*val categoryViewModelFactory = CategoriesViewModel.Factory(requireActivity().application)
         categoriesViewModel = ViewModelProvider(this, categoryViewModelFactory)[CategoriesViewModel::class.java]*/
 
-        categoriesViewModel.getMainCategory()
+        //categoriesViewModel.getMainCategory()
         categoriesViewModel.category.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
@@ -66,12 +61,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
         super.onResume()
         /*val categoryViewModelFactory = CategoriesViewModel.Factory(requireActivity().application)
         categoriesViewModel = ViewModelProvider(this, categoryViewModelFactory)[CategoriesViewModel::class.java]*/
-        recyclerView = binding.categoryRecyclerView
+        //recyclerView = binding.categoryRecyclerView
         categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
-                    Log.i(TAG, "onResume: ")
-                    categoryAdapter = CategoryAdapter(it.data.product,requireContext(),this.requireParentFragment())
+                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite)
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
                     recyclerView.adapter = categoryAdapter
                 }
@@ -87,6 +81,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                 "women" -> binding.filterTextView.text = resources.getString(R.string.women)
                 "men" -> binding.filterTextView.text = resources.getString(R.string.men)
                 "kid" -> binding.filterTextView.text = resources.getString(R.string.kids)
+                "sale" -> binding.filterTextView.text = resources.getString(R.string.sale)
                 else -> binding.filterTextView.text = resources.getString(R.string.none)
             }
         })

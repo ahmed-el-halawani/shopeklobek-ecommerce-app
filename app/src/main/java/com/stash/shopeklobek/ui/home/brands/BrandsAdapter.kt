@@ -9,13 +9,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.SmartCollection
 
-class BrandsAdapter(var listBrands: List<SmartCollection>, var context: Context,var fragment : Fragment) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
+class BrandsAdapter(var listBrands: List<SmartCollection>) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_brand,parent,false)
@@ -28,8 +29,8 @@ class BrandsAdapter(var listBrands: List<SmartCollection>, var context: Context,
         Glide.with(holder.brandImageView.context).load(listBrands[position].image.src).into(holder.brandImageView)
 
         holder.brandConstrainLayout.setOnClickListener {
-            Toast.makeText(context, ""+ listBrands[position].title, Toast.LENGTH_SHORT).show()
-            fragment.findNavController().navigate(R.id.vendorFragment)
+            val action = BrandsFragmentDirections.actionBrandsFragmentToVendorFragment(listBrands[position].title)
+            it.findNavController().navigate(action)
 
         }
     }

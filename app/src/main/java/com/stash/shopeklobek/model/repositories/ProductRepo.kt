@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
@@ -14,6 +15,7 @@ import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.utils.*
+import com.stash.shopeklobek.utils.Constants.TAG
 import com.stash.shopeklobek.utils.CurrencyUtil
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
 import kotlinx.coroutines.CoroutineScope
@@ -32,21 +34,6 @@ class ProductRepo(
         return callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
             Either.Success(it)
         })
-        /*return try {
-            return  if(hasInternet(application.applicationContext)){
-
-                val res = shopifyServices.getSmartCollection()
-                if (res.isSuccessful) {
-                    Either.Success(res.body()!!)
-                } else {
-                    Either.Error(RepoErrors.ServerError, res.message())
-                }
-            } else {
-                Either.Error(RepoErrors.NoInternetConnection)
-            }
-        }catch (t:Throwable){
-            Either.Error(RepoErrors.ServerError,t.message)
-        }*/
     }
 
     suspend fun getProductsByVendor(vendor: String): Either<ProductsModel,RepoErrors>{
@@ -232,6 +219,7 @@ class ProductRepo(
     }
 
     fun addToFavorite(product: Products) {
+        Log.i(TAG, "addToFavorite: repo")
         CoroutineScope(Dispatchers.IO).launch {
             database.favoriteDao().upsert(
                 RoomFavorite(
@@ -271,6 +259,26 @@ class ProductRepo(
         { currencyValues ->
             update {
                 it.currancy = CurrencyUtil.getCurrency(currencyName).apply {
+                    converterValue = when (idEnum) {
+                        CurrenciesEnum.EGP -> currencyValues.egp
+                        CurrenciesEnum.USD -> 1.0
+                        CurrenciesEnum.EUR -> currencyValues.eur
+                    }
+                }
+                it
+            }
+            Either.Success(Unit)
+        }
+    }
+
+    suspend fun selectCurrency(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> {
+        return callErrorsHandler(
+            application = application,
+            suspendedCall = currencyConverterApi::getCurrenciesValueNow
+        )
+        { currencyValues ->
+            update {
+                it.currancy = CurrencyUtil.getCurrency(currencyEnum).apply {
                     converterValue = when (idEnum) {
                         CurrenciesEnum.EGP -> currencyValues.egp
                         CurrenciesEnum.USD -> 1.0
