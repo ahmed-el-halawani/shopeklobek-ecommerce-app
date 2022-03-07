@@ -36,10 +36,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        /*val categoryViewModelFactory = CategoriesViewModel.Factory(requireActivity().application)
-        categoriesViewModel = ViewModelProvider(this, categoryViewModelFactory)[CategoriesViewModel::class.java]*/
 
-        //categoriesViewModel.getMainCategory()
         categoriesViewModel.category.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
@@ -59,9 +56,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
 
     override fun onResume() {
         super.onResume()
-        /*val categoryViewModelFactory = CategoriesViewModel.Factory(requireActivity().application)
-        categoriesViewModel = ViewModelProvider(this, categoryViewModelFactory)[CategoriesViewModel::class.java]*/
-        //recyclerView = binding.categoryRecyclerView
+
         categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {

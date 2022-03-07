@@ -63,5 +63,9 @@
         android:id="@+id/productDetailsFragment"
         android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
         android:label="fragment_product_details"
-        tools:layout="@layout/fragment_product_details" />
+        tools:layout="@layout/fragment_product_details" >
+        <argument
+            android:name="product"
+            app:argType="com.stash.shopeklobek.model.entities.Products" />
+    </fragment>
 </navigation>
