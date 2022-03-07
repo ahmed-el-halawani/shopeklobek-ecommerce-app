@@ -18,6 +18,10 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(val app: Application, val productRepo: ProductRepo) : AndroidViewModel(app) {
 
+    val settingsLiveData = productRepo.getSettingsLiveData()
+
+
+
     fun updateLanguage() {
         ViewHelpers.setAppLocale(
             ViewHelpers.returnByLanguage(productRepo.getSettings().language,"ar","en"), app.resources
@@ -38,7 +42,7 @@ class MainViewModel(val app: Application, val productRepo: ProductRepo) : Androi
                     context.application,
                     ProductRepo(
                         ShopifyApi.api,
-                        SettingsPreferences(context.application),
+                        SettingsPreferences.getInstance(context.application),
                         context.application
                     )
                 )

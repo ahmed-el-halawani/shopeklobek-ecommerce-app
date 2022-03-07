@@ -1,7 +1,6 @@
 package com.stash.shopeklobek.model.interfaces
 
 import com.stash.shopeklobek.model.entities.*
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -33,13 +32,12 @@ interface ShopifyServices {
     suspend fun getProduct(@Path("productID") ProductId:Long ):
             Response<ProductModel>
 
-    @GET("products/{productID}/images.json")
-    suspend fun getProductImage(@Path("productID") ProductId:Long ):
-            Response<ProductImages>
-
     @POST("price_rules.json")
     suspend fun createDiscount(@Body priceRule:Discount):
             Response<Discount>
+
+    @GET("price_rules.json")
+    suspend fun getAllDiscounts():Response<DiscountModel>
 
     @GET("price_rules/{id}.json")
     suspend fun getDiscount(@Path("id") discountId:Long ):

@@ -18,7 +18,7 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     var vendors = MutableLiveData<Either<ProductsModel,RepoErrors>>()
     val loadingLiveData = MutableLiveData<Boolean>(false)
 
-    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences(application),application)
+    private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
 
     fun getSmartCollection()  {
         viewModelScope.launch {

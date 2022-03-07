@@ -6,3 +6,4 @@ data class Discount(
     @SerializedName( "price_rule")
     val discount: PriceRule?,
 )
+
