@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
-        return onBackNavController?.navigateUp(bottomNavAppBarConfiguration)?:false||
+        return (navController.currentDestination?.id == R.id.homeNavHostFragment && onBackNavController?.navigateUp(bottomNavAppBarConfiguration)?:false)||
                 navController.navigateUp(drawerAppBarConfiguration) || super.onSupportNavigateUp()
     }
 
