@@ -30,14 +30,14 @@ class ProductRepo(
 ) {
     private val database = ProductDatabase(application)
 
-    suspend fun getSmartCollection(): Either<SmartCollectionModel,RepoErrors>{
-        return callErrorsHandler(application,{shopifyServices.getSmartCollection()},{
+    suspend fun getSmartCollection(): Either<SmartCollectionModel, RepoErrors> {
+        return callErrorsHandler(application, { shopifyServices.getSmartCollection() }, {
             Either.Success(it)
         })
     }
 
-    suspend fun getProductsByVendor(vendor: String): Either<ProductsModel,RepoErrors>{
-        return callErrorsHandler(application,{shopifyServices.getProductsByVendor(vendor)},{
+    suspend fun getProductsByVendor(vendor: String): Either<ProductsModel, RepoErrors> {
+        return callErrorsHandler(application, { shopifyServices.getProductsByVendor(vendor) }, {
             Either.Success(it)
         })
 
@@ -157,16 +157,17 @@ class ProductRepo(
 
     //room repo
 
-    fun getOrders(): LiveData<List<RoomOrder>> {
-        CoroutineScope(Dispatchers.IO).launch {
-            val customerId = settingsPreferences.getSettings().customer?.email
-            if (customerId != null) {
-                callErrorsHandler(application, { shopifyServices.getOrders(customerId) }) {
+    fun getOrders(): Either<LiveData<List<RoomOrder>>, RoomCustomerError> {
+        val customerEmail = settingsPreferences.getSettings().customer?.email
+        if (customerEmail != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                callErrorsHandler(application, { shopifyServices.getOrders(customerEmail) }) {
                     for (order in it.order) {
                         if (order != null) {
                             database.orderDao().upsert(
                                 RoomOrder(
                                     order.id ?: 0,
+                                    customerEmail = customerEmail,
                                     order
                                 )
                             )
@@ -175,28 +176,39 @@ class ProductRepo(
                     Either.Success(it)
                 }
             }
+        }else{
+            return Either.Error(RoomCustomerError.NoLoginCustomer)
         }
 
-        return database.orderDao().getAll()
+        return Either.Success(database.orderDao().getAll())
     }
 
 
-    fun getFavorites(): LiveData<List<RoomFavorite>> {
-        return database.favoriteDao().getAll()
+    fun getFavorites(): Either<LiveData<List<RoomFavorite>>, RoomCustomerError> {
+        val customerEmail = settingsPreferences.getSettings().customer?.email
+        return if (customerEmail != null) {
+            Either.Success(database.favoriteDao().getWithCustomerId(customerEmail = customerEmail))
+        } else {
+            Either.Error(RoomCustomerError.NoLoginCustomer)
+        }
     }
 
     fun getCart(): LiveData<List<RoomCart>> {
-        return database.cartDao().getAll()
+        val customerEmail = settingsPreferences.getSettings().customer?.email?:"emm"
+        return database.cartDao().getWithCustomerId(customerEmail = customerEmail)
     }
 
 
     suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {
         try {
+            val customerEmail = settingsPreferences.getSettings().customer?.email
+                ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
             if (product.productId == null) return Either.Error(RoomAddProductErrors.ProductIdNotFound)
             if (database.cartDao().getWithId(product.productId) != null) return Either.Error(RoomAddProductErrors.ProductAlreadyExist)
             database.cartDao().upsert(
                 RoomCart(
                     id = product.productId,
+                    customerEmail = customerEmail,
                     product = product,
                     variantId = variantId
                 )
@@ -216,16 +228,22 @@ class ProductRepo(
         }
     }
 
-    fun addToFavorite(product: Products) {
-        Log.i(TAG, "addToFavorite: repo")
+    fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
+        val customerEmail = settingsPreferences.getSettings().customer?.email
+            ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
+
         CoroutineScope(Dispatchers.IO).launch {
             database.favoriteDao().upsert(
                 RoomFavorite(
-                    product.productId ?: 0,
-                    product
+                    id = product.productId ?: 0,
+                    customerEmail = customerEmail,
+                    product = product
                 )
             )
         }
+
+        return Either.Success(Unit)
+
     }
 
     fun deleteFromCart(id: Long) {

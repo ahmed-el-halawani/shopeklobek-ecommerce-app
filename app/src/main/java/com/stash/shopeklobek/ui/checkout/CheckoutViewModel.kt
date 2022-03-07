@@ -25,7 +25,7 @@ class CheckoutViewModel(application: Application, val productRepo: ProductRepo) 
                 context,
                 Factory(
                     context.applicationContext as Application,
-                    ProductRepo(ShopifyApi.api, SettingsPreferences(context.applicationContext as Application)
+                    ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(context.applicationContext as Application)
                         ,context.applicationContext as Application)
                 )
             )[CheckoutViewModel::class.java]

@@ -53,7 +53,7 @@ class RegisterViewModel(application: Application,val authenticationRepo: Authent
                     context.context?.applicationContext as Application,
                     AuthenticationRepo(
                         ShopifyApi.api,
-                        SettingsPreferences(context.context?.applicationContext as Application),
+                        SettingsPreferences.getInstance(context.context?.applicationContext as Application),
                         context.context?.applicationContext as Application
                     )
                 )

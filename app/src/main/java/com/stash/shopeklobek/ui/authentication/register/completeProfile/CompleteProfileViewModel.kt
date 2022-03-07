@@ -32,7 +32,7 @@ class CompleteProfileViewModel(
                     context.context?.applicationContext as Application,
                     AuthenticationRepo(
                         ShopifyApi.api,
-                        SettingsPreferences(context.context?.applicationContext as Application),
+                        SettingsPreferences.getInstance(context.context?.applicationContext as Application),
                         context.context?.applicationContext as Application
                     )
                 )

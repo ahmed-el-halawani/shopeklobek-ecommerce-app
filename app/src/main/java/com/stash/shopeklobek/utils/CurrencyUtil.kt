@@ -51,7 +51,7 @@ object CurrencyUtil {
     fun convertCurrency(value: String?): String {
         if (application == null) return value?:"0"
 
-        val settings = SettingsPreferences(application!!)
+        val settings = SettingsPreferences.getInstance(application!!)
         val currency = settings.getSettings().currancy
 
         return try {

@@ -9,5 +9,7 @@ interface BaseDao<T> {
 
     suspend fun getWithId(id: Long): T?
 
+    fun getWithCustomerId(customerEmail: String): LiveData<List<T>>
+
     suspend  fun  delete(id: Long)
 }

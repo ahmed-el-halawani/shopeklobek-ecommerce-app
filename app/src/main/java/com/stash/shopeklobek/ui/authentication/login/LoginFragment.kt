@@ -10,12 +10,21 @@ import com.stash.shopeklobek.ui.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     var userEmail: String? = null
+
+    val vm by lazy {
+        LoginViewModel.create(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vm by lazy {
-            LoginViewModel.create(this)
+
+        vm.AuthRepo.settingsPreferences.getSettingsLiveData().observe(viewLifecycleOwner){
+            if(it.customer!=null){
+                findNavController().popBackStack()
+            }
         }
+
 
         binding.btnLogin.setOnClickListener {
             if (validteForm()) {
@@ -24,7 +33,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     if (it!!) {
                         Toast.makeText(requireContext(), "Logged in sccesfully", Toast.LENGTH_LONG)
                             .show()
-                        findNavController().navigate(R.id.action_nav_login_to_CompleteLoginFragment)
                     }
                 }
             }

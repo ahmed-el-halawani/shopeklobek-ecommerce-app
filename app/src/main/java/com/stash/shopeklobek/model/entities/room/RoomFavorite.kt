@@ -12,5 +12,6 @@ import com.stash.shopeklobek.utils.Constants.FAVORITES_TABLE
 )
 data class RoomFavorite(
     @PrimaryKey val id: Long,
+    val customerEmail:String,
     val product:Products
 )
