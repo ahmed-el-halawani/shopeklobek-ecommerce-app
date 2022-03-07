@@ -56,6 +56,18 @@
             app:destination="@id/CompleteLoginFragment" />
     </fragment>
     <fragment
+        android:id="@+id/loogin"
+        android:name="com.stash.shopeklobek.ui.authentication.completeAction.CompleteActionFragment"
+        android:label="completeAction"
+        tools:layout="@layout/fragment_complete_action" >
+        <action
+            android:id="@+id/action_loogin_to_nav_register"
+            app:destination="@id/nav_register" />
+        <action
+            android:id="@+id/action_loogin_to_nav_login"
+            app:destination="@id/nav_login" />
+    </fragment>
+    <fragment
         android:id="@+id/nav_register"
         android:name="com.stash.shopeklobek.ui.authentication.register.RegisterFragment"
         android:label="RegisterFragment"

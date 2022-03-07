@@ -63,6 +63,7 @@
     <string name="address">Address</string>
     <string name="pound">pound</string>
     <string name="please_login">please login</string>
+    <string name="login">LOGIN</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>
