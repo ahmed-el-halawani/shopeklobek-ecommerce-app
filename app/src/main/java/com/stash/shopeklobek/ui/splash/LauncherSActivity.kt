@@ -15,10 +15,7 @@ import com.stash.shopeklobek.BuildConfig
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.ui.MainActivity
 import com.stash.shopeklobek.utils.Constants.PAYPAL_CLIENT_ID
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class LauncherSActivity : AppCompatActivity() {
     lateinit var splashViewModel: SplashViewModel
@@ -28,27 +25,10 @@ class LauncherSActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launcher_sactivity)
 
         splashViewModel = SplashViewModel.create(this)
-        Log.e("splashViewModel", "onCreate: splashViewModel" )
 
         if(savedInstanceState==null){
             lifecycleScope.launch {
-                splashViewModel.updateCurrency()
-
-                GlobalScope.launch {
-                    PayPalCheckout.setConfig(
-                        CheckoutConfig(
-                            application = application,
-                            clientId = PAYPAL_CLIENT_ID,
-                            environment = Environment.SANDBOX,
-                            returnUrl = BuildConfig.APPLICATION_ID+"://paypalpay",
-                            currencyCode = CurrencyCode.USD,
-                            userAction = UserAction.PAY_NOW,
-                            settingsConfig = SettingsConfig(
-                                loggingEnabled = true
-                            )
-                        )
-                    )
-                }
+                delay(1000)
 
                 withContext(Dispatchers.Main){
                     startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))

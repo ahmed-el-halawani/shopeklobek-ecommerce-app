@@ -5,6 +5,7 @@ import android.content.res.Resources
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.orhanobut.hawk.Hawk
 import com.stash.shopeklobek.model.shareprefrances.Language
 import java.util.*
 
@@ -92,14 +93,24 @@ object ViewHelpers {
 
     }
 
-    fun setAppLocale(locale: Locale? = null, resources: Resources) {
+    fun setAppLocale(reBuildActivity: Activity, resources: Resources) {
+        val language:String? = Hawk.get("language")
+        val locale = if(language == null){
+            localeFromLanguage(ViewHelpers.languageEnumFromLocale())
+        }else{
+            Locale(""+language)
+        }
+
         val dm = resources.displayMetrics
         val config = resources.configuration
         config.setLocale(locale)
 
         resources.updateConfiguration(config, dm)
 
+        ActivityCompat.recreate(reBuildActivity)
+
     }
+
 
 
 }

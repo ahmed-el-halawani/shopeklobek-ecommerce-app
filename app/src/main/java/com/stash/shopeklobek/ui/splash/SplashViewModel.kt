@@ -17,11 +17,6 @@ class SplashViewModel(val app: Application, val productRepo: ProductRepo) : Andr
         productRepo.updateCurrency()
     }
 
-     fun updateLanguage(activity:Activity) {
-        ViewHelpers.setAppLocale(
-            activity, "ar", app.resources
-        )
-    }
 
 
     class Factory(private val application: Application, val productRepo: ProductRepo) : ViewModelProvider.Factory {

@@ -30,6 +30,8 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
 
 import com.stash.shopeklobek.utils.ViewHelpers
+import com.stash.shopeklobek.utils.ViewHelpers.localeFromLanguage
+import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 
 import java.util.*
 
@@ -73,14 +75,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewmodel.settingsLiveData.observe(this){
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-        }
-        viewmodel.updateLanguage()
+        if(savedInstanceState==null)
+            setAppLocale(this,resources)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         setSupportActionBar(binding.appBarMain.toolbar)
@@ -156,16 +156,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var dialog: AlertDialog? = null
 
-
-    override fun attachBaseContext(newBase: Context?) {
-        val language = Hawk.get("language")?:"en"
-        val locale = Locale(""+language)
-        val res = newBase!!.resources
-        val conf = res.configuration
-        conf.locale = locale
-        res.updateConfiguration(conf, res.displayMetrics)
-        super.attachBaseContext(newBase)
-    }
 
 
 }

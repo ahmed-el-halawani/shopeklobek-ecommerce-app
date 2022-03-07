@@ -12,6 +12,7 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.MainActivity
 import com.stash.shopeklobek.ui.authentication.login.LoginViewModel
+import com.stash.shopeklobek.utils.ViewHelpers
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,13 +54,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         binding.languageGroup.setOnCheckedChangeListener { _, i ->
             if (i == binding.btnEArabic.id) {
                 Hawk.put("language", "ar")
-                requireActivity().finish()
-                requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
             } else {
                 Hawk.put("language", "en")
-                requireActivity().finish()
-                requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
             }
+            ViewHelpers.setAppLocale(requireActivity(), resources)
         }
 
     }
