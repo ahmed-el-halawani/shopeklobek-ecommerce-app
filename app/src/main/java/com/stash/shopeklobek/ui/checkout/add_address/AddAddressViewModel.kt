@@ -29,7 +29,7 @@ class AddAddressViewModel(application: Application, val productRepo: ProductRepo
         addressLiveData.value = addressSource
     }
 
-    suspend fun addAddress() = productRepo.addAddress(AddressModel(addressSource))
+    suspend fun addAddress() = productRepo.addAddress(AddressModel(addressSource),isDefault)
 
 
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {

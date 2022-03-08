@@ -54,9 +54,9 @@
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="currency">currency</string>
-    <string name="egp">EGP</string>
-    <string name="euro">EUR</string>
-    <string name="usd">USD</string>
+    <string name="egp">Egyptian Pound</string>
+    <string name="sar">Saudi Riyal</string>
+    <string name="usd">United States Dollar</string>
     <string name="Currency">Currency</string>
     <string name="defaultAddress">There\'s no address to show right now !</string>
     <string name="address">Address</string>

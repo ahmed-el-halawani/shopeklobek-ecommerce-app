@@ -36,4 +36,6 @@ data class Address(
     fun generateAddressLine():String{
         return "$city, $address"
     }
+
+
 }

@@ -12,14 +12,12 @@ import com.stash.shopeklobek.databinding.FragmentPaymentScreenBinding
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 
-class Finish : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinishBinding::inflate) {
+class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinishBinding::inflate) {
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
-
 
 }
