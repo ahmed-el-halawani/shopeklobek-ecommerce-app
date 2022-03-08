@@ -11,41 +11,64 @@
     android:weightSum="3"
     tools:context=".ui.home.product_details.ProductDetailsFragment">
 
-    <TextView
-        android:id="@+id/tv_name_item"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="shoes orange "
-         android:textSize="27sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_price_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="23.556$"
-        android:textColor="@color/textSubTitleColor"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_item" />
-
-    <RatingBar
-
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_weight="1"
-        android:numStars="5"
-        android:rating="3"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:stepSize="0.5"
+        android:orientation="horizontal"
+        android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_name_item"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_item">
+
+
+        <TextView
+            android:id="@+id/tv_price_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="23.556$"
+            android:textColor="@color/textSubTitleColor"
+            android:textSize="20sp" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:numStars="5"
+            android:rating="3"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:stepSize="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_name_item"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:text="shoes orange "
+        android:textAlignment="center"
+         android:textSize="27sp"
+        app:autoSizeMaxTextSize="30sp"
+        app:autoSizeMinTextSize="20sp"
+        app:autoSizeStepGranularity=".5sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
 
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/imageSlider"
@@ -63,7 +86,7 @@
         app:iss_unselected_dot="@drawable/default_unselected_dot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_item"
+        app:layout_constraintTop_toBottomOf="@+id/content"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -107,6 +130,7 @@
 
         <LinearLayout
             android:id="@+id/btnAddToCart"
+            style="@style/ButtonAddToCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -114,8 +138,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="4"
- style="@style/ButtonAddToCart"
-             android:clickable="true"
+            android:clickable="true"
             android:padding="10dp"
             android:weightSum="4">
 
@@ -134,8 +157,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
                 android:layout_weight="2"
-                android:text="@string/add_to_cart"
-                 />
+                android:text="@string/add_to_cart" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

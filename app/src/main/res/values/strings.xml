@@ -72,6 +72,7 @@
     <string name="set_as_default_address">Set As Default Address</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="empty">Empty</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>

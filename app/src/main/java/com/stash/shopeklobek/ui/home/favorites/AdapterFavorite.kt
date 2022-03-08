@@ -42,7 +42,7 @@ class AdapterFavorite(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        Glide.with(holder.imageItem.context).load(listFavorites.get(position).product.image)
+        Glide.with(holder.imageItem.context).load(listFavorites.get(position).product.image.src)
             .into(holder.imageItem)
         holder.tvTitle.text = listFavorites.get(position).product.title
         holder.tvPrice.text = listFavorites.get(position).product.variants[0]?.price
@@ -57,9 +57,10 @@ class AdapterFavorite(
     }
 
     fun setFavorite(favorite: List<RoomFavorite>) {
+        if (!favorite.isEmpty()){
         this.listFavorites = favorite
         notifyDataSetChanged()
-    }
+    }}
 
 
     override fun getItemCount(): Int = listFavorites.size

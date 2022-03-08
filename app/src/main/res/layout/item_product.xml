@@ -16,7 +16,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F2F2F2"
+            android:background="@color/white"
             android:orientation="horizontal"
             android:weightSum="4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +46,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_favorite_24_red" />
         </LinearLayout>
-
-
         <TextView
             android:id="@+id/tv_title_item"
             android:layout_width="150dp"
@@ -55,6 +53,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="short"
+            android:maxLines="2"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

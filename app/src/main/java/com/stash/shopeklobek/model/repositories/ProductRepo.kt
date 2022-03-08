@@ -293,7 +293,7 @@ class ProductRepo(
         }
     }
 
-    fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
+       fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
         val customerEmail = settingsPreferences.getSettings().customer?.email
             ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
 
