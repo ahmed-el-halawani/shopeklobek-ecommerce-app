@@ -2,6 +2,7 @@ package com.stash.shopeklobek.ui.home.brands
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -28,12 +29,15 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
         val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
         brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
+        brandsViewModel.getFavorites()
+        Log.i("TAG", "onViewCreated: ")
         brandsViewModel.getProductsByVendor(args.vendor)
         recyclerView = binding.vendorRecyclerView
         brandsViewModel.vendors.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
-                    adapter = VendorAdapter(it.data.product,brandsViewModel::addToFavorite)
+
+                    adapter = VendorAdapter(it.data.product,brandsViewModel::addToFavorite, brandsViewModel.favorites.value?: emptyList())
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
                     recyclerView.adapter = adapter
                 }

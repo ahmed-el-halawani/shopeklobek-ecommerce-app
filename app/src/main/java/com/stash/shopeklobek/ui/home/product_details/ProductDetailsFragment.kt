@@ -9,7 +9,6 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.stash.shopeklobek.databinding.FragmentProductDetailsBinding
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.ui.BaseFragment
-import com.stash.shopeklobek.utils.Constants.TAG
 
 class ProductDetailsFragment :
     BaseFragment<FragmentProductDetailsBinding>(FragmentProductDetailsBinding::inflate) {
@@ -28,7 +27,7 @@ class ProductDetailsFragment :
         imageList.add(SlideModel(myProduct.images.get(0).src))
         imageList.add(SlideModel(myProduct.images.get(1).src))
         imageList.add(SlideModel(myProduct.images.get(2).src))
-        imageList.add(SlideModel(myProduct.images.get(3).src))
+        //imageList.add(SlideModel(myProduct.images.get(3).src))
         imageSlider.setImageList(imageList, ScaleTypes.FIT)
         binding.tvNameItem.text=myProduct.title
         binding.tvPriceItem.text=myProduct.variants[0]?.price

@@ -57,10 +57,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     override fun onResume() {
         super.onResume()
 
+        categoriesViewModel.getFavorites()
         categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
-                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite)
+                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
                     recyclerView.adapter = categoryAdapter
                 }

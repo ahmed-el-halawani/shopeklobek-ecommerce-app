@@ -1,24 +1,19 @@
 package com.stash.shopeklobek.ui.home.categories
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
-import com.stash.shopeklobek.ui.home.brands.BrandsFragmentDirections
-import com.stash.shopeklobek.utils.Constants.TAG
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
 
-class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit, var listFavorites : List<RoomFavorite> ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_category,parent,false)
@@ -28,10 +23,17 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryTitleTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price
         Glide.with(holder.categoryImageView.context).load(listProducts[position].image.src).into(holder.categoryImageView)
+        for ( i in 0 .. listFavorites.size.minus(1)){
+            if(listProducts[position].productId == listFavorites[i].product.productId){
+                holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
+            }
+        }
+
         holder.categoryFavoriteImageView.setOnClickListener {
             addToFavorite(listProducts[position])
             holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
         }
+
         holder.categoryConstrainLayout.setOnClickListener {
             val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductDetailsFragment(listProducts[position])
             it.findNavController().navigate(action)

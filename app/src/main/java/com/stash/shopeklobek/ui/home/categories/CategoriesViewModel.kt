@@ -7,6 +7,7 @@ import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.MainCategories
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.ProductsModel
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
@@ -18,6 +19,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     val category = MutableLiveData<Either<MainCategories, RepoErrors>>()
     var products = MutableLiveData<Either<ProductsModel,RepoErrors>>()
+    var favorites = MutableLiveData<List<RoomFavorite>>()
+
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
 
@@ -58,6 +61,18 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     fun addToFavorite(product: Products){
         Log.i(TAG, "addToFavorite: from viewmodel")
         repo.addToFavorite(product)
+    }
+
+    fun getFavorites() {
+        Log.i(TAG, "getFavorites: ")
+        when(val favorite = repo.getFavorites()){
+            is Either.Error -> {
+                Log.i(TAG, "getFavorites: error")}
+            is Either.Success -> {favorites.value = favorite.data.value
+                Log.d("getFavorites", favorite.data.toString())
+                Log.i(TAG, "getFavorites: success")
+            }
+        }
     }
 
 
