@@ -18,16 +18,13 @@ class ProductDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
 
         var myProduct: Products = args.product
-        Log.d("onViewCreated2", "onViewCreated: " + myProduct)
-
 
         val imageSlider = binding.imageSlider
         val imageList = ArrayList<SlideModel>()
 
-        imageList.add(SlideModel(myProduct.images.get(0).src))
-        imageList.add(SlideModel(myProduct.images.get(1).src))
-        imageList.add(SlideModel(myProduct.images.get(2).src))
-        //imageList.add(SlideModel(myProduct.images.get(3).src))
+        for(i in 0 .. myProduct.images.size.minus(1)){
+            imageList.add(SlideModel(myProduct.images[i].src))
+        }
         imageSlider.setImageList(imageList, ScaleTypes.FIT)
         binding.tvNameItem.text=myProduct.title
         binding.tvPriceItem.text=myProduct.variants[0]?.price
