@@ -10,6 +10,7 @@ import com.stash.shopeklobek.model.repositories.ProductRepo
 class ShippingAddressViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
 
 
+    suspend fun getCustomerShippingAddresses() = productRepo.getAddress()
 
 
 
