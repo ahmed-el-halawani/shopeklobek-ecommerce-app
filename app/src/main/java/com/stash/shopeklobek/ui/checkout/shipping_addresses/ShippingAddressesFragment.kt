@@ -6,12 +6,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentShippingAddressBinding
+import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 
 class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBinding>(FragmentShippingAddressBinding::inflate) {
 
     private val historyOfAddressessAdapter by lazy {
         HistoryOfAddressesAdapter().apply {
+            setOnItemClickListener(::onAddressClicked)
         }
     }
 
@@ -19,33 +21,40 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         ShippingAddressViewModel.create(this)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
-
-
 
         shippingAddressViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
             println("settings form view model")
             println(it)
         }
 
+        shippingAddressViewModel.getCustomerShippingAddresses()
+
+        shippingAddressViewModel.addressesLiveData.observe(viewLifecycleOwner) {
+            historyOfAddressessAdapter.differ.submitList(it.addresses ?: emptyList<Address>())
+
+            val firstAddress = it.addresses?.first()
+            binding.cvCurrentLocation.run {
+                if (firstAddress == null)
+                    visibility = View.GONE
+                else {
+                    visibility = View.VISIBLE
+                    address = firstAddress.generateAddressLine()
+                    setOnClickListener { onAddressClicked(firstAddress) }
+                }
+            }
+
+        }
 
         binding.apply {
-            cvCurrentLocation.setOnClickListener {
-                println("here")
-                viewmodel.pageIndexLiveData.postValue(1)
-                findNavController().navigate(R.id.action_shippingAddressesFragment_to_paymentMethod)
+
+            cvAddAddress.btn.setOnClickListener {
+                println("create address")
+                findNavController().navigate(R.id.action_shippingAddressesFragment_to_addAddressFragment)
             }
-
-            cvAddAddress.root.setOnClickListener {
-                println("here")
-            }
-
-
-//            btnProceedToCheckout.setOnClickListener{
-//
-//            }
 
 
         }
@@ -58,6 +67,11 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         }
     }
 
+    private fun onAddressClicked(address: Address) {
+        viewmodel.pageIndexLiveData.postValue(1)
+        checkoutActivity.checkoutVM.selectedAddress = address
+        findNavController().navigate(R.id.action_shippingAddressesFragment_to_paymentMethod)
+    }
 
 
 }
