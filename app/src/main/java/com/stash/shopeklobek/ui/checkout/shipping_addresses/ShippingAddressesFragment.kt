@@ -11,16 +11,15 @@ import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 
 class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBinding>(FragmentShippingAddressBinding::inflate) {
 
-    private val historyOfAddressessAdapter by lazy {
+    private val historyOfAddressesAdapter by lazy {
         HistoryOfAddressesAdapter().apply {
             setOnItemClickListener(::onAddressClicked)
         }
     }
 
-    val shippingAddressViewModel by lazy {
+    private val shippingAddressViewModel by lazy {
         ShippingAddressViewModel.create(this)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +33,7 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         shippingAddressViewModel.getCustomerShippingAddresses()
 
         shippingAddressViewModel.addressesLiveData.observe(viewLifecycleOwner) {
-            historyOfAddressessAdapter.differ.submitList(it.addresses ?: emptyList<Address>())
+            historyOfAddressesAdapter.differ.submitList(it.addresses ?: emptyList<Address>())
 
             val firstAddress = it.addresses?.first()
             binding.cvCurrentLocation.run {
@@ -56,20 +55,19 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
                 findNavController().navigate(R.id.action_shippingAddressesFragment_to_addAddressFragment)
             }
 
-
         }
     }
 
     private fun setupRecycleView() {
         binding.rvPastLocation.apply {
-            adapter = historyOfAddressessAdapter
+            adapter = historyOfAddressesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
     private fun onAddressClicked(address: Address) {
-        viewmodel.pageIndexLiveData.postValue(1)
-        checkoutActivity.checkoutVM.selectedAddress = address
+        mainViewModel.pageIndexLiveData.postValue(1)
+        mainViewModel.selectedAddress = address
         findNavController().navigate(R.id.action_shippingAddressesFragment_to_paymentMethod)
     }
 

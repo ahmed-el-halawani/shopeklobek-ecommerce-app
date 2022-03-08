@@ -23,7 +23,7 @@ class PaymentMethod : CheckoutBaseFragment<FragmentPaymentScreenBinding>(Fragmen
         }
 
         binding.rgMethods.setOnCheckedChangeListener { _, checkedId ->
-            checkoutActivity.checkoutVM.selectedPaymentMethods = when(checkedId){
+            mainViewModel.selectedPaymentMethods = when(checkedId){
                 R.id.rbPaypal-> PaymentMethodsEnum.Paypal
                 R.id.rbCash-> PaymentMethodsEnum.Cash
                 else ->  PaymentMethodsEnum.Cash
@@ -31,9 +31,14 @@ class PaymentMethod : CheckoutBaseFragment<FragmentPaymentScreenBinding>(Fragmen
         }
 
         binding.btnToFinish.setOnClickListener {
-            viewmodel.pageIndexLiveData.postValue(2)
+            mainViewModel.pageIndexLiveData.postValue(2)
             findNavController().navigate(R.id.action_paymentMethod_to_finish)
         }
+
+
+
+
+
     }
 
 
