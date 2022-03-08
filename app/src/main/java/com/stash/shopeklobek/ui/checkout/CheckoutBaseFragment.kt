@@ -21,7 +21,7 @@ abstract class CheckoutBaseFragment<T : ViewBinding>(val viewBindingInflater:(La
         viewBindingInflater(layoutInflater)
     }
 
-    val viewmodel by lazy{
+    val mainViewModel by lazy{
         checkoutActivity.checkoutVM
     }
 

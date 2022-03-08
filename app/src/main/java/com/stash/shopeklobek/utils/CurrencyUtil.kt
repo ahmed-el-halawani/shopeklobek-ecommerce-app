@@ -27,9 +27,9 @@ object CurrencyUtil {
     fun updateCurrencyValue(c: CurrencyConverterResult) {
         currenciesList.forEach {
             it.converterValue = when (it.idEnum) {
-                CurrenciesEnum.EGP -> c.egp
+                CurrenciesEnum.EGP -> 1.0
                 CurrenciesEnum.EUR -> c.eur
-                else -> 1.0
+                CurrenciesEnum.USD -> c.usd
             }
         }
     }

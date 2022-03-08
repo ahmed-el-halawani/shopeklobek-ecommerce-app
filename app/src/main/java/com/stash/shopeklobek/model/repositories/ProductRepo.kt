@@ -321,8 +321,8 @@ class ProductRepo(
             update {
                 it.currancy = CurrencyUtil.getCurrency(currencyName).apply {
                     converterValue = when (idEnum) {
-                        CurrenciesEnum.EGP -> currencyValues.egp
-                        CurrenciesEnum.USD -> 1.0
+                        CurrenciesEnum.EGP -> 1.0
+                        CurrenciesEnum.USD -> currencyValues.usd
                         CurrenciesEnum.EUR -> currencyValues.eur
                     }
                 }
@@ -341,8 +341,8 @@ class ProductRepo(
             update {
                 it.currancy = CurrencyUtil.getCurrency(currencyEnum).apply {
                     converterValue = when (idEnum) {
-                        CurrenciesEnum.EGP -> currencyValues.egp
-                        CurrenciesEnum.USD -> 1.0
+                        CurrenciesEnum.EGP -> 1.0
+                        CurrenciesEnum.USD -> currencyValues.usd
                         CurrenciesEnum.EUR -> currencyValues.eur
                     }
                 }
@@ -361,8 +361,8 @@ class ProductRepo(
             update {
                 it.currancy = CurrencyUtil.getCurrency(it.currancy.idEnum).apply {
                     converterValue = when (idEnum) {
-                        CurrenciesEnum.EGP -> currencyValues.egp
-                        CurrenciesEnum.USD -> 1.0
+                        CurrenciesEnum.EGP -> 1.0
+                        CurrenciesEnum.USD -> currencyValues.usd
                         CurrenciesEnum.EUR -> currencyValues.eur
                     }
                 }
