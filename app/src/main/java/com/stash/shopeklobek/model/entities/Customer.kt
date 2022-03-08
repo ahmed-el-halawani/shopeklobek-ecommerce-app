@@ -41,4 +41,6 @@ data class Customer(
 
     @SerializedName( "password_confirmation")
     val passwordConfirmation: String? = "",
-)
+){
+
+}

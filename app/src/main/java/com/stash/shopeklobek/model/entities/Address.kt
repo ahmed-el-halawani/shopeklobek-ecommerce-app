@@ -1,8 +1,11 @@
 package com.stash.shopeklobek.model.entities
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Address(
 
     @SerializedName( "id")
@@ -23,4 +26,14 @@ data class Address(
     @SerializedName( "zip")
     val zip: String? = "",
 
-    ):Serializable
+    @SerializedName( "default")
+    val default: Boolean = false,
+
+    @SerializedName( "phone")
+    val phone: String? = "",
+
+): Parcelable {
+    fun generateAddressLine():String{
+        return "$city, $address"
+    }
+}

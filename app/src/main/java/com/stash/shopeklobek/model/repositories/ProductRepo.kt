@@ -1,7 +1,6 @@
 package com.stash.shopeklobek.model.repositories
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
@@ -15,7 +14,6 @@ import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.utils.*
-import com.stash.shopeklobek.utils.Constants.TAG
 import com.stash.shopeklobek.utils.CurrencyUtil
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
 import kotlinx.coroutines.CoroutineScope
@@ -111,12 +109,11 @@ class ProductRepo(
         }
     }
 
-    suspend fun getAllDiscounts():Either<DiscountModel, RepoErrors>{
-        return callErrorsHandler(application, {shopifyServices.getAllDiscounts()}, {
+    suspend fun getAllDiscounts(): Either<DiscountModel, RepoErrors> {
+        return callErrorsHandler(application, { shopifyServices.getAllDiscounts() }, {
             Either.Success(it)
         })
     }
-
 
 
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
@@ -147,20 +144,58 @@ class ProductRepo(
         TODO("Not yet implemented")
     }
 
-    suspend fun addAddress(customerId: Long, address: AddressModel): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun addAddress(address: AddressModel): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.addAddress(customerId,address) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
-    suspend fun deleteAddress(customerId: Long, addressId: Long): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun deleteAddress( addressId: Long): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.deleteAddress(customerId,addressId) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
-    suspend fun updateAddress(customerId: Long, addressId: Long, address: AddressModel): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun updateAddress(addressId: Long, address: AddressModel): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.updateAddress(customerId,addressId,address) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
-    suspend fun getAddress(customerId: Long): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun setDefault(addressId: Long): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.setDefault(customerId,addressId) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
+    }
+
+    suspend fun getAddress(): Either<Customer, RepoErrors> {
+
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.getAddress(customerId) }) {
+                if (it.customer != null)
+                    Either.Success(it.customer)
+                else
+                    Either.Error(RepoErrors.EmptyBody)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
     //room repo
@@ -183,7 +218,7 @@ class ProductRepo(
                     Either.Success(it)
                 }
             }
-        }else{
+        } else {
             return Either.Error(RoomCustomerError.NoLoginCustomer)
         }
 
@@ -201,7 +236,7 @@ class ProductRepo(
     }
 
     fun getCart(): LiveData<List<RoomCart>> {
-        val customerEmail = settingsPreferences.getSettings().customer?.email?:"emm"
+        val customerEmail = settingsPreferences.getSettings().customer?.email ?: "emm"
         return database.cartDao().getWithCustomerId(customerEmail = customerEmail)
     }
 
@@ -361,6 +396,9 @@ class ProductRepo(
             return Either.Error(RepoErrors.NoInternetConnection, "no internet Connection")
         }
     }
+
+    private fun getCustomerFromSettings() = settingsPreferences.getSettings().customer
+
 
 }
 

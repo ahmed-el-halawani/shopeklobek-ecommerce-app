@@ -8,5 +8,13 @@
     <string name="apply">تطبيق</string>
     <string name="language">اللغه</string>
     <string name="pound">جنية</string>
+    <string name="city">المدينة*</string>
+    <string name="address_line">عنوان الشارع*</string>
+    <string name="first_name">الاسم الاول*</string>
+    <string name="last_name">اسم العائلة</string>
+    <string name="phone">رقم الهاتف*</string>
+    <string name="set_as_default_address">ضع هذا العنوان الافتراضي</string>
+    <string name="cancel">الغاء</string>
+    <string name="save">حفظ</string>
 
 </resources>

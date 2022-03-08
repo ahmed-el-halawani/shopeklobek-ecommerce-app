@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_shippingAddressesFragment_to_paymentMethod"
             app:destination="@id/paymentMethod" />
+        <action
+            android:id="@+id/action_shippingAddressesFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_payment_screen"
@@ -22,15 +25,18 @@
         <action
             android:id="@+id/action_paymentMethod_to_finish"
             app:destination="@id/finish" />
+        <argument
+            android:name="address"
+            app:argType="com.stash.shopeklobek.model.entities.Address" />
     </fragment>
-    <fragment
-        tools:layout="@layout/fragment_login"
-        android:id="@+id/loginFragment"
-        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
-        android:label="LoginFragment" />
     <fragment
         tools:layout="@layout/fragment_finish"
         android:id="@+id/finish"
         android:name="com.stash.shopeklobek.ui.checkout.finish.Finish"
         android:label="Finish" />
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.stash.shopeklobek.ui.checkout.add_address.AddAddressFragment"
+        android:label="fragment_add_address"
+        tools:layout="@layout/fragment_add_address" />
 </navigation>

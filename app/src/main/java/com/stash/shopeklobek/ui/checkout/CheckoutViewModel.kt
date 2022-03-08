@@ -6,11 +6,31 @@ import androidx.lifecycle.*
 import com.paypal.pyplcheckout.utils.getOrAwaitValue
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.Address
+import com.stash.shopeklobek.model.entities.PriceRule
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.repositories.ProductRepo
+import com.stash.shopeklobek.ui.checkout.paymethod.PaymentMethod
 import kotlinx.coroutines.launch
 
+enum class PaymentMethodsEnum{
+    Cash,Paypal
+}
+
 class CheckoutViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
+
+    var selectedAddress: Address? = null
+
+    var selectedPaymentMethods:PaymentMethodsEnum = PaymentMethodsEnum.Cash
+
+    var fixedDiscountLiveData = MutableLiveData<PriceRule>(null)
+
+
+    fun addDiscount(discountCode:String){
+
+    }
+
+
 
     val loadingLiveData = MutableLiveData(false)
 
