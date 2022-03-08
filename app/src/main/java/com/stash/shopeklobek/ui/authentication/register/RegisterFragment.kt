@@ -3,6 +3,8 @@ package com.stash.shopeklobek.ui.authentication.register
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentRegisterBinding
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.CustomerModel
@@ -50,6 +52,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     ).show()
                 }
             }
+        }
+        binding.tvlogin.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_register_to_nav_login)
         }
     }
 

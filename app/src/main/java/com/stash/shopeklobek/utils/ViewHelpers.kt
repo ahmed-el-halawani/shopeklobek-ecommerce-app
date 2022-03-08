@@ -100,7 +100,6 @@ object ViewHelpers {
         }else{
             Locale(""+language)
         }
-
         val dm = resources.displayMetrics
         val config = resources.configuration
         config.setLocale(locale)
