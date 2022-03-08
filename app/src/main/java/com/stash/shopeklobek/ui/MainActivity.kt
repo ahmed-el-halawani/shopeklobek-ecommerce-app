@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         MainViewModel.create(this)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState==null)
@@ -80,8 +79,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         setSupportActionBar(binding.appBarMain.toolbar)
 

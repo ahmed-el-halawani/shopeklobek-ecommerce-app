@@ -47,6 +47,9 @@
         tools:layout="@layout/fragment_login"
         >
 
+        <action
+            android:id="@+id/action_nav_login_to_nav_register"
+            app:destination="@id/nav_register" />
     </fragment>
     <fragment
         android:id="@+id/loogin"
@@ -66,6 +69,10 @@
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"
 
-        />
+        >
+        <action
+            android:id="@+id/action_nav_register_to_nav_login"
+            app:destination="@id/nav_login" />
+    </fragment>
 
 </navigation>

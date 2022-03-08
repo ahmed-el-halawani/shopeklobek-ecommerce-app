@@ -3,6 +3,8 @@ package com.stash.shopeklobek.ui.authentication.register
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentRegisterBinding
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.CustomerModel
@@ -51,6 +53,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 }
             }
         }
+        binding.tvlogin.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_register_to_nav_login)
+        }
     }
 
     private fun validateFrem(): Boolean {
@@ -74,6 +79,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             binding.edtPassword.error = "Required"
             return false
         }
+        if (userPassword!!.length<8) {
+            binding.edtPassword.requestFocus()
+            binding.edtPassword.error = "password must be more than 8 characters"
+            return false
+        }
+        if (userConfirmPassword!!.length<8) {
+            binding.edtConfirm.requestFocus()
+            binding.edtConfirm.error = "password must be more than 8 characters"
+            return false
+        }
         if (userConfirmPassword!!.isEmpty()) {
             binding.edtConfirm.requestFocus()
             binding.edtConfirm.error = "Required"
@@ -84,6 +99,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             binding.edtConfirm.error = "password doesn't match"
             return false
         }
+
         return true
     }
 }
