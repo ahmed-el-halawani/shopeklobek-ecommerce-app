@@ -25,7 +25,7 @@
                 android:layout_margin="20dp"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSighnout">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -97,7 +97,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5">
+                        app:layout_constraintTop_toBottomOf="@+id/textEmail">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
@@ -124,6 +124,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/allFavorites"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
@@ -159,6 +160,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/allCart"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
@@ -195,6 +197,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:id="@+id/allOrders"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
@@ -269,7 +272,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_favoriteList"
                 app:spanCount="2"
-                tools:itemCount="4"
+                tools:itemCount="2"
                 tools:listitem="@layout/item_product" />
 
             <TextView
@@ -292,10 +295,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sighn out"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toStartOf="parent" />
+              </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

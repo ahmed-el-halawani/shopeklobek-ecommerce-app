@@ -2,7 +2,11 @@ package com.stash.shopeklobek.ui.profile
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,14 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentProfileBinding
 import com.stash.shopeklobek.model.entities.Order
+import com.stash.shopeklobek.model.entities.room.RoomCart
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.model.entities.room.RoomOrder
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     private lateinit var adapterOrder: AdapterOrder
-    private lateinit var order: ArrayList<Order>
+    private lateinit var order: ArrayList<RoomOrder>
+    private lateinit var favorite: ArrayList<RoomFavorite>
+
     private lateinit var adapterFavorite: AdapterFavorite
 
     private val profileViewModel by lazy {
@@ -38,13 +48,78 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
 
 
-        order = ArrayList<Order>()
-        order.add(Order("55.5$", "done", "2021-04-10 10:28:21.052"))
+        order = ArrayList<RoomOrder>()
+        favorite = ArrayList<RoomFavorite>()
         adapterOrder = AdapterOrder(ArrayList())
 
         binding.reOrderList.layoutManager =
             LinearLayoutManager(context)
         binding.reOrderList.adapter = adapterOrder
+        profileViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
+
+        if (it.customer == null) {
+            Toast.makeText(activity,"login",Toast.LENGTH_LONG).show()
+
+
+        }else
+        {
+            // get data from room
+            when (val res = profileViewModel.getFavorites()) {
+                is Either.Error -> {
+                    TODO()
+                }
+                is Either.Success -> {
+                    res.data.observe(viewLifecycleOwner) {
+                        if (!it.isEmpty()) {
+                            binding.allFavorites.text="${it.size}"
+                            favorite.add(it[0])
+                            if (it.size > 1) {
+                                favorite.add(it[1])
+                                adapterFavorite.setFavorite(favorite)
+                            }
+                            adapterFavorite.setFavorite(favorite)
+                        }else{
+                            binding.allFavorites.text=getString(R.string.empty)
+
+                        }
+                    }
+                }
+            }
+
+            profileViewModel.getCart()
+            profileViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
+                if (roomCarts.isEmpty())
+                    binding.allCart.text=getString(R.string.empty)
+                else
+                    binding.allCart.text="${roomCarts.size}"
+            }
+            when (val res = profileViewModel.getOrders()) {
+                is Either.Error -> {
+                    TODO()
+                }
+                is Either.Success -> {
+                    res.data.observe(viewLifecycleOwner) {
+                        if (!it.isEmpty()) {
+                            binding.allOrders.text="${it.size}"
+                            order.add(it[0])
+                            if (it.size > 1) {
+                                order.add(it[1])
+                                adapterOrder.setOrders(order)
+                            }
+                            adapterOrder.setOrders(order)
+                        }else{
+                            binding.allOrders.text=getString(R.string.empty)
+
+                        }
+                    }
+                }
+            }
+            binding.tvFirstName.text= it.customer!!.firstName
+            binding.textEmail.text=it.customer!!.email
+        }
+
+
+        }
 
 
 
@@ -53,21 +128,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.reFavorite.layoutManager =
             GridLayoutManager(context, 2)
         binding?.reFavorite?.adapter = adapterFavorite
-        // get data from room
-        profileViewModel.getFavorites()
-        profileViewModel.getOrders()
-        profileViewModel.favorites.observe(viewLifecycleOwner, Observer {
-            if (it != null)
-                adapterFavorite.setFavorite(it)
 
-        })
-
-        profileViewModel.orders.observe(viewLifecycleOwner, Observer {
-            if (it != null)
-                adapterOrder.setOrders(it)
-
-
-        })
 
         binding.tvMoreFavorite.setOnClickListener {
             findNavController().navigate(R.id.action_more_favorite)
