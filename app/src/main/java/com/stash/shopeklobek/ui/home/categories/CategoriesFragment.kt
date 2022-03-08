@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCategoriesBinding
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
@@ -23,6 +24,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     private val recyclerView: RecyclerView by lazy { binding.categoryRecyclerView }
     private val categoriesViewModel: CategoriesViewModel by activityViewModels()
     private val hashMap:HashMap<String,Long> = HashMap()
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
