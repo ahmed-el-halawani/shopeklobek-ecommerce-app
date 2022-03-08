@@ -33,7 +33,8 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         shippingAddressViewModel.getCustomerShippingAddresses()
 
         shippingAddressViewModel.addressesLiveData.observe(viewLifecycleOwner) {
-            historyOfAddressesAdapter.differ.submitList(it.addresses ?: emptyList<Address>())
+            historyOfAddressesAdapter.differ.submitList(it.addresses?.reversed() ?: emptyList<Address>())
+            println(it.addresses)
 
             val firstAddress = it.getDefaultOrFirst()
             binding.cvCurrentLocation.run {
@@ -61,7 +62,7 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
     private fun setupRecycleView() {
         binding.rvPastLocation.apply {
             adapter = historyOfAddressesAdapter
-            layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,true)
+            layoutManager = LinearLayoutManager(activity)
         }
     }
 

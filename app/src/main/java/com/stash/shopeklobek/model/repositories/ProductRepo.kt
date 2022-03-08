@@ -154,7 +154,7 @@ class ProductRepo(
             when (res) {
                 is Either.Error -> Either.Error(res.errorCode, res.message)
                 is Either.Success -> {
-                    if (isDefault)
+                    if (!isDefault)
                         Either.Success(Unit)
                     else {
                         val id = res.data.customerAddress?.id
