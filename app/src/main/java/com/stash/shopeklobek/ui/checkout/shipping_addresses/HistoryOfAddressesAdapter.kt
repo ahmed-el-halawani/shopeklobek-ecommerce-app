@@ -4,8 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.maps.model.LatLng
-import com.stash.shopeklobek.utils.OnlineMapImageHelper.getImageFromLatLon
+import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.utils.customviews.AddressCardView
 
 class HistoryOfAddressesAdapter : RecyclerView.Adapter<HistoryOfAddressesAdapter.ViewHolder>() {
@@ -22,33 +21,35 @@ class HistoryOfAddressesAdapter : RecyclerView.Adapter<HistoryOfAddressesAdapter
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        println(getImageFromLatLon(LatLng(30.0778, 31.2852)))
+        val addressData = differ.currentList[position]
 
         holder.addressCardView.apply {
-            title = "test location"
-            address = "test Address"
-//            setLocationImageResource(R.drawable.map)
-            setImageFromUrl(getImageFromLatLon(LatLng(30.0778, 31.2852)))
+            title = addressData.city
+            address = addressData.generateAddressLine()
+            setOnClickListener { onItemClickListener?.invoke(addressData) }
             refresh()
+
+//            setImageFromUrl(getImageFromLatLon(LatLng(30.0778, 31.2852)))
+            //setLocationImageResource(R.drawable.map)
         }
     }
 
     override fun getItemCount(): Int =
-        10
+        differ.currentList.size
 
 
-//    // set listeners
-//    fun setOnItemClickListener(onItemClickListener: ((WeatherLang) -> Unit)?) {
-//        this.onItemClickListener = onItemClickListener
-//    }
+    //    // set listeners
+    fun setOnItemClickListener(onItemClickListener: ((Address) -> Unit)?) {
+        this.onItemClickListener = onItemClickListener
+    }
 
     // using DiffUtil to update our recycle
     // when update or change list of items
-    private val differCallback = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
+    private val differCallback = object : DiffUtil.ItemCallback<Address>() {
+        override fun areItemsTheSame(oldItem: Address, newItem: Address): Boolean =
+            oldItem.id == newItem.id
 
-
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
+        override fun areContentsTheSame(oldItem: Address, newItem: Address): Boolean =
             oldItem == newItem
     }
 
@@ -56,7 +57,7 @@ class HistoryOfAddressesAdapter : RecyclerView.Adapter<HistoryOfAddressesAdapter
 
 
     // private vars
-//    private var onItemClickListener: ((WeatherLang) -> Unit)? = null
+    private var onItemClickListener: ((Address) -> Unit)? = null
 
     data class ViewHolder(val addressCardView: AddressCardView) : RecyclerView.ViewHolder(addressCardView)
 
