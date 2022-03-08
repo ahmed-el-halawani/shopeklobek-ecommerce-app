@@ -2,8 +2,10 @@ package com.stash.shopeklobek.ui.home.brands
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +17,7 @@ import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.utils.Constants.TAG
 
 
 class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding::inflate) {
@@ -35,7 +38,7 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
         brandsViewModel.getProductsByVendor(args.vendor)
         recyclerView = binding.vendorRecyclerView
 
-        binding.searchImageView.setOnClickListener {
+        binding.searchTextView.addTextChangedListener {
             searching.value = binding.searchTextView.text.toString()
         }
 
