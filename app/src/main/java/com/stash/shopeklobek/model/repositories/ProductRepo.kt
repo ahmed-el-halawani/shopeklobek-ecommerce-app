@@ -144,18 +144,45 @@ class ProductRepo(
         TODO("Not yet implemented")
     }
 
-    suspend fun addAddress(customerId: Long, address: AddressModel): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun addAddress(address: AddressModel): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.addAddress(customerId,address) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
-    suspend fun deleteAddress(customerId: Long, addressId: Long): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun deleteAddress( addressId: Long): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.deleteAddress(customerId,addressId) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
-    suspend fun updateAddress(customerId: Long, addressId: Long, address: AddressModel): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun updateAddress(addressId: Long, address: AddressModel): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.updateAddress(customerId,addressId,address) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
+    suspend fun setDefault(addressId: Long): Either<Unit, RepoErrors> {
+        val customerId = getCustomerFromSettings()?.customerId
+        return if (customerId != null)
+            callErrorsHandler(application, { shopifyServices.setDefault(customerId,addressId) }) {
+                Either.Success(Unit)
+            }
+        else
+            Either.Error(RepoErrors.ServerError, "NoCustomer")
+    }
 
     suspend fun getAddress(): Either<Customer, RepoErrors> {
 
