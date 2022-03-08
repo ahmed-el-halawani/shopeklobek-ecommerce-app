@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCategoriesBinding
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.ui.home.brands.VendorAdapter
 import com.stash.shopeklobek.utils.Constants.TAG
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCategoriesBinding::inflate) {
@@ -23,6 +27,9 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     private val recyclerView: RecyclerView by lazy { binding.categoryRecyclerView }
     private val categoriesViewModel: CategoriesViewModel by activityViewModels()
     private val hashMap:HashMap<String,Long> = HashMap()
+    var searching : MutableLiveData<String> = MutableLiveData()
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,10 +64,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     override fun onResume() {
         super.onResume()
 
+        categoriesViewModel.getFavorites()
         categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
-                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite)
+                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
                     recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
                     recyclerView.adapter = categoryAdapter
                 }
@@ -69,6 +77,37 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                     RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                 }
             }
+        })
+
+        binding.searchCategoryTextView.addTextChangedListener {
+            searching.value = binding.searchCategoryTextView.text.toString()
+        }
+
+        searching.observe(viewLifecycleOwner, Observer { it1 ->
+            categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
+                when(it) {
+                    is Either.Success -> {
+                        if(it1 == null){
+                            categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
+                        }else {
+                            var list: MutableList<Products> = mutableListOf()
+                            for (i in 0..it.data.product.size.minus(1)) {
+                                var string = binding.searchCategoryTextView.text
+                                if (it.data.product[i].title!!.contains(string, ignoreCase = true)) {
+                                    list.add(it.data.product[i])
+                                }
+                            }
+                            categoryAdapter = CategoryAdapter(list,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
+                        }
+                        recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
+                        recyclerView.adapter = categoryAdapter
+                    }
+                    is Either.Error -> when (it.errorCode) {
+                        RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
+                        RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         })
 
         categoriesViewModel.firstFilter.observe(viewLifecycleOwner, Observer {

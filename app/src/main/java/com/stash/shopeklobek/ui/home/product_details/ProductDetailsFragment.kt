@@ -28,12 +28,9 @@ class ProductDetailsFragment :
 
 
         var myProduct: Products = args.product
-        Log.d("onViewCreated2", "onViewCreated: " + myProduct)
-
 
         val imageSlider = binding.imageSlider
         val imageList = ArrayList<SlideModel>()
-
 
         for (i in myProduct.images){
             imageList.add(SlideModel(i.src))

@@ -63,6 +63,7 @@
     <string name="pound">pound</string>
     <string name="please_login">please login</string>
     <string name="login">LOGIN</string>
+    <string name="search">Search....</string>
     <string name="city">City*</string>
     <string name="address_line">Address Line*</string>
     <string name="first_name">First Name*</string>
