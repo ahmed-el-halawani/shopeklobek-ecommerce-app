@@ -22,7 +22,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         when (vm.productRepo.getSettings().currancy.idEnum) {
             CurrenciesEnum.EGP -> binding.currencyGroup.check(binding.btnEGP.id)
             CurrenciesEnum.USD -> binding.currencyGroup.check(binding.btnUSD.id)
-            CurrenciesEnum.EUR -> binding.currencyGroup.check(binding.btnEURO.id)
+            CurrenciesEnum.SAR -> binding.currencyGroup.check(binding.btnEURO.id)
         }
     }
 
@@ -35,7 +35,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                 vm.getCurrency(CurrenciesEnum.USD)
             }
             if (i == binding.btnEURO.id) {
-                vm.getCurrency(CurrenciesEnum.EUR)
+                vm.getCurrency(CurrenciesEnum.SAR)
             }
         }
 

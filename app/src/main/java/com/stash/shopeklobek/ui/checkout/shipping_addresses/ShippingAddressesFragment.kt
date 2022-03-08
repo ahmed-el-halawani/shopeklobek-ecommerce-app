@@ -35,7 +35,7 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         shippingAddressViewModel.addressesLiveData.observe(viewLifecycleOwner) {
             historyOfAddressesAdapter.differ.submitList(it.addresses ?: emptyList<Address>())
 
-            val firstAddress = it.addresses?.first()
+            val firstAddress = it.getDefaultOrFirst()
             binding.cvCurrentLocation.run {
                 if (firstAddress == null)
                     visibility = View.GONE
@@ -44,24 +44,24 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
                     address = firstAddress.generateAddressLine()
                     setOnClickListener { onAddressClicked(firstAddress) }
                 }
+                refresh()
             }
 
         }
 
         binding.apply {
-
             cvAddAddress.btn.setOnClickListener {
                 println("create address")
                 findNavController().navigate(R.id.action_shippingAddressesFragment_to_addAddressFragment)
             }
-
         }
+
     }
 
     private fun setupRecycleView() {
         binding.rvPastLocation.apply {
             adapter = historyOfAddressesAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,true)
         }
     }
 

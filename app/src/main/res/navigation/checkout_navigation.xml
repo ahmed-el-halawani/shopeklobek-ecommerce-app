@@ -32,7 +32,7 @@
     <fragment
         tools:layout="@layout/fragment_finish"
         android:id="@+id/finish"
-        android:name="com.stash.shopeklobek.ui.checkout.finish.Finish"
+        android:name="com.stash.shopeklobek.ui.checkout.finish.FinishFragment"
         android:label="Finish" />
     <fragment
         android:id="@+id/addAddressFragment"

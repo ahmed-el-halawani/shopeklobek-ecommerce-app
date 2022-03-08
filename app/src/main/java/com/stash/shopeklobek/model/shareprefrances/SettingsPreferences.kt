@@ -101,5 +101,5 @@ enum class Language{
 }
 
 enum class CurrenciesEnum {
-    EGP, USD, EUR
+    EGP, USD, SAR
 }

@@ -143,20 +143,41 @@ class ProductRepo(
         TODO("Not yet implemented")
     }
 
-    suspend fun addAddress(address: AddressModel): Either<Unit, RepoErrors> {
+    suspend fun addAddress(address: AddressModel, isDefault: Boolean): Either<Unit, RepoErrors> {
         val customerId = getCustomerFromSettings()?.customerId
-        return if (customerId != null)
-            callErrorsHandler(application, { shopifyServices.addAddress(customerId,address) }) {
-                Either.Success(Unit)
+        return if (customerId != null) {
+
+            val res = callErrorsHandler(application, { shopifyServices.addAddress(customerId, address) }) {
+                Either.Success(it)
             }
-        else
+
+            when (res) {
+                is Either.Error -> Either.Error(res.errorCode, res.message)
+                is Either.Success -> {
+                    if (isDefault)
+                        Either.Success(Unit)
+                    else {
+                        val id = res.data.customerAddress?.id
+                        if (id == null) {
+                            Either.Error(RepoErrors.ServerError, "customerAddress ==null or id == null")
+                        } else {
+                            callErrorsHandler(application, { shopifyServices.setDefault(customerId, id) }) {
+                                Either.Success(Unit)
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        } else
             Either.Error(RepoErrors.ServerError, "NoCustomer")
     }
 
-    suspend fun deleteAddress( addressId: Long): Either<Unit, RepoErrors> {
+    suspend fun deleteAddress(addressId: Long): Either<Unit, RepoErrors> {
         val customerId = getCustomerFromSettings()?.customerId
         return if (customerId != null)
-            callErrorsHandler(application, { shopifyServices.deleteAddress(customerId,addressId) }) {
+            callErrorsHandler(application, { shopifyServices.deleteAddress(customerId, addressId) }) {
                 Either.Success(Unit)
             }
         else
@@ -166,7 +187,7 @@ class ProductRepo(
     suspend fun updateAddress(addressId: Long, address: AddressModel): Either<Unit, RepoErrors> {
         val customerId = getCustomerFromSettings()?.customerId
         return if (customerId != null)
-            callErrorsHandler(application, { shopifyServices.updateAddress(customerId,addressId,address) }) {
+            callErrorsHandler(application, { shopifyServices.updateAddress(customerId, addressId, address) }) {
                 Either.Success(Unit)
             }
         else
@@ -176,7 +197,7 @@ class ProductRepo(
     suspend fun setDefault(addressId: Long): Either<Unit, RepoErrors> {
         val customerId = getCustomerFromSettings()?.customerId
         return if (customerId != null)
-            callErrorsHandler(application, { shopifyServices.setDefault(customerId,addressId) }) {
+            callErrorsHandler(application, { shopifyServices.setDefault(customerId, addressId) }) {
                 Either.Success(Unit)
             }
         else
@@ -322,7 +343,7 @@ class ProductRepo(
                     converterValue = when (idEnum) {
                         CurrenciesEnum.EGP -> 1.0
                         CurrenciesEnum.USD -> currencyValues.usd
-                        CurrenciesEnum.EUR -> currencyValues.eur
+                        CurrenciesEnum.SAR -> currencyValues.sar
                     }
                 }
                 it
@@ -336,13 +357,18 @@ class ProductRepo(
             application = application,
             suspendedCall = currencyConverterApi::getCurrenciesValueNow
         )
-        { currencyValues ->
+        {
+
+                currencyValues ->
+
+            println(currencyValues)
+
             update {
                 it.currancy = CurrencyUtil.getCurrency(currencyEnum).apply {
                     converterValue = when (idEnum) {
                         CurrenciesEnum.EGP -> 1.0
                         CurrenciesEnum.USD -> currencyValues.usd
-                        CurrenciesEnum.EUR -> currencyValues.eur
+                        CurrenciesEnum.SAR -> currencyValues.sar
                     }
                 }
                 it
@@ -362,7 +388,7 @@ class ProductRepo(
                     converterValue = when (idEnum) {
                         CurrenciesEnum.EGP -> 1.0
                         CurrenciesEnum.USD -> currencyValues.usd
-                        CurrenciesEnum.EUR -> currencyValues.eur
+                        CurrenciesEnum.SAR -> currencyValues.sar
                     }
                 }
                 it

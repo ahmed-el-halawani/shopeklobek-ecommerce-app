@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CurrencyConverterService {
-    @GET("/api/v7/convert?q=USD_EGP,USD_EUR&compact=ultra")
+    @GET("/api/v7/convert?q=EGP_USD,EGP_SAR&compact=ultra")
     suspend fun getCurrenciesValueNow(
         @Query("apiKey") apiKey:String = Constants.CURRENCY_CONVERTER_API_KEY
     ): Response<CurrencyConverterResult>

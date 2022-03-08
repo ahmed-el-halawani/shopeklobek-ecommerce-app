@@ -20,7 +20,7 @@ object CurrencyUtil {
         ),
 
         Currency(
-            "Euro", "€", "EUR", CurrenciesEnum.EUR
+            "Saudi Riyal", "﷼", "SAR", CurrenciesEnum.SAR
         ),
     )
 
@@ -28,7 +28,7 @@ object CurrencyUtil {
         currenciesList.forEach {
             it.converterValue = when (it.idEnum) {
                 CurrenciesEnum.EGP -> 1.0
-                CurrenciesEnum.EUR -> c.eur
+                CurrenciesEnum.SAR -> c.sar
                 CurrenciesEnum.USD -> c.usd
             }
         }
@@ -53,6 +53,7 @@ object CurrencyUtil {
 
         val settings = SettingsPreferences.getInstance(application!!)
         val currency = settings.getSettings().currancy
+
 
         return try {
             (currency.converterValue * (value?.toDouble()?:0.0)).toFixed().toString() + currency.currencySymbol

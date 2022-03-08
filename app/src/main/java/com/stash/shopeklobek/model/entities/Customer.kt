@@ -3,44 +3,53 @@ package com.stash.shopeklobek.model.entities
 import com.google.gson.annotations.SerializedName
 
 data class Customer(
-    @SerializedName( "id")
+    @SerializedName("id")
     val customerId: Long? = null,
 
-    @SerializedName( "email")
+    @SerializedName("email")
     val email: String?,
 
-    @SerializedName( "phone")
+    @SerializedName("phone")
     val phone: String? = "",
 
-    @SerializedName( "first_name")
+    @SerializedName("first_name")
     val firstName: String? = "",
 
-    @SerializedName( "last_name")
+    @SerializedName("last_name")
     val lastName: String? = "",
 
-    @SerializedName( "orders_count")
+    @SerializedName("orders_count")
     val ordersCount: Int = 0,
 
-    @SerializedName( "state")
+    @SerializedName("state")
     val state: String? = "",
 
-    @SerializedName( "currency")
+    @SerializedName("currency")
     val currency: String? = "EGP",
 
-    @SerializedName( "note")
+    @SerializedName("note")
     val note: String? = "",
 
-    @SerializedName( "total_spent")
+    @SerializedName("total_spent")
     val totalSpent: String? = "",
 
-    @SerializedName( "addresses")
+    @SerializedName("addresses")
     val addresses: List<Address>? = listOf(),
 
-    @SerializedName( "password")
+    @SerializedName("password")
     val password: String? = "",
 
-    @SerializedName( "password_confirmation")
+    @SerializedName("password_confirmation")
     val passwordConfirmation: String? = "",
-){
+) {
+    fun getDefaultOrFirst(): Address? {
+        return if (!addresses.isNullOrEmpty()) {
+            return addresses.firstOrNull {
+                it.default
+            } ?: addresses.first()
+        }else{
+            null
+        }
+    }
 
 }
