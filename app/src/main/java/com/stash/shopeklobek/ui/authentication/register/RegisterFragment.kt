@@ -79,6 +79,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             binding.edtPassword.error = "Required"
             return false
         }
+        if (userPassword!!.length<8) {
+            binding.edtPassword.requestFocus()
+            binding.edtPassword.error = "password must be more than 8 characters"
+            return false
+        }
+        if (userConfirmPassword!!.length<8) {
+            binding.edtConfirm.requestFocus()
+            binding.edtConfirm.error = "password must be more than 8 characters"
+            return false
+        }
         if (userConfirmPassword!!.isEmpty()) {
             binding.edtConfirm.requestFocus()
             binding.edtConfirm.error = "Required"
@@ -89,6 +99,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             binding.edtConfirm.error = "password doesn't match"
             return false
         }
+
         return true
     }
 }
