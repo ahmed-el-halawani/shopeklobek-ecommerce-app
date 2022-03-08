@@ -3,13 +3,9 @@ package com.stash.shopeklobek.ui.profile
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
-import com.stash.shopeklobek.model.ModelFavorite
-import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.model.entities.room.RoomOrder
 
 class AdapterOrder(var orders:List<RoomOrder>) :
