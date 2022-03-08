@@ -9,12 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
-import com.stash.shopeklobek.model.ModelFavorite
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
-import java.lang.String
 
 class AdapterFavorite(
     var listFavorites:  List<RoomFavorite>,
