@@ -49,8 +49,7 @@
     <string name="choose_the_pay_method">Payment methods</string>
     <string name="enter_coupon_here">Enter your voucher here</string>
     <string name="apply">Apply</string>
-    <string name="last_name" translatable="false">Last Name</string>
-    <string name="first_name" translatable="false">First Name</string>
+
     <string name="full_name" translatable="false">Full name</string>
     <string name="language">Language</string>
     <string name="english">English</string>
@@ -65,6 +64,14 @@
     <string name="please_login">please login</string>
     <string name="login">LOGIN</string>
     <string name="search">Search....</string>
+    <string name="city">City*</string>
+    <string name="address_line">Address Line*</string>
+    <string name="first_name">First Name*</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone">Phone*</string>
+    <string name="set_as_default_address">Set As Default Address</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>

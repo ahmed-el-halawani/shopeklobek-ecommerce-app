@@ -82,6 +82,12 @@ interface ShopifyServices {
                               @Body address:AddressModel):
                               Response<CustomerAddressModel>
 
+
+    @PUT("customers/{customer_id}/addresses/{address_id}/default.json")
+    suspend fun setDefault(@Path("customer_id") customerId:Long,
+                              @Path("address_id") addressId:Long):
+                              Response<CustomerAddressModel>
+
     @GET("customers/{customer_id}.json")
     suspend fun getAddress(@Path("customer_id") customerId:Long):
             Response<CustomerModel>

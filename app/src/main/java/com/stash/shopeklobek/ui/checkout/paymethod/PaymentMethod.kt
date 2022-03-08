@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentPaymentScreenBinding
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
+import com.stash.shopeklobek.ui.checkout.PaymentMethodsEnum
 
 class PaymentMethod : CheckoutBaseFragment<FragmentPaymentScreenBinding>(FragmentPaymentScreenBinding::inflate) {
 
@@ -21,18 +22,27 @@ class PaymentMethod : CheckoutBaseFragment<FragmentPaymentScreenBinding>(Fragmen
             rbCash.setOnClickListener (::onRadioButtonSelected)
         }
 
-        binding.rgMethods.setOnCheckedChangeListener { group, checkedId ->
-            println(checkedId)
+        binding.rgMethods.setOnCheckedChangeListener { _, checkedId ->
+            mainViewModel.selectedPaymentMethods = when(checkedId){
+                R.id.rbPaypal-> PaymentMethodsEnum.Paypal
+                R.id.rbCash-> PaymentMethodsEnum.Cash
+                else ->  PaymentMethodsEnum.Cash
+            }
         }
 
         binding.btnToFinish.setOnClickListener {
-            viewmodel.pageIndexLiveData.postValue(2)
+            mainViewModel.pageIndexLiveData.postValue(2)
             findNavController().navigate(R.id.action_paymentMethod_to_finish)
         }
+
+
+
+
+
     }
 
 
-    fun onRadioButtonSelected(view:View){
+    private fun onRadioButtonSelected(view:View){
         binding.rgMethods.check(view.id)
     }
 

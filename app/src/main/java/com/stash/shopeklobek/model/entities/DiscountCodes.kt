@@ -7,7 +7,7 @@ data class DiscountCodes(
     val code: String? = "",
 
     @SerializedName( "amount")
-    val amount: String? = "10.0",
+    val amount: String? = "-10.0",
 
     @SerializedName( "type")
     val type: String? = "percentage",

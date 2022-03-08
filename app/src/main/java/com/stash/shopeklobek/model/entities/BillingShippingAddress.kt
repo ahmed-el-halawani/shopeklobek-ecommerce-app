@@ -15,4 +15,6 @@ data class BillingShippingAddress(
     val city: String? = "",
     @SerializedName( "country")
     val country: String? = "",
+    @SerializedName( "phone")
+    val phone: String? = "",
 )

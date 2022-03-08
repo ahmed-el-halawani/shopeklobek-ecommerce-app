@@ -32,4 +32,12 @@ data class PriceRule(
 
 
 
-)
+){
+    fun toDiscountCode():DiscountCodes{
+        return DiscountCodes(
+            code = title,
+            amount = value,
+            type = valueType
+        )
+    }
+}

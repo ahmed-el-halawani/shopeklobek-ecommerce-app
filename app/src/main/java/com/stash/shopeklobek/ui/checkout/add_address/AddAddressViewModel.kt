@@ -1,38 +1,45 @@
-package com.stash.shopeklobek.ui.checkout.shipping_addresses
+package com.stash.shopeklobek.ui.checkout.add_address
 
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.Address
+import com.stash.shopeklobek.model.entities.AddressModel
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.utils.Either
 import kotlinx.coroutines.launch
 
-class ShippingAddressViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
 
-    val addressesLiveData= MutableLiveData<Customer>()
+class AddAddressViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
 
-    fun getCustomerShippingAddresses() = viewModelScope.launch {
-        when(val productRepo = productRepo.getAddress()){
-            is Either.Error -> {
+    var addressSource = Address()
+    val addressLiveData = MutableLiveData(addressSource)
 
-            }
-            is Either.Success -> addressesLiveData.postValue(productRepo.data!!)
-        }
+    var isDefault = false
+
+    var isValid = false
+
+    var setErrors = false
+
+    fun setErrors(){
+        setErrors = true
+        addressLiveData.value = addressSource
     }
 
+    suspend fun addAddress() = productRepo.addAddress(AddressModel(addressSource))
 
 
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ShippingAddressViewModel(application,productRepo) as T
+            return AddAddressViewModel(application,productRepo) as T
         }
     }
 
     companion object{
-        fun create(context: Fragment):ShippingAddressViewModel{
+        fun create(context: Fragment):AddAddressViewModel{
             return ViewModelProvider(
                 context,
                 Factory(
@@ -40,7 +47,7 @@ class ShippingAddressViewModel(application: Application, val productRepo: Produc
                     ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(context.context?.applicationContext as Application)
                         ,context.context?.applicationContext as Application)
                 )
-            )[ShippingAddressViewModel::class.java]
+            )[AddAddressViewModel::class.java]
         }
     }
 }

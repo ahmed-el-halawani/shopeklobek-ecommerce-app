@@ -22,5 +22,8 @@ data class CustomerAddress(
     val zip: String? = "",
 
     @SerializedName( "city")
-    val city: String? = ""
+    val city: String? = "",
+
+    @SerializedName( "phone")
+    val phone: String? = "",
 )
