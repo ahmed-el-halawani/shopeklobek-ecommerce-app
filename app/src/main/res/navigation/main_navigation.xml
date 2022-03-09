@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_more_order"
             app:destination="@id/OrdersFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_loogin"
+            app:destination="@id/loogin" />
     </fragment>
     <fragment
         android:id="@+id/OrdersFragment"

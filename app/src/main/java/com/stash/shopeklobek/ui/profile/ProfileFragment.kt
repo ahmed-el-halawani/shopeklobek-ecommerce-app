@@ -59,9 +59,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         profileViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
 
         if (it.customer == null) {
-            Toast.makeText(activity,"login",Toast.LENGTH_LONG).show()
-
-
+             findNavController().navigate(R.id.action_nav_profile_to_loogin)
         }else
         {
             // get data from room
@@ -115,14 +113,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     }
                 }
             }
-            binding.tvFirstName.text= it.customer!!.firstName
+            val str = it.customer!!.firstName
+            val delim = " "
+
+            val list = str!!.split(delim)
+
+            println(list)
+            binding.tvFirstName.text= list[0]
+            if (list.size>1)
+            binding.tvEndName.text=list[1]
             binding.textEmail.text=it.customer!!.email
         }
 
 
         }
-
-
 
         adapterFavorite = AdapterFavorite(ArrayList(), null)
 

@@ -37,11 +37,50 @@
             app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
+        android:id="@+id/nav_register"
+        android:name="com.stash.shopeklobek.ui.authentication.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register"
+
+        >
+        <action
+            android:id="@+id/action_nav_register_to_nav_login"
+            app:destination="@id/nav_login" />
+    </fragment>
+
+    <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
-
         android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_nav_not_login"
+            app:destination="@id/loogin" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"
+        >
+
+        <action
+            android:id="@+id/action_nav_login_to_nav_register"
+            app:destination="@id/nav_register" />
+    </fragment>
+    <fragment
+        android:id="@+id/loogin"
+        android:name="com.stash.shopeklobek.ui.authentication.completeAction.CompleteActionFragment"
+        android:label="completeAction"
+        tools:layout="@layout/fragment_complete_action" >
+        <action
+            android:id="@+id/action_loogin_to_nav_register"
+            app:destination="@id/nav_register" />
+        <action
+            android:id="@+id/action_loogin_to_nav_login"
+            app:destination="@id/nav_login" />
+    </fragment>
     <fragment
         android:id="@+id/vendorFragment"
         android:name="com.stash.shopeklobek.ui.home.brands.VendorFragment"
