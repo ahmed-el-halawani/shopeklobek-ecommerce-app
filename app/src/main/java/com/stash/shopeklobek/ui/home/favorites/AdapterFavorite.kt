@@ -49,8 +49,22 @@ class AdapterFavorite(
 
         holder.ivDeleteFavorite.setOnClickListener {
 
-            favoritesViewModel?.deleteFavorite(listFavorites.get(position).id)
-            Toast.makeText(holder.imageItem.context,"deleted",Toast.LENGTH_LONG).show()
+            AlertDialog.Builder(holder.imageItem.context).apply {
+                setNegativeButton("No") { d, i ->
+                    d.dismiss()
+                }
+                setPositiveButton("yes") { d, i ->
+                    favoritesViewModel?.deleteFavorite(listFavorites.get(position).id)
+                    Toast.makeText(holder.imageItem.context,holder.imageItem.context.getString(R.string.product_deleted),Toast.LENGTH_LONG).show()
+                    notifyDataSetChanged()
+                    d.dismiss()
+                 }
+
+                setTitle(holder.imageItem.context.getString(R.string.do_u_want_remove_product))
+            }.create().show()
+
+
+
         }
 
 
@@ -60,7 +74,10 @@ class AdapterFavorite(
         if (!favorite.isEmpty()){
         this.listFavorites = favorite
         notifyDataSetChanged()
-    }}
+    }else
+            notifyDataSetChanged()
+
+    }
 
 
     override fun getItemCount(): Int = listFavorites.size
