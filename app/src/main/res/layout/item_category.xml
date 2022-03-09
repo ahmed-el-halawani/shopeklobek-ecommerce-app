@@ -41,7 +41,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="5dp"
-                android:text="TextView"
+                tools:text="TextView"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"

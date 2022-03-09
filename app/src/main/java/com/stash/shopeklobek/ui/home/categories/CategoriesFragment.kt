@@ -20,6 +20,7 @@ import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.brands.VendorAdapter
 import com.stash.shopeklobek.utils.Constants.TAG
+import com.stash.shopeklobek.utils.observeOnce
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCategoriesBinding::inflate) {
 
@@ -39,7 +40,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
             val filterBottomSheet = FilterBottomSheet(hashMap)
             filterBottomSheet.show(parentFragmentManager,"TAG")
         }
-        //categoriesViewModel.getAllCategory()
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,7 +51,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                     for (i in 0 ..((it.data.collections?.size)?.minus(1) ?: 0)){
                         hashMap[it.data.collections?.get(i)?.collectionsHandle!!] = it.data.collections[i].collectionsId!!
                     }
-                    Log.i(TAG, "onCreateView: "+hashMap)
                 }
                 is Either.Error -> when (it.errorCode) {
                     RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
@@ -63,14 +63,13 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
 
     override fun onResume() {
         super.onResume()
+        recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
 
         categoriesViewModel.getFavorites()
         categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Either.Success -> {
-                    categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
-                    recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
-                    recyclerView.adapter = categoryAdapter
+                    checkFavoriteList(it.data.product)
                 }
                 is Either.Error -> when (it.errorCode) {
                     RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
@@ -83,26 +82,24 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
             searching.value = binding.searchCategoryTextView.text.toString()
         }
 
-        searching.observe(viewLifecycleOwner, Observer { it1 ->
-            categoriesViewModel.products.observe(viewLifecycleOwner, Observer {
-                when(it) {
+        searching.observe(viewLifecycleOwner, Observer { it2 ->
+            categoriesViewModel.products.observe(viewLifecycleOwner, Observer { it1 ->
+                when(it1) {
                     is Either.Success -> {
-                        if(it1 == null){
-                            categoryAdapter = CategoryAdapter(it.data.product,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
+                        if(it2 == null){
+                            checkFavoriteList(it1.data.product)
                         }else {
                             var list: MutableList<Products> = mutableListOf()
-                            for (i in 0..it.data.product.size.minus(1)) {
+                            for (i in 0..it1.data.product.size.minus(1)) {
                                 var string = binding.searchCategoryTextView.text
-                                if (it.data.product[i].title!!.contains(string, ignoreCase = true)) {
-                                    list.add(it.data.product[i])
+                                if (it1.data.product[i].title!!.contains(string, ignoreCase = true)) {
+                                    list.add(it1.data.product[i])
                                 }
                             }
-                            categoryAdapter = CategoryAdapter(list,categoriesViewModel::addToFavorite,categoriesViewModel.favorites.value?: emptyList())
+                            checkFavoriteList(list)
                         }
-                        recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
-                        recyclerView.adapter = categoryAdapter
                     }
-                    is Either.Error -> when (it.errorCode) {
+                    is Either.Error -> when (it1.errorCode) {
                         RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
                         RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                     }
@@ -129,5 +126,19 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                 else -> binding.filterTextView2.text = resources.getString(R.string.none)
             }
         })
+    }
+
+    fun checkFavoriteList(listOfProducts : List<Products> ){
+        when(val favorite = categoriesViewModel.getFavorites()){
+            is Either.Error -> {
+                categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,emptyList())
+                recyclerView.adapter = categoryAdapter}
+            is Either.Success -> {
+                favorite.data.observeOnce(viewLifecycleOwner){
+                    categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite, it)
+                    recyclerView.adapter = categoryAdapter
+                }
+            }
+        }
     }
 }
