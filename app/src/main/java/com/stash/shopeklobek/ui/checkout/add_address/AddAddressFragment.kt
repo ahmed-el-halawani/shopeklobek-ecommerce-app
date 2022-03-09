@@ -25,7 +25,6 @@ class AddAddressFragment : CheckoutBaseFragment<FragmentAddAddressBinding>(Fragm
         super.onViewCreated(view, savedInstanceState)
         prepareListener()
         validate()
-
         binding.apply {
             btnSave.setOnClickListener {
                 if (vm.isValid) {
