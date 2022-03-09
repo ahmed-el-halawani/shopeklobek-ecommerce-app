@@ -32,10 +32,9 @@ class AdapterOrder(var orders:List<RoomOrder>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.tvDate.text = orders[position].order.dat
+        holder.tvDate.text = orders[position].order.getDate()
         holder.tvPrice.text = orders[position].order.price
         holder.tvState.text = orders[position].order.state
-
 
     }
 

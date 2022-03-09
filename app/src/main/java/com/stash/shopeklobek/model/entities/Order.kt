@@ -40,6 +40,8 @@ data class Order(
         SimpleDateFormat("EE, d MMM", ViewHelpers.getLocale())
             .format(Date(createdAt))
 
+    fun getDate() = SimpleDateFormat("EE, d MMM", ViewHelpers.getLocale()).format(Date(createdAt))
+
     val price = finalPrice
     val state = financialStatus
 
