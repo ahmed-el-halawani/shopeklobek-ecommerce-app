@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.entities.room.RoomOrder
 import com.stash.shopeklobek.model.repositories.ProductRepo
@@ -12,25 +13,16 @@ import com.stash.shopeklobek.model.utils.Either
 
 class ProfileViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
 
-    var favorites = MutableLiveData<List<RoomFavorite>>()
-    var orders = MutableLiveData<List<RoomOrder>>()
 
 
+    fun getOrders()=productRepo.getOrders()
+    fun getFavorites()=productRepo.getFavorites()
+    var cartLiveData: LiveData<List<RoomCart>> = MutableLiveData(emptyList())
 
-    fun getOrders()  {
-         when(val order = productRepo.getOrders()){
-            is Either.Error -> {}
-            is Either.Success -> orders.value =order.data.value
-        }
+
+    fun getCart() {
+        cartLiveData = productRepo.getCart()
     }
-
-    fun getFavorites() {
-         when(val favorite = productRepo.getFavorites()){
-            is Either.Error -> {}
-            is Either.Success -> favorites.value =favorite.data.value
-        }
-    }
-
 
 
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {

@@ -116,7 +116,6 @@ class ProductRepo(
         })
     }
 
-
     suspend fun getDiscount(code:String): Either<PriceRule, RepoErrors> {
         return callErrorsHandler(application, { shopifyServices.getAllDiscounts() }, {discountModel->
             val discount = discountModel.discount?.firstOrNull{
@@ -131,7 +130,6 @@ class ProductRepo(
 
         })
     }
-
 
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
@@ -309,7 +307,7 @@ class ProductRepo(
         }
     }
 
-    fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
+       fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
         val customerEmail = settingsPreferences.getSettings().customer?.email
             ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
 

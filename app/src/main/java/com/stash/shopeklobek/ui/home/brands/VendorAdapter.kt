@@ -1,6 +1,5 @@
 package com.stash.shopeklobek.ui.home.brands
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
+import com.stash.shopeklobek.model.entities.room.RoomFavorite
 
-class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit ) : RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
+class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit , var listFavorites : List<RoomFavorite>) : RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_category,parent,false)
@@ -23,6 +23,12 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryTitleTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price
         Glide.with(holder.categoryImageView.context).load(listProducts[position].image.src).into(holder.categoryImageView)
+        for ( i in 0 .. listFavorites.size.minus(1)){
+            if(listProducts[position].productId == listFavorites[i].product.productId){
+                holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
+            }
+        }
+
         holder.categoryFavoriteImageView.setOnClickListener {
             addToFavorite(listProducts[position])
             holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)

@@ -46,4 +46,32 @@
         <item>تأكد من الطلب</item>
     </string-array>
 
+    <string name="already_have_an_account">هل لديك حساب بالفعل ؟</string>
+    <string name="don_t_have_an_account">ليس لديك حساب ؟</string>
+    <string name="signup_now">قم بالتسجيل الان</string>
+    <string name="please_login">من فضلك قم بتسجيل دخولك</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="english">الانجليزيه</string>
+    <string name="currency">العمله</string>
+    <string name="egp">جنيه مصري</string>
+    <string name="euro">يورو</string>
+    <string name="usd">دولار</string>
+    <string name="Currency">العمله</string>
+    <string name="address">العنوان</string>
+    <string name="email" translatable="false">البريد الالكتروني</string>
+    <string name="password" translatable="false">كلمه السر</string>
+    <string name="user_name" translatable="false">User name</string>
+    <string name="confirm_password" translatable="false">تأكيد كلمة السر</string>
+    <string name="signup" translatable="false">تسجيل</string>
+    <string name="arabic">العربيه</string>
+    <string name="settings">الاعدادات</string>
+    <string name="change_address"> تغيير العنوان</string>
+    <string name="full_name" >الاسم بالكامل</string>
+    <string name="welcome_to_shobek_lobek"> اهلا بك في شبيك لبيك</string>
+    <string name="create_an_account">قم بإنشاء حساب جديد</string>
+    <string name="login_to_your_account">قم بالدخول الي حسابك</string>
+    <string name="sign_in_now">ٍقم بالدخول الان</string>
+    <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">من الواضح انك لم تقم بالدخوا الي حسابك او عمل حساب </string>
+    <string name="please_login_or_create_an_account_to_complete_your_action">من فضلك قم بتسجيل الدخول او انشاء حساب جديد لتستطيع المتابعه</string>
+    <string name="sign_up">انشاء حساب جديد</string>
 </resources>

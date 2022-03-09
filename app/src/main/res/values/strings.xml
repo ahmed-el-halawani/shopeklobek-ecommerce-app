@@ -58,11 +58,12 @@
     <string name="sar">Saudi Riyal</string>
     <string name="usd">United States Dollar</string>
     <string name="Currency">Currency</string>
-    <string name="defaultAddress">There\'s no address to show right now !</string>
+
     <string name="address">Address</string>
     <string name="pound">pound</string>
     <string name="please_login">please login</string>
     <string name="login">LOGIN</string>
+    <string name="search">Search....</string>
     <string name="city">City*</string>
     <string name="address_line">Address Line*</string>
     <string name="first_name">First Name*</string>
@@ -94,7 +95,22 @@
     <string name="product_deleted">product deleted successfully</string>
     <string name="no_more_stock">sorry, no more stock from this product 😞</string>
 
-    <string-array name="checkout_stepper_list" translatable="false">
+    <string name="empty">Empty</string>
+    <string name="already_have_an_account">Already have an account ?</string>
+    <string name="don_t_have_an_account">Don\'t have an account ?</string>
+    <string name="signup_now">SignUp Now</string>
+    <string name="arabic">Arabic</string>
+    <string name="settings">Settings</string>
+    <string name="change_address">change address</string>
+    <string name="welcome_to_shobek_lobek">Welcome to shobek lobek</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="sign_in_now">ٍsign in now</string>
+    <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">Oops,You seem that you didn\'t login or create an account</string>
+    <string name="please_login_or_create_an_account_to_complete_your_action">Please login or create an account to complete your action</string>
+    <string name="sign_up">SIGN UP</string>
+
+  <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>
         <item>Payment Method</item>
         <item>Confirm the order</item>

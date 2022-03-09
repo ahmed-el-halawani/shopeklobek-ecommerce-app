@@ -1,36 +1,33 @@
-package com.stash.shopeklobek.ui.home.favorites
+package com.stash.shopeklobek.ui.home.product_details
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Products
-import com.stash.shopeklobek.model.entities.ProductsModel
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
-import com.stash.shopeklobek.model.utils.RepoErrors
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
+class ProductDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
+    val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
 
-    var favorites = MutableLiveData<List<RoomFavorite>>()
-      val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
-
-
-        fun deleteFavorite(id: Long) {
-        viewModelScope.launch {
-            repo.deleteFromFavorite(id)
-        }
+   suspend fun addToCart(product: Products){
+       repo.addToCart(product)
+   }
+      fun addToFavorite(product: Products){
+        repo.addToFavorite(product)
     }
-    fun getFavorites()=repo.getFavorites()
+
+
 
 
     class Factory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FavoritesViewModel(application) as T
+            return ProductDetailsViewModel(application) as T
         }
     }
 }
