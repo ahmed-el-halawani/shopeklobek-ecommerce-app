@@ -18,14 +18,17 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         super.onViewCreated(view, savedInstanceState)
 
 
-        findNavController().navigate(R.id.action_nav_settings_to_addAddressFragment2,Bundle().apply {
-            putBoolean("isDefault",true)
-        })
+
 
         checkLanguage()
         checkCurrency()
         setLanguageBtnListeners()
         setCurrencyBtnListeners()
+        binding.btnAddress.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_settings_to_addAddressFragment2,Bundle().apply {
+                putBoolean("isDefault",true)
+            })
+        }
     }
 
     private fun checkCurrency() {
