@@ -88,8 +88,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             profileViewModel.getCart()
             profileViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
                 if (roomCarts.isEmpty())
-                    binding.allCart.text="0"
-                else
+                 else
                     binding.allCart.text="${roomCarts.size}"
             }
             when (val res = profileViewModel.getOrders()) {

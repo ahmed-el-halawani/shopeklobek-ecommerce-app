@@ -17,6 +17,7 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.FavoritesViewModel
 import com.stash.shopeklobek.utils.Constants.TAG
+import com.stash.shopeklobek.utils.toCurrency
 import kotlinx.coroutines.launch
 
 class ProductDetailsFragment :
@@ -38,7 +39,7 @@ class ProductDetailsFragment :
 
         imageSlider.setImageList(imageList, ScaleTypes.FIT)
         binding.tvNameItem.text=myProduct.title
-        binding.tvPriceItem.text=myProduct.variants[0]?.price
+        binding.tvPriceItem.text= activity?.let { myProduct.variants[0]?.price?.toCurrency(it.applicationContext) }
         binding.tvItemDescription.text=myProduct.description
 
         // set in room
