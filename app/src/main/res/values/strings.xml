@@ -30,11 +30,11 @@
     <string name="accessories" translatable="false">Accessories</string>
     <string name="clothes" translatable="false">Clothes</string>
 
-    <string name="email" translatable="false">Email</string>
-    <string name="password" translatable="false">Password</string>
-    <string name="user_name" translatable="false">User name</string>
-    <string name="confirm_password" translatable="false">Confirm password</string>
-    <string name="signup" translatable="false">SignUp</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="user_name">User name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="signup">SignUp</string>
 
     <string name="favorite" translatable="false">favorites</string>
     <string name="cart" translatable="false">cart</string>
@@ -50,7 +50,7 @@
     <string name="enter_coupon_here">Add discount code</string>
     <string name="apply">Apply</string>
 
-    <string name="full_name" translatable="false">Full name</string>
+    <string name="full_name">Full name</string>
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="currency">currency</string>
@@ -95,7 +95,7 @@
     <string name="product_deleted">product deleted successfully</string>
     <string name="no_more_stock">sorry, no more stock from this product 😞</string>
 
-    <string name="empty">Empty</string>
+    <string name="empty" translatable="false">Empty</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="don_t_have_an_account">Don\'t have an account ?</string>
     <string name="signup_now">SignUp Now</string>
@@ -110,7 +110,7 @@
     <string name="please_login_or_create_an_account_to_complete_your_action">Please login or create an account to complete your action</string>
     <string name="sign_up">SIGN UP</string>
 
-  <string-array name="checkout_stepper_list" translatable="false">
+  <string-array name="checkout_stepper_list" >
         <item>Address</item>
         <item>Payment Method</item>
         <item>Confirm the order</item>

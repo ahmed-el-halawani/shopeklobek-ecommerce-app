@@ -40,7 +40,7 @@
     <string name="no_more_stock">آسف ، لا مزيد من المخزون من هذا المنتج 😞</string>
 
 
-    <string-array name="checkout_stepper_list" translatable="false">
+    <string-array name="checkout_stepper_list">
         <item>عنوان</item>
         <item>طريقة الدفع</item>
         <item>تأكد من الطلب</item>
@@ -54,7 +54,6 @@
     <string name="english">الانجليزيه</string>
     <string name="currency">العمله</string>
     <string name="egp">جنيه مصري</string>
-    <string name="euro">يورو</string>
     <string name="usd">دولار</string>
     <string name="Currency">العمله</string>
     <string name="address">العنوان</string>
@@ -74,4 +73,6 @@
     <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">من الواضح انك لم تقم بالدخوا الي حسابك او عمل حساب </string>
     <string name="please_login_or_create_an_account_to_complete_your_action">من فضلك قم بتسجيل الدخول او انشاء حساب جديد لتستطيع المتابعه</string>
     <string name="sign_up">انشاء حساب جديد</string>
+    <string name="sar">الريال السعودي</string>
+    <string name="search">بحث</string>
 </resources>
