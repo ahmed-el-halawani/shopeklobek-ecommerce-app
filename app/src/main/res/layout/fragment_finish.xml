@@ -3,22 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
     <com.stash.shopeklobek.utils.customviews.SingleBigButton
-        android:id="@+id/btn_to_finish"
+        android:id="@+id/btnConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:title="Confirm" />
+        app:title="@string/confirm_the_order" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_to_finish"
+        app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
-                android:text="Order Details"
+                android:text="@string/order_details"
                 android:textColor="@color/primary"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -64,7 +67,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Total"
+                            android:text="@string/sub_total"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -73,7 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="300"
+                            tools:text="0"
                             android:textSize="26sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -88,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Delivary"
+                            android:text="@string/shipping_fees"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -97,7 +100,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="300"
+                            tools:text="0"
                             android:textSize="26sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -115,7 +118,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Discount"
+                            android:text="@string/discount"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -124,7 +127,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="300"
+                            tools:text="0"
                             android:textSize="26sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -145,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Total price"
+                            android:text="@string/total_price"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -154,7 +157,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="300"
+                            tools:text="0"
                             android:textSize="26sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -167,6 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/choose_the_pay_method"
                 android:textColor="@color/primary"
                 android:textSize="30sp"
@@ -175,69 +179,89 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvCash"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="5dp"
                 app:cardCornerRadius="15dp">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="15dp">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_grad_cash">
 
-                    <TextView
-                        android:id="@+id/rbCash"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/cash_on_delivery"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_cash" />
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="15dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/rbCash"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="@string/cash_on_delivery"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ic_cash" />
+
+                    </LinearLayout>
+                </FrameLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvPaypal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="5dp"
                 android:visibility="gone"
                 app:cardCornerRadius="15dp"
                 tools:visibility="visible">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="15dp">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_grad_paypal">
 
-                    <TextView
-                        android:id="@+id/rbPaypal"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-
-                        android:gravity="center"
-                        android:text="@string/pay_with_paypal"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_paypal" />
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="15dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/rbPaypal"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+
+                            android:gravity="center"
+                            android:text="@string/pay_with_paypal"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/ic_paypal" />
+
+                    </LinearLayout>
+                </FrameLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -246,7 +270,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
-                android:text="Shipping address"
+                android:layout_marginTop="15dp"
+                android:text="@string/shipping_address"
                 android:textColor="@color/primary"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -257,14 +282,12 @@
                 android:id="@+id/cvCurrentLocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:address="Street 135, Helwan, Cairo Governorate"
+                android:layout_marginHorizontal="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.157"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-
-                app:locationImage="@drawable/map"
-                app:title="Default Location" />
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -46,28 +46,39 @@
                     android:layout_marginVertical="5dp"
                     app:cardCornerRadius="15dp">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="5dp"
-                        android:layout_marginVertical="15dp">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_grad_cash">
 
-                        <RadioButton
-                            android:id="@+id/rbCash"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/cash_on_delivery"
-                            android:textSize="20sp" />
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginVertical="15dp">
 
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_cash" />
+                            <RadioButton
+                                android:id="@+id/rbCash"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:buttonTint="#FFFFFF"
+                                android:gravity="center"
+                                android:shadowColor="#72000000"
+                                android:shadowRadius="2"
+                                android:text="@string/cash_on_delivery"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_cash" />
+
+                        </LinearLayout>
+                    </FrameLayout>
 
                 </androidx.cardview.widget.CardView>
 
@@ -78,29 +89,40 @@
                     android:layout_marginVertical="5dp"
                     app:cardCornerRadius="15dp">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="5dp"
-                        android:layout_marginVertical="15dp">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_grad_paypal">
 
-                        <RadioButton
-                            android:id="@+id/rbPaypal"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginVertical="15dp">
 
-                            android:gravity="center"
-                            android:text="@string/pay_with_paypal"
-                            android:textSize="20sp" />
+                            <RadioButton
+                                android:id="@+id/rbPaypal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
 
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_paypal" />
+                                android:buttonTint="#FFFFFF"
+                                android:gravity="center"
+                                android:shadowColor="#72000000"
+                                android:shadowRadius="2"
+                                android:text="@string/pay_with_paypal"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_paypal" />
+
+                        </LinearLayout>
+                    </FrameLayout>
 
                 </androidx.cardview.widget.CardView>
 
@@ -133,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Sup Total"
+                        android:text="@string/sub_total"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -142,7 +164,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="300"
+                        tools:text="300"
                         android:textSize="26sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -157,7 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Delivary"
+                        android:text="@string/shipping_fees"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -166,7 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="300"
+                        tools:text="300"
                         android:textSize="26sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -184,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Discount"
+                        android:text="@string/discount"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -193,7 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="300"
+                        tools:text="300"
                         android:textSize="26sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -214,7 +236,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Total price"
+                        android:text="@string/total_price"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -223,17 +245,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="300"
+                        tools:text="300"
                         android:textSize="26sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <com.stash.shopeklobek.utils.customviews.SingleBigButton
-                    android:id="@+id/btn_to_finish"
+                    android:id="@+id/btnToFinish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    app:title="Proceed to Finish" />
+                    app:title="@string/proceed_to_finish" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -262,7 +284,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imageView7"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
@@ -273,22 +295,33 @@
                         android:id="@+id/etLayoutFromTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
                         android:layout_weight="3"
                         android:backgroundTint="#00000000"
                         app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp">
+                        app:boxStrokeWidthFocused="0dp"
+                        app:errorEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <EditText
                             android:id="@+id/etFromTime"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
                             android:backgroundTint="#00000000"
+                            android:drawableRight="@drawable/ic_baseline_circle_24"
                             android:ems="10"
                             android:hint="@string/enter_coupon_here"
                             android:inputType="textPersonName"
                             android:minHeight="48dp" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/icVoucherState"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        app:srcCompat="@drawable/ic_baseline_circle_24" />
 
                     <!--                    <EditText-->
                     <!--                                        android:id="@+id/editTextTextPersonName"-->
@@ -305,18 +338,33 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <ProgressBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:backgroundTint="@color/onPrimary" />
 
-                        <Button
+                        <androidx.cardview.widget.CardView
                             android:id="@+id/btnApply"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/primary"
-                            android:text="@string/apply" />
+                            android:backgroundTint="#4CAF50"
+                            app:cardElevation="0dp"
+                            app:cardMaxElevation="0dp">
+
+                            <TextView
+                                android:id="@+id/textView10"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="@string/apply"
+                                android:textAllCaps="true"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp" />
+                        </androidx.cardview.widget.CardView>
+
+                        <ProgressBar
+                            android:id="@+id/loadingDiscountCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/onPrimary"
+                            android:visibility="gone" />
 
                     </FrameLayout>
 

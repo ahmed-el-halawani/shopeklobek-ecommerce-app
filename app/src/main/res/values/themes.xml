@@ -67,6 +67,7 @@
 
 
     <style name="Theme.Shopeklobek.AppBarOverlay.checkout" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="windowNoTitle">true</item>
         <item name="android:textColorPrimary">@color/onCheckoutNavColor</item>
         <item name="android:textColorSecondary">@color/onCheckoutNavColor</item>
         <item name="android:colorForeground">@color/onCheckoutNavColor</item>

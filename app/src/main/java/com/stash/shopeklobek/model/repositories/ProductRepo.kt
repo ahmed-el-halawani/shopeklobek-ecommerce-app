@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.lang.Error
 
 class ProductRepo(
     private val shopifyServices: ShopifyServices,
@@ -116,6 +117,22 @@ class ProductRepo(
     }
 
 
+    suspend fun getDiscount(code:String): Either<PriceRule, RepoErrors> {
+        return callErrorsHandler(application, { shopifyServices.getAllDiscounts() }, {discountModel->
+            val discount = discountModel.discount?.firstOrNull{
+                it.title == code
+            }
+
+            if(discount==null){
+                Either.Error(RepoErrors.NullValue)
+            }else{
+                Either.Success(discount)
+            }
+
+        })
+    }
+
+
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
@@ -136,9 +153,7 @@ class ProductRepo(
         TODO("Not yet implemented")
     }
 
-    suspend fun addOrder(order: AddOrderModel): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
-    }
+
 
     suspend fun getOrders(email: String): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
@@ -222,28 +237,11 @@ class ProductRepo(
     //room repo
     fun getOrders(): Either<LiveData<List<RoomOrder>>, RoomCustomerError> {
         val customerEmail = settingsPreferences.getSettings().customer?.email
-        if (customerEmail != null) {
-            CoroutineScope(Dispatchers.IO).launch {
-                callErrorsHandler(application, { shopifyServices.getOrders(customerEmail) }) {
-                    for (order in it.order) {
-                        if (order != null) {
-                            database.orderDao().upsert(
-                                RoomOrder(
-                                    order.id ?: 0,
-                                    customerEmail = customerEmail,
-                                    order
-                                )
-                            )
-                        }
-                    }
-                    Either.Success(it)
-                }
-            }
+        return if (customerEmail != null) {
+            Either.Success(database.orderDao().getWithCustomerId(customerEmail = customerEmail))
         } else {
-            return Either.Error(RoomCustomerError.NoLoginCustomer)
+            Either.Error(RoomCustomerError.NoLoginCustomer)
         }
-
-        return Either.Success(database.orderDao().getAll())
     }
 
 
@@ -263,6 +261,23 @@ class ProductRepo(
 
     suspend fun getCartAsync(): List<RoomCart> {
         return database.cartDao().getAllAsync()
+    }
+
+    suspend fun addOrder(order: Order): Either<Unit, RoomAddOrderErrors> {
+        try {
+            val customerEmail = settingsPreferences.getSettings().customer?.email
+                ?: return Either.Error(RoomAddOrderErrors.NoLoginCustomer)
+            database.orderDao().upsert(
+                RoomOrder(
+                    customerEmail = customerEmail,
+                    order = order,
+                )
+            )
+            database.cartDao().deleteAllForCustomer(customerEmail)
+            return Either.Success(Unit)
+        } catch (t: Throwable) {
+            return Either.Error(RoomAddOrderErrors.RoomError)
+        }
     }
 
     suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {

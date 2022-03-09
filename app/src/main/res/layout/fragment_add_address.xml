@@ -133,7 +133,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#E91E63"
-                    android:text="@string/cancel" />
+                    android:text="@string/cancel_it" />
 
                 <Button
                     android:id="@+id/btnSave"

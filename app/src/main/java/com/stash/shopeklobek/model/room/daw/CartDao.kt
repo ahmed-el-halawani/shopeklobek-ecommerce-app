@@ -20,9 +20,11 @@ interface CartDao : BaseDao<RoomCart> {
     @Query("SELECT * FROM $CART_TABLE WHERE customerEmail=:customerEmail")
     override fun getWithCustomerId(customerEmail: String): LiveData<List<RoomCart>>
 
-
     @Query("DELETE FROM $CART_TABLE WHERE id = :id")
     override suspend fun delete(id: Long)
+
+    @Query("DELETE FROM $CART_TABLE WHERE customerEmail = :customerEmail")
+    suspend fun deleteAllForCustomer(customerEmail: String)
 
     @Query("Select * from $CART_TABLE")
     suspend fun getAllAsync(): List<RoomCart>

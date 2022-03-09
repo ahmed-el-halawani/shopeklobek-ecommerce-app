@@ -10,13 +10,15 @@
         android:id="@+id/cvCurrentLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:address="Street 135, Helwan, Cairo Governorate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        app:title="Default Location" />
+        app:title="@string/default_location"
+        tools:visibility="visible" />
 
     <include
         android:id="@+id/cvAddAddress"

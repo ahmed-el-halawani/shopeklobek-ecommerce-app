@@ -49,16 +49,29 @@ object CurrencyUtil {
     }
 
     fun convertCurrency(value: String?): String {
-        if (application == null) return value?:"0"
+        try {
+            if (application == null) return value ?: "0"
 
-        val settings = SettingsPreferences.getInstance(application!!)
-        val currency = settings.getSettings().currancy
+            val settings = SettingsPreferences.getInstance(application!!)
+            val currency = settings.getSettings().currancy
 
 
-        return try {
-            (currency.converterValue * (value?.toDouble()?:0.0)).toFixed().toString() + currency.currencySymbol
-        }catch (t:Throwable){
-            value?:"0"
+            return (currency.converterValue * (value?.toDouble() ?: 0.0)).toFixed().toString() + currency.currencySymbol
+        } catch (t: Throwable) {
+            return value ?: "0"
+        }
+    }
+
+    fun convertCurrency(value: Double?): String {
+        try {
+            if (application == null) return value.toString()
+
+            val settings = SettingsPreferences.getInstance(application!!)
+            val currency = settings.getSettings().currancy
+
+            return (currency.converterValue * (value ?: 0.0)).toFixed().toString() + currency.currencySymbol
+        } catch (t: Throwable) {
+            return value.toString()
         }
     }
 

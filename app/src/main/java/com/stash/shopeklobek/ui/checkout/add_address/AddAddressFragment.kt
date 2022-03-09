@@ -62,7 +62,7 @@ class AddAddressFragment : CheckoutBaseFragment<FragmentAddAddressBinding>(Fragm
     private fun prepareListener() {
         binding.apply {
 
-            etAddressLine.doOnTextChanged { s, start, before, count ->
+            etAddressLine.doOnTextChanged { s, _, _, _ ->
                 vm.addressLiveData.value = vm.addressSource.apply {
                     vm.addressSource = this.copy(address = s.toString())
                 }

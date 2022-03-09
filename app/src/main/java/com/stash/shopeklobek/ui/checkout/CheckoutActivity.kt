@@ -37,18 +37,14 @@ class CheckoutActivity : AppCompatActivity() {
         dialog?.dismiss()
     }
 
-
-
-
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false);
+
 
         setupActionBarWithNavController(nav,navConfiguration)
 
@@ -68,8 +64,6 @@ class CheckoutActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.checkout_menu,menu)

@@ -39,7 +39,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
         order = ArrayList<Order>()
-        order.add(Order("55.5$", "done", "2021-04-10 10:28:21.052"))
+//        order.add(Order("55.5$", "done", "2021-04-10 10:28:21.052"))
         adapterOrder = AdapterOrder(ArrayList())
 
         binding.reOrderList.layoutManager =

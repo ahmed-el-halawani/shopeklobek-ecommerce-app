@@ -47,7 +47,7 @@
     <string name="pay_with_paypal">Pay With Paypal</string>
     <string name="cash_on_delivery">Cash on delivery</string>
     <string name="choose_the_pay_method">Payment methods</string>
-    <string name="enter_coupon_here">Enter your voucher here</string>
+    <string name="enter_coupon_here">Add discount code</string>
     <string name="apply">Apply</string>
 
     <string name="full_name" translatable="false">Full name</string>
@@ -69,13 +69,35 @@
     <string name="last_name">Last Name</string>
     <string name="phone">Phone*</string>
     <string name="set_as_default_address">Set As Default Address</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel_it">Cancel</string>
     <string name="save">Save</string>
+    <string name="sub_total">Sub Total</string>
+    <string name="shipping_fees">Shipping fees</string>
+    <string name="discount">Discount</string>
+    <string name="total_price">Total price</string>
+    <string name="shipping_address">Shipping address</string>
+    <string name="order_details">Order Details</string>
+    <string name="proceed_to_finish">Proceed to Confirm the Order</string>
+    <string name="confirm_the_order">Confirm The Order</string>
+    <string name="add_address">Add Address</string>
+    <string name="default_location">Default Location</string>
+    <string name="proceed_to_checkout">Proceed to Buy</string>
+    <string name="items">items )</string>
+    <string name="sub_totat_1">Total (</string>
+    <string name="done_order_message">Done 👌, your order is on the way</string>
+    <string name="ok">OK</string>
+    <string name="someThing_wrong_happened">Sorry, someThing wrong happened</string>
+    <string name="u_havent_login_yet">looks like u haven\'t login yet</string>
+    <string name="no_discount_added">You have not added any discount code</string>
+    <string name="Wrong_Code">Wrong Code</string>
+    <string name="do_u_want_remove_product">Do you want remove this product?</string>
+    <string name="product_deleted">product deleted successfully</string>
+    <string name="no_more_stock">sorry, no more stock from this product 😞</string>
 
     <string-array name="checkout_stepper_list" translatable="false">
         <item>Address</item>
         <item>Payment Method</item>
-        <item>Finish</item>
+        <item>Confirm the order</item>
     </string-array>
 
 </resources>
