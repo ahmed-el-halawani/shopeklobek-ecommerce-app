@@ -27,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/categoryImageView"
-                android:layout_width="190dp"
+                android:layout_width="200dp"
                 android:layout_height="190dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,25 +35,41 @@
 
             <TextView
                 android:id="@+id/categoryTitleTextView"
-                android:layout_width="120dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="15dp"
+                android:layout_width="150dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="5dp"
-                tools:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/categoryPriceTextView"
+                app:layout_constraintTop_toBottomOf="@+id/categoryImageView"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/categoryPriceTextView"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoryImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/categoryTitleTextView"
+                tools:text="TextView" />
 
             <ImageView
                 android:id="@+id/categoryFavoriteImageView"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="200dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_icon_favorite"
                 app:layout_constraintBottom_toBottomOf="parent"

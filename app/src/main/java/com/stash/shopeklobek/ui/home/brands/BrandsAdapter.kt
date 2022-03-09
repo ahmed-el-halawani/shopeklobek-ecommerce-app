@@ -41,7 +41,7 @@ class BrandsAdapter(var listBrands: List<SmartCollection>) : RecyclerView.Adapte
         get() = itemView.findViewById(R.id.brandImageView)
 
         val brandTextView : TextView
-        get() = itemView.findViewById(R.id.categoryTitleTextView)
+        get() = itemView.findViewById(R.id.categoryPriceTextView)
 
         val brandConstrainLayout : ConstraintLayout
         get() = itemView.findViewById(R.id.categoryConstrainLayout)

@@ -20,15 +20,15 @@
     <string name="remove_image_description" translatable="false">remove_image_description</string>
     <string name="add_image_description" translatable="false">add_image_description</string>
 
-    <string name="women" translatable="false">Women</string>
-    <string name="men" translatable="false">Men</string>
-    <string name="kids" translatable="false">Kids</string>
-    <string name="sale" translatable="false">Sale</string>
+    <string name="women">Women</string>
+    <string name="men">Men</string>
+    <string name="kids">Kids</string>
+    <string name="sale">Sale</string>
     <string name="product_details" translatable="false">product details</string>
-    <string name="filter" translatable="false">Filter</string>
-    <string name="shoes" translatable="false">Shoes</string>
-    <string name="accessories" translatable="false">Accessories</string>
-    <string name="clothes" translatable="false">Clothes</string>
+    <string name="filter">Filter</string>
+    <string name="shoes">Shoes</string>
+    <string name="accessories">Accessories</string>
+    <string name="clothes">Clothes</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -42,8 +42,8 @@
     <string name="price" >price :</string>
     <string name="state">state :</string>
     <string name="date" >date :</string>
-    <string name="none" translatable="false">None</string>
-    <string name="all" translatable="false">All</string>
+    <string name="none">None</string>
+    <string name="all">All</string>
     <string name="pay_with_paypal">Pay With Paypal</string>
     <string name="cash_on_delivery">Cash on delivery</string>
     <string name="choose_the_pay_method">Payment methods</string>

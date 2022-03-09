@@ -88,5 +88,15 @@
     <string name="more">المزيد</string>
     <string name="sighn_out">تسجيل الخروج</string>
     <string name="favorite_list">قائة المفضلة</string>
+    <string name="filter" translatable="false">تصنيف</string>
+    <string name="shoes" translatable="false">أحذية</string>
+    <string name="accessories" translatable="false">أكسسورارات</string>
+    <string name="clothes" translatable="false">ملابس</string>
+    <string name="sale" translatable="false">تصفيات</string>
+    <string name="kids" translatable="false">أطفال</string>
+    <string name="men" translatable="false">رجال</string>
+    <string name="women" translatable="false">سيدات</string>
+    <string name="none">غير محدد</string>
+    <string name="all">الكل</string>
 
 </resources>

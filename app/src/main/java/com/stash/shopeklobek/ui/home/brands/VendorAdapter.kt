@@ -23,7 +23,8 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.categoryTitleTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price?.toCurrency(holder.itemView.context)
+        holder.categoryTitleTextView.text = listProducts[position].title
+        holder.categoryPriceTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price?.toCurrency(holder.itemView.context)
         Glide.with(holder.categoryImageView.context).load(listProducts[position].image.src).into(holder.categoryImageView)
 
         for ( i in 0 .. listFavorites.size.minus(1)) {
@@ -54,6 +55,9 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
 
         val categoryFavoriteImageView : ImageView
             get() = itemView.findViewById(R.id.categoryFavoriteImageView)
+
+        val categoryPriceTextView : TextView
+            get() = itemView.findViewById(R.id.categoryPriceTextView)
 
         val categoryTitleTextView : TextView
             get() = itemView.findViewById(R.id.categoryTitleTextView)
