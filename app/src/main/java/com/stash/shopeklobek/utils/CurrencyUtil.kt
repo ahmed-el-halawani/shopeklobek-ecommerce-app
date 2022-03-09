@@ -7,6 +7,8 @@ import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.model.entities.currencies.CurrencyConverterResult
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.utils.ViewHelpers.getLocale
+import java.text.NumberFormat
 
 object CurrencyUtil {
 
@@ -26,7 +28,7 @@ object CurrencyUtil {
             application?.getString(R.string.usd_symbol) ?: """$""",
             "USD",
             CurrenciesEnum.USD,
-                    R.string.usd_symbol
+            R.string.usd_symbol
 
         ),
 
@@ -63,32 +65,36 @@ object CurrencyUtil {
         }
     }
 
-    fun convertCurrency(value: String?,context:Context): String {
-        try {
+    fun convertCurrency(value: String?, context: Context): String {
+        return try {
 
             val application = context.applicationContext as Application
             val settings = SettingsPreferences.getInstance(application)
             val currency = settings.getSettings().currancy
 
 
-            return (currency.converterValue * (value?.toDouble() ?: 0.0)).toFixed()
-                .toString() + context.getString(currency.currencyResourceId)
+            NumberFormat.getInstance(getLocale())
+                .format((currency.converterValue * (value?.toDouble() ?: 0.0)).toFixed()) + context.getString(
+                currency.currencyResourceId
+            )
         } catch (t: Throwable) {
-            return value ?: "0"
+            value ?: "0"
         }
     }
 
-    fun convertCurrency(value: Double?,context: Context): String {
-        try {
+    fun convertCurrency(value: Double?, context: Context): String {
+        return try {
             val application = context.applicationContext as Application
 
             val settings = SettingsPreferences.getInstance(application)
             val currency = settings.getSettings().currancy
 
-            return (currency.converterValue * (value ?: 0.0)).toFixed()
-                .toString() + context.getString(currency.currencyResourceId)
+            NumberFormat.getInstance(getLocale())
+                .format((currency.converterValue * (value ?: 0.0)).toFixed()) + context.getString(
+                currency.currencyResourceId
+            )
         } catch (t: Throwable) {
-            return value.toString()
+            value.toString()
         }
     }
 
