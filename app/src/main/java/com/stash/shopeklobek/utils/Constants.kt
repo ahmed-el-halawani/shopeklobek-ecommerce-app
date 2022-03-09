@@ -14,6 +14,7 @@ object Constants {
     const val BASE_URL = "https://$apiKey:$password@jets2022.myshopify.com/admin/api/2022-01/"
     const val CURRENCY_CONVERTER_API_KEY = "3e3890a19a7caef23423"
     const val CURRENCY_CONVERTER_API_BASE_URL= "https://free.currconv.com/api/v7/convert/"
+    const val EXCHANGE_CURRENCY_CONVERTER_API_BASE_URL= "https://v6.exchangerate-api.com/v6/e2eb8a1d8527b64e0a070175/"
 
 
     //paypal

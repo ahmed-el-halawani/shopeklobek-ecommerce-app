@@ -37,13 +37,12 @@
     <string name="Wrong_Code">رمز خاطئ</string>
     <string name="do_u_want_remove_product">هل تريد إزالة هذا المنتج؟</string>
     <string name="product_deleted">تم حذف المنتج بنجاح</string>
-    <string name="no_more_stock">آسف ، لا مزيد من المخزون من هذا المنتج 😞</string>
-
+    <string name="confirm_order">تأكد من الطلب</string>
 
     <string-array name="checkout_stepper_list">
-        <item>عنوان</item>
-        <item>طريقة الدفع</item>
-        <item>تأكد من الطلب</item>
+        <item>@string/address</item>
+        <item>@string/choose_the_pay_method</item>
+        <item>@string/confirm_order</item>
     </string-array>
 
     <string name="already_have_an_account">هل لديك حساب بالفعل ؟</string>
@@ -75,4 +74,7 @@
     <string name="sign_up">انشاء حساب جديد</string>
     <string name="sar">الريال السعودي</string>
     <string name="search">بحث</string>
+    <string name="egp_symbol">جنية</string>
+    <string name="usd_symbol">دولار</string>
+    <string name="sar_symbol">﷼</string>
 </resources>

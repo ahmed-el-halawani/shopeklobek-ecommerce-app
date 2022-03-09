@@ -26,15 +26,15 @@ enum class PaymentMethodsEnum {
     Cash, Paypal
 }
 
-class CheckoutViewModel(application: Application, val productRepo: ProductRepo) :
-    AndroidViewModel(application) {
+class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
+    AndroidViewModel(app) {
 
     var cartProducts: List<RoomCart> = emptyList()
     var priceRule: PriceRule? = null
     var selectedAddress: Address? = null
     var shipping = 5.0
     var selectedPaymentMethods: PaymentMethodsEnum = PaymentMethodsEnum.Cash
-    var fixedDiscountLiveData = MutableLiveData<Either<PriceRule, RepoErrors>>(null)
+    var fixedDiscountLiveData = MutableLiveData<Either<PriceRule, RepoErrors>?>(null)
 
 
     fun addDiscount(discountCode: String) = viewModelScope.launch {
@@ -46,9 +46,14 @@ class CheckoutViewModel(application: Application, val productRepo: ProductRepo) 
         }
     }
 
+    fun removeDiscount(){
+        priceRule = null
+        fixedDiscountLiveData.postValue(null)
+    }
+
     suspend fun confirm(): Either<Unit, RoomAddOrderErrors> {
         val order = Order(
-            finalPrice = cartProducts.getPrice().toCurrency(),
+            finalPrice = cartProducts.getPrice().toCurrency(app),
             createdAt = Date().time,
             billingAddress = selectedAddress,
             totalDiscount = priceRule?.value,

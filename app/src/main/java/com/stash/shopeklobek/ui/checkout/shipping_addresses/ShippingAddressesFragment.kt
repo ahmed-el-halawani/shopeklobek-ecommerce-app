@@ -23,6 +23,7 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupRecycleView()
 
         shippingAddressViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {

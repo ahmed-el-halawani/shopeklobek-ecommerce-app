@@ -109,11 +109,16 @@
     <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">Oops,You seem that you didn\'t login or create an account</string>
     <string name="please_login_or_create_an_account_to_complete_your_action">Please login or create an account to complete your action</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="egp_symbol">£</string>
+    <string name="usd_symbol">$</string>
+    <string name="sar_symbol">SAR</string>
 
-  <string-array name="checkout_stepper_list" >
-        <item>Address</item>
-        <item>Payment Method</item>
-        <item>Confirm the order</item>
+    <string name="confirm_order">Confirm the order</string>
+
+    <string-array name="checkout_stepper_list">
+        <item>@string/address</item>
+        <item>@string/choose_the_pay_method</item>
+        <item>@string/confirm_order</item>
     </string-array>
 
 </resources>

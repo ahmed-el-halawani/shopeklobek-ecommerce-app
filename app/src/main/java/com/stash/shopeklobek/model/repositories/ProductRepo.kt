@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
+import com.stash.shopeklobek.model.api.ExchangeCurrencyApi.exchangerateConverterApi
 import com.stash.shopeklobek.model.entities.*
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
@@ -20,7 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.lang.Error
 
 class ProductRepo(
     private val shopifyServices: ShopifyServices,
@@ -93,7 +93,10 @@ class ProductRepo(
         }
     }
 
-    suspend fun getProductsFromType(collectionId: Long, productType: String): Either<ProductsModel, RepoErrors> {
+    suspend fun getProductsFromType(
+        collectionId: Long,
+        productType: String
+    ): Either<ProductsModel, RepoErrors> {
         return try {
             return if (hasInternet(application.applicationContext)) {
                 val res = shopifyServices.getProductsFromType(collectionId, productType)
@@ -116,19 +119,22 @@ class ProductRepo(
         })
     }
 
-    suspend fun getDiscount(code:String): Either<PriceRule, RepoErrors> {
-        return callErrorsHandler(application, { shopifyServices.getAllDiscounts() }, {discountModel->
-            val discount = discountModel.discount?.firstOrNull{
-                it.title == code
-            }
+    suspend fun getDiscount(code: String): Either<PriceRule, RepoErrors> {
+        return callErrorsHandler(
+            application,
+            { shopifyServices.getAllDiscounts() },
+            { discountModel ->
+                val discount = discountModel.discount?.firstOrNull {
+                    it.title == code
+                }
 
-            if(discount==null){
-                Either.Error(RepoErrors.NullValue)
-            }else{
-                Either.Success(discount)
-            }
+                if (discount == null) {
+                    Either.Error(RepoErrors.NullValue)
+                } else {
+                    Either.Success(discount)
+                }
 
-        })
+            })
     }
 
     suspend fun createDiscount(priceRule: Discount): Either<Nothing, RepoErrors> {
@@ -147,10 +153,12 @@ class ProductRepo(
         TODO("Not yet implemented")
     }
 
-    suspend fun updateCustomer(customerId: Long, customer: EditCustomerModel): Either<Nothing, RepoErrors> {
+    suspend fun updateCustomer(
+        customerId: Long,
+        customer: EditCustomerModel
+    ): Either<Nothing, RepoErrors> {
         TODO("Not yet implemented")
     }
-
 
 
     suspend fun getOrders(email: String): Either<Nothing, RepoErrors> {
@@ -161,7 +169,9 @@ class ProductRepo(
         val customerId = getCustomerFromSettings()?.customerId
         return if (customerId != null) {
 
-            val res = callErrorsHandler(application, { shopifyServices.addAddress(customerId, address) }) {
+            val res = callErrorsHandler(
+                application,
+                { shopifyServices.addAddress(customerId, address) }) {
                 Either.Success(it)
             }
 
@@ -173,9 +183,14 @@ class ProductRepo(
                     else {
                         val id = res.data.customerAddress?.id
                         if (id == null) {
-                            Either.Error(RepoErrors.ServerError, "customerAddress ==null or id == null")
+                            Either.Error(
+                                RepoErrors.ServerError,
+                                "customerAddress ==null or id == null"
+                            )
                         } else {
-                            callErrorsHandler(application, { shopifyServices.setDefault(customerId, id) }) {
+                            callErrorsHandler(
+                                application,
+                                { shopifyServices.setDefault(customerId, id) }) {
                                 Either.Success(Unit)
                             }
                         }
@@ -191,7 +206,9 @@ class ProductRepo(
     suspend fun deleteAddress(addressId: Long): Either<Unit, RepoErrors> {
         val customerId = getCustomerFromSettings()?.customerId
         return if (customerId != null)
-            callErrorsHandler(application, { shopifyServices.deleteAddress(customerId, addressId) }) {
+            callErrorsHandler(
+                application,
+                { shopifyServices.deleteAddress(customerId, addressId) }) {
                 Either.Success(Unit)
             }
         else
@@ -201,7 +218,9 @@ class ProductRepo(
     suspend fun updateAddress(addressId: Long, address: AddressModel): Either<Unit, RepoErrors> {
         val customerId = getCustomerFromSettings()?.customerId
         return if (customerId != null)
-            callErrorsHandler(application, { shopifyServices.updateAddress(customerId, addressId, address) }) {
+            callErrorsHandler(
+                application,
+                { shopifyServices.updateAddress(customerId, addressId, address) }) {
                 Either.Success(Unit)
             }
         else
@@ -278,12 +297,17 @@ class ProductRepo(
         }
     }
 
-    suspend fun addToCart(product: Products, variantId: Long? = null): Either<Unit, RoomAddProductErrors> {
+    suspend fun addToCart(
+        product: Products,
+        variantId: Long? = null
+    ): Either<Unit, RoomAddProductErrors> {
         try {
             val customerEmail = settingsPreferences.getSettings().customer?.email
                 ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
             if (product.productId == null) return Either.Error(RoomAddProductErrors.ProductIdNotFound)
-            if (database.cartDao().getWithId(product.productId) != null) return Either.Error(RoomAddProductErrors.ProductAlreadyExist)
+            if (database.cartDao().getWithId(product.productId) != null) return Either.Error(
+                RoomAddProductErrors.ProductAlreadyExist
+            )
             database.cartDao().upsert(
                 RoomCart(
                     id = product.productId,
@@ -307,7 +331,7 @@ class ProductRepo(
         }
     }
 
-       fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
+    fun addToFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
         val customerEmail = settingsPreferences.getSettings().customer?.email
             ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
 
@@ -344,20 +368,30 @@ class ProductRepo(
 
     fun getSettings(): Settings = settingsPreferences.getSettings()
 
+    // end settings repo
+
+
 
     // currency repo
-    suspend fun selectCurrency(currencyName: String): Either<Unit, RepoErrors> {
+
+    suspend fun selectCurrency(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> = selectCurrency2(
+        currencyEnum
+    )
+
+    suspend fun updateCurrency(): Either<Unit, RepoErrors>  = updateCurrency2()
+
+    private suspend fun selectCurrency2(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> {
         return callErrorsHandler(
             application = application,
-            suspendedCall = currencyConverterApi::getCurrenciesValueNow
+            suspendedCall = exchangerateConverterApi::getCurrenciesValueNow
         )
         { currencyValues ->
             update {
-                it.currancy = CurrencyUtil.getCurrency(currencyName).apply {
+                it.currancy = CurrencyUtil.getCurrency(currencyEnum).apply {
                     converterValue = when (idEnum) {
                         CurrenciesEnum.EGP -> 1.0
-                        CurrenciesEnum.USD -> currencyValues.usd
-                        CurrenciesEnum.SAR -> currencyValues.sar
+                        CurrenciesEnum.USD -> currencyValues.conversion_rates.USD
+                        CurrenciesEnum.SAR -> currencyValues.conversion_rates.SAR
                     }
                 }
                 it
@@ -366,7 +400,27 @@ class ProductRepo(
         }
     }
 
-    suspend fun selectCurrency(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> {
+    private suspend fun updateCurrency2(): Either<Unit, RepoErrors> {
+        return callErrorsHandler(
+            application = application,
+            suspendedCall = exchangerateConverterApi::getCurrenciesValueNow
+        )
+        { currencyValues ->
+            update {
+                it.currancy = CurrencyUtil.getCurrency(it.currancy.idEnum).apply {
+                    converterValue = when (idEnum) {
+                        CurrenciesEnum.EGP -> 1.0
+                        CurrenciesEnum.USD -> currencyValues.conversion_rates.USD
+                        CurrenciesEnum.SAR -> currencyValues.conversion_rates.SAR
+                    }
+                }
+                it
+            }
+            Either.Success(Unit)
+        }
+    }
+
+    private suspend fun selectCurrency1(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> {
         return callErrorsHandler(
             application = application,
             suspendedCall = currencyConverterApi::getCurrenciesValueNow
@@ -391,7 +445,8 @@ class ProductRepo(
         }
     }
 
-    suspend fun updateCurrency(): Either<Unit, RepoErrors> {
+
+    private suspend fun updateCurrency1(): Either<Unit, RepoErrors> {
         return callErrorsHandler(
             application = application,
             suspendedCall = currencyConverterApi::getCurrenciesValueNow
@@ -410,6 +465,8 @@ class ProductRepo(
             Either.Success(Unit)
         }
     }
+
+    // end currency repo
 
     private suspend fun <S, R> callErrorsHandler(
         application: Application, suspendedCall: suspend () -> Response<S>,

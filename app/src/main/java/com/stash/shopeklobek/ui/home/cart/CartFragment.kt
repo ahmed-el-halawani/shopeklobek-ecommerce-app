@@ -115,7 +115,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                             count += it.count
                         }
 
-                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(price.toString())
+                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(price.toString()
+                            ,requireContext())
                         tvTotalItems.text = count.toString()
 
                     }

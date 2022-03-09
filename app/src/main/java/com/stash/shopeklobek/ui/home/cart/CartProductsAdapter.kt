@@ -29,7 +29,7 @@ class CartProductsAdapter : RecyclerView.Adapter<CartProductsAdapter.ViewHolder>
 
                 Glide.with(root).load(rc.product.image.src).into(ivProductImage)
 
-                tvPrice.text = convertCurrency(rc.variant()?.price)
+                tvPrice.text = convertCurrency(rc.variant()?.price, holder.itemView.context)
 
                 tvCurrencyUnit.text = ""
 

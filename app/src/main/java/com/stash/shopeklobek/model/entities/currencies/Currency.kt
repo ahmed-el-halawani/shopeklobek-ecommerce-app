@@ -7,7 +7,9 @@ data class Currency(
     val currencySymbol: String,
     val id: String,
     val idEnum: CurrenciesEnum,
-    var converterValue: Double=1.0
+    val currencyResourceId: Int,
+    var converterValue: Double=1.0,
+
     ){
         fun convertIt(value:Double):Double{
             return value*converterValue

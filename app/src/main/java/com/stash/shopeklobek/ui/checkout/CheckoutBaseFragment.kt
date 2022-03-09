@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.viewbinding.ViewBinding
 import com.stash.shopeklobek.utils.ILoading
 
@@ -13,7 +12,7 @@ abstract class CheckoutBaseFragment<T : ViewBinding>(val viewBindingInflater:(La
     ILoading {
 
 
-    val checkoutActivity by lazy{
+    val mainActivity by lazy{
         this.activity as CheckoutActivity
     }
 
@@ -22,7 +21,7 @@ abstract class CheckoutBaseFragment<T : ViewBinding>(val viewBindingInflater:(La
     }
 
     val mainViewModel by lazy{
-        checkoutActivity.checkoutVM
+        mainActivity.checkoutVM
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,11 +30,11 @@ abstract class CheckoutBaseFragment<T : ViewBinding>(val viewBindingInflater:(La
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkoutActivity.activityPermissionResultData.observe(viewLifecycleOwner){
+        mainActivity.activityPermissionResultData.observe(viewLifecycleOwner){
             if(it!=null)
                 onRequestPermissionsResult(it)
         }
-        checkoutActivity.activityResultLiveData.observe(viewLifecycleOwner)
+        mainActivity.activityResultLiveData.observe(viewLifecycleOwner)
         {
             if(it!=null)
                 onActivityResult(it)
@@ -44,11 +43,11 @@ abstract class CheckoutBaseFragment<T : ViewBinding>(val viewBindingInflater:(La
 
 
     override fun showLoading(message: String?) {
-        checkoutActivity.showLoading(message)
+        mainActivity.showLoading(message)
     }
 
     override fun hideLoading() {
-        checkoutActivity.hideLoading()
+        mainActivity.hideLoading()
     }
 
 

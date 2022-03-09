@@ -24,10 +24,10 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
         // order details
         binding.run {
             mainViewModel.run {
-                tvTotalProductsPrice.text = cartProducts.getPrice().toCurrency()
-                tvDelivary.text = shipping.toCurrency()
-                tvDiscount.text = showDiscountRow(priceRule?.value)?.toCurrency()
-                tvTotal.text = calculateTotalPrice().toCurrency()
+                tvTotalProductsPrice.text = cartProducts.getPrice().toCurrency(requireContext())
+                tvDelivary.text = shipping.toCurrency(requireContext())
+                tvDiscount.text = showDiscountRow(priceRule?.value)?.toCurrency(requireContext())
+                tvTotal.text = calculateTotalPrice().toCurrency(requireContext())
             }
         }
 

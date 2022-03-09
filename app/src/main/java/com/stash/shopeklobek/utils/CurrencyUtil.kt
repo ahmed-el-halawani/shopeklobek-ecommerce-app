@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.utils
 
 import android.app.Application
+import android.content.Context
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.model.entities.currencies.CurrencyConverterResult
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
@@ -12,15 +14,28 @@ object CurrencyUtil {
 
     val currenciesList = listOf(
         Currency(
-            "Egyptian Pound", "£", "EGP", CurrenciesEnum.EGP
+            "Egyptian Pound",
+            application?.getString(R.string.egp_symbol) ?: "£",
+            "EGP",
+            CurrenciesEnum.EGP,
+            R.string.egp_symbol
         ),
 
         Currency(
-            "United States Dollar", "\$", "USD", CurrenciesEnum.USD
+            "United States Dollar",
+            application?.getString(R.string.usd_symbol) ?: """$""",
+            "USD",
+            CurrenciesEnum.USD,
+                    R.string.usd_symbol
+
         ),
 
         Currency(
-            "Saudi Riyal", "﷼", "SAR", CurrenciesEnum.SAR
+            "Saudi Riyal",
+            application?.getString(R.string.sar_symbol) ?: "SAR",
+            "SAR",
+            CurrenciesEnum.SAR,
+            R.string.sar_symbol
         ),
     )
 
@@ -48,28 +63,30 @@ object CurrencyUtil {
         }
     }
 
-    fun convertCurrency(value: String?): String {
+    fun convertCurrency(value: String?,context:Context): String {
         try {
-            if (application == null) return value ?: "0"
 
-            val settings = SettingsPreferences.getInstance(application!!)
+            val application = context.applicationContext as Application
+            val settings = SettingsPreferences.getInstance(application)
             val currency = settings.getSettings().currancy
 
 
-            return (currency.converterValue * (value?.toDouble() ?: 0.0)).toFixed().toString() + currency.currencySymbol
+            return (currency.converterValue * (value?.toDouble() ?: 0.0)).toFixed()
+                .toString() + context.getString(currency.currencyResourceId)
         } catch (t: Throwable) {
             return value ?: "0"
         }
     }
 
-    fun convertCurrency(value: Double?): String {
+    fun convertCurrency(value: Double?,context: Context): String {
         try {
-            if (application == null) return value.toString()
+            val application = context.applicationContext as Application
 
-            val settings = SettingsPreferences.getInstance(application!!)
+            val settings = SettingsPreferences.getInstance(application)
             val currency = settings.getSettings().currancy
 
-            return (currency.converterValue * (value ?: 0.0)).toFixed().toString() + currency.currencySymbol
+            return (currency.converterValue * (value ?: 0.0)).toFixed()
+                .toString() + context.getString(currency.currencyResourceId)
         } catch (t: Throwable) {
             return value.toString()
         }

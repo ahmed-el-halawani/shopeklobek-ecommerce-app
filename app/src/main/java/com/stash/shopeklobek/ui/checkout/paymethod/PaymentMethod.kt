@@ -14,6 +14,7 @@ import com.stash.shopeklobek.utils.ViewHelpers.hideSoftKeyboard
 import com.stash.shopeklobek.utils.getPrice
 import com.stash.shopeklobek.utils.toCurrency
 
+
 class PaymentMethod :
     CheckoutBaseFragment<FragmentPaymentScreenBinding>(FragmentPaymentScreenBinding::inflate) {
 
@@ -44,6 +45,11 @@ class PaymentMethod :
                     R.drawable.ic_baseline_circle_24
                 )
             }
+
+            etLayoutFromTime.setEndIconOnClickListener {
+                mainViewModel.removeDiscount()
+            }
+
         }
 
         binding.rgMethods.setOnCheckedChangeListener { _, checkedId ->
@@ -61,8 +67,7 @@ class PaymentMethod :
             mainViewModel.fixedDiscountLiveData.observe(
                 viewLifecycleOwner
             ) {
-                loadingDiscountCode.visibility =
-                    View.GONE
+                loadingDiscountCode.visibility = View.GONE
 
                 when (it) {
                     is Either.Error -> {
@@ -76,7 +81,14 @@ class PaymentMethod :
                             R.drawable.ic_done
                         )
                     }
+                    null -> {
+                        icVoucherState.setImageResource(
+                            R.drawable.ic_baseline_circle_24
+                        )
+                        etFromTime.text?.clear()
+                    }
                 }
+
 
                 showDiscountRow(
                     mainViewModel.priceRule?.value
@@ -85,7 +97,7 @@ class PaymentMethod :
             }
 
             tvDelivary.text =
-                mainViewModel.shipping.toCurrency()
+                mainViewModel.shipping.toCurrency(requireContext())
 
             btnApply.setOnClickListener {
                 hideSoftKeyboard(
@@ -107,7 +119,7 @@ class PaymentMethod :
         }
 
         binding.run {
-            tvTotalProductsPrice.text = mainViewModel.cartProducts.getPrice().toCurrency()
+            tvTotalProductsPrice.text = mainViewModel.cartProducts.getPrice().toCurrency(requireContext())
         }
 
         binding.btnToFinish.setOnClickListener {
@@ -131,7 +143,7 @@ class PaymentMethod :
                 rowDiscount.visibility =
                     View.VISIBLE
                 tvDiscount.text =
-                    value.toCurrency()
+                    value.toCurrency(requireContext())
             }
         }
     }
@@ -141,7 +153,7 @@ class PaymentMethod :
         binding.run {
             tvTotal.text =
                 (((mainViewModel.priceRule?.value?.toDouble()) ?: 0.0) + mainViewModel
-                    .cartProducts.getPrice() + mainViewModel.shipping).toCurrency()
+                    .cartProducts.getPrice() + mainViewModel.shipping).toCurrency(requireContext())
         }
     }
 
