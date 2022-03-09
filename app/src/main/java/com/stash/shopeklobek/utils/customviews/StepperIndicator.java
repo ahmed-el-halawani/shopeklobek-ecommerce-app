@@ -36,6 +36,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.orhanobut.hawk.Hawk;
 import com.stash.shopeklobek.R;
+import com.stash.shopeklobek.model.shareprefrances.Language;
+import com.stash.shopeklobek.utils.ViewHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -678,9 +680,11 @@ public class StepperIndicator extends View implements ViewPager.OnPageChangeList
         for (int i = 0; i < labels.length; i++) {
             if (labels[i] == null) continue;
 
-            String language = Hawk.get("language");
+            Language lang = ViewHelpers.INSTANCE.getLanguageFromSettings();
+
             labelLayouts[i] = new StaticLayout(labels[i], labelPaint, gridWidth,
-                    (language.equals("ar") ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL), 1, 0,
+                    (lang == Language.Arabic ? Layout.Alignment.ALIGN_OPPOSITE :
+                            Layout.Alignment.ALIGN_NORMAL), 1, 0,
                     false);
             maxLabelHeight = Math.max(maxLabelHeight, labelLayouts[i].getLineCount() * labelSingleLineHeight);
         }

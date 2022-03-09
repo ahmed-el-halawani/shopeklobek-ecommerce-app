@@ -115,6 +115,19 @@ object ViewHelpers {
         }
     }
 
+    fun getLanguageFromSettings():Language{
+        val language:String? = Hawk.get("language")
+        return if(language == null){
+            languageEnumFromLocale()
+        }else{
+            if(language == "ar"){
+                Language.Arabic
+            }else{
+                Language.English
+            }
+        }
+    }
+
 
     fun setAppLocale(reBuildActivity: Activity, resources: Resources) {
         val language:String? = Hawk.get("language")

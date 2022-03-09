@@ -23,7 +23,6 @@ class PaymentMethod :
         )
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -68,6 +67,9 @@ class PaymentMethod :
                 when (it) {
                     is Either.Error -> {
                         etFromTime.error = getString(R.string.Wrong_Code)
+                        icVoucherState.setImageResource(
+                            R.drawable.ic_wrong
+                        )
                     }
                     is Either.Success -> {
                         icVoucherState.setImageResource(
