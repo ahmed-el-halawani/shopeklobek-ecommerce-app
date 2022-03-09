@@ -19,7 +19,6 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     val category = MutableLiveData<Either<MainCategories, RepoErrors>>()
     var products = MutableLiveData<Either<ProductsModel,RepoErrors>>()
-    var favorites = MutableLiveData<List<RoomFavorite>>()
 
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
@@ -28,6 +27,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     init {
         getMainCategory()
+        getAllCategory()
     }
 
     private fun getMainCategory() {
@@ -36,7 +36,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun getAllCategory(){
+    private fun getAllCategory(){
         viewModelScope.launch {
             products.value = repo.getAllProduct()
         }
@@ -63,17 +63,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
         repo.addToFavorite(product)
     }
 
-    fun getFavorites() {
-        Log.i(TAG, "getFavorites: ")
-        when(val favorite = repo.getFavorites()){
-            is Either.Error -> {
-                Log.i(TAG, "getFavorites: error")}
-            is Either.Success -> {favorites.value = favorite.data.value
-                Log.d("getFavorites", favorite.data.toString())
-                Log.i(TAG, "getFavorites: success")
-            }
-        }
-    }
+    fun getFavorites() = repo.getFavorites()
 
 
     class Factory(private val application: Application) : ViewModelProvider.Factory {
