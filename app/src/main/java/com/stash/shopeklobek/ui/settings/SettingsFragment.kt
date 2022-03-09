@@ -3,7 +3,9 @@ package com.stash.shopeklobek.ui.settings
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.orhanobut.hawk.Hawk
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentSettingsBinding
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.ui.BaseFragment
@@ -14,6 +16,12 @@ import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        findNavController().navigate(R.id.action_nav_settings_to_addAddressFragment2,Bundle().apply {
+            putBoolean("isDefault",true)
+        })
+
         checkLanguage()
         checkCurrency()
         setLanguageBtnListeners()
