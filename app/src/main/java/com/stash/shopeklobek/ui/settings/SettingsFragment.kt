@@ -16,10 +16,7 @@ import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
+        checkAddress()
         checkLanguage()
         checkCurrency()
         setLanguageBtnListeners()
@@ -28,6 +25,20 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             findNavController().navigate(R.id.action_nav_settings_to_addAddressFragment2,Bundle().apply {
                 putBoolean("isDefault",true)
             })
+        }
+    }
+
+    private fun checkAddress() {
+        if(vm.productRepo.getSettings().customer==null){
+            binding.AdressContaier.visibility=View.GONE
+            binding.btnAddress.visibility=View.GONE
+        }else if (vm.productRepo.getSettings().customer?.addresses==null){
+            binding.AdressContaier.visibility=View.GONE
+        } else {
+            binding.AdressContaier.apply {
+                binding.tvLocationTitle.text=vm.productRepo.getSettings().customer!!.addresses!!.get(0).city
+                binding.tvAddress.text=vm.productRepo.getSettings().customer?.getDefaultOrFirst()?.generateAddressLine()
+            }
         }
     }
 
