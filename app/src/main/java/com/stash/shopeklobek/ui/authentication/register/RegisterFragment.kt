@@ -29,6 +29,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             }
         }
         binding.btnRegister.setOnClickListener {
+            binding.progress.visibility=View.VISIBLE
             if (validateFrem()) {
 
                 val customer = CustomerModel(
@@ -43,6 +44,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 vm.postData(customer)
                 vm.signupSuccess.observe(viewLifecycleOwner) {
                     if (it!!) {
+                        binding.progress.visibility=View.GONE
                         Toast.makeText(
                             requireContext(),
                             "Registered succssfully",

@@ -28,11 +28,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 
         binding.btnLogin.setOnClickListener {
+            binding.progress.visibility=View.VISIBLE
             if (validteForm()) {
                 vm.getData(userEmail!!,userPassword!!)
                 vm.loginSuccess.observe(viewLifecycleOwner) {
                     if (it!!) {
-
+                        binding.progress.visibility=View.GONE
                        Toast.makeText(requireContext(),"Loggedin Successfully",Toast.LENGTH_LONG).show()
 
                     }else   Toast.makeText(requireContext(),"please enter correct email or password",Toast.LENGTH_LONG).show()
