@@ -23,7 +23,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         setLanguageBtnListeners()
         setCurrencyBtnListeners()
         binding.btnAddress.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_settings_to_nav_address)
+
         }
     }
 
