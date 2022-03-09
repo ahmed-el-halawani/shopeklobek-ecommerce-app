@@ -78,7 +78,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                             }
                             adapterFavorite.setFavorite(favorite)
                         }else{
-                            binding.allFavorites.text=getString(R.string.empty)
+                            binding.allFavorites.text="0"
 
                         }
                     }
@@ -88,7 +88,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             profileViewModel.getCart()
             profileViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
                 if (roomCarts.isEmpty())
-                    binding.allCart.text=getString(R.string.empty)
+                    binding.allCart.text="0"
                 else
                     binding.allCart.text="${roomCarts.size}"
             }
@@ -107,7 +107,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                             }
                             adapterOrder.setOrders(order)
                         }else{
-                            binding.allOrders.text=getString(R.string.empty)
+                            binding.allOrders.text="0"
 
                         }
                     }

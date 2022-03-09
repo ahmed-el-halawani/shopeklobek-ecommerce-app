@@ -75,4 +75,18 @@
     <string name="sign_up">انشاء حساب جديد</string>
     <string name="sar">الريال السعودي</string>
     <string name="search">بحث</string>
+    <string name="description">الوصف</string>
+    <string name="add_to_cart" >اضافى الي العربة</string>
+    <string name="favorite" >المفضلة</string>
+    <string name="cart" >العربة</string>
+    <string name="orders">الطلابات</string>
+    <string name="price" >السعر :</string>
+    <string name="state">الحالة :</string>
+    <string name="date" >التاريخ :</string>
+    <string name="more">المزيد</string>
+    <string name="sighn_out">تسجيل الخروج</string>
+    <string name="favorite_list">قائة المفضلة</string>
+
+
+
 </resources>

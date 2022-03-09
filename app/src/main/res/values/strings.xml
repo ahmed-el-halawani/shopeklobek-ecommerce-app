@@ -14,8 +14,8 @@
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="description" translatable="false">description</string>
-    <string name="add_to_cart" translatable="false">add to cart</string>
+    <string name="description">description</string>
+    <string name="add_to_cart" >add to cart</string>
     <string name="product_image" translatable="false">product_image</string>
     <string name="remove_image_description" translatable="false">remove_image_description</string>
     <string name="add_image_description" translatable="false">add_image_description</string>
@@ -36,12 +36,12 @@
     <string name="confirm_password">Confirm password</string>
     <string name="signup">SignUp</string>
 
-    <string name="favorite" translatable="false">favorites</string>
-    <string name="cart" translatable="false">cart</string>
-    <string name="orders" translatable="false">orders</string>
-    <string name="price" translatable="false">price :</string>
-    <string name="state" translatable="false">state :</string>
-    <string name="date" translatable="false">date :</string>
+    <string name="favorite" >favorites</string>
+    <string name="cart" >cart</string>
+    <string name="orders">orders</string>
+    <string name="price" >price :</string>
+    <string name="state">state :</string>
+    <string name="date" >date :</string>
     <string name="none" translatable="false">None</string>
     <string name="all" translatable="false">All</string>
     <string name="pay_with_paypal">Pay With Paypal</string>
@@ -109,8 +109,11 @@
     <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">Oops,You seem that you didn\'t login or create an account</string>
     <string name="please_login_or_create_an_account_to_complete_your_action">Please login or create an account to complete your action</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="more">more</string>
+    <string name="sighn_out">Sighn out</string>
+    <string name="favorite_list">favorite list</string>
 
-  <string-array name="checkout_stepper_list" >
+    <string-array name="checkout_stepper_list" >
         <item>Address</item>
         <item>Payment Method</item>
         <item>Confirm the order</item>
