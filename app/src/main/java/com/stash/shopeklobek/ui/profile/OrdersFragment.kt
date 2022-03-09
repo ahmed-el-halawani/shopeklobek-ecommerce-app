@@ -45,8 +45,11 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(FragmentOrdersBinding
                 res.data.observe(viewLifecycleOwner){
                     if (!it.isEmpty()) {
                         adapterOrder.setOrders(it)
+                        binding.ivEmptyOrders.visibility = View.GONE
+
                         Toast.makeText(activity," "+it.size, Toast.LENGTH_LONG).show()
                     } else {
+                        binding.ivEmptyOrders.visibility = View.VISIBLE
                         Log.d("onViewCreated", "nullll")
                         Toast.makeText(activity, "no data", Toast.LENGTH_LONG).show()
                     }

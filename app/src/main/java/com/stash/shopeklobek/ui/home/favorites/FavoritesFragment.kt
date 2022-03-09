@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentFavoritesBinding
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
@@ -28,6 +30,8 @@ class FavoritesFragment :
             if (it.customer == null) {
                 binding.ivEmptyFavorite.visibility = View.VISIBLE
                 binding.tvLoginFavorite.visibility = View.VISIBLE
+                findNavController().navigate(R.id.action_nav_not_login)
+
             } else {
                 binding.tvLoginFavorite.visibility = View.GONE
                 binding.ivEmptyFavorite.visibility = View.GONE
@@ -41,11 +45,10 @@ class FavoritesFragment :
                             if (!it.isEmpty()) {
                                 adapterFavorite.setFavorite(it)
                                 binding.ivEmptyFavorite.visibility = View.GONE
-                                Toast.makeText(activity," "+it.size, Toast.LENGTH_LONG).show()
-                             } else {
+                              } else {
                                 binding.ivEmptyFavorite.visibility = View.VISIBLE
                                 Log.d("onViewCreated", "nullll")
-                                Toast.makeText(activity, "no data", Toast.LENGTH_LONG).show()
+
                             }
 
                         }
