@@ -8,9 +8,9 @@
     <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings" translatable="false">Settings</string>
 
-    <string name="menu_profile" translatable="false">Profile</string>
-    <string name="menu_settings" translatable="false">Settings</string>
-    <string name="menu_home" translatable="false">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_home">Home</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
@@ -24,7 +24,7 @@
     <string name="men">Men</string>
     <string name="kids">Kids</string>
     <string name="sale">Sale</string>
-    <string name="product_details" translatable="false">product details</string>
+    <string name="product_details">Product Details</string>
     <string name="filter">Filter</string>
     <string name="shoes">Shoes</string>
     <string name="accessories">Accessories</string>

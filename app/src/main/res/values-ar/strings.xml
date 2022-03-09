@@ -78,7 +78,7 @@
     <string name="usd_symbol">دولار</string>
     <string name="sar_symbol">﷼</string>
     <string name="description">الوصف</string>
-    <string name="add_to_cart" >اضافى الي العربة</string>
+    <string name="add_to_cart" >اضافه الي العربة</string>
     <string name="favorite" >المفضلة</string>
     <string name="cart" >العربة</string>
     <string name="orders">الطلابات</string>
@@ -98,5 +98,9 @@
     <string name="women" translatable="false">سيدات</string>
     <string name="none">غير محدد</string>
     <string name="all">الكل</string>
+    <string name="menu_profile" translatable="false">الملف الشخصي</string>
+    <string name="menu_settings" translatable="false">الإعدادات</string>
+    <string name="menu_home" translatable="false">الصفحة الرئيسية</string>
+    <string name="product_details" translatable="false">تفاصيل المنتج</string>
 
 </resources>
