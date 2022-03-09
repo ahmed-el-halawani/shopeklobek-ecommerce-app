@@ -41,7 +41,6 @@ fun getCurrency(currency:CurrenciesEnum){
 }
 
 
-
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return SettingsViewModel(application,productRepo) as T

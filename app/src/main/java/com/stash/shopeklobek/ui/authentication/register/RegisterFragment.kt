@@ -23,6 +23,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        vm.authenticationRepo.settingsPreferences.getSettingsLiveData().observe(viewLifecycleOwner){
+            if(it.customer!=null){
+                findNavController().popBackStack()
+            }
+        }
         binding.btnRegister.setOnClickListener {
             if (validateFrem()) {
 
