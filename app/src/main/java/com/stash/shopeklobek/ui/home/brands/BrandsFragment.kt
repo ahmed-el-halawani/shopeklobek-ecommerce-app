@@ -44,33 +44,17 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 is Either.Success -> {
                     for (i in 0..it.data.discount?.size?.minus(1)!!) {
                         saleDiscountCode.add(it.data.discount[i].title.toString())
+                        imageList.add(SlideModel(R.drawable.sale,it.data.discount[i].title))
                     }
-                }
-            }
-        })
-
-        imageList.add(SlideModel(R.drawable.sale))
-        imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
-        Log.i(TAG, "onViewCreated: "+imageList.size)
-        Log.i(TAG, "onViewCreated: "+saleDiscountCode.size)
-
-
-        imageSlider.setItemClickListener(object : ItemClickListener {
-            override fun onItemSelected(position: Int) {
-                Log.i(TAG, "onItemSelected: ")
-                val myClipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val myClip: ClipData = ClipData.newPlainText("Label","Hi")
-                myClipboard.setPrimaryClip(myClip)
-                /*brandsViewModel.discounts.observe(viewLifecycleOwner, Observer {
-                    when (it) {
-                        is Either.Success -> {
+                    imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
+                    imageSlider.setItemClickListener(object : ItemClickListener {
+                        override fun onItemSelected(position: Int) {
                             val myClipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val myClip: ClipData = ClipData.newPlainText("Label","Hi")
-                            Log.i(TAG, "onItemSelected: "+ it.data.discount?.get(position)?.title)
+                            val myClip: ClipData = ClipData.newPlainText("Label",it.data.discount[position].title.toString())
                             myClipboard.setPrimaryClip(myClip)
                         }
-                    }
-                })*/
+                    })
+                }
             }
         })
 
