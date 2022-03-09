@@ -42,6 +42,13 @@ class LoginViewModel(application: Application, val AuthRepo: AuthenticationRepo)
                         ).show()
                         loginSuccess.postValue(false)
                     }
+                    LoginErrors.IncorrectEmailOrPassword->{
+                        Toast.makeText(
+                            getApplication(),
+                            "CustomerNotFound" + response.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     LoginErrors.CustomerNotFound -> {
                         Toast.makeText(
                             getApplication(),
