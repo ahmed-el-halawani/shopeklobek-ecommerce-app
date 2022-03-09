@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.utils.toCurrency
 
 class AdapterFavorite(
     var listFavorites:  List<RoomFavorite>,
@@ -45,14 +46,13 @@ class AdapterFavorite(
         Glide.with(holder.imageItem.context).load(listFavorites.get(position).product.image.src)
             .into(holder.imageItem)
         holder.tvTitle.text = listFavorites.get(position).product.title
-        holder.tvPrice.text = listFavorites.get(position).product.variants[0]?.price
+        holder.tvPrice.text = listFavorites.get(position).product.variants[0]?.price?.toCurrency(holder.imageItem.context)
 
         holder.ivDeleteFavorite.setOnClickListener {
 
             AlertDialog.Builder(holder.imageItem.context).apply {
                 setNegativeButton("No") { d, i ->
-                    d.dismiss()
-                }
+                    d.dismiss() }
                 setPositiveButton("yes") { d, i ->
                     favoritesViewModel?.deleteFavorite(listFavorites.get(position).id)
                     Toast.makeText(holder.imageItem.context,holder.imageItem.context.getString(R.string.product_deleted),Toast.LENGTH_LONG).show()
