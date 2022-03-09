@@ -28,9 +28,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     private val cartProductAdapter by lazy {
         CartProductsAdapter().apply {
             setOnDecrementClickListener {
-                println("setOnDecrementClickListener")
                 if (it.count > 1) {
-                    println("setOnDecrementClickListener")
                     lifecycleScope.launch {
                         when (cartViewModel.updateCartProduct(
                             it.copy(
@@ -38,7 +36,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                             )
                         )) {
                             is Either.Error -> {
-                                Toast.makeText(context, "someThing wrong happened , please try again", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, getString(R.string.someThing_wrong_happened), Toast
+                                    .LENGTH_SHORT)
+                                    .show()
                             }
                             is Either.Success -> Unit
                         }
@@ -49,10 +49,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             }
 
             setOnIncrementClickListener {
-                println("setOnIncrementClickListener")
 
                 if ((it.variant()?.quantity) != null && it.count < it.variant()?.quantity!!) {
-                    println("setOnIncrementClickListener")
 
                     lifecycleScope.launch {
                         when (cartViewModel.updateCartProduct(
@@ -61,7 +59,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                             )
                         )) {
                             is Either.Error -> {
-                                Toast.makeText(context, "someThing wrong happened , please try again", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, getString(R.string.someThing_wrong_happened), Toast.LENGTH_SHORT).show()
                             }
                             is Either.Success -> Unit
                         }
@@ -158,10 +156,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             setPositiveButton("yes") { d, i ->
                 cartViewModel.deleteCartProduct(roomCart.id)
                 d.dismiss()
-                Toast.makeText(requireContext(), "product deleted successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.product_deleted), Toast.LENGTH_SHORT).show()
             }
 
-            setTitle("Do you want remove this product?")
+            setTitle(getString(R.string.do_u_want_remove_product))
         }.create().show()
     }
 
@@ -170,7 +168,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             setNeutralButton("ok") { d, i ->
                 d.dismiss()
             }
-            setTitle("sorry, no more stock from this product \uD83D\uDE1E")
+            setTitle(getString(R.string.no_more_stock))
         }.create().show()
     }
 

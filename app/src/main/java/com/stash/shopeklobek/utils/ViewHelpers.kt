@@ -2,6 +2,7 @@ package com.stash.shopeklobek.utils
 
 import android.app.Activity
 import android.content.res.Resources
+import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -80,6 +81,18 @@ object ViewHelpers {
         ActivityCompat.recreate(reBuildActivity)
     }
 
+    fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager: InputMethodManager = activity.getSystemService(
+            Activity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        if (inputMethodManager.isAcceptingText) {
+            inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus?.windowToken,
+                0
+            )
+        }
+    }
+
     fun setAppLocale(localeCode: String? = null, resources: Resources) {
         val dm = resources.displayMetrics
         val config = resources.configuration
@@ -93,10 +106,20 @@ object ViewHelpers {
 
     }
 
+    fun getLocale():Locale{
+        val language:String? = Hawk.get("language")
+        return if(language == null){
+            localeFromLanguage(languageEnumFromLocale())
+        }else{
+            Locale(""+language)
+        }
+    }
+
+
     fun setAppLocale(reBuildActivity: Activity, resources: Resources) {
         val language:String? = Hawk.get("language")
         val locale = if(language == null){
-            localeFromLanguage(ViewHelpers.languageEnumFromLocale())
+            localeFromLanguage(languageEnumFromLocale())
         }else{
             Locale(""+language)
         }

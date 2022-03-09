@@ -14,8 +14,38 @@
     <string name="last_name">اسم العائلة</string>
     <string name="phone">رقم الهاتف*</string>
     <string name="set_as_default_address">ضع هذا العنوان الافتراضي</string>
-    <string name="cancel">الغاء</string>
+    <string name="cancel_it">الغاء</string>
     <string name="save">حفظ</string>
+    <string name="sub_total">المجموع الفرعي</string>
+    <string name="shipping_fees">مصاريف الشحن</string>
+    <string name="discount">خصم</string>
+    <string name="total_price">السعر الكلي</string>
+    <string name="shipping_address">عنوان الشحن</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="proceed_to_finish">تابع لتأكيد الطلب</string>
+    <string name="confirm_the_order">تأكد الطلب</string>
+    <string name="add_address">اضف عنوان</string>
+    <string name="default_location">الموقع الافتراضي</string>
+    <string name="proceed_to_checkout">تابع عملية الشراء</string>
+    <string name="items">سلعة )</string>
+    <string name="sub_totat_1">المجموع الجزئي (</string>
+    <string name="done_order_message">تم 👌 ، طلبك في الطريق</string>
+    <string name="ok">حسنًا</string>
+    <string name="someThing_wrong_happened">عذرًا ، حدث خطأ ما </string>
+    <string name="u_havent_login_yet">يبدو أنك لم تسجل الدخول بعد</string>
+    <string name="no_discount_added">لم تقم بإضافة أي كود خصم</string>
+    <string name="Wrong_Code">رمز خاطئ</string>
+    <string name="do_u_want_remove_product">هل تريد إزالة هذا المنتج؟</string>
+    <string name="product_deleted">تم حذف المنتج بنجاح</string>
+    <string name="no_more_stock">آسف ، لا مزيد من المخزون من هذا المنتج 😞</string>
+
+
+    <string-array name="checkout_stepper_list" translatable="false">
+        <item>عنوان</item>
+        <item>طريقة الدفع</item>
+        <item>تأكد من الطلب</item>
+    </string-array>
+
     <string name="already_have_an_account">هل لديك حساب بالفعل ؟</string>
     <string name="don_t_have_an_account">ليس لديك حساب ؟</string>
     <string name="signup_now">قم بالتسجيل الان</string>

@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="10dp"
-                android:text="Proceed to Checkout"
+                android:text="@string/proceed_to_checkout"
                 android:textColor="@color/textColorOnAccent"
                 android:textSize="20sp" />
 
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/ic_black_right_arrow" />
+                    app:srcCompat="@drawable/ic_big_button_arrow" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

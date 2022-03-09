@@ -16,12 +16,12 @@
         android:theme="@style/Theme.Shopeklobek.AppBarOverlay.checkout"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-             />
-
+            />
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:background="@color/checkoutNavColor"
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

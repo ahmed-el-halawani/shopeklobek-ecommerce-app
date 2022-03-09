@@ -48,6 +48,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
 
 
+
         order = ArrayList<RoomOrder>()
         favorite = ArrayList<RoomFavorite>()
         adapterOrder = AdapterOrder(ArrayList())

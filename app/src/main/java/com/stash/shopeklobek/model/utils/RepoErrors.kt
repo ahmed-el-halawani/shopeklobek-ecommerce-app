@@ -3,7 +3,15 @@ package com.stash.shopeklobek.model.utils
 enum class RepoErrors {
     NoInternetConnection,
     ServerError,
-    EmptyBody
+    EmptyBody,
+    NullValue
+}
+
+enum class DiscountError{
+    NoInternetConnection,
+    ServerError,
+    EmptyBody,
+    DiscountNotFound
 }
 
 enum class LoginErrors {
@@ -15,6 +23,12 @@ enum class LoginErrors {
 
 enum class RoomAddProductErrors{
     ProductAlreadyExist,
+    ProductIdNotFound,
+    RoomError,
+    NoLoginCustomer,
+}
+
+enum class RoomAddOrderErrors{
     ProductIdNotFound,
     RoomError,
     NoLoginCustomer,

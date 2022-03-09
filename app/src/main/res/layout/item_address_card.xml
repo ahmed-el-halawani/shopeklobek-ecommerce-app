@@ -48,29 +48,31 @@
 
             <TextView
                 android:id="@+id/tvLocationTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
-                tools:text="Current Location"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/cardView3"
-                app:layout_constraintTop_toTopOf="@+id/cardView3" />
+                app:layout_constraintTop_toTopOf="@+id/cardView3"
+                tools:text="Current Location" />
 
             <TextView
                 android:id="@+id/tvAddress"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:maxLines="1"
-                tools:text="Street 135, Helwan, Cairo Governorate"
                 android:textColor="@color/textSubTitleColor"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardView3" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                tools:text="Street 135, Helwan, Cairo Governorate" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvAddressCard"

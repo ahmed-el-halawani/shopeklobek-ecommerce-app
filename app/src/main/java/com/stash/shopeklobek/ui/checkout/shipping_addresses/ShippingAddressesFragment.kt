@@ -34,10 +34,9 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
 
         shippingAddressViewModel.addressesLiveData.observe(viewLifecycleOwner) {
             historyOfAddressesAdapter.differ.submitList(it.addresses?.reversed() ?: emptyList<Address>())
-            println(it.addresses)
 
-            val firstAddress = it.getDefaultOrFirst()
             binding.cvCurrentLocation.run {
+                val firstAddress = it.getDefaultOrFirst()
                 if (firstAddress == null)
                     visibility = View.GONE
                 else {

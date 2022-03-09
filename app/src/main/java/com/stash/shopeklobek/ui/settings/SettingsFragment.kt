@@ -8,6 +8,7 @@ import com.stash.shopeklobek.databinding.FragmentSettingsBinding
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.MainActivity
+
 import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
@@ -52,13 +53,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
             if (i == binding.btnEArabic.id) {
                 Hawk.put("language", "ar")
                 setAppLocale(requireActivity(),resources)
-
             } else {
                 Hawk.put("language", "en")
                 setAppLocale(requireActivity(),resources)
             }
         }
-
     }
 
     private fun checkLanguage() {

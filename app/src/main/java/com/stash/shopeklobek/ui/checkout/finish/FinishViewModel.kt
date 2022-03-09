@@ -6,10 +6,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.Order
+import com.stash.shopeklobek.model.entities.SendedOrder
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.utils.getPrice
+import com.stash.shopeklobek.utils.toCurrency
 
 class FinishViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
+
 
     class Factory(private val application: Application, val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
