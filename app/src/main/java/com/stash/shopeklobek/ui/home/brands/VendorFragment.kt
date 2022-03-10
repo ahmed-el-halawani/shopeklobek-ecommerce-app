@@ -18,6 +18,7 @@ import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.utils.Constants.TAG
+import com.stash.shopeklobek.utils.observeOnce
 
 
 class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding::inflate) {
@@ -34,48 +35,44 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
         val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
         brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
-        brandsViewModel.getFavorites()
         brandsViewModel.getProductsByVendor(args.vendor)
         recyclerView = binding.vendorRecyclerView
 
         binding.searchTextView.addTextChangedListener {
             searching.value = binding.searchTextView.text.toString()
         }
+        recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
 
-        brandsViewModel.vendors.observe(viewLifecycleOwner, Observer {
-            when(it) {
+        brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+            when(it1) {
                 is Either.Success -> {
-                    adapter = VendorAdapter(it.data.product,brandsViewModel::addToFavorite, brandsViewModel.favorites.value?: emptyList())
-                    recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
-                    recyclerView.adapter = adapter
+                    checkFavoriteList(it1.data.product)
                 }
-                is Either.Error -> when (it.errorCode) {
+                is Either.Error -> when (it1.errorCode) {
                     RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
                     RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                 }
             }
         })
 
-        searching.observe(viewLifecycleOwner, Observer { it1 ->
-            brandsViewModel.vendors.observe(viewLifecycleOwner, Observer {
-                when(it) {
+        searching.observe(viewLifecycleOwner, Observer { it2 ->
+            brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+                when(it1) {
                     is Either.Success -> {
-                        if(it1 == null){
-                            adapter = VendorAdapter(it.data.product,brandsViewModel::addToFavorite, brandsViewModel.favorites.value?: emptyList())
+                        if(it2 == null){
+                            checkFavoriteList(it1.data.product)
                         }else {
                             var list: MutableList<Products> = mutableListOf()
-                            for (i in 0..it.data.product.size.minus(1)) {
+                            for (i in 0..it1.data.product.size.minus(1)) {
                                 var string = binding.searchTextView.text
-                                if (it.data.product[i].title!!.contains(string, ignoreCase = true)) {
-                                    list.add(it.data.product[i])
+                                if (it1.data.product[i].title!!.contains(string, ignoreCase = true)) {
+                                    list.add(it1.data.product[i])
                                 }
                             }
-                            adapter = VendorAdapter(list,brandsViewModel::addToFavorite, brandsViewModel.favorites.value?: emptyList())
+                            checkFavoriteList(list)
                         }
-                        recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
-                        recyclerView.adapter = adapter
                     }
-                    is Either.Error -> when (it.errorCode) {
+                    is Either.Error -> when (it1.errorCode) {
                         RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
                         RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                     }
@@ -83,6 +80,20 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
             })
         })
 
+    }
+
+    fun checkFavoriteList(listOfProducts : List<Products> ){
+        when(val favorite = brandsViewModel.getFavorites()){
+            is Either.Error -> {
+                adapter = VendorAdapter(listOfProducts,brandsViewModel::addToFavorite,emptyList())
+                recyclerView.adapter = adapter}
+            is Either.Success -> {
+                favorite.data.observeOnce(viewLifecycleOwner){
+                    adapter = VendorAdapter(listOfProducts,brandsViewModel::addToFavorite, it)
+                    recyclerView.adapter = adapter
+                }
+            }
+        }
     }
 
 }

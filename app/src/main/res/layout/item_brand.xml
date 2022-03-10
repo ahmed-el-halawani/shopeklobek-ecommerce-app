@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/categoryTitleTextView"
+                android:id="@+id/categoryPriceTextView"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
@@ -48,7 +48,7 @@
                 android:layout_width="190dp"
                 android:layout_height="190dp"
                 android:background="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/categoryTitleTextView"
+                app:layout_constraintBottom_toTopOf="@+id/categoryPriceTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

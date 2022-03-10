@@ -1,19 +1,26 @@
 package com.stash.shopeklobek.ui.checkout.add_address
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.stash.shopeklobek.databinding.FragmentAddAddressBinding
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 import kotlinx.coroutines.launch
 
-class AddAddressFragment : CheckoutBaseFragment<FragmentAddAddressBinding>(FragmentAddAddressBinding::inflate) {
+class AddAddressFragment : Fragment() {
 
+    val binding by lazy {
+        FragmentAddAddressBinding.inflate(layoutInflater)
+    }
 
     val vm by lazy {
         AddAddressViewModel.create(this)
@@ -21,10 +28,26 @@ class AddAddressFragment : CheckoutBaseFragment<FragmentAddAddressBinding>(Fragm
 
     val message = "Required Field"
 
+    val args:AddAddressFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         prepareListener()
         validate()
+
+        if(args.isDefault){
+            binding.rbSetAsDefault.visibility = View.GONE
+            binding.rbSetAsDefault.isChecked = true
+        }
 
         binding.apply {
             btnSave.setOnClickListener {

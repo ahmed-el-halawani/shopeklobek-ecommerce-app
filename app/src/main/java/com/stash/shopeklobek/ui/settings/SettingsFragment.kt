@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.orhanobut.hawk.Hawk
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentSettingsBinding
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.utils.Either
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkAddress()
         checkLanguage()
         checkCurrency()
         setLanguageBtnListeners()

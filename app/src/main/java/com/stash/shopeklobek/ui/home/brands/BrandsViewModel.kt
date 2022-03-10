@@ -21,7 +21,6 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     val brands = MutableLiveData<Either<SmartCollectionModel, RepoErrors>>()
     var vendors = MutableLiveData<Either<ProductsModel,RepoErrors>>()
     var discounts = MutableLiveData<Either<DiscountModel,RepoErrors>>()
-    var favorites = MutableLiveData<List<RoomFavorite>>()
 
     val loadingLiveData = MutableLiveData<Boolean>(false)
 
@@ -29,6 +28,7 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         getAllDiscounts()
+        getSmartCollection()
     }
 
     fun getSmartCollection()  {
@@ -56,17 +56,14 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun getFavorites() {
-        Log.i(TAG, "getFavorites: ")
-        when(val favorite = repo.getFavorites()){
-            is Either.Error -> {
-                Log.i(TAG, "getFavorites: error")} 
-            is Either.Success -> {favorites.value = favorite.data.value
-                Log.d("getFavorites", favorite.data.toString())
-                Log.i(TAG, "getFavorites: success")
-            }
+    fun getFavorites() = repo.getFavorites()
+
+    fun deleteFavorite(id: Long) {
+        viewModelScope.launch {
+            repo.deleteFromFavorite(id)
         }
     }
+
     class Factory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return BrandsViewModel(application) as T

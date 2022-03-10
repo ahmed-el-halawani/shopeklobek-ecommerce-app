@@ -42,7 +42,11 @@
         android:id="@+id/nav_settings"
         android:name="com.stash.shopeklobek.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_addAddressFragment2"
+            app:destination="@id/addAddressFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/nav_login"
         android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
@@ -76,6 +80,16 @@
         <action
             android:id="@+id/action_nav_register_to_nav_login"
             app:destination="@id/nav_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAddressFragment2"
+        android:name="com.stash.shopeklobek.ui.checkout.add_address.AddAddressFragment"
+        android:label="fragment_add_address"
+        tools:layout="@layout/fragment_add_address" >
+        <argument
+            android:name="isDefault"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
 </navigation>
