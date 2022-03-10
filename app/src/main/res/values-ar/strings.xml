@@ -56,11 +56,11 @@
     <string name="usd">دولار</string>
     <string name="Currency">العمله</string>
     <string name="address">العنوان</string>
-    <string name="email" translatable="false">البريد الالكتروني</string>
-    <string name="password" translatable="false">كلمه السر</string>
-    <string name="user_name" translatable="false">User name</string>
-    <string name="confirm_password" translatable="false">تأكيد كلمة السر</string>
-    <string name="signup" translatable="false">تسجيل</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password" >كلمه السر</string>
+    <string name="user_name" >User name</string>
+    <string name="confirm_password" >تأكيد كلمة السر</string>
+    <string name="signup" >تسجيل</string>
     <string name="arabic">العربيه</string>
     <string name="settings">الاعدادات</string>
     <string name="change_address"> تغيير العنوان</string>
@@ -88,19 +88,20 @@
     <string name="more">المزيد</string>
     <string name="sighn_out">تسجيل الخروج</string>
     <string name="favorite_list">قائة المفضلة</string>
-    <string name="filter" translatable="false">تصنيف</string>
-    <string name="shoes" translatable="false">أحذية</string>
-    <string name="accessories" translatable="false">أكسسورارات</string>
-    <string name="clothes" translatable="false">ملابس</string>
-    <string name="sale" translatable="false">تصفيات</string>
-    <string name="kids" translatable="false">أطفال</string>
-    <string name="men" translatable="false">رجال</string>
-    <string name="women" translatable="false">سيدات</string>
+    <string name="filter" >تصنيف</string>
+    <string name="shoes" >أحذية</string>
+    <string name="accessories" >أكسسورارات</string>
+    <string name="clothes" >ملابس</string>
+    <string name="sale" >تصفيات</string>
+    <string name="kids" >أطفال</string>
+    <string name="men" >رجال</string>
+    <string name="women" >سيدات</string>
     <string name="none">غير محدد</string>
     <string name="all">الكل</string>
-    <string name="menu_profile" translatable="false">الملف الشخصي</string>
-    <string name="menu_settings" translatable="false">الإعدادات</string>
-    <string name="menu_home" translatable="false">الصفحة الرئيسية</string>
-    <string name="product_details" translatable="false">تفاصيل المنتج</string>
+    <string name="menu_profile" >الملف الشخصي</string>
+    <string name="menu_settings" >الإعدادات</string>
+    <string name="menu_home" >الصفحة الرئيسية</string>
+    <string name="product_details" >تفاصيل المنتج</string>
+    <string name="copied">تم نسخ الكود</string>
 
 </resources>
