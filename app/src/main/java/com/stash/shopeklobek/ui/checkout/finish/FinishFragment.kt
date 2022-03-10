@@ -78,9 +78,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
                     }
                 }
             }
-
         }
-
     }
 
     private suspend fun confirmIt() {

@@ -92,7 +92,7 @@ data class Settings(
             fun getDefault(): Settings = Settings(
                 Language.Default,
                 null,
-                CurrencyUtil.getCurrency(CurrenciesEnum.EGP)
+                CurrencyUtil.getCurrency(CurrenciesEnum.USD)
             )
         }
     }
