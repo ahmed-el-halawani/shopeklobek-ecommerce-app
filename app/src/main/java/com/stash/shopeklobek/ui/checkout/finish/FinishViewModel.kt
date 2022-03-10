@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.createorder.CreateOrder
+import com.paypal.checkout.createorder.OrderIntent
+import com.paypal.checkout.createorder.UserAction
+import com.paypal.checkout.order.AppContext
+import com.paypal.checkout.order.PurchaseUnit
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.model.entities.SendedOrder

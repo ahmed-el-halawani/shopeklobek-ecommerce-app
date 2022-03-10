@@ -17,16 +17,18 @@ import java.lang.ref.WeakReference
 object NavigationExtension {
 
     fun NavigationBarView.setupWithNavController2(
-        navController: NavController,
-        menuAndEquals: Map<Int, List<Int>>
+        navController: NavController
     ) {
         setOnItemSelectedListener { item ->
+            item.isChecked = true
+
             NavigationUI.onNavDestinationSelected(
                 item,
                 navController
             )
         }
         val weakReference = WeakReference(this)
+
         navController.addOnDestinationChangedListener(
             object : NavController.OnDestinationChangedListener {
                 override fun onDestinationChanged(
@@ -38,17 +40,6 @@ object NavigationExtension {
                     if (view == null) {
                         navController.removeOnDestinationChangedListener(this)
                         return
-                    }
-                    view.menu.forEach { item ->
-                        if (destination.matchDestination(item.itemId)) {
-                            item.isChecked = true
-                        }else if(menuAndEquals[item.itemId]!=null){
-                            menuAndEquals[item.itemId]?.forEach {
-                                if (destination.matchDestination(it)) {
-                                    item.isChecked = true
-                                }
-                            }
-                        }
                     }
                 }
             })

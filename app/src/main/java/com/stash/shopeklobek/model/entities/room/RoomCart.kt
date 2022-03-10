@@ -24,7 +24,10 @@ data class RoomCart(
                 it?.id == variantId
             }
         }
+    }
 
+    fun getTotal():String{
+        return ((variant()?.price?.toDouble()?:0.0)  * count).toString()
     }
 
 }

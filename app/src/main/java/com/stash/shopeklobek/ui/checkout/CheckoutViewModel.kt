@@ -3,6 +3,14 @@ package com.stash.shopeklobek.ui.checkout
 import android.app.Application
 import androidx.lifecycle.*
 import com.orhanobut.hawk.Hawk
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.createorder.CreateOrder
+import com.paypal.checkout.createorder.CurrencyCode
+import com.paypal.checkout.createorder.OrderIntent
+import com.paypal.checkout.createorder.UserAction
+import com.paypal.checkout.order.Amount
+import com.paypal.checkout.order.AppContext
+import com.paypal.checkout.order.PurchaseUnit
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.model.entities.FinancialStatus
@@ -10,6 +18,7 @@ import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.model.entities.PriceRule
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.repositories.ProductRepo
+import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
@@ -53,7 +62,7 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
 
     suspend fun confirm(): Either<Unit, RoomAddOrderErrors> {
         val order = Order(
-            finalPrice = cartProducts.getPrice().toCurrency(app),
+            finalPrice = cartProducts.getPrice().toString(),
             createdAt = Date().time,
             billingAddress = selectedAddress,
             totalDiscount = priceRule?.value,
@@ -68,6 +77,31 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
                 productRepo.addOrder(order.copy(financialStatus = FinancialStatus.Paid.value))
             }
         }
+    }
+
+    fun getTotalPrice() =
+        ((priceRule?.value?.toDouble()) ?: 0.0) + cartProducts.getPrice() + shipping
+
+
+
+    fun startCheck() {
+        PayPalCheckout.startCheckout(
+            CreateOrder { createOrderActions ->
+                val order = com.paypal.checkout.order.Order(
+                    intent = OrderIntent.CAPTURE,
+                    appContext = AppContext(
+                        userAction = UserAction.PAY_NOW
+                    ),
+                    purchaseUnitList = listOf(
+                        PurchaseUnit(
+                            amount = Amount(currencyCode = CurrencyCode.USD, value =
+                            getTotalPrice().toString())
+                        )
+                    )
+                )
+                createOrderActions.create(order)
+            }
+        )
     }
 
 

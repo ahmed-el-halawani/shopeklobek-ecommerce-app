@@ -24,7 +24,7 @@
             app:destination="@id/OrdersFragment" />
         <action
             android:id="@+id/action_nav_profile_to_loogin"
-            app:destination="@id/loogin" />
+            app:destination="@id/completeAction" />
     </fragment>
     <fragment
         android:id="@+id/OrdersFragment"
@@ -55,7 +55,7 @@
             app:destination="@id/nav_register" />
     </fragment>
     <fragment
-        android:id="@+id/loogin"
+        android:id="@+id/completeAction"
         android:name="com.stash.shopeklobek.ui.authentication.completeAction.CompleteActionFragment"
         android:label="completeAction"
         tools:layout="@layout/fragment_complete_action" >
