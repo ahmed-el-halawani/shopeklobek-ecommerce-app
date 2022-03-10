@@ -33,19 +33,7 @@ class MainViewModel(val app: Application, val productRepo: ProductRepo) : Androi
         viewModelScope.launch {
             productRepo.updateCurrency()
 
-            PayPalCheckout.setConfig(
-                CheckoutConfig(
-                    application = app,
-                    clientId = Constants.PAYPAL_CLIENT_ID,
-                    environment = Environment.SANDBOX,
-                    returnUrl = BuildConfig.APPLICATION_ID+"://paypalpay",
-                    currencyCode = CurrencyCode.USD,
-                    userAction = UserAction.PAY_NOW,
-                    settingsConfig = SettingsConfig(
-                        loggingEnabled = true
-                    )
-                )
-            )
+
         }
 
     }

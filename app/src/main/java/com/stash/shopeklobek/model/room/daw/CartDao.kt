@@ -5,7 +5,6 @@ import androidx.room.*
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.utils.Constants.CART_TABLE
 
-
 @Dao
 interface CartDao : BaseDao<RoomCart> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

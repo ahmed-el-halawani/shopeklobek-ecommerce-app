@@ -2,9 +2,14 @@ package com.stash.shopeklobek.ui.checkout.paymethod
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.approve.OnApprove
+import com.paypal.checkout.cancel.OnCancel
+import com.paypal.checkout.error.OnError
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentPaymentScreenBinding
 import com.stash.shopeklobek.model.utils.Either
@@ -164,5 +169,8 @@ class PaymentMethod :
             view.id
         )
     }
+
+
+
 
 }

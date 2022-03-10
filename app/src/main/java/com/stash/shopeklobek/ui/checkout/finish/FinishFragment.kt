@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.approve.OnApprove
+import com.paypal.checkout.cancel.OnCancel
+import com.paypal.checkout.error.OnError
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentFinishBinding
 import com.stash.shopeklobek.model.utils.Either
@@ -13,6 +17,8 @@ import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 import com.stash.shopeklobek.ui.checkout.PaymentMethodsEnum
 import com.stash.shopeklobek.utils.getPrice
 import com.stash.shopeklobek.utils.toCurrency
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinishBinding::inflate) {
@@ -20,6 +26,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         // order details
         binding.run {
@@ -59,31 +66,15 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
             }
         }
 
+        paypal()
+
         //button confirm
         binding.btnConfirm.setOnClickListener {
             lifecycleScope.launch {
                 when (mainViewModel.selectedPaymentMethods) {
-                    PaymentMethodsEnum.Cash -> when (val res = mainViewModel.confirm()) {
-                        is Either.Error -> when (res.errorCode) {
-                            RoomAddOrderErrors.NoLoginCustomer ->
-                                Toast.makeText(
-                                    context,
-                                    getString(R.string.u_havent_login_yet),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            else -> Toast.makeText(
-                                context,
-                                getString(R.string.someThing_wrong_happened),
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        }
-                        is Either.Success -> {
-                            messageDialog()
-                        }
-                    }
+                    PaymentMethodsEnum.Cash -> confirmIt()
                     PaymentMethodsEnum.Paypal -> {
-
+                        mainViewModel.startCheck()
                     }
                 }
             }
@@ -91,6 +82,56 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
         }
 
     }
+
+    private suspend fun confirmIt() {
+        when (val res = mainViewModel.confirm()) {
+            is Either.Error -> when (res.errorCode) {
+                RoomAddOrderErrors.NoLoginCustomer ->
+                    Toast.makeText(
+                        context,
+                        getString(R.string.u_havent_login_yet),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                else -> Toast.makeText(
+                    context,
+                    getString(R.string.someThing_wrong_happened),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            is Either.Success -> {
+                messageDialog()
+            }
+        }
+    }
+
+    private fun paypal() {
+        PayPalCheckout.registerCallbacks(
+            onApprove = OnApprove { approval ->
+                approval.orderActions.capture { captureOrderResult ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        confirmIt()
+                    }
+                }
+            },
+
+            onCancel = OnCancel {
+                Toast.makeText(
+                    context,
+                    "canceled",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+
+            onError = OnError { errorInfo ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.someThing_wrong_happened),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
+    }
+
 
     private fun showDiscountRow(value: String? = null): Double? {
         binding.run {

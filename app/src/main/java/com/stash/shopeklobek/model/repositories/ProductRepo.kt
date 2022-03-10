@@ -366,7 +366,7 @@ class ProductRepo(
 
     fun getSettingsLiveData(): MutableLiveData<Settings> = settingsPreferences.getSettingsLiveData()
 
-    fun getSettings(): Settings = settingsPreferences.getSettings()
+    fun getSettings() = settingsPreferences.getSettings()
 
     // end settings repo
 
