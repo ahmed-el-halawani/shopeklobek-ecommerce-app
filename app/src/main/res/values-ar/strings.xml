@@ -103,5 +103,9 @@
     <string name="menu_home" >الصفحة الرئيسية</string>
     <string name="product_details" >تفاصيل المنتج</string>
     <string name="copied">تم نسخ الكود</string>
+    <string name="brands">الماركات</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="category">التصنيفات</string>
+    <string name="favorites">المفضلة</string>
 
 </resources>
