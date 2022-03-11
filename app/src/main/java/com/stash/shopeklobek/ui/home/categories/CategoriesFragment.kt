@@ -131,11 +131,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     fun checkFavoriteList(listOfProducts : List<Products> ){
         when(val favorite = categoriesViewModel.getFavorites()){
             is Either.Error -> {
-                categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,emptyList())
+                categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite,emptyList())
                 recyclerView.adapter = categoryAdapter}
             is Either.Success -> {
                 favorite.data.observeOnce(viewLifecycleOwner){
-                    categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite, it)
+                    categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite, it)
                     recyclerView.adapter = categoryAdapter
                 }
             }

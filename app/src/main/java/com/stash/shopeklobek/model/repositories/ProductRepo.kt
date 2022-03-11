@@ -359,6 +359,10 @@ class ProductRepo(
         database.favoriteDao().delete(id)
     }
 
+    suspend fun deleteFromFavorite(product: Products) {
+        database.favoriteDao().deleteByProduct(product)
+    }
+
     // settings repo
     fun insert(settings: Settings) = settingsPreferences.insert(settings)
 

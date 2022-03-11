@@ -103,5 +103,17 @@
     <string name="menu_home" >الصفحة الرئيسية</string>
     <string name="product_details" >تفاصيل المنتج</string>
     <string name="copied">تم نسخ الكود</string>
+    <string name="brands">الماركات</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="category">التصنيفات</string>
+    <string name="favorites">المفضلة</string>
+    <string name="search_Menu">البحث</string>
+    <string name="BrandsFragment">الماركات</string>
+    <string name="FavoriteFargment">المفضلة</string>
+    <string name="CateforiesFragment">التصنيفات</string>
+    <string name="CartFragment">العربة</string>
+    <string name="ProductFragment">تفاصيل المنتج</string>
+    <string name="VendorFragment">منتجات الماركة</string>
+    <string name="no_more_stock">لم يعد هذا المنتج موجود بالمخزن</string>
 
 </resources>

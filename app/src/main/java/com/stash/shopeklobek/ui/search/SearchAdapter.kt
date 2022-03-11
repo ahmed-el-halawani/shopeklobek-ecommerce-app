@@ -1,4 +1,4 @@
-package com.stash.shopeklobek.ui.home.categories
+package com.stash.shopeklobek.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +12,11 @@ import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.ui.home.brands.VendorFragmentDirections
 import com.stash.shopeklobek.utils.toCurrency
 
-class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit, var deleteFavorite : (Products) -> Unit
-                      , var listFavorites : List<RoomFavorite> ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class SearchAdapter (var listProducts: List<Products>, var addToFavorite: (Products) -> Unit, var deleteFavorite : (Products) -> Unit
+                     , var listFavorites : List<RoomFavorite>) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_category,parent,false)
@@ -26,8 +27,9 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
         holder.categoryTitleTextView.text = listProducts[position].title
         holder.categoryPriceTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price?.toCurrency(holder.itemView.context)
         Glide.with(holder.categoryImageView.context).load(listProducts[position].image.src).into(holder.categoryImageView)
-        for ( i in 0 .. listFavorites.size.minus(1)){
-            if(listProducts[position].productId == listFavorites[i].product.productId){
+
+        for ( i in 0 .. listFavorites.size.minus(1)) {
+            if (listProducts[position].productId == listFavorites[i].product.productId) {
                 holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
                 holder.categoryFavoriteImageView.tag="favorite"
             }
@@ -46,10 +48,10 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
         }
 
         holder.categoryConstrainLayout.setOnClickListener {
-            val action = CategoriesFragmentDirections.actionCategoriesFragmentToProductDetailsFragment(listProducts[position])
+            val action = VendorFragmentDirections.actionVendorFragmentToProductDetailsFragment(listProducts[position])
             it.findNavController().navigate(action)
         }
-        
+
     }
 
     override fun getItemCount(): Int {
@@ -71,7 +73,7 @@ class CategoryAdapter(var listProducts: List<Products>, var addToFavorite: (Prod
             get() = itemView.findViewById(R.id.categoryTitleTextView)
 
         val categoryConstrainLayout : ConstraintLayout
-        get() = itemView.findViewById(R.id.categoryConstrainLayout)
+            get() = itemView.findViewById(R.id.categoryConstrainLayout)
 
 
 

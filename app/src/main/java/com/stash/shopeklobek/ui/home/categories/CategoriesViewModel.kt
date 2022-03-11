@@ -59,11 +59,16 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun addToFavorite(product: Products){
-        Log.i(TAG, "addToFavorite: from viewmodel")
         repo.addToFavorite(product)
     }
 
     fun getFavorites() = repo.getFavorites()
+
+    fun deleteFavorite(product: Products) {
+        viewModelScope.launch {
+            repo.deleteFromFavorite(product)
+        }
+    }
 
 
     class Factory(private val application: Application) : ViewModelProvider.Factory {
