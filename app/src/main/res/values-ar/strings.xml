@@ -114,5 +114,6 @@
     <string name="CartFragment">العربة</string>
     <string name="ProductFragment">تفاصيل المنتج</string>
     <string name="VendorFragment">منتجات الماركة</string>
+    <string name="no_more_stock">لم يعد هذا المنتج موجود بالمخزن</string>
 
 </resources>
