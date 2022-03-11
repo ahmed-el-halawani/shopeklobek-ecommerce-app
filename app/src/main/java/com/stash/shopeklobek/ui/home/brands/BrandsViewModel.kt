@@ -58,9 +58,9 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getFavorites() = repo.getFavorites()
 
-    fun deleteFavorite(id: Long) {
+    fun deleteFavorite(product: Products) {
         viewModelScope.launch {
-            repo.deleteFromFavorite(id)
+            repo.deleteFromFavorite(product)
         }
     }
 

@@ -2,6 +2,7 @@ package com.stash.shopeklobek.model.room.daw
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.utils.Constants
@@ -24,4 +25,8 @@ interface FavoritesDao : BaseDao<RoomFavorite> {
 
     @Query("DELETE FROM $FAVORITES_TABLE WHERE id = :id")
     override suspend fun delete(id: Long)
+
+    @Query("DELETE FROM $FAVORITES_TABLE WHERE product = :product")
+     suspend fun deleteByProduct(product: Products)
+
 }
