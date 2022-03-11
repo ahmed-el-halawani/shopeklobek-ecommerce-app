@@ -2,15 +2,12 @@ package com.stash.shopeklobek.ui.checkout
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.orhanobut.hawk.Hawk
 import com.paypal.checkout.PayPalCheckout
 import com.paypal.checkout.createorder.CreateOrder
 import com.paypal.checkout.createorder.CurrencyCode
 import com.paypal.checkout.createorder.OrderIntent
 import com.paypal.checkout.createorder.UserAction
-import com.paypal.checkout.order.Amount
-import com.paypal.checkout.order.AppContext
-import com.paypal.checkout.order.PurchaseUnit
+import com.paypal.checkout.order.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.model.entities.FinancialStatus
@@ -18,18 +15,17 @@ import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.model.entities.PriceRule
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.repositories.ProductRepo
-import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.model.utils.RoomAddOrderErrors
-import com.stash.shopeklobek.utils.ViewHelpers
 import com.stash.shopeklobek.utils.getPrice
 import com.stash.shopeklobek.utils.observeOnce
-import com.stash.shopeklobek.utils.toCurrency
+import com.stash.shopeklobek.utils.toItems
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.absoluteValue
+import com.paypal.checkout.order.Order as paypalOrder
 
 enum class PaymentMethodsEnum {
     Cash, Paypal
@@ -39,7 +35,7 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
     AndroidViewModel(app) {
 
     var cartProducts: List<RoomCart> = emptyList()
-    var priceRule: PriceRule? = null
+    var discount: PriceRule? = null
     var selectedAddress: Address? = null
     var shipping = 5.0
     var selectedPaymentMethods: PaymentMethodsEnum = PaymentMethodsEnum.Cash
@@ -48,24 +44,24 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
 
     fun addDiscount(discountCode: String) = viewModelScope.launch {
         fixedDiscountLiveData.value = productRepo.getDiscount(discountCode).also {
-            priceRule = when (it) {
+            discount = when (it) {
                 is Either.Error -> null
                 is Either.Success -> it.data
             }
         }
     }
 
-    fun removeDiscount(){
-        priceRule = null
+    fun removeDiscount() {
+        discount = null
         fixedDiscountLiveData.postValue(null)
     }
 
     suspend fun confirm(): Either<Unit, RoomAddOrderErrors> {
         val order = Order(
-            finalPrice = cartProducts.getPrice().toString(),
+            finalPrice = getTotalPrice().toString(),
             createdAt = Date().time,
             billingAddress = selectedAddress,
-            totalDiscount = priceRule?.value,
+            totalDiscount = discount?.value,
             items = cartProducts,
         )
 
@@ -80,24 +76,48 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
     }
 
     fun getTotalPrice() =
-        ((priceRule?.value?.toDouble()) ?: 0.0) + cartProducts.getPrice() + shipping
-
+        ((discount?.value?.toDouble()) ?: 0.0) + cartProducts.getPrice() + shipping
 
 
     fun startCheck() {
         PayPalCheckout.startCheckout(
             CreateOrder { createOrderActions ->
-                val order = com.paypal.checkout.order.Order(
+                val order = paypalOrder(
                     intent = OrderIntent.CAPTURE,
                     appContext = AppContext(
                         userAction = UserAction.PAY_NOW
                     ),
                     purchaseUnitList = listOf(
                         PurchaseUnit(
-                            amount = Amount(currencyCode = CurrencyCode.USD, value =
-                            getTotalPrice().toString())
+                            amount = Amount(
+                                currencyCode = CurrencyCode.USD,
+                                value = getTotalPrice().toString(),
+                                breakdown = BreakDown(
+                                    itemTotal = UnitAmount(
+                                        currencyCode = CurrencyCode.USD,
+                                        value = cartProducts.getPrice().toString(),
+                                        ),
+                                    shipping = UnitAmount(
+                                        currencyCode = CurrencyCode.USD,
+                                        value = shipping.toString(),
+                                    ),
+                                    discount = discount?.let {
+                                        UnitAmount(
+                                            currencyCode = CurrencyCode.USD,
+                                            value = (it.value?.toDouble()?.absoluteValue.toString())?:"0",
+                                        )
+                                    }
+                                )
+                            ),
+
+                            items = cartProducts.toItems(),
+
+                            shipping = Shipping(
+                                address = selectedAddress?.toPaypalAddress()
+                            )
+
                         )
-                    )
+                    ),
                 )
                 createOrderActions.create(order)
             }

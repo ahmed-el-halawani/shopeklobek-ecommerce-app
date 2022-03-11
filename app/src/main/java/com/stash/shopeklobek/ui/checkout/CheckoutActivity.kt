@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityCheckoutBinding
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
+import com.stash.shopeklobek.utils.ViewHelpers
 
 class CheckoutActivity : AppCompatActivity() {
 
@@ -42,7 +43,9 @@ class CheckoutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
+        if(ViewHelpers.getLocale().language!= resources.configuration.locale.language){
+            ViewHelpers.setAppLocale(this, resources)
+        }
 
 
         setupActionBarWithNavController(nav,navConfiguration)

@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.ui.settings
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
@@ -22,8 +23,7 @@ class SettingsViewModel(application: Application, val productRepo: ProductRepo) 
     fun getCurrency(currency: CurrenciesEnum) {
 
         viewModelScope.launch {
-            val response: Either<Unit, RepoErrors> = productRepo.selectCurrency(currency)
-            when (response) {
+            when (val response: Either<Unit, RepoErrors> = productRepo.selectCurrency(currency)) {
                 is Either.Error -> when (response.errorCode) {
                     RepoErrors.NoInternetConnection -> {
                         Toast.makeText(
@@ -42,8 +42,7 @@ class SettingsViewModel(application: Application, val productRepo: ProductRepo) 
 
                 }
                 is Either.Success -> {
-
-
+                    Log.e("getCurrency", "getCurrency: "+productRepo.getSettings().currancy, )
                 }
             }
         }

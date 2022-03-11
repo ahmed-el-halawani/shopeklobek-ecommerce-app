@@ -93,7 +93,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
             when (val res = profileViewModel.getOrders()) {
                 is Either.Error -> {
-                    TODO()
                 }
                 is Either.Success -> {
                     res.data.observe(viewLifecycleOwner) {

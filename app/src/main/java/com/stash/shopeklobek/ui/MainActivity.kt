@@ -20,6 +20,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.orhanobut.hawk.Hawk
@@ -30,8 +32,10 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
 
 import com.stash.shopeklobek.utils.ViewHelpers
+import com.stash.shopeklobek.utils.ViewHelpers.getLocale
 import com.stash.shopeklobek.utils.ViewHelpers.localeFromLanguage
 import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
+import kotlinx.coroutines.launch
 
 import java.util.*
 
@@ -75,8 +79,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState==null)
+        if(savedInstanceState==null){
+            lifecycleScope.launch {
+                viewmodel.productRepo.updateCurrency()
+            }
+
+        }
+
+        if(getLocale().language!= resources.configuration.locale.language){
             setAppLocale(this,resources)
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
