@@ -26,5 +26,10 @@
             android:id="@+id/nav_register"
             android:icon="@drawable/ic_baseline_login"
             android:title="@string/sign_up" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search_Menu" />
     </group>
 </menu>

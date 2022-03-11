@@ -1,5 +1,8 @@
 package com.stash.shopeklobek.ui.home.brands
 
+import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +15,10 @@ import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.utils.Constants.TAG
 import com.stash.shopeklobek.utils.toCurrency
 
-class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit
+class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit, var deleteFavorite : (Products) -> Unit
                     ,var listFavorites : List<RoomFavorite>) : RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,6 +26,7 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
         return ViewHolder(view)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables", "ResourceType")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryTitleTextView.text = listProducts[position].title
         holder.categoryPriceTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price?.toCurrency(holder.itemView.context)
@@ -30,13 +35,23 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
         for ( i in 0 .. listFavorites.size.minus(1)) {
             if (listProducts[position].productId == listFavorites[i].product.productId) {
                 holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
+                holder.categoryFavoriteImageView.tag="favorite"
             }
         }
 
         holder.categoryFavoriteImageView.setOnClickListener {
+            if(holder.categoryFavoriteImageView.tag == "favorite"){
+                deleteFavorite(listProducts[position])
+                holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite)
+                holder.categoryFavoriteImageView.tag ="unFavorite"
+            }else{
                 addToFavorite(listProducts[position])
                 holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
+                holder.categoryFavoriteImageView.tag="favorite"
+            }
         }
+
+
         holder.categoryConstrainLayout.setOnClickListener {
             val action = VendorFragmentDirections.actionVendorFragmentToProductDetailsFragment(listProducts[position])
             it.findNavController().navigate(action)
