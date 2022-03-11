@@ -4,49 +4,59 @@ import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.stash.shopeklobek.model.api.ShopifyApi
-import com.stash.shopeklobek.model.repositories.AuthenticationRepo
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
-import com.stash.shopeklobek.model.utils.LoginErrors
 import com.stash.shopeklobek.model.utils.RepoErrors
-import com.stash.shopeklobek.ui.authentication.login.LoginViewModel
 import kotlinx.coroutines.launch
 
-class SettingsViewModel(application: Application,val productRepo: ProductRepo) : AndroidViewModel(application) {
+class SettingsViewModel(application: Application, val productRepo: ProductRepo) :
+    AndroidViewModel(application) {
 
 
-fun getCurrency(currency:CurrenciesEnum){
+    fun getCurrency(currency: CurrenciesEnum) {
 
-    viewModelScope.launch {
-        val response:Either<Unit,RepoErrors> = productRepo.selectCurrency(currency)
-        when(response){
-            is Either.Error -> when(response.errorCode){
-                RepoErrors.NoInternetConnection -> {
-                    Toast.makeText(getApplication(), "NoInternetConnection"+response.message, Toast.LENGTH_SHORT).show()
+        viewModelScope.launch {
+            when (val response: Either<Unit, RepoErrors> = productRepo.selectCurrency(currency)) {
+                is Either.Error -> when (response.errorCode) {
+                    RepoErrors.NoInternetConnection -> {
+                        Toast.makeText(
+                            getApplication(),
+                            "NoInternetConnection" + response.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {
+                        Toast.makeText(
+                            getApplication(),
+                            "ServerError" + response.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                 }
-                   RepoErrors.ServerError -> {
-                    Toast.makeText(getApplication(), "ServerError"+response.message, Toast.LENGTH_SHORT).show()
+                is Either.Success -> {
+                    Log.e("getCurrency", "getCurrency: "+productRepo.getSettings().currancy, )
                 }
-            }
-            is Either.Success -> {
-
-
             }
         }
     }
-}
 
 
-    class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
+    class Factory(private val application: Application, val productRepo: ProductRepo) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SettingsViewModel(application,productRepo) as T
+            return SettingsViewModel(application, productRepo) as T
         }
     }
-    companion object{
+
+    companion object {
         fun create(context: Fragment): SettingsViewModel {
             return ViewModelProvider(
                 context,

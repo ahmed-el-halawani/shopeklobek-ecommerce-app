@@ -143,6 +143,22 @@ object ViewHelpers {
         resources.updateConfiguration(config, dm)
 
         ActivityCompat.recreate(reBuildActivity)
+    }
+
+
+    fun setAppLocale(resources: Resources) {
+        val language:String? = Hawk.get("language")
+        val locale = if(language == null){
+            localeFromLanguage(languageEnumFromLocale())
+        }else{
+            Locale(""+language)
+        }
+        val dm = resources.displayMetrics
+        val config = resources.configuration
+        config.setLocale(locale)
+
+        resources.updateConfiguration(config, dm)
+
 
     }
 

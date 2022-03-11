@@ -2,6 +2,7 @@ package com.stash.shopeklobek.ui.checkout.finish
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
@@ -33,7 +34,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
             mainViewModel.run {
                 tvTotalProductsPrice.text = cartProducts.getPrice().toCurrency(requireContext())
                 tvDelivary.text = shipping.toCurrency(requireContext())
-                tvDiscount.text = showDiscountRow(priceRule?.value)?.toCurrency(requireContext())
+                tvDiscount.text = showDiscountRow(discount?.value)?.toCurrency(requireContext())
                 tvTotal.text = calculateTotalPrice().toCurrency(requireContext())
             }
         }
@@ -78,9 +79,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
                     }
                 }
             }
-
         }
-
     }
 
     private suspend fun confirmIt() {
@@ -128,6 +127,8 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
                     getString(R.string.someThing_wrong_happened),
                     Toast.LENGTH_SHORT
                 ).show()
+
+                Log.e("paypal_onError", "paypal: "+errorInfo, )
             }
         )
     }
@@ -146,7 +147,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
     }
 
     fun calculateTotalPrice() =
-        ((mainViewModel.priceRule?.value?.toDouble()) ?: 0.0) + mainViewModel.cartProducts.getPrice() + mainViewModel.shipping
+        ((mainViewModel.discount?.value?.toDouble()) ?: 0.0) + mainViewModel.cartProducts.getPrice() + mainViewModel.shipping
 
     private fun messageDialog() {
         AlertDialog.Builder(context).apply {

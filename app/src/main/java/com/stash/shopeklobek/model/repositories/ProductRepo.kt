@@ -389,7 +389,7 @@ class ProductRepo(
             update {
                 it.currancy = CurrencyUtil.getCurrency(currencyEnum).apply {
                     converterValue = when (idEnum) {
-                        CurrenciesEnum.EGP -> 1.0
+                        CurrenciesEnum.EGP -> currencyValues.conversion_rates.EGP
                         CurrenciesEnum.USD -> currencyValues.conversion_rates.USD
                         CurrenciesEnum.SAR -> currencyValues.conversion_rates.SAR
                     }
@@ -409,7 +409,7 @@ class ProductRepo(
             update {
                 it.currancy = CurrencyUtil.getCurrency(it.currancy.idEnum).apply {
                     converterValue = when (idEnum) {
-                        CurrenciesEnum.EGP -> 1.0
+                        CurrenciesEnum.EGP -> currencyValues.conversion_rates.EGP
                         CurrenciesEnum.USD -> currencyValues.conversion_rates.USD
                         CurrenciesEnum.SAR -> currencyValues.conversion_rates.SAR
                     }
