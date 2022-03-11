@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_nav_not_login"
             app:destination="@id/completeAction" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
 
     <fragment
@@ -106,5 +109,6 @@
         <argument
             android:name="product"
             app:argType="com.stash.shopeklobek.model.entities.Products" />
+
     </fragment>
 </navigation>
