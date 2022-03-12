@@ -4,9 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.room.RoomOrder
+import com.stash.shopeklobek.ui.home.favorites.FavoritesFragmentDirections
+import com.stash.shopeklobek.ui.profile.orders_details.OrdersDetailsFragmentArgs
 import com.stash.shopeklobek.utils.toCurrency
 
 class AdapterOrder(var orders:List<RoomOrder>) :
@@ -21,6 +25,8 @@ class AdapterOrder(var orders:List<RoomOrder>) :
             get() = view.findViewById(R.id.tv_price_order)
         val tvState: TextView
             get() = view.findViewById(R.id.tv_state_order)
+        val order: CardView
+            get() = view.findViewById(R.id.order)
 
 
     }
@@ -36,6 +42,11 @@ class AdapterOrder(var orders:List<RoomOrder>) :
         holder.tvDate.text = orders[position].order.getDate()
         holder.tvPrice.text = orders[position].order.price?.toCurrency(holder.itemView.context)
         holder.tvState.text = orders[position].order.state
+
+        holder.order.setOnClickListener {
+             val action = OrdersFragmentDirections.actionOrdersFragmentToNavOrderDetails(orders[position])
+             it.findNavController().navigate(action)
+        }
 
     }
 
