@@ -26,6 +26,14 @@ object Constants {
     const val ORDER_TABLE = "ORDER_TABLE"
     const val DATABASE_NAME = "shopeklobek"
 
+    //file shared
+    const val FILE_NAME = "FILTER_SHARED_PREFERENCE"
+    const val FIRST_FILTER_CATEGORIES = "FIRST_FILTER_CATEGORIES"
+    const val SECOND_FILTER_CATEGORIES = "SECOND_FILTER_CATEGORIES"
+    const val FIRST_FILTER_PRICE = "FIRST_FILTER_PRICE"
+
+
+
 
 /*
     get request

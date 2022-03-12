@@ -24,6 +24,9 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
 
+    val loadingLiveData = MutableLiveData<Boolean>(false)
+
+
     private val repo = ProductRepo(ShopifyApi.api, SettingsPreferences.getInstance(application),application)
 
     init {
@@ -33,30 +36,38 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     private fun getMainCategory() {
         viewModelScope.launch {
+            loadingLiveData.postValue(true)
             category.value= repo.getMainCategories()
+            loadingLiveData.postValue(false)
         }
     }
 
     private fun getAllCategory(){
         viewModelScope.launch {
+            loadingLiveData.postValue(true)
             products.value = repo.getAllProduct()
+            loadingLiveData.postValue(false)
         }
     }
 
     fun getProductsByGender(collectionId : Long, gender : String){
         viewModelScope.launch {
+            loadingLiveData.postValue(true)
             products.value = repo.getProductsByGender(collectionId)
             firstFilter.value = gender
             secondFilter.value="all"
+            loadingLiveData.postValue(false)
         }
     }
 
     fun getProductsFromType (collectionId : Long, productType: String,gender : String){
         viewModelScope.launch {
+            products.value = repo.getProductsByGender(collectionId)
             products.value = repo.getProductsFromType(collectionId,productType)
             firstFilter.value = gender
             secondFilter.value = productType
-            }
+            loadingLiveData.postValue(false)
+        }
     }
 
     fun addToFavorite(product: Products) : Either<Unit, RoomAddProductErrors>{

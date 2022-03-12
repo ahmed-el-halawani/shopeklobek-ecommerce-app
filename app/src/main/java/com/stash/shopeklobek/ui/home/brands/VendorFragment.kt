@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.ui.home.brands
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.categories.FilterBottomSheet
+import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.Constants.TAG
 import com.stash.shopeklobek.utils.observeOnce
 
@@ -106,6 +109,18 @@ override fun onCreateView(
                 })
             })
         })
+
+    brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+        when (it) {
+            true -> {
+                showLoading()
+            }
+            false -> {
+                hideLoading()
+            }
+        }
+    })
+
     return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -113,8 +128,6 @@ override fun onCreateView(
         var listOfProductsWithFilter = ArrayList<Products>()
         val firstFilter = brandsViewModel.firstPriceFilter.value
         val secondFilter = brandsViewModel.secondPriceFilter.value
-        Log.i(TAG, "checkFavoriteList: "+brandsViewModel.secondPriceFilter.value.toString())
-        Log.i(TAG, "checkFavoriteList: "+brandsViewModel.firstPriceFilter.value.toString())
         for( i in 0.. listOfProducts.size.minus(1)){
             if(listOfProducts[i].variants[0]?.price?.toFloat() ?: 0f >= firstFilter!! && listOfProducts[i].variants[0]?.price?.toFloat() ?: 0f < secondFilter!! ){
                 listOfProductsWithFilter.add(listOfProducts[i])
@@ -131,6 +144,14 @@ override fun onCreateView(
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(Constants.FIRST_FILTER_PRICE,"all")
+        editor.apply()
     }
 
     override fun onDestroy() {

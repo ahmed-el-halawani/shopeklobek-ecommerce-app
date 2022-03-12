@@ -96,7 +96,7 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         })
 
 
-     /*   brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+        brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 true -> {
                     showLoading()
@@ -105,6 +105,6 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                     hideLoading()
                 }
             }
-        })*/
+        })
     }
 }
