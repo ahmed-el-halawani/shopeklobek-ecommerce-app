@@ -94,23 +94,29 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                         cartViewModel.getCartProductsEither()
                     }
                     cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
-                        cvCartDetails.visibility = if (roomCarts.isEmpty()) View.GONE else View.VISIBLE
+                        if(roomCarts.isEmpty()){
+                            cvCartDetails.visibility =  View.GONE
+                            ivEmptyCart.visibility = View.VISIBLE
 
-                        cartProductAdapter.differ.submitList(roomCarts)
+                        }else{
+                            cvCartDetails.visibility =  View.VISIBLE
+                            ivEmptyCart.visibility = View.GONE
 
-                        var price = 0.0
-                        var count = 0
+                            cartProductAdapter.differ.submitList(roomCarts)
 
-                        roomCarts.forEach {
-                            price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
-                            count += it.count
+                            var price = 0.0
+                            var count = 0
+
+                            roomCarts.forEach {
+                                price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
+                                count += it.count
+                            }
+
+                            tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(
+                                price.toString(), requireContext()
+                            )
+                            tvTotalItems.text = count.toString()
                         }
-
-                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(
-                            price.toString(), requireContext()
-                        )
-                        tvTotalItems.text = count.toString()
-
                     }
 
                 }
