@@ -5,6 +5,7 @@ import android.app.Application
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
@@ -29,6 +30,7 @@ import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityMainBinding
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
 
 import com.stash.shopeklobek.utils.ViewHelpers
@@ -136,6 +138,17 @@ class MainActivity : AppCompatActivity() {
 
     fun hideLoading() {
         dialog?.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPreferences: SharedPreferences = applicationContext.getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(Constants.FIRST_FILTER_CATEGORIES,"women")
+        editor.putString(Constants.SECOND_FILTER_CATEGORIES,"all")
+        editor.putString(Constants.FIRST_FILTER_PRICE,"all")
+        editor.apply()
+
     }
 
 

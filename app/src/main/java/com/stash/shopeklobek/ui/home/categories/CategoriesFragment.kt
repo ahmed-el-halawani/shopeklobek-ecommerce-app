@@ -126,6 +126,17 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                 else -> binding.filterTextView2.text = resources.getString(R.string.none)
             }
         })
+
+        categoriesViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    showLoading()
+                }
+                false -> {
+                    hideLoading()
+                }
+            }
+        })
     }
 
     fun checkFavoriteList(listOfProducts : List<Products> ){

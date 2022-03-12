@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,11 +16,13 @@ import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.RoomAddProductErrors
 import com.stash.shopeklobek.utils.Constants.TAG
 import com.stash.shopeklobek.utils.toCurrency
 
-class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Unit, var deleteFavorite : (Products) -> Unit
-                    ,var listFavorites : List<RoomFavorite>) : RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
+class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Products) -> Either<Unit, RoomAddProductErrors>, var deleteFavorite : (Products) -> Unit
+                    , var listFavorites : List<RoomFavorite>) : RecyclerView.Adapter<VendorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_category,parent,false)
@@ -40,6 +43,27 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
         }
 
         holder.categoryFavoriteImageView.setOnClickListener {
+            if(holder.categoryFavoriteImageView.tag != "favorite"){
+                when (val check = addToFavorite(listProducts[position])){
+                    is Either.Success -> {
+                        holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
+                        holder.categoryFavoriteImageView.tag="favorite"
+                    }
+                    is Either.Error -> when (check.errorCode){
+                        RoomAddProductErrors.NoLoginCustomer ->{
+                            Toast.makeText(it.context, "Please Login", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            }else{
+                deleteFavorite(listProducts[position])
+                holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite)
+                holder.categoryFavoriteImageView.tag ="unFavorite"
+            }
+        }
+
+        /*holder.categoryFavoriteImageView.setOnClickListener {
             if(holder.categoryFavoriteImageView.tag == "favorite"){
                 deleteFavorite(listProducts[position])
                 holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite)
@@ -49,7 +73,7 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
                 holder.categoryFavoriteImageView.setImageResource(R.drawable.ic_baseline_favorite_24_red)
                 holder.categoryFavoriteImageView.tag="favorite"
             }
-        }
+        }*/
 
 
         holder.categoryConstrainLayout.setOnClickListener {
