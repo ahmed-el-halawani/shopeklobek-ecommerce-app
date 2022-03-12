@@ -41,20 +41,6 @@ class CartViewModel(application: Application, val productRepo: ProductRepo) : An
         }
     }
 
-//    fun getCartProducts() {
-//        when (val productCartRes = productRepo.getCart()) {
-//            is Either.Error -> {
-//                cartLiveData.postValue(emptyList())
-//                Log.e("getCartProducts", "getCartProducts: Errorroror", )
-//            }
-//            is Either.Success -> {
-//                Transformations.switchMap(productCartRes.data){
-//                    cartLiveData
-//                }
-//            }
-//        }
-//    }
-
     fun deleteCartProduct(id: Long) = productRepo.deleteFromCart(id)
 
     fun addCartProduct(roomCart: RoomCart) = viewModelScope.launch {

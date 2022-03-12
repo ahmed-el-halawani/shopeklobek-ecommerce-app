@@ -3,6 +3,7 @@ package com.stash.shopeklobek.ui.checkout.finish
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.paypal.checkout.PayPalCheckout
@@ -20,7 +21,7 @@ import com.stash.shopeklobek.utils.getPrice
 import com.stash.shopeklobek.utils.toCurrency
 
 class FinishViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
-
+    val loading = MutableLiveData<Boolean>()
 
     class Factory(private val application: Application, val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

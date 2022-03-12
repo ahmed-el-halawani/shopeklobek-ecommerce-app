@@ -106,7 +106,7 @@
     <string name="create_an_account">Create an account</string>
     <string name="login_to_your_account">Login to your account</string>
     <string name="sign_in_now">ٍsign in now</string>
-    <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">Oops,You seem that you didn\'t login or create an account</string>
+    <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">Oops,You seem that you didn\'t login or create an account yet</string>
     <string name="please_login_or_create_an_account_to_complete_your_action">Please login or create an account to complete your action</string>
     <string name="sign_up">SIGN UP</string>
     <string name="egp_symbol">£</string>
@@ -142,5 +142,7 @@
     <string name="slash">/</string>
     <string name="noword"></string>
     <string name="morethan">More Than</string>
+    <string name="correct_email_or_password">please enter correct email or password</string>
+    <string name="success_log">Logged in Successfully</string>
 
 </resources>
