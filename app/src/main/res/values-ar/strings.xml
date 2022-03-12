@@ -115,5 +115,8 @@
     <string name="ProductFragment">تفاصيل المنتج</string>
     <string name="VendorFragment">منتجات الماركة</string>
     <string name="no_more_stock">لم يعد هذا المنتج موجود بالمخزن</string>
+    <string name="slash">\\</string>
+    <string name="noword">" "</string>
+    <string name="morethan">فأكثر</string>
 
 </resources>

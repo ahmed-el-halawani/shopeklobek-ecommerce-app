@@ -26,9 +26,9 @@ class VendorAdapter(var listProducts: List<Products>, var addToFavorite: (Produc
         return ViewHolder(view)
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables", "ResourceType")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryTitleTextView.text = listProducts[position].title
+
         holder.categoryPriceTextView.text = listProducts[position].variants[listProducts[position].variants.lastIndex]?.price?.toCurrency(holder.itemView.context)
         Glide.with(holder.categoryImageView.context).load(listProducts[position].image.src).into(holder.categoryImageView)
 

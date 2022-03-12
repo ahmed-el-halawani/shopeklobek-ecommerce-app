@@ -137,5 +137,8 @@
     <string name="CartFragment">Cart</string>
     <string name="ProductFragment">Product Details</string>
     <string name="VendorFragment">Brand Products</string>
+    <string name="slash">/</string>
+    <string name="noword"></string>
+    <string name="morethan">More Than</string>
 
 </resources>
