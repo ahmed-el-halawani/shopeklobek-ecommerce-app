@@ -13,6 +13,7 @@ import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
+import com.stash.shopeklobek.model.utils.RoomAddProductErrors
 import com.stash.shopeklobek.utils.Constants.TAG
 import kotlinx.coroutines.launch
 
@@ -50,8 +51,8 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun addToFavorite(product: Products){
-        repo.addToFavorite(product)
+    fun addToFavorite(product: Products) : Either<Unit, RoomAddProductErrors>{
+        return  repo.addToFavorite(product)
     }
 
     fun getAllDiscounts(){
