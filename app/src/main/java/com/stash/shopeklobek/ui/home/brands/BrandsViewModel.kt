@@ -21,6 +21,8 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     val brands = MutableLiveData<Either<SmartCollectionModel, RepoErrors>>()
     var vendors = MutableLiveData<Either<ProductsModel,RepoErrors>>()
     var discounts = MutableLiveData<Either<DiscountModel,RepoErrors>>()
+    var firstPriceFilter = MutableLiveData<Float>()
+    var secondPriceFilter = MutableLiveData<Float>()
 
     val loadingLiveData = MutableLiveData<Boolean>(false)
 
@@ -29,6 +31,8 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     init {
         getAllDiscounts()
         getSmartCollection()
+        firstPriceFilter.value=0f
+        secondPriceFilter.value=1000f
     }
 
     fun getSmartCollection()  {
