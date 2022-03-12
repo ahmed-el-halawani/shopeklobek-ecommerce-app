@@ -24,13 +24,6 @@ class OrdersDetailsFragment :BaseFragment<FragmentOrdersDetailsBinding>(Fragment
 
         var roomOrder: RoomOrder = args.roomOrder
 
-        val imageSlider = binding.imageSlider
-        val imageList = ArrayList<SlideModel>()
-
-        for (i in  roomOrder.order.items?.get(0)?.product!!.images) {
-            imageList.add(SlideModel(i.src))
-        }
-        imageSlider.setImageList(imageList, ScaleTypes.FIT)
         binding.tvCounter.text= getString(R.string.counter)+roomOrder.order.items?.get(0)?.count.toString()
         binding.tvAddress.text= getString(R.string.address)+roomOrder.order.billingAddress?.address
         binding.tvDate.text=  getString(R.string.date)+roomOrder.order.getDate()
@@ -41,6 +34,8 @@ class OrdersDetailsFragment :BaseFragment<FragmentOrdersDetailsBinding>(Fragment
             roomOrder.order.price?.toCurrency(
                 it.applicationContext)
         }
+        binding.tvOrderNumber.text=getString(R.string.order_number)+roomOrder.order.orderNumber
+
 
 
     }

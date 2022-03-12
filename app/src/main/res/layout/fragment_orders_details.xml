@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="tv_state"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
          android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,45 +42,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
-    <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/imageSlider"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-
-        android:layout_marginTop="20dp"
-        android:layout_weight="1.7"
-        app:iss_auto_cycle="true"
-        app:iss_corner_radius="5"
-        app:iss_delay="0"
-        app:iss_error_image="@android:color/darker_gray"
-        app:iss_period="1000"
-        app:iss_placeholder="@android:color/darker_gray"
-        app:iss_selected_dot="@drawable/default_selected_dot"
-        app:iss_unselected_dot="@drawable/default_unselected_dot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_state"
-        tools:ignore="MissingConstraints" />
-
     <TextView
         android:id="@+id/tv_counter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="@string/description"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_state" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="1/10/200"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +68,7 @@
         android:id="@+id/tvAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="adsress"
         android:maxLines="1"
         android:textSize="20sp"
@@ -102,13 +79,43 @@
         android:id="@+id/tvDiscount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="Discount"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
+    <TextView
+        android:id="@+id/tvOrderNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="3500"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiscount" />
+    <TextView
+        android:id="@+id/tvPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="01066798171"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
+    <TextView
+        android:id="@+id/tvZip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="3500"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
     <TextView
         android:id="@+id/total_price"
         android:layout_marginBottom="30dp"

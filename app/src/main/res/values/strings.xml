@@ -147,6 +147,7 @@
     <string name="added_to_cart">Successfully added to cart</string>
     <string name="added_to_favorite">Successfully added to favorite</string>
     <string name="counter">counter</string>
+    <string name="order_number">order number</string>
 
 
 </resources>
