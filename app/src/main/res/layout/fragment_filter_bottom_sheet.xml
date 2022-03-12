@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/item_details">
+    android:background="@color/onAccent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +40,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/filter"
+                android:textColor="@color/accent"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -71,7 +72,10 @@
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:checked="true"
-                    android:text="@string/women" />
+                    android:text="@string/women"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/kidsRadioButton"
@@ -79,7 +83,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
-                    android:text="@string/kids" />
+                    android:text="@string/kids"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/menRadioButton"
@@ -87,7 +94,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
-                    android:text="@string/men" />
+                    android:text="@string/men"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/saleRadioButton"
@@ -95,7 +105,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
-                    android:text="@string/sale" />
+                    android:text="@string/sale"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </RadioGroup>
 
             <RadioGroup
@@ -115,7 +128,10 @@
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:checked="true"
-                    android:text="@string/all" />
+                    android:text="@string/all"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/shoesRadioButton"
@@ -124,7 +140,10 @@
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:checked="false"
-                    android:text="@string/shoes" />
+                    android:text="@string/shoes"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/clothesRadioButton"
@@ -132,7 +151,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
-                    android:text="@string/clothes" />
+                    android:text="@string/clothes"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/accessoriesRadioButton"
@@ -140,7 +162,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
-                    android:text="@string/accessories" />
+                    android:text="@string/accessories"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </RadioGroup>
         </LinearLayout>
 
