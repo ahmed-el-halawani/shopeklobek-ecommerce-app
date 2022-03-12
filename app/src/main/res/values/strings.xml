@@ -137,5 +137,7 @@
     <string name="CartFragment">Cart</string>
     <string name="ProductFragment">Product Details</string>
     <string name="VendorFragment">Brand Products</string>
+    <string name="last_locations">Last Locations</string>
+    <string name="dark_mode">Dark Mode</string>
 
 </resources>

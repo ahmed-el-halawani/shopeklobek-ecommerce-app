@@ -1,8 +1,11 @@
 package com.stash.shopeklobek.utils
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -162,6 +165,18 @@ object ViewHelpers {
 
     }
 
+    fun setDarkMode(){
+        val darkMode:Boolean? = Hawk.get("darkMode")
+        if(darkMode !=null ){
+            if(darkMode == true){
+                setDefaultNightMode(MODE_NIGHT_YES)
+            }else{
+                setDefaultNightMode(MODE_NIGHT_NO)
+            }
+        }else{
+            setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+    }
 
 
 }

@@ -29,7 +29,6 @@ class LauncherSActivity : AppCompatActivity() {
         if(savedInstanceState==null){
             lifecycleScope.launch {
                 delay(1000)
-
                 withContext(Dispatchers.Main){
                     startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))
                     finishAffinity()

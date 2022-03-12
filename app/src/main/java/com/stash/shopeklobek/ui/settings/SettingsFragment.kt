@@ -11,6 +11,7 @@ import com.stash.shopeklobek.model.shareprefrances.CurrenciesEnum
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
+import com.stash.shopeklobek.utils.ViewHelpers.setDarkMode
 import kotlinx.coroutines.launch
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
@@ -21,6 +22,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         checkCurrency()
         setLanguageBtnListeners()
         setCurrencyBtnListeners()
+        darkModeListener()
         binding.btnAddressInclude.btn.setOnClickListener {
             findNavController().navigate(
                 R.id.action_nav_settings_to_addAddressFragment2,
@@ -36,7 +38,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                 binding.run {
                     if (it.customer == null) {
                         addressGroup.visibility = View.GONE
-                    } else {
+                    }
+                    else {
                         addressGroup.visibility = View.VISIBLE
                         lifecycleScope.launch {
                             when (val res = getAddress()) {
@@ -57,6 +60,19 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                     }
                 }
             }
+
+            binding.run{
+                val darkMode:Boolean? = Hawk.get("darkMode")
+                if(darkMode!=null&&darkMode)
+                    swDarkMode.isChecked = true
+            }
+        }
+    }
+
+    private fun darkModeListener(){
+        binding.swDarkMode.setOnCheckedChangeListener { _, b ->
+            Hawk.put("darkMode",b)
+            setDarkMode()
         }
     }
 

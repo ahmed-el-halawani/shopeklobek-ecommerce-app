@@ -11,6 +11,6 @@
 
     <item>
         <bitmap android:gravity="center"
-            android:src="@drawable/splash_bg_4_light"/>
+            android:src="@drawable/splash_bg_4_dark"/>
     </item>
 </layer-list>

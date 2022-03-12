@@ -346,7 +346,6 @@ class ProductRepo(
         }
 
         return Either.Success(Unit)
-
     }
 
     fun deleteFromCart(id: Long) {

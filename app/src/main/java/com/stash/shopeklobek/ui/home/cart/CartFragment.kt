@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 
 class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate) {
 
-
     private val cartProductAdapter by lazy {
         CartProductsAdapter().apply {
             setOnDecrementClickListener {
