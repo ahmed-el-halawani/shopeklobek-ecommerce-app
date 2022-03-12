@@ -146,7 +146,7 @@
     <string name="success_log">Logged in Successfully</string>
     <string name="added_to_cart">Successfully added to cart</string>
     <string name="added_to_favorite">Successfully added to favorite</string>
-
+    <string name="counter">counter</string>
 
 
 </resources>

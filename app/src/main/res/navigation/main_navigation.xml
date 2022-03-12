@@ -11,6 +11,16 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
     <fragment
+        android:id="@+id/OrdersDetailsFragmentNav"
+        android:name="com.stash.shopeklobek.ui.profile.orders_details.OrdersDetailsFragment"
+        android:label="@string/order_details"
+        tools:layout="@layout/fragment_orders_details" >
+        <argument
+            android:name="roomOrder"
+            app:argType="com.stash.shopeklobek.model.entities.room.RoomOrder" />
+
+    </fragment>
+    <fragment
         android:id="@+id/nav_profile"
         android:name="com.stash.shopeklobek.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
@@ -30,7 +40,12 @@
         android:id="@+id/OrdersFragment"
         android:name="com.stash.shopeklobek.ui.profile.OrdersFragment"
         android:label="@string/orders"
-        tools:layout="@layout/fragment_orders"></fragment>
+        tools:layout="@layout/fragment_orders">
+
+        <action
+            android:id="@+id/action_OrdersFragment_to_nav_order_details"
+            app:destination="@id/OrdersDetailsFragmentNav" />
+    </fragment>
 
     <fragment
         android:id="@+id/FavoritesFragment"
