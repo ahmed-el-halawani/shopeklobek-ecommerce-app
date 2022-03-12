@@ -122,5 +122,6 @@
     <string name="morethan">فأكثر</string>
     <string name="correct_email_or_password">الرجاء إدخال البريد الإلكتروني الصحيح أو كلمة المرور</string>
     <string name="success_log">تم تسجيل الدخول بنجاح</string>
-
+    <string name="added_to_cart">تم الاضافة الي العربة</string>
+    <string name="added_to_favorite">تم الاضافة الي المفضلة</string>
 </resources>

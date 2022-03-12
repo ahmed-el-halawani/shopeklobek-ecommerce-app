@@ -144,5 +144,9 @@
     <string name="morethan">More Than</string>
     <string name="correct_email_or_password">please enter correct email or password</string>
     <string name="success_log">Logged in Successfully</string>
+    <string name="added_to_cart">Successfully added to cart</string>
+    <string name="added_to_favorite">Successfully added to favorite</string>
+
+
 
 </resources>
