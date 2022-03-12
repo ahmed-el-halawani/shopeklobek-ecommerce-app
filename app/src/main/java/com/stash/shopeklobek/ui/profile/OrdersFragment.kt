@@ -39,21 +39,17 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(FragmentOrdersBinding
         when(val res=profileViewModel.getOrders())
         {
             is Either.Error -> {
-                TODO()
+                Log.d("onViewCreated", "nullll : error code" +res.errorCode+" : message :"+res
+                    .message)
             }
             is Either.Success -> {
                 res.data.observe(viewLifecycleOwner){
                     if (!it.isEmpty()) {
                         adapterOrder.setOrders(it.reversed())
                         binding.ivEmptyOrders.visibility = View.GONE
-
-                        Toast.makeText(activity," "+it.size, Toast.LENGTH_LONG).show()
                     } else {
                         binding.ivEmptyOrders.visibility = View.VISIBLE
-                        Log.d("onViewCreated", "nullll")
-                        Toast.makeText(activity, "no data", Toast.LENGTH_LONG).show()
                     }
-
                 }
 
             }}

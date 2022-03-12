@@ -69,7 +69,7 @@
     <string name="create_an_account">قم بإنشاء حساب جديد</string>
     <string name="login_to_your_account">قم بالدخول الي حسابك</string>
     <string name="sign_in_now">ٍقم بالدخول الان</string>
-    <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">من الواضح انك لم تقم بالدخوا الي حسابك او عمل حساب </string>
+    <string name="oops_you_seem_that_you_didn_t_login_or_create_an_account">من الواضح انك لم تقم بالدخوا الي حسابك او عمل حساب بعد</string>
     <string name="please_login_or_create_an_account_to_complete_your_action">من فضلك قم بتسجيل الدخول او انشاء حساب جديد لتستطيع المتابعه</string>
     <string name="sign_up">انشاء حساب جديد</string>
     <string name="sar">الريال السعودي</string>
@@ -120,5 +120,7 @@
     <string name="slash">\\</string>
     <string name="noword">" "</string>
     <string name="morethan">فأكثر</string>
+    <string name="correct_email_or_password">الرجاء إدخال البريد الإلكتروني الصحيح أو كلمة المرور</string>
+    <string name="success_log">تم تسجيل الدخول بنجاح</string>
 
 </resources>

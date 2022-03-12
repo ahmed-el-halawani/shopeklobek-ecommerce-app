@@ -24,10 +24,20 @@ import kotlinx.coroutines.launch
 
 class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinishBinding::inflate) {
 
+    private val finishViewModel by lazy {
+        FinishViewModel.create(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        finishViewModel.loading.observe(viewLifecycleOwner) {
+            if (it)
+                showLoading()
+            else
+                hideLoading()
+        }
 
+        paypal()
 
         // order details
         binding.run {
@@ -67,10 +77,10 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
             }
         }
 
-        paypal()
 
         //button confirm
         binding.btnConfirm.setOnClickListener {
+            finishViewModel.loading.postValue(true)
             lifecycleScope.launch {
                 when (mainViewModel.selectedPaymentMethods) {
                     PaymentMethodsEnum.Cash -> confirmIt()
@@ -84,20 +94,22 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
 
     private suspend fun confirmIt() {
         when (val res = mainViewModel.confirm()) {
-            is Either.Error -> when (res.errorCode) {
-                RoomAddOrderErrors.NoLoginCustomer ->
-                    Toast.makeText(
+            is Either.Error -> finishViewModel.loading.postValue(false).also {
+                when(res.errorCode) {
+                    RoomAddOrderErrors.NoLoginCustomer ->
+                        Toast.makeText(
+                            context,
+                            getString(R.string.u_havent_login_yet),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    else -> Toast.makeText(
                         context,
-                        getString(R.string.u_havent_login_yet),
+                        getString(R.string.someThing_wrong_happened),
                         Toast.LENGTH_SHORT
                     ).show()
-                else -> Toast.makeText(
-                    context,
-                    getString(R.string.someThing_wrong_happened),
-                    Toast.LENGTH_SHORT
-                ).show()
+                }
             }
-            is Either.Success -> {
+            is Either.Success -> finishViewModel.loading.postValue(false).also {
                 messageDialog()
             }
         }
@@ -106,7 +118,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
     private fun paypal() {
         PayPalCheckout.registerCallbacks(
             onApprove = OnApprove { approval ->
-                approval.orderActions.capture { captureOrderResult ->
+                approval.orderActions.capture { _ ->
                     CoroutineScope(Dispatchers.Main).launch {
                         confirmIt()
                     }
@@ -114,6 +126,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
             },
 
             onCancel = OnCancel {
+                finishViewModel.loading.postValue(false)
                 Toast.makeText(
                     context,
                     "canceled",
@@ -122,13 +135,13 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
             },
 
             onError = OnError { errorInfo ->
+                finishViewModel.loading.postValue(false)
                 Toast.makeText(
                     context,
                     getString(R.string.someThing_wrong_happened),
                     Toast.LENGTH_SHORT
                 ).show()
-
-                Log.e("paypal_onError", "paypal: "+errorInfo, )
+                Log.e("paypal_onError", "paypal: " + errorInfo)
             }
         )
     }

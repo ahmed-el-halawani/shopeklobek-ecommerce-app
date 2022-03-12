@@ -25,6 +25,13 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         super.onViewCreated(view, savedInstanceState)
         setupRecycleView()
 
+        shippingAddressViewModel.loading.observe(viewLifecycleOwner){
+            if(it)
+                showLoading()
+            else
+                hideLoading()
+        }
+
         shippingAddressViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
             println("settings form view model")
             println(it)

@@ -1,6 +1,7 @@
 package com.stash.shopeklobek.ui.home.cart
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentCartBinding
 import com.stash.shopeklobek.model.entities.room.RoomCart
-import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.checkout.CheckoutActivity
@@ -29,15 +29,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             setOnDecrementClickListener {
                 if (it.count > 1) {
                     lifecycleScope.launch {
-                        when (cartViewModel.updateCartProduct(
-                            it.copy(
-                                count = it.count - 1
-                            )
-                        )) {
+                        when (cartViewModel.updateCartProduct(it.copy(count = it.count - 1))) {
                             is Either.Error -> {
-                                Toast.makeText(context, getString(R.string.someThing_wrong_happened), Toast
-                                    .LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.someThing_wrong_happened),
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             is Either.Success -> Unit
                         }
@@ -58,7 +56,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                             )
                         )) {
                             is Either.Error -> {
-                                Toast.makeText(context, getString(R.string.someThing_wrong_happened), Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.someThing_wrong_happened),
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             is Either.Success -> Unit
                         }
@@ -74,31 +76,21 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         CartViewModel.create(this)
     }
 
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         setupRecycleView()
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             cartViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
-                if(it.customer == null){
-                    cartViewModel.isSettingsChanged = true
-                }
-
                 if (it.customer == null) {
+                    cartViewModel.isSettingsChanged = true
                     cvCartDetails.visibility = View.GONE
-                    findNavController().navigate(R.id.action_cartFragment_to_loginFragment2)
+                    findNavController().navigate(R.id.action_cartFragment_to_completeAction)
                 } else {
-                    if( cartViewModel.isNeedToRefresh(it.customer)){
+                    if (cartViewModel.isNeedToRefresh(it.customer)) {
                         cartViewModel.getCartProductsEither()
                     }
                     cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
@@ -114,8 +106,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                             count += it.count
                         }
 
-                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(price.toString()
-                            ,requireContext())
+                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(
+                            price.toString(), requireContext()
+                        )
                         tvTotalItems.text = count.toString()
 
                     }
@@ -156,7 +149,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             setPositiveButton("yes") { d, i ->
                 cartViewModel.deleteCartProduct(roomCart.id)
                 d.dismiss()
-                Toast.makeText(requireContext(), getString(R.string.product_deleted), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.product_deleted),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             setTitle(getString(R.string.do_u_want_remove_product))

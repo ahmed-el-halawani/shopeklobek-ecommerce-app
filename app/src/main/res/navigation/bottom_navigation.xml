@@ -33,13 +33,12 @@
         android:label="@string/CartFragment"
         tools:layout="@layout/fragment_cart">
         <action
-            android:id="@+id/action_cartFragment_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            android:id="@+id/action_cartFragment_to_completeAction"
+            app:destination="@id/completeAction" />
     </fragment>
     <fragment
         android:id="@+id/nav_register"
         android:name="com.stash.shopeklobek.ui.authentication.register.RegisterFragment"
-        android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"
 
         >
@@ -64,9 +63,8 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"
-        >
+        android:label="   "
+        tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_nav_login_to_nav_register"
@@ -75,8 +73,8 @@
     <fragment
         android:id="@+id/completeAction"
         android:name="com.stash.shopeklobek.ui.authentication.completeAction.CompleteActionFragment"
-        android:label="completeAction"
-        tools:layout="@layout/fragment_complete_action" >
+        android:label="  "
+        tools:layout="@layout/fragment_complete_action">
         <action
             android:id="@+id/action_loogin_to_nav_register"
             app:destination="@id/nav_register" />
@@ -96,11 +94,6 @@
             android:id="@+id/action_vendorFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/loginFragment2"
-        android:name="com.stash.shopeklobek.ui.authentication.login.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
