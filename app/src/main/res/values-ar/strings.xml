@@ -117,5 +117,8 @@
     <string name="no_more_stock">لم يعد هذا المنتج موجود بالمخزن</string>
     <string name="last_locations">آخر المواقع</string>
     <string name="dark_mode">الوضع الليلي</string>
+    <string name="slash">\\</string>
+    <string name="noword">" "</string>
+    <string name="morethan">فأكثر</string>
 
 </resources>

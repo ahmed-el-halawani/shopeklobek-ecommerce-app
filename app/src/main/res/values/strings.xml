@@ -139,5 +139,8 @@
     <string name="VendorFragment">Brand Products</string>
     <string name="last_locations">Last Locations</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="slash">/</string>
+    <string name="noword"></string>
+    <string name="morethan">More Than</string>
 
 </resources>
