@@ -11,7 +11,6 @@ import com.stash.shopeklobek.ui.BaseFragment
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     var userEmail: String? = null
     var userPassword: String? = null
-
     val vm by lazy {
         LoginViewModel.create(this)
     }

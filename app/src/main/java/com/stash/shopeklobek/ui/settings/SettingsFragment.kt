@@ -31,6 +31,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
     }
 
     private fun checkAddress() {
+
         vm.productRepo.run {
             getSettingsLiveData().observe(viewLifecycleOwner) {
                 binding.run {
@@ -84,7 +85,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
 
     }
 
-    val vm by lazy {
+  private  val vm by lazy {
         SettingsViewModel.create(this)
     }
 
