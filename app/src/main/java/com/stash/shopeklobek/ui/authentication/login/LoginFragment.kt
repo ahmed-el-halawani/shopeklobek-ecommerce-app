@@ -18,7 +18,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         vm.AuthRepo.settingsPreferences.getSettingsLiveData().observe(viewLifecycleOwner){
             if(it.customer!=null){
                 findNavController().popBackStack()
@@ -33,10 +32,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 vm.loginSuccess.observe(viewLifecycleOwner) {
                     if (it!!) {
                         binding.progress.visibility=View.GONE
-                       Toast.makeText(requireContext(),"Loggedin Successfully",Toast.LENGTH_LONG).show()
-
-                    }else   Toast.makeText(requireContext(),"please enter correct email or password",Toast.LENGTH_LONG).show()
-
+                       Toast.makeText(requireContext(),getString(R.string.success_log),Toast.LENGTH_LONG).show()
+                    }else
+                        Toast.makeText(requireContext(),getString(R.string.correct_email_or_password),Toast.LENGTH_LONG).show()
                 }
             }
         }

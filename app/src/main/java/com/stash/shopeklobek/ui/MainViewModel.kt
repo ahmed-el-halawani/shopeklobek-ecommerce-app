@@ -31,19 +31,10 @@ class MainViewModel(val app: Application, val productRepo: ProductRepo) : Androi
 
     init {
         viewModelScope.launch {
-            productRepo.updateCurrency()
-
 
         }
-
     }
 
-
-    fun updateLanguage() {
-        ViewHelpers.setAppLocale(
-            ViewHelpers.returnByLanguage(productRepo.getSettings().language,"ar","en"), app.resources
-        )
-    }
 
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -93,17 +93,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
             when (val res = profileViewModel.getOrders()) {
                 is Either.Error -> {
-                    TODO()
                 }
                 is Either.Success -> {
                     res.data.observe(viewLifecycleOwner) {
                         if (!it.isEmpty()) {
                             binding.allOrders.text="${it.size}"
                             order.add(it[0])
-                            if (it.size > 1) {
-                                order.add(it[1])
-                                adapterOrder.setOrders(order)
-                            }
                             adapterOrder.setOrders(order)
                         }else{
                             binding.allOrders.text="0"

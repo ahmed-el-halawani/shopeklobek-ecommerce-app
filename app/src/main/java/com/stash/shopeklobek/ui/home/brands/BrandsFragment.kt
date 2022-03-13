@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -20,13 +19,12 @@ import com.stash.shopeklobek.databinding.FragmentBrandsBinding
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.ui.BaseFragment
-import com.stash.shopeklobek.utils.Constants.TAG
 
 class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding::inflate) {
 
     private lateinit var brandsAdapter: BrandsAdapter
     private val recyclerView: RecyclerView by lazy { binding.brandRecyclerView }
-    private val imageSlider : ImageSlider by lazy { binding.imageSlider }
+    private val imageSlider: ImageSlider by lazy { binding.imageSlider }
     private lateinit var brandsViewModel: BrandsViewModel
 
 
@@ -34,7 +32,8 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         super.onViewCreated(view, savedInstanceState)
 
         val brandsViewModelFactory = BrandsViewModel.Factory(requireActivity().application)
-        brandsViewModel = ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
+        brandsViewModel =
+            ViewModelProvider(this, brandsViewModelFactory)[BrandsViewModel::class.java]
 
         val imageList = ArrayList<SlideModel>()
         val saleDiscountCode = ArrayList<String>()
@@ -44,14 +43,23 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 is Either.Success -> {
                     for (i in 0..it.data.discount?.size?.minus(1)!!) {
                         saleDiscountCode.add(it.data.discount[i].title.toString())
-                        imageList.add(SlideModel(R.drawable.sale,it.data.discount[i].title))
+                        imageList.add(SlideModel(R.drawable.sale, it.data.discount[i].title))
                     }
                     imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
                     imageSlider.setItemClickListener(object : ItemClickListener {
                         override fun onItemSelected(position: Int) {
-                            val myClipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val myClip: ClipData = ClipData.newPlainText("Label",it.data.discount[position].title.toString())
+                            val myClipboard =
+                                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            val myClip: ClipData = ClipData.newPlainText(
+                                "Label",
+                                it.data.discount[position].title.toString()
+                            )
                             myClipboard.setPrimaryClip(myClip)
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.copied),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     })
                 }
@@ -62,22 +70,35 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
             when (it) {
                 is Either.Success -> {
                     brandsAdapter = BrandsAdapter(it.data.smart_collections!!)
-                    recyclerView.layoutManager = GridLayoutManager(requireContext(),2,RecyclerView.VERTICAL,false)
+                    recyclerView.layoutManager =
+                        GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
                     recyclerView.adapter = brandsAdapter
                 }
                 is Either.Error -> when (it.errorCode) {
-                    RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT)
+                    RepoErrors.NoInternetConnection -> Toast.makeText(
+                        requireContext(),
+                        "No Connection",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
-                    RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
-                    RepoErrors.EmptyBody -> Toast.makeText(requireContext(), "empty body!", Toast.LENGTH_SHORT).show()
+                    RepoErrors.ServerError -> Toast.makeText(
+                        requireContext(),
+                        "Error!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    RepoErrors.EmptyBody -> Toast.makeText(
+                        requireContext(),
+                        "empty body!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
 
 
-        /*brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
-            when(it){
-                true ->{
+        brandsViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
                     showLoading()
                 }
                 false -> {
@@ -85,8 +106,5 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 }
             }
         })
-    }
-
-        })*/
     }
 }

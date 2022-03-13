@@ -21,28 +21,36 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:orientation="horizontal"
-        android:weightSum="6"
+        android:weightSum="11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search" />
 
         <EditText
             android:id="@+id/searchTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="8"
             android:ems="10"
             android:hint="@string/search"
             android:inputType="textPersonName"
             android:paddingLeft="10dp" />
 
         <ImageView
-            android:id="@+id/searchImageView"
+            android:id="@+id/filterImageView"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="36dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_search" />
+            android:layout_weight="2"
+            android:src="@drawable/ic_filter" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

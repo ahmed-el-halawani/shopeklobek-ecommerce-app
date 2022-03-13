@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stash.shopeklobek.R
+import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
+import com.stash.shopeklobek.ui.home.brands.VendorFragmentDirections
 import com.stash.shopeklobek.utils.toCurrency
 
 class AdapterFavorite(
@@ -31,6 +35,8 @@ class AdapterFavorite(
             get() = view.findViewById(R.id.image_product_item)
         val ivDeleteFavorite: ImageView
             get() = view.findViewById(R.id.iv_delete_favorite)
+        val content_favorite :CardView
+        get() =view.findViewById(R.id.content_favorite)
 
 
     }
@@ -65,6 +71,12 @@ class AdapterFavorite(
 
 
 
+        }
+
+
+        holder.content_favorite.setOnClickListener {
+            val action = FavoritesFragmentDirections.actionFavoritesFragmentToProductDetailsFragment(listFavorites.get(position).product)
+            it.findNavController().navigate(action)
         }
 
 

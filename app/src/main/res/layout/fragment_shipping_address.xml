@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/default_location"
         tools:visibility="visible" />
-  
+
     <include
         android:id="@+id/cvAddAddress"
         layout="@layout/item_add_address"
@@ -30,15 +30,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvCurrentLocation" />
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bebas_regular"
+        android:text="@string/last_locations"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvAddAddress" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPastLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvAddAddress"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:listitem="@layout/item_address_card" />
 
 

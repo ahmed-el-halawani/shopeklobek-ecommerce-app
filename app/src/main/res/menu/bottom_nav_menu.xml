@@ -2,24 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/brandsFragment"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="Brands" />
+        android:icon="@drawable/ic_baseline_branding"
+        android:title="@string/brands" />
 
 
     <item
         android:id="@+id/categoriesFragment"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Categories"
+        android:icon="@drawable/ic_family"
+        android:title="@string/category"
 
         />
 
     <item
         android:id="@+id/cartFragment"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="Cart" />
+        android:icon="@drawable/ic_shopping_cart_"
+        android:title="@string/cart" />
     <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_baseline_favorite"
-        android:title="Favorite" />
+        android:title="@string/favorites" />
 
 </menu>

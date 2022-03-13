@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:background="@color/checkoutNavColor"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -43,12 +42,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:background="@color/checkoutNavColor"
-                app:stpi_circleColor="@color/onPrimary"
-                app:stpi_indicatorColor="@color/primary"
-                app:stpi_labelColor="@color/onPrimary"
+                app:stpi_circleColor="@color/onCheckoutNavColor"
+                app:stpi_indicatorColor="@color/accent"
+                app:stpi_labelColor="@color/onCheckoutNavColor"
                 app:stpi_labels="@array/checkout_stepper_list"
                 app:stpi_lineColor="@color/light_blue_400"
-                app:stpi_lineDoneColor="@color/primary"
+                app:stpi_lineDoneColor="@color/accent"
                 app:stpi_showDoneIcon="false"
                 app:stpi_showLabels="true"
                 app:stpi_stepCount="3" />

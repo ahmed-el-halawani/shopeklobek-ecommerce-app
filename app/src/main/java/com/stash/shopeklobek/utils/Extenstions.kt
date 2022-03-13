@@ -1,34 +1,39 @@
 package com.stash.shopeklobek.utils
 
 import android.content.Context
-import com.stash.shopeklobek.model.entities.LineItems
-import com.stash.shopeklobek.model.entities.OrderDetails
+import com.paypal.checkout.createorder.CurrencyCode
+import com.paypal.checkout.order.Items
+import com.paypal.checkout.order.UnitAmount
 import com.stash.shopeklobek.model.entities.room.RoomCart
 
-fun List<RoomCart>.getPrice():Double{
+fun List<RoomCart>.getPrice(): Double {
     var price = 0.0
     this.forEach {
-        price += it.count * (it.variant()?.price?.toDouble()?:1.0)
+        price += it.count * (it.variant()?.price?.toDouble() ?: 1.0)
     }
     return price
 }
 
-fun List<RoomCart>.toLineItem():List<OrderDetails>{
+fun List<RoomCart>.toItems(): List<Items> {
     return this.map {
-        OrderDetails(
-            quantity = it.count.toLong(),
-            price = (it.count * (it.variant()?.price?.toDouble()?:1.0)).toString()
 
+        Items.Builder().name(it.product.title ?: "")
+            .quantity(it.count.toString())
+            .unitAmount(
+                UnitAmount(
+                    currencyCode = CurrencyCode.USD,
+                    value = (it.variant()?.price?.toDouble() ?: 1.0).toString(),
+                )
+            ).build()
 
-        )
     }
 
 }
 
-fun Double.toCurrency(context:Context):String{
-    return CurrencyUtil.convertCurrency(this,context)
+fun Double.toCurrency(context: Context): String {
+    return CurrencyUtil.convertCurrency(this, context)
 }
 
-fun String.toCurrency(context:Context):String{
-    return CurrencyUtil.convertCurrency(this,context)
+fun String.toCurrency(context: Context): String {
+    return CurrencyUtil.convertCurrency(this, context)
 }

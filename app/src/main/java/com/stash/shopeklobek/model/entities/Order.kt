@@ -1,8 +1,10 @@
 package com.stash.shopeklobek.model.entities
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.utils.ViewHelpers
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -10,7 +12,7 @@ enum class FinancialStatus(val value: String) {
     Paid("paid"), Voided("voided");
 }
 
-
+@Parcelize
 data class Order(
     @SerializedName("current_subtotal_price")
     val finalPrice: String? = "",
@@ -34,7 +36,7 @@ data class Order(
     @SerializedName("app_id")
     val orderNumber: Long? = 0,
 
-    ) {
+    ): Parcelable {
 
     val dat: String =
         SimpleDateFormat("EE, d MMM", ViewHelpers.getLocale())

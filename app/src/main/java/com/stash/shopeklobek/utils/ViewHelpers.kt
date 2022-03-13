@@ -1,8 +1,11 @@
 package com.stash.shopeklobek.utils
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -143,9 +146,37 @@ object ViewHelpers {
         resources.updateConfiguration(config, dm)
 
         ActivityCompat.recreate(reBuildActivity)
+    }
+
+
+    fun setAppLocale(resources: Resources) {
+        val language:String? = Hawk.get("language")
+        val locale = if(language == null){
+            localeFromLanguage(languageEnumFromLocale())
+        }else{
+            Locale(""+language)
+        }
+        val dm = resources.displayMetrics
+        val config = resources.configuration
+        config.setLocale(locale)
+
+        resources.updateConfiguration(config, dm)
+
 
     }
 
+    fun setDarkMode(){
+        val darkMode:Boolean? = Hawk.get("darkMode")
+        if(darkMode !=null ){
+            if(darkMode == true){
+                setDefaultNightMode(MODE_NIGHT_YES)
+            }else{
+                setDefaultNightMode(MODE_NIGHT_NO)
+            }
+        }else{
+            setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+    }
 
 
 }

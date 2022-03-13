@@ -13,6 +13,7 @@ import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
+import com.stash.shopeklobek.model.utils.RoomAddProductErrors
 import com.stash.shopeklobek.utils.Constants.TAG
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,8 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     val brands = MutableLiveData<Either<SmartCollectionModel, RepoErrors>>()
     var vendors = MutableLiveData<Either<ProductsModel,RepoErrors>>()
     var discounts = MutableLiveData<Either<DiscountModel,RepoErrors>>()
+    var firstPriceFilter = MutableLiveData<Float>()
+    var secondPriceFilter = MutableLiveData<Float>()
 
     val loadingLiveData = MutableLiveData<Boolean>(false)
 
@@ -29,6 +32,8 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     init {
         getAllDiscounts()
         getSmartCollection()
+        firstPriceFilter.value=0f
+        secondPriceFilter.value=1000f
     }
 
     fun getSmartCollection()  {
@@ -43,24 +48,29 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             loadingLiveData.postValue(true)
             vendors.value = repo.getProductsByVendor(vendor)
+            loadingLiveData.postValue(false)
         }
     }
 
-    fun addToFavorite(product: Products){
-        repo.addToFavorite(product)
+    fun addToFavorite(product: Products) : Either<Unit, RoomAddProductErrors>{
+        return  repo.addToFavorite(product)
     }
 
     fun getAllDiscounts(){
         viewModelScope.launch {
+            loadingLiveData.postValue(true)
             discounts.value = repo.getAllDiscounts()
+            loadingLiveData.postValue(false)
+
         }
     }
 
     fun getFavorites() = repo.getFavorites()
 
-    fun deleteFavorite(id: Long) {
+    fun deleteFavorite(product: Products) {
         viewModelScope.launch {
-            repo.deleteFromFavorite(id)
+            repo.deleteFromFavorite(product)
+
         }
     }
 

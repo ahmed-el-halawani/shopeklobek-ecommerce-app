@@ -3,6 +3,8 @@ package com.stash.shopeklobek.model.entities
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.order.Address as paypalAddress
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -35,6 +37,15 @@ data class Address(
     fun generateAddressLine():String{
         return "$city, $address"
     }
+
+    fun toPaypalAddress():paypalAddress = paypalAddress(
+        countryCode = "EG",
+        addressLine1 = address,
+        addressLine2 = address,
+        postalCode = zip,
+        adminArea1 = address,
+        adminArea2 = address,
+    )
 
 
 }

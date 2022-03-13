@@ -126,16 +126,27 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                 else -> binding.filterTextView2.text = resources.getString(R.string.none)
             }
         })
+
+        categoriesViewModel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    showLoading()
+                }
+                false -> {
+                    hideLoading()
+                }
+            }
+        })
     }
 
     fun checkFavoriteList(listOfProducts : List<Products> ){
         when(val favorite = categoriesViewModel.getFavorites()){
             is Either.Error -> {
-                categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,emptyList())
+                categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite,emptyList())
                 recyclerView.adapter = categoryAdapter}
             is Either.Success -> {
                 favorite.data.observeOnce(viewLifecycleOwner){
-                    categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite, it)
+                    categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite, it)
                     recyclerView.adapter = categoryAdapter
                 }
             }

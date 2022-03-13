@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ExchangeCurrencyConverterService {
-    @GET("latest/EGP")
+    @GET("latest/USD")
     suspend fun getCurrenciesValueNow(): Response<ExchangerApiResponse>
 }

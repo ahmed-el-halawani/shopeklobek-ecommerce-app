@@ -5,6 +5,7 @@ import android.app.Application
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
@@ -20,6 +21,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.orhanobut.hawk.Hawk
@@ -27,11 +30,14 @@ import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityMainBinding
 import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
 
 import com.stash.shopeklobek.utils.ViewHelpers
+import com.stash.shopeklobek.utils.ViewHelpers.getLocale
 import com.stash.shopeklobek.utils.ViewHelpers.localeFromLanguage
 import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
+import kotlinx.coroutines.launch
 
 import java.util.*
 
@@ -75,8 +81,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState==null)
+        if(savedInstanceState==null){
+            lifecycleScope.launch {
+                viewmodel.productRepo.updateCurrency()
+            }
+
+        }
+
+        if(getLocale().language!= resources.configuration.locale.language){
             setAppLocale(this,resources)
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -124,6 +138,17 @@ class MainActivity : AppCompatActivity() {
 
     fun hideLoading() {
         dialog?.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPreferences: SharedPreferences = applicationContext.getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(Constants.FIRST_FILTER_CATEGORIES,"women")
+        editor.putString(Constants.SECOND_FILTER_CATEGORIES,"all")
+        editor.putString(Constants.FIRST_FILTER_PRICE,"all")
+        editor.apply()
+
     }
 
 
