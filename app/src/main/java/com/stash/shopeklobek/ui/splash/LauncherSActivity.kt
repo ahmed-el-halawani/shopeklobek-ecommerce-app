@@ -1,21 +1,16 @@
 package com.stash.shopeklobek.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
-import com.paypal.checkout.PayPalCheckout
-import com.paypal.checkout.config.CheckoutConfig
-import com.paypal.checkout.config.Environment
-import com.paypal.checkout.config.SettingsConfig
-import com.paypal.checkout.createorder.CurrencyCode
-import com.paypal.checkout.createorder.UserAction
-import com.stash.shopeklobek.BuildConfig
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.orhanobut.hawk.Hawk
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.ui.MainActivity
-import com.stash.shopeklobek.utils.Constants.PAYPAL_CLIENT_ID
-import kotlinx.coroutines.*
+import com.stash.shopeklobek.utils.ViewHelpers.setDarkMode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 class LauncherSActivity : AppCompatActivity() {
     lateinit var splashViewModel: SplashViewModel
@@ -26,13 +21,33 @@ class LauncherSActivity : AppCompatActivity() {
 
         splashViewModel = SplashViewModel.create(this)
 
-        if(savedInstanceState==null){
-            lifecycleScope.launch {
-                delay(1000)
-                withContext(Dispatchers.Main){
-                    startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))
-                    finishAffinity()
+
+
+
+        splashViewModel.initIt {
+            if (Hawk.get<Boolean?>("darkMode") == null)
+                when (AppCompatDelegate.getDefaultNightMode()) {
+
+                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> {
+                        Hawk.delete("darkMode")
+                    }
+                    AppCompatDelegate.MODE_NIGHT_NO -> {
+                        Hawk.put("darkMode", false)
+                    }
+
+                    AppCompatDelegate.MODE_NIGHT_YES -> {
+                        Hawk.put("darkMode", true)
+                    }
+                    else -> Hawk.delete("darkMode")
+
                 }
+            else
+                setDarkMode()
+            
+            delay(1000)
+            withContext(Dispatchers.Main) {
+                startActivity(Intent(this@LauncherSActivity, MainActivity::class.java))
+                finishAffinity()
             }
         }
 
