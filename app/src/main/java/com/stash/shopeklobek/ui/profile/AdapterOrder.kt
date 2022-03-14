@@ -1,5 +1,7 @@
 package com.stash.shopeklobek.ui.profile
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +11,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.room.RoomOrder
+import com.stash.shopeklobek.ui.MainActivity
 import com.stash.shopeklobek.ui.home.favorites.FavoritesFragmentDirections
 import com.stash.shopeklobek.ui.profile.orders_details.OrdersDetailsFragmentArgs
+import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.toCurrency
 
-class AdapterOrder(var orders:List<RoomOrder>) :
+class AdapterOrder(var orders: List<RoomOrder>) :
     RecyclerView.Adapter<AdapterOrder.ViewHolder>() {
 
 
@@ -43,9 +47,19 @@ class AdapterOrder(var orders:List<RoomOrder>) :
         holder.tvPrice.text = orders[position].order.price?.toCurrency(holder.itemView.context)
         holder.tvState.text = orders[position].order.state
 
-        holder.order.setOnClickListener {
-             val action = OrdersFragmentDirections.actionOrdersFragmentToNavOrderDetails(orders[position])
-             it.findNavController().navigate(action)
+
+        holder.order.context?.let {
+            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
+                "sharedPrefFile",
+                Context.MODE_PRIVATE
+            )
+            holder.order.setOnClickListener {
+                if (sharedPreferences.getInt(Constants.ONCLICK_PROFILE, -1).equals(2)) {
+                    val action =
+                        OrdersFragmentDirections.actionOrdersFragmentToNavOrderDetails(orders[position])
+                    it.findNavController().navigate(action)
+                }
+            }
         }
 
     }

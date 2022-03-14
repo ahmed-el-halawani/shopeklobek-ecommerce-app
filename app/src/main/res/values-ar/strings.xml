@@ -125,5 +125,7 @@
     <string name="added_to_cart">تم الاضافة الي العربة</string>
     <string name="added_to_favorite">تم الاضافة الي المفضلة</string>
     <string name="counter">العدد</string>
-    <string name="order_number">رفم الطلب</string>
+    <string name="order_number">رقم الطلب</string>
+    <string name="phone_01066798171">رقم الهاتف : 01066798171</string>
+
 </resources>
