@@ -127,9 +127,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             val list = str!!.split(delim)
 
             println(list)
-            binding.tvFirstName.text= list[0]
-            if (list.size>1)
-            binding.tvEndName.text=list[1]
+            binding.tvFirstName.text= it.customer!!.firstName
+
             binding.textEmail.text=it.customer!!.email
         }
 
