@@ -124,7 +124,7 @@
     </string-array>
 
     <string name="more">more</string>
-    <string name="sighn_out">Sighn out</string>
+    <string name="sighn_out">Sign out</string>
     <string name="favorite_list">favorite list</string>
     <string name="copied">Code Copied</string>
     <string name="brands">Brands</string>
@@ -148,6 +148,7 @@
     <string name="added_to_favorite">Successfully added to favorite</string>
     <string name="counter">counter</string>
     <string name="order_number">order number</string>
+    <string name="phone_01066798171">phone : 01066798171</string>
 
 
 </resources>

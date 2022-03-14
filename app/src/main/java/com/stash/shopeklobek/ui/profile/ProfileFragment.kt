@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.ui.profile
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -15,6 +17,7 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
+import com.stash.shopeklobek.utils.Constants
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
@@ -31,7 +34,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.let {
+            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
+                "sharedPrefFile",
+                Context.MODE_PRIVATE
+            )
 
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putInt(Constants.ONCLICK_PROFILE, 1)
+            editor.apply()
+            editor.commit()
+
+        }
 
         binding.btnSighnout.setOnClickListener {
             SettingsPreferences.getInstance(context?.applicationContext as Application).update {
@@ -62,8 +76,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     }
                     is Either.Success -> {
                         res.data.observe(viewLifecycleOwner) {
-                                binding.allFavorites.text = "${it.size}"
-                                adapterFavorite.setFavorite(it.take(4))
+                            binding.allFavorites.text = "${it.size}"
+                            adapterFavorite.setFavorite(it.take(4))
                         }
                     }
                 }
@@ -71,6 +85,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 profileViewModel.getCart()
                 profileViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
                     binding.allCart.text = "${roomCarts.size}"
+
                 }
 
                 profileViewModel.getOrders().observe(viewLifecycleOwner) {
@@ -79,15 +94,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 }
 
 
-                val str = it.customer!!.firstName
-                val delim = " "
+                binding.tvFirstName.text = it.customer!!.firstName
 
-                val list = str!!.split(delim)
-
-                println(list)
-                binding.tvFirstName.text = list[0]
-                if (list.size > 1)
-                    binding.tvEndName.text = list[1]
                 binding.textEmail.text = it.customer!!.email
             }
 

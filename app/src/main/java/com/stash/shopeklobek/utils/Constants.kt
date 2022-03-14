@@ -6,6 +6,8 @@ object Constants {
     // sharedPreferences Tags
     const val ALL_DATA_ROUTE = "ALL_DATA_ROUTE"
     const val TAG = "TAG"
+    const val ONCLICK_PROFILE = "ONCLICK_PROFILE"
+
 
     //api
 
