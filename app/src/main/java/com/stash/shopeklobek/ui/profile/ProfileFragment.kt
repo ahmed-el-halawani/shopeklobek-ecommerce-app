@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.ui.profile
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,6 +23,7 @@ import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
+import com.stash.shopeklobek.utils.Constants
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
@@ -37,7 +40,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.let {
+            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
+                "sharedPrefFile",
+                Context.MODE_PRIVATE
+            )
 
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putInt(Constants.ONCLICK_PROFILE, 1)
+            editor.apply()
+            editor.commit()
+
+        }
 
         binding.btnSighnout.setOnClickListener {
             SettingsPreferences.getInstance(context?.applicationContext as Application).update {

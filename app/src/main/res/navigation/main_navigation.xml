@@ -28,7 +28,7 @@
 
         <action
             android:id="@+id/action_more_favorite"
-            app:destination="@id/FavoritesFragment" />
+            app:destination="@id/favoritesFragment" />
         <action
             android:id="@+id/action_more_order"
             app:destination="@id/OrdersFragment" />
@@ -46,12 +46,29 @@
             android:id="@+id/action_OrdersFragment_to_nav_order_details"
             app:destination="@id/OrdersDetailsFragmentNav" />
     </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.stash.shopeklobek.ui.home.product_details.ProductDetailsFragment"
+        android:label="@string/ProductFragment"
+        tools:layout="@layout/fragment_product_details">
+        <argument
+            android:name="product"
+            app:argType="com.stash.shopeklobek.model.entities.Products" />
+
+    </fragment>
 
     <fragment
-        android:id="@+id/FavoritesFragment"
+        android:id="@+id/favoritesFragment"
         android:name="com.stash.shopeklobek.ui.home.favorites.FavoritesFragment"
         android:label="@string/FavoriteFargment"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_nav_not_login"
+            app:destination="@id/completeAction" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.stash.shopeklobek.ui.settings.SettingsFragment"

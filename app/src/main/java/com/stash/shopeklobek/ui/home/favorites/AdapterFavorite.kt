@@ -1,7 +1,9 @@
 package com.stash.shopeklobek.ui.home.favorites
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +18,11 @@ import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.ui.home.brands.VendorFragmentDirections
+import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.toCurrency
 
 class AdapterFavorite(
-    var listFavorites:  List<RoomFavorite>,
+    var listFavorites: List<RoomFavorite>,
     var favoritesViewModel: FavoritesViewModel?
 ) :
     RecyclerView.Adapter<AdapterFavorite.ViewHolder>() {
@@ -35,8 +38,8 @@ class AdapterFavorite(
             get() = view.findViewById(R.id.image_product_item)
         val ivDeleteFavorite: ImageView
             get() = view.findViewById(R.id.iv_delete_favorite)
-        val content_favorite :CardView
-        get() =view.findViewById(R.id.content_favorite)
+        val content_favorite: CardView
+            get() = view.findViewById(R.id.content_favorite)
 
 
     }
@@ -52,41 +55,58 @@ class AdapterFavorite(
         Glide.with(holder.imageItem.context).load(listFavorites.get(position).product.image.src)
             .into(holder.imageItem)
         holder.tvTitle.text = listFavorites.get(position).product.title
-        holder.tvPrice.text = listFavorites.get(position).product.variants[0]?.price?.toCurrency(holder.imageItem.context)
+        holder.tvPrice.text =
+            listFavorites.get(position).product.variants[0]?.price?.toCurrency(holder.imageItem.context)
 
         holder.ivDeleteFavorite.setOnClickListener {
 
             AlertDialog.Builder(holder.imageItem.context).apply {
                 setNegativeButton("No") { d, i ->
-                    d.dismiss() }
+                    d.dismiss()
+                }
                 setPositiveButton("yes") { d, i ->
                     favoritesViewModel?.deleteFavorite(listFavorites.get(position).id)
-                    Toast.makeText(holder.imageItem.context,holder.imageItem.context.getString(R.string.product_deleted),Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        holder.imageItem.context,
+                        holder.imageItem.context.getString(R.string.product_deleted),
+                        Toast.LENGTH_LONG
+                    ).show()
                     notifyDataSetChanged()
                     d.dismiss()
-                 }
+                }
 
                 setTitle(holder.imageItem.context.getString(R.string.do_u_want_remove_product))
             }.create().show()
 
 
-
         }
 
 
-        holder.content_favorite.setOnClickListener {
-            val action = FavoritesFragmentDirections.actionFavoritesFragmentToProductDetailsFragment(listFavorites.get(position).product)
-            it.findNavController().navigate(action)
+        // open product details fragment
+        holder.tvTitle.context?.let {
+            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
+                "sharedPrefFile",
+                Context.MODE_PRIVATE
+            )
+            holder.content_favorite.setOnClickListener {
+                if (sharedPreferences.getInt(Constants.ONCLICK_PROFILE, -1).equals(2)) {
+                    val action =
+                        FavoritesFragmentDirections.actionFavoritesFragmentToProductDetailsFragment(
+                            listFavorites.get(position).product
+                        )
+                    it.findNavController().navigate(action)
+                }
+            }
         }
 
 
     }
 
     fun setFavorite(favorite: List<RoomFavorite>) {
-        if (!favorite.isEmpty()){
-        this.listFavorites = favorite
-        notifyDataSetChanged()
-    }else
+        if (!favorite.isEmpty()) {
+            this.listFavorites = favorite
+            notifyDataSetChanged()
+        } else
             notifyDataSetChanged()
 
     }
