@@ -56,11 +56,11 @@
     </style>
 
     <style name="ButtonAddToCart" parent="Widget.AppCompat.TextView">
-
-        <item name="android:textColor">@color/background</item>
-
+        <item name="android:textColor">@color/onPrimary</item>
         <item name="android:background">@drawable/bg_bt_add_bag</item>
     </style>
+
+
     <style name="Theme.Shopeklobek.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
 
     </style>

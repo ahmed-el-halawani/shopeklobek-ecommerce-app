@@ -22,6 +22,10 @@ class ProductDetailsViewModel(application: Application) : AndroidViewModel(appli
         repo.addToFavorite(product)
     }
 
+    fun toggleFavorite(product: Products){
+        repo.toggleFavorite(product)
+    }
+
 
 
 

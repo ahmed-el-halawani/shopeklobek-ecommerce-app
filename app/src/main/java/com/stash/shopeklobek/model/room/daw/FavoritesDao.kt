@@ -20,6 +20,9 @@ interface FavoritesDao : BaseDao<RoomFavorite> {
     @Query("SELECT * FROM $FAVORITES_TABLE WHERE id=:id")
     override suspend fun getWithId(id: Long): RoomFavorite?
 
+    @Query("SELECT * FROM $FAVORITES_TABLE WHERE product=:product")
+    suspend fun getWithProduct(product: Products): RoomFavorite?
+
     @Query("SELECT * FROM $FAVORITES_TABLE WHERE customerEmail=:customerEmail")
     override fun getWithCustomerId(customerEmail: String): LiveData<List<RoomFavorite>>
 

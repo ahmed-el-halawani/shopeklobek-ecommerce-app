@@ -373,6 +373,28 @@ class ProductRepo(
         return Either.Success(Unit)
     }
 
+    fun toggleFavorite(product: Products): Either<Unit, RoomAddProductErrors> {
+        val customerEmail = settingsPreferences.getSettings().customer?.email
+            ?: return Either.Error(RoomAddProductErrors.NoLoginCustomer)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val roomFavorite = database.favoriteDao().getWithProduct(product)
+            if (roomFavorite != null) {
+                database.favoriteDao().deleteByProduct(product)
+            } else {
+                database.favoriteDao().upsert(
+                    RoomFavorite(
+                        id = product.productId ?: 0,
+                        customerEmail = customerEmail,
+                        product = product
+                    )
+                )
+            }
+        }
+
+        return Either.Success(Unit)
+    }
+
     fun deleteFromCart(id: Long) {
         CoroutineScope(Dispatchers.IO).launch {
             database.cartDao().delete(id)
