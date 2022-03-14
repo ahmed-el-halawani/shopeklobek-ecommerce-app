@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
 import com.stash.shopeklobek.model.api.ExchangeCurrencyApi.exchangerateConverterApi
 import com.stash.shopeklobek.model.entities.*
+import com.stash.shopeklobek.model.entities.retroOrder.Order
+import com.stash.shopeklobek.model.entities.retroOrder.SendOrderModel
+import com.stash.shopeklobek.model.entities.retroOrder.SendedOrder
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.entities.room.RoomOrder
@@ -17,6 +20,7 @@ import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.utils.*
 import com.stash.shopeklobek.utils.CurrencyUtil
 import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
+import com.stash.shopeklobek.utils.toRoomOrder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -161,8 +165,13 @@ class ProductRepo(
     }
 
 
-    suspend fun getOrders(email: String): Either<Nothing, RepoErrors> {
-        TODO("Not yet implemented")
+    suspend fun getOrders2(): Either<List<Order>, RepoErrors> {
+        val customerEmail = settingsPreferences.getSettings().customer?.email
+            ?: return Either.Error(RepoErrors.NoLoginCustomer)
+
+        return callErrorsHandler(application, { shopifyServices.getOrders(customerEmail) }) {
+            Either.Success(it.order.filterNotNull())
+        }
     }
 
     suspend fun addAddress(address: AddressModel, isDefault: Boolean): Either<Unit, RepoErrors> {
@@ -252,13 +261,20 @@ class ProductRepo(
     }
 
     //room repo
-    fun getOrders(): Either<LiveData<List<RoomOrder>>, RoomCustomerError> {
+    fun getOrders(): LiveData<List<RoomOrder>> {
         val customerEmail = settingsPreferences.getSettings().customer?.email
-        return if (customerEmail != null) {
-            Either.Success(database.orderDao().getWithCustomerId(customerEmail = customerEmail))
-        } else {
-            Either.Error(RoomCustomerError.NoLoginCustomer)
+        if (customerEmail != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                when (val res = getOrders2()) {
+                    is Either.Error -> {}
+                    is Either.Success -> {
+                        database.orderDao().upsertAll(res.data.toRoomOrder())
+                    }
+                }
+            }
+            return database.orderDao().getWithCustomerId(customerEmail = customerEmail)
         }
+        return MutableLiveData()
     }
 
 
@@ -280,20 +296,29 @@ class ProductRepo(
         return database.cartDao().getAllAsync()
     }
 
-    suspend fun addOrder(order: Order): Either<Unit, RoomAddOrderErrors> {
-        try {
+    suspend fun addOrder(order: SendedOrder): Either<Unit, RepoErrors> {
+        return try {
             val customerEmail = settingsPreferences.getSettings().customer?.email
-                ?: return Either.Error(RoomAddOrderErrors.NoLoginCustomer)
-            database.orderDao().upsert(
-                RoomOrder(
-                    customerEmail = customerEmail,
-                    order = order,
-                )
-            )
-            database.cartDao().deleteAllForCustomer(customerEmail)
-            return Either.Success(Unit)
+                ?: return Either.Error(RepoErrors.NoLoginCustomer)
+
+            callErrorsHandler(application, {
+                shopifyServices.addOrder(SendOrderModel(order.copy(email = customerEmail)))
+            }) {
+                if (it.order != null) {
+                    database.orderDao().upsert(
+                        RoomOrder(
+                            id = it.order.id ?: 0,
+                            customerEmail = customerEmail,
+                            order = it.order
+                        )
+                    )
+                }
+
+                database.cartDao().deleteAllForCustomer(customerEmail)
+                Either.Success(Unit)
+            }
         } catch (t: Throwable) {
-            return Either.Error(RoomAddOrderErrors.RoomError)
+            Either.Error(RepoErrors.ServerError, t.message)
         }
     }
 
@@ -374,14 +399,13 @@ class ProductRepo(
     // end settings repo
 
 
-
     // currency repo
 
     suspend fun selectCurrency(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> = selectCurrency2(
         currencyEnum
     )
 
-    suspend fun updateCurrency(): Either<Unit, RepoErrors>  = updateCurrency2()
+    suspend fun updateCurrency(): Either<Unit, RepoErrors> = updateCurrency2()
 
     private suspend fun selectCurrency2(currencyEnum: CurrenciesEnum): Either<Unit, RepoErrors> {
         return callErrorsHandler(

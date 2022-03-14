@@ -59,7 +59,9 @@ class ShippingAddressesFragment : CheckoutBaseFragment<FragmentShippingAddressBi
         binding.apply {
             cvAddAddress.btn.setOnClickListener {
                 println("create address")
-                findNavController().navigate(R.id.action_shippingAddressesFragment_to_addAddressFragment)
+                findNavController().navigate(R.id
+                    .action_shippingAddressesFragment_to_addAddressFragment,Bundle().apply {
+                    putBoolean("isDefault",false) })
             }
         }
 

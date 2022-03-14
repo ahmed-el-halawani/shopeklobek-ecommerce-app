@@ -28,7 +28,7 @@ class AddAddressFragment : Fragment() {
 
     val message = "Required Field"
 
-    val args:AddAddressFragmentArgs by navArgs()
+    val args:AddAddressFragmentArgs? by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class AddAddressFragment : Fragment() {
         prepareListener()
         validate()
 
-        if(args.isDefault){
+        if(args?.isDefault == true){
             binding.rbSetAsDefault.visibility = View.GONE
             binding.rbSetAsDefault.isChecked = true
         }

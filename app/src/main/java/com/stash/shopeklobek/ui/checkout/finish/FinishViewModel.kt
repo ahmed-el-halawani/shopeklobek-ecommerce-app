@@ -13,8 +13,6 @@ import com.paypal.checkout.createorder.UserAction
 import com.paypal.checkout.order.AppContext
 import com.paypal.checkout.order.PurchaseUnit
 import com.stash.shopeklobek.model.api.ShopifyApi
-import com.stash.shopeklobek.model.entities.Order
-import com.stash.shopeklobek.model.entities.SendedOrder
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.utils.getPrice

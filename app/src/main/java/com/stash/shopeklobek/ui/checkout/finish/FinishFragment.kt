@@ -13,6 +13,7 @@ import com.paypal.checkout.error.OnError
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentFinishBinding
 import com.stash.shopeklobek.model.utils.Either
+import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.model.utils.RoomAddOrderErrors
 import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 import com.stash.shopeklobek.ui.checkout.PaymentMethodsEnum
@@ -96,7 +97,7 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
         when (val res = mainViewModel.confirm()) {
             is Either.Error -> finishViewModel.loading.postValue(false).also {
                 when(res.errorCode) {
-                    RoomAddOrderErrors.NoLoginCustomer ->
+                    RepoErrors.NoLoginCustomer ->
                         Toast.makeText(
                             context,
                             getString(R.string.u_havent_login_yet),
