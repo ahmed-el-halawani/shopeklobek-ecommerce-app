@@ -15,7 +15,6 @@ data class Address(
 
     @SerializedName( "address1")
     val address: String? = "",
-
     @SerializedName( "city")
     val city: String? = "",
 

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.ui.authentication.login.LoginViewModel
 
 class CompleteActionViewModel(application: Application, val AuthRepo: AuthenticationRepo) :
     AndroidViewModel(application) {
