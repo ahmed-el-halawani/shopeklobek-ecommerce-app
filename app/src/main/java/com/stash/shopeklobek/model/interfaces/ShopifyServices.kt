@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.model.interfaces
 
 import com.stash.shopeklobek.model.entities.*
+import com.stash.shopeklobek.model.entities.retroOrder.*
+import com.stash.shopeklobek.model.entities.retroOrder.SendedOrder
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -59,7 +61,7 @@ interface ShopifyServices {
 
 
     @POST("orders.json")
-    suspend fun addOrder(@Body order:AddOrderModel):
+    suspend fun addOrder(@Body order: SendOrderModel):
             Response<GettingOrderModel>
 
     @GET("orders.json?")

@@ -4,19 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentProfileBinding
-import com.stash.shopeklobek.model.entities.Order
-import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.entities.room.RoomFavorite
 import com.stash.shopeklobek.model.entities.room.RoomOrder
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
@@ -72,66 +66,38 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.reOrderList.adapter = adapterOrder
         profileViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
 
-        if (it.customer == null) {
-             findNavController().navigate(R.id.action_nav_profile_to_loogin)
-        }else
-        {
-            // get data from room
-            when (val res = profileViewModel.getFavorites()) {
-                is Either.Error -> {
-                    TODO()
-                }
-                is Either.Success -> {
-                    res.data.observe(viewLifecycleOwner) {
-                        if (!it.isEmpty()) {
-                            binding.allFavorites.text="${it.size}"
-                            favorite.add(it[0])
-                            if (it.size > 1) {
-                                favorite.add(it[1])
-                                adapterFavorite.setFavorite(favorite)
-                            }
-                            adapterFavorite.setFavorite(favorite)
-                        }else{
-                            binding.allFavorites.text="0"
-
+            if (it.customer == null) {
+                findNavController().navigate(R.id.action_nav_profile_to_loogin)
+            } else {
+                // get data from room
+                when (val res = profileViewModel.getFavorites()) {
+                    is Either.Error -> {
+                        Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+                    }
+                    is Either.Success -> {
+                        res.data.observe(viewLifecycleOwner) {
+                            binding.allFavorites.text = "${it.size}"
+                            adapterFavorite.setFavorite(it.take(4))
                         }
                     }
                 }
-            }
 
-            profileViewModel.getCart()
-            profileViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
-                if (roomCarts.isEmpty())
-                    binding.allCart.text="0"
-                 else
-                    binding.allCart.text="${roomCarts.size}"
-            }
-            when (val res = profileViewModel.getOrders()) {
-                is Either.Error -> {
+                profileViewModel.getCart()
+                profileViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
+                    binding.allCart.text = "${roomCarts.size}"
+
                 }
-                is Either.Success -> {
-                    res.data.observe(viewLifecycleOwner) {
-                        if (!it.isEmpty()) {
-                            binding.allOrders.text="${it.size}"
-                            order.add(it[0])
-                            adapterOrder.setOrders(order)
-                        }else{
-                            binding.allOrders.text="0"
 
-                        }
-                    }
+                profileViewModel.getOrders().observe(viewLifecycleOwner) {
+                    binding.allOrders.text = it.size.toString()
+                    adapterOrder.setOrders(it.take(2))
                 }
+
+
+                binding.tvFirstName.text = it.customer!!.firstName
+
+                binding.textEmail.text = it.customer!!.email
             }
-            val str = it.customer!!.firstName
-            val delim = " "
-
-            val list = str!!.split(delim)
-
-            println(list)
-            binding.tvFirstName.text= it.customer!!.firstName
-
-            binding.textEmail.text=it.customer!!.email
-        }
 
 
         }

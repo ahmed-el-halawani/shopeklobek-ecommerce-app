@@ -10,20 +10,18 @@ import com.paypal.checkout.createorder.UserAction
 import com.paypal.checkout.order.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Address
-import com.stash.shopeklobek.model.entities.FinancialStatus
-import com.stash.shopeklobek.model.entities.Order
 import com.stash.shopeklobek.model.entities.PriceRule
+import com.stash.shopeklobek.model.entities.Transactions
+import com.stash.shopeklobek.model.entities.retroOrder.FinancialStatus
+import com.stash.shopeklobek.model.entities.retroOrder.SendedOrder
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.model.utils.RoomAddOrderErrors
-import com.stash.shopeklobek.utils.getPrice
-import com.stash.shopeklobek.utils.observeOnce
-import com.stash.shopeklobek.utils.toItems
+import com.stash.shopeklobek.utils.*
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.math.absoluteValue
 import com.paypal.checkout.order.Order as paypalOrder
 
@@ -56,24 +54,34 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
         fixedDiscountLiveData.postValue(null)
     }
 
-    suspend fun confirm(): Either<Unit, RoomAddOrderErrors> {
-        val order = Order(
-            finalPrice = getTotalPrice().toString(),
-            createdAt = Date().time,
-            billingAddress = selectedAddress,
-            totalDiscount = discount?.value,
-            items = cartProducts,
+    suspend fun confirm(): Either<Unit, RepoErrors> {
+        val order = SendedOrder(
+            transactions = listOf(
+                Transactions(
+                    kind = "sale",
+                    status = "success",
+                    amount = getTotalPrice()
+                )
+            ),
+
+            billingAddress = selectedAddress?.toBillingShippingAddress(),
+            shippingAddress = selectedAddress?.toBillingShippingAddress(),
+            discountCodes = discount?.toDiscountCodes() ?: listOf(),
+            lineItems = cartProducts.toLineItem(),
         )
+
 
         return when (selectedPaymentMethods) {
             PaymentMethodsEnum.Cash -> {
-                productRepo.addOrder(order.copy(financialStatus = FinancialStatus.Voided.value))
+                productRepo.addOrder(order.copy(financialStatus = FinancialStatus.Voided.toString()))
             }
             PaymentMethodsEnum.Paypal -> {
-                productRepo.addOrder(order.copy(financialStatus = FinancialStatus.Paid.value))
+                productRepo.addOrder(order.copy(financialStatus = FinancialStatus.Paid.toString()))
             }
         }
     }
+
+
 
     fun getTotalPrice() =
         ((discount?.value?.toDouble()) ?: 0.0) + cartProducts.getPrice() + shipping
@@ -96,7 +104,7 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
                                     itemTotal = UnitAmount(
                                         currencyCode = CurrencyCode.USD,
                                         value = cartProducts.getPrice().toString(),
-                                        ),
+                                    ),
                                     shipping = UnitAmount(
                                         currencyCode = CurrencyCode.USD,
                                         value = shipping.toString(),
@@ -104,7 +112,7 @@ class CheckoutViewModel(val app: Application, val productRepo: ProductRepo) :
                                     discount = discount?.let {
                                         UnitAmount(
                                             currencyCode = CurrencyCode.USD,
-                                            value = (it.value?.toDouble()?.absoluteValue.toString())?:"0",
+                                            value = (it.value?.toDouble()?.absoluteValue.toString()) ?: "0",
                                         )
                                     }
                                 )

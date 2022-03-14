@@ -106,7 +106,7 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="20dp"
                                     android:gravity="center"
-                                    android:text="23"
+                                    android:text="0"
                                     android:textSize="20sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -142,7 +142,7 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="20dp"
                                     android:gravity="center"
-                                    android:text="50"
+                                    android:text="0"
                                     android:textSize="20sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -179,7 +179,7 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="20dp"
                                     android:gravity="center"
-                                    android:text="11"
+                                    android:text="0"
                                     android:textSize="20sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>

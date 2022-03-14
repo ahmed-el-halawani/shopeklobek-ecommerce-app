@@ -23,7 +23,9 @@
     </style>
 
     <style name="ButtonAddToCart" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/onBackground</item>
+        <item name="android:textColor">@color/onPrimary</item>
         <item name="android:background">@drawable/bg_bt_add_bag_night</item>
     </style>
+
+
 </resources>

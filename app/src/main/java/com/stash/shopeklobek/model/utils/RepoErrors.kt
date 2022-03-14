@@ -4,7 +4,9 @@ enum class RepoErrors {
     NoInternetConnection,
     ServerError,
     EmptyBody,
-    NullValue
+    NullValue,
+    NoLoginCustomer,
+
 }
 
 enum class DiscountError{

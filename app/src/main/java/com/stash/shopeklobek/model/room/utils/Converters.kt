@@ -3,7 +3,7 @@ package com.stash.shopeklobek.model.room.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.newcore.wezy.localDb.utils.ConverterHelper
-import com.stash.shopeklobek.model.entities.Order
+import com.stash.shopeklobek.model.entities.retroOrder.Order
 import com.stash.shopeklobek.model.entities.Products
 
 class Converters {
