@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.stash.shopeklobek.databinding.FragmentAddAddressBinding
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
-import com.stash.shopeklobek.ui.checkout.CheckoutBaseFragment
 import kotlinx.coroutines.launch
 
 class AddAddressFragment : Fragment() {
@@ -40,6 +39,9 @@ class AddAddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val client = Client("YourApplicationID", "YourAPIKey")
+        val index: Index = client.getIndex("your_index_name")
 
         prepareListener()
         validate()
@@ -84,6 +86,11 @@ class AddAddressFragment : Fragment() {
 
     private fun prepareListener() {
         binding.apply {
+
+            etCountry.doOnTextChanged{s,_,_,_->
+
+
+            }
 
             etAddressLine.doOnTextChanged { s, _, _, _ ->
                 vm.addressLiveData.value = vm.addressSource.apply {
