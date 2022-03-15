@@ -26,7 +26,7 @@ class OrdersDetailsFragment :BaseFragment<FragmentOrdersDetailsBinding>(Fragment
 
         binding.tvCounter.text= getString(R.string.counter)+roomOrder.order.items?.get(0)?.quantity
         .toString()
-//        binding.tvAddress.text= getString(R.string.address)+roomOrder.order.billingAddress?.address
+       binding.tvAddress.text= getString(R.string.address)
         binding.tvDate.text=  getString(R.string.date)+roomOrder.order.createdAt
         binding.tvDiscount.text= getString(R.string.discount)+roomOrder.order.totalDiscount
         binding.tvNameItem.text=roomOrder.order.id.toString()
