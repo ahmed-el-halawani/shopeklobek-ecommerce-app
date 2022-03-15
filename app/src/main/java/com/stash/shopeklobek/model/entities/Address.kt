@@ -1,44 +1,62 @@
 package com.stash.shopeklobek.model.entities
 
-import android.os.Parcel
 import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import com.paypal.checkout.PayPalCheckout
-import com.paypal.checkout.order.Address as paypalAddress
 import kotlinx.parcelize.Parcelize
+import com.paypal.checkout.order.Address as paypalAddress
 
 @Parcelize
 data class Address(
 
-    @SerializedName( "id")
+    @SerializedName("id")
     val id: Long? = 0,
 
-    @SerializedName( "address1")
+    @SerializedName("address1")
+    val address1: String? = "",
+
+    @SerializedName("address2")
     val address: String? = "",
-    @SerializedName( "city")
+
+    @SerializedName("city")
     val city: String? = "",
 
-    @SerializedName( "first_name")
+    @SerializedName( "country")
+    val country: String? = "",
+
+    @SerializedName("latitude")
+    var latitude: String? = "",
+
+    @SerializedName("longitude")
+    var longitude: String? = "",
+
+    @SerializedName("first_name")
     val firstName: String? = "",
 
-    @SerializedName( "last_name")
+    @SerializedName("last_name")
     val lastName: String? = "",
 
-    @SerializedName( "zip")
+    @SerializedName("zip")
     val zip: String? = "",
 
-    @SerializedName( "default")
+    @SerializedName("default")
     val default: Boolean = false,
 
-    @SerializedName( "phone")
+    @SerializedName("phone")
     val phone: String? = "",
 
-): Parcelable {
-    fun generateAddressLine():String{
+    ) : Parcelable {
+
+    fun getCityCountryAddress(){
+
+    }
+
+    fun generateAddressLine(): String {
         return "$city, $address"
     }
 
-    fun toPaypalAddress():paypalAddress = paypalAddress(
+    fun toPaypalAddress(): paypalAddress = paypalAddress(
         countryCode = "EG",
         addressLine1 = address,
         addressLine2 = address,

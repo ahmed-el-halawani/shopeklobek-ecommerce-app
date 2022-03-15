@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.stash.shopeklobek.databinding.FragmentAddAddressBinding
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
+import com.stash.shopeklobek.ui.checkout.search_places.SearchPlaceFragment
 import kotlinx.coroutines.launch
 
 class AddAddressFragment : Fragment() {
@@ -27,7 +28,7 @@ class AddAddressFragment : Fragment() {
 
     val message = "Required Field"
 
-    val args:AddAddressFragmentArgs? by navArgs()
+    val args: AddAddressFragmentArgs? by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,14 +40,10 @@ class AddAddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val client = Client("YourApplicationID", "YourAPIKey")
-        val index: Index = client.getIndex("your_index_name")
-
         prepareListener()
         validate()
 
-        if(args?.isDefault == true){
+        if (args?.isDefault == true) {
             binding.rbSetAsDefault.visibility = View.GONE
             binding.rbSetAsDefault.isChecked = true
         }
@@ -59,11 +56,17 @@ class AddAddressFragment : Fragment() {
                     lifecycleScope.launch {
                         when (val res = vm.addAddress()) {
                             is Either.Error -> when (res.errorCode) {
-                                RepoErrors.NoInternetConnection -> {}
-                                RepoErrors.ServerError -> {}
-                                RepoErrors.EmptyBody -> {
-
+                                RepoErrors.NoInternetConnection -> {
+                                    Toast.makeText(
+                                        context, "No Internet connection", Toast
+                                            .LENGTH_SHORT
+                                    ).show()
                                 }
+                                RepoErrors.ServerError -> {
+                                    Toast.makeText(context, "server Error", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                                RepoErrors.EmptyBody -> {}
                             }
                             is Either.Success -> {
                                 findNavController().popBackStack()
@@ -87,9 +90,9 @@ class AddAddressFragment : Fragment() {
     private fun prepareListener() {
         binding.apply {
 
-            etCountry.doOnTextChanged{s,_,_,_->
-
-
+            etCity.setOnClickListener {
+                val bottomSheet = SearchPlaceFragment()
+                bottomSheet.show(parentFragmentManager, "TAG")
             }
 
             etAddressLine.doOnTextChanged { s, _, _, _ ->
@@ -137,8 +140,18 @@ class AddAddressFragment : Fragment() {
     }
 
 
-    fun validate() {
+    private fun validate() {
+
+        vm.searchedAddress.observe(viewLifecycleOwner) {
+            binding.apply {
+                if (it != null) {
+                    etCity.setText(vm.placesResult?.generateAddress())
+                }
+            }
+        }
+
         vm.addressLiveData.observe(viewLifecycleOwner) {
+
             var isValid = true
             binding.apply {
 
@@ -149,12 +162,12 @@ class AddAddressFragment : Fragment() {
                     etAddressLineLayout.error = null
                 }
 
-                if (vm.addressSource.city.isNullOrBlank()) {
-                    isValid = false
-                    etCityLayout.error = if (vm.setErrors) message else null
-                } else {
-                    etCityLayout.error = null
-                }
+                //                if (vm.addressSource.city.isNullOrBlank()) {
+                //                    isValid = false
+                //                    etCityLayout.error = if (vm.setErrors) message else null
+                //                } else {
+                //                    etCityLayout.error = null
+                //                }
 
                 if (vm.addressSource.firstName.isNullOrBlank()) {
                     isValid = false

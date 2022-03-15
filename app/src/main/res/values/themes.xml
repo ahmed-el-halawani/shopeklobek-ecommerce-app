@@ -17,14 +17,12 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:windowBackground">@color/background</item>
 
-
     </style>
-    
-    
+
+
     <style name="Theme.Shopeklobek.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
     </style>
 
     <style name="Theme.Shopeklobek.NoActionBar.checkout">
