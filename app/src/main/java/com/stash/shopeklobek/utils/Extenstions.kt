@@ -86,8 +86,10 @@ fun Address.toBillingShippingAddress(): BillingShippingAddress {
         city = city,
         country = city,
         phone = phone,
-
-        )
+        latitude = latitude,
+        longitude = longitude,
+        address1 = address1,
+    )
 }
 
 fun Double.toCurrency(context: Context): String {

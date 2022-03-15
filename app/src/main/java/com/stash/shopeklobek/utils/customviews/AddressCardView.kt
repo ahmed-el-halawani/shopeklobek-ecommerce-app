@@ -11,10 +11,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.google.android.gms.maps.model.LatLng
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ItemAddressCardBinding
+import com.stash.shopeklobek.utils.NetworkingHelper
+import com.stash.shopeklobek.utils.OnlineMapImageHelper.getImageFromLatLon
 
 
 /**
@@ -22,26 +24,38 @@ import com.stash.shopeklobek.databinding.ItemAddressCardBinding
  */
 class AddressCardView : FrameLayout {
 
-    fun setLocationImageResource(image:Int){
-        locationImage = ContextCompat.getDrawable(context,image)
+    fun setLocationImageResource(image: Int) {
+        locationImage = ContextCompat.getDrawable(context, image)
     }
 
-    var locationImage:Drawable? = null
-    var locationImageUrl:String? = null
-    var title:String? = null
-    var address:String? = null
+    var locationImage: Drawable? = null
+    var locationImageUrl: String? = null
+    var title: String? = null
+    var address: String? = null
 
-    fun setImageFromUrl(url:String){
-        locationImageUrl = url
-        Glide.with(context).load(url).listener(
+    fun setImageFromUrl(latLng: LatLng) {
+        if (!NetworkingHelper.hasInternet(context)) return
+        locationImageUrl = getImageFromLatLon(latLng)
+        Glide.with(context).load(locationImageUrl).listener(
             object : RequestListener<Drawable?> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable?>?, isFirstResource: Boolean): Boolean {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     locationImageUrl = null
                     return false
                 }
 
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    locationImageUrl = url
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    locationImageUrl = locationImageUrl
                     return false
                 }
 
@@ -49,7 +63,7 @@ class AddressCardView : FrameLayout {
         ).into(binding.ivAddress)
     }
 
-    lateinit var binding:ItemAddressCardBinding
+    lateinit var binding: ItemAddressCardBinding
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -59,7 +73,11 @@ class AddressCardView : FrameLayout {
         init(attrs, 0)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
         init(attrs, defStyle)
     }
 
@@ -68,7 +86,8 @@ class AddressCardView : FrameLayout {
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.AddressCardView,
-            0, 0).apply {
+            0, 0
+        ).apply {
 
             try {
                 locationImage = getDrawable(R.styleable.AddressCardView_locationImage)
@@ -83,12 +102,11 @@ class AddressCardView : FrameLayout {
 
         binding = ItemAddressCardBinding.bind(inflate(context, R.layout.item_address_card, this))
 
-        if(locationImage == null&&locationImageUrl==null)
+        if (locationImage == null && locationImageUrl == null)
             binding.cvAddressCard.visibility = View.GONE
-        else
-        {
+        else {
             binding.cvAddressCard.visibility = View.VISIBLE
-            if(locationImageUrl==null)
+            if (locationImageUrl == null)
                 binding.ivAddress.setImageDrawable(locationImage)
         }
 
@@ -103,13 +121,12 @@ class AddressCardView : FrameLayout {
     }
 
 
-    fun refresh(){
-        if(locationImage == null&&locationImageUrl==null)
+    fun refresh() {
+        if (locationImage == null && locationImageUrl == null)
             binding.cvAddressCard.visibility = View.GONE
-        else
-        {
+        else {
             binding.cvAddressCard.visibility = View.VISIBLE
-            if(locationImageUrl==null)
+            if (locationImageUrl == null)
                 binding.ivAddress.setImageDrawable(locationImage)
         }
 
@@ -119,10 +136,9 @@ class AddressCardView : FrameLayout {
 
     override fun onDraw(canvas: Canvas) {
 
-        if(locationImage == null)
+        if (locationImage == null)
             binding.cvAddressCard.visibility = View.GONE
-        else
-        {
+        else {
             binding.cvAddressCard.visibility = View.VISIBLE
             binding.ivAddress.setImageDrawable(locationImage)
         }
