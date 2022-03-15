@@ -52,7 +52,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                         ).show()
 
                     }
-                    else {  binding.progress.visibility=View.GONE
+                    else {
+                        binding.progress.visibility=View.GONE
                         Toast.makeText(
                         requireContext(),
                         "Unsuccessfull Register",
