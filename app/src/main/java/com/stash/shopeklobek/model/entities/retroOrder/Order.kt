@@ -2,6 +2,7 @@ package com.stash.shopeklobek.model.entities.retroOrder
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.stash.shopeklobek.model.entities.BillingShippingAddress
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,6 +13,9 @@ data class Order(
 
     @SerializedName( "email")
     val email: String? = "",
+
+    @SerializedName( "billing_address")
+    val billingAddress: BillingShippingAddress?,
 
     @SerializedName( "app_id")
     val orderNumber: Long? = 0,
@@ -24,6 +28,8 @@ data class Order(
 
     @SerializedName( "current_total_discounts")
     val totalDiscount: String? = "",
+
+
 
 //    @SerializedName( "quantity")
 //    val quantity: Long? = 0,

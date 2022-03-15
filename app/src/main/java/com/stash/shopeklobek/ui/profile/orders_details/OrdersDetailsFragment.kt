@@ -33,7 +33,7 @@ class OrdersDetailsFragment :BaseFragment<FragmentOrdersDetailsBinding>(Fragment
         binding.tvState.text= getString(R.string.state)+roomOrder.order.financialStatus
         binding.totalPrice.text= getString(R.string.price)+ activity?.let {
             roomOrder.order.finalPrice?.toCurrency(
-                it.applicationContext)
+                requireContext())
         }
         binding.tvOrderNumber.text=getString(R.string.order_number)+roomOrder.order.orderNumber
 
