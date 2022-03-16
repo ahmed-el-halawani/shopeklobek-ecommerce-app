@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_nav_profile_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_OrdersDetailsFragmentNav"
+            app:destination="@id/OrdersDetailsFragmentNav" />
     </fragment>
     <fragment
         android:id="@+id/OrdersFragment"

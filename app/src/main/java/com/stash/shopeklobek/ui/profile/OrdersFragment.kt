@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stash.shopeklobek.databinding.FragmentOrdersBinding
 import com.stash.shopeklobek.model.entities.retroOrder.Order
 import com.stash.shopeklobek.ui.BaseFragment
+import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
+import com.stash.shopeklobek.ui.home.favorites.FavoritesFragmentDirections
 import com.stash.shopeklobek.utils.Constants
 
 class OrdersFragment : BaseFragment<FragmentOrdersBinding>(FragmentOrdersBinding::inflate) {
@@ -23,23 +26,13 @@ class OrdersFragment : BaseFragment<FragmentOrdersBinding>(FragmentOrdersBinding
         val bandle = Bundle().apply {
             putString("id", "")
         }
-        activity?.let {
-            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
-                "sharedPrefFile",
-                Context.MODE_PRIVATE
-            )
 
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putInt(Constants.ONCLICK_PROFILE, 2)
-            editor.apply()
-            editor.commit()
 
+        adapterOrder = AdapterOrder(ArrayList()){
+            val action =
+                OrdersFragmentDirections.actionOrdersFragmentToNavOrderDetails(it)
+            findNavController().navigate(action)
         }
-
-        // findNavController().navigate(2,bandle)
-
-
-        adapterOrder = AdapterOrder(ArrayList())
 
         binding.reOrderList.layoutManager =
             LinearLayoutManager(context)

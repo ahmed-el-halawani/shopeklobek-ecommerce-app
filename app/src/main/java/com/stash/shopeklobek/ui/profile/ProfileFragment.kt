@@ -37,18 +37,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
-                "sharedPrefFile",
-                Context.MODE_PRIVATE
-            )
-
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putInt(Constants.ONCLICK_PROFILE, 1)
-            editor.apply()
-            editor.commit()
-
-        }
 
         binding.btnSighnout.setOnClickListener {
             SettingsPreferences.getInstance(context?.applicationContext as Application).update {
@@ -62,8 +50,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         order = ArrayList<RoomOrder>()
         favorite = ArrayList<RoomFavorite>()
-        adapterOrder = AdapterOrder(ArrayList())
 
+        adapterOrder = AdapterOrder(ArrayList()) {
+            val action =
+                ProfileFragmentDirections.actionNavProfileToOrdersDetailsFragmentNav(it)
+            findNavController().navigate(action)
+        }
         binding.reOrderList.layoutManager =
             LinearLayoutManager(context)
         binding.reOrderList.adapter = adapterOrder
@@ -109,7 +101,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             lifecycleScope.launch {
                 profileViewModel.productRepo.deleteFromFavorite(it.id)
             }
-        }){
+        }) {
             findNavController().navigate(
                 ProfileFragmentDirections.actionNavProfileToProductDetailsFragment(it)
             )
