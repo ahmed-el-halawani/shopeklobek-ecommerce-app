@@ -108,4 +108,9 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
 }
