@@ -92,7 +92,9 @@
     <string name="no_discount_added">You have not added any discount code</string>
     <string name="Wrong_Code">Wrong Code</string>
     <string name="do_u_want_remove_product">Do you want remove this product?</string>
+    <string name="do_u_want_remove_address">Do you want remove this Address?</string>
     <string name="product_deleted">product deleted successfully</string>
+    <string name="address_deleted">address deleted successfully</string>
     <string name="no_more_stock">sorry, no more stock from this product 😞</string>
 
     <string name="empty" translatable="false">Empty</string>

@@ -4,14 +4,20 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.model.LatLng
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ItemAddressCardBinding
@@ -32,35 +38,25 @@ class AddressCardView : FrameLayout {
     var locationImageUrl: String? = null
     var title: String? = null
     var address: String? = null
+    var address2: String? = null
 
-    fun setImageFromUrl(latLng: LatLng) {
+    inner class ST(val iv:ImageView,val image:String): SimpleTarget<Drawable>() {
+        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+            locationImageUrl = image
+            Log.e("locationImageUrl", "onResourceReady: ", )
+            refresh()
+            iv.setImageDrawable(resource)
+        }
+    }
+
+    fun setImageFromUrl(latLng: LatLng?) {
+        locationImageUrl = null
+        refresh()
+        if (latLng==null)return
         if (!NetworkingHelper.hasInternet(context)) return
-        locationImageUrl = getImageFromLatLon(latLng)
-        Glide.with(context).load(locationImageUrl).listener(
-            object : RequestListener<Drawable?> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    locationImageUrl = null
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    locationImageUrl = locationImageUrl
-                    return false
-                }
-
-            }
-        ).into(binding.ivAddress)
+        val image = getImageFromLatLon(latLng)
+        Log.e("locationImageUrl", "image: "+image, )
+        Glide.with(context).load(image).into(ST(binding.ivAddress,image))
     }
 
     lateinit var binding: ItemAddressCardBinding
@@ -132,6 +128,7 @@ class AddressCardView : FrameLayout {
 
         binding.tvLocationTitle.text = title
         binding.tvAddress.text = address
+        binding.tvAddress2.text = address2
     }
 
     override fun onDraw(canvas: Canvas) {

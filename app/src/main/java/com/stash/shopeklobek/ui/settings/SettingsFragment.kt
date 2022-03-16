@@ -12,6 +12,7 @@ import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 import com.stash.shopeklobek.utils.ViewHelpers.setDarkMode
+import com.stash.shopeklobek.utils.latLngFromJson
 import kotlinx.coroutines.launch
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
@@ -51,8 +52,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                                     else {
                                         addressCardView.run {
                                             title = city
-                                            address = generateAddressLine()
+                                            address = address1
+                                            setImageFromUrl(latLng?.latLngFromJson())
                                             refresh()
+                                            visibility = View.VISIBLE
                                         }
                                     }
                                 }

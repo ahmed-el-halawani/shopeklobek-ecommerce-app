@@ -29,6 +29,7 @@ class SearchedAddressesAdapter : RecyclerView.Adapter<SearchedAddressesAdapter.V
         holder.addressCardView.apply {
             title = addressData.properties.country
             address = addressData.properties.generateAddress()
+            address2 = addressData.properties.address_line2
             addressData.properties.getLatLng()?.let { setImageFromUrl(it) }
             setOnClickListener { onItemClickListener?.invoke(addressData) }
             refresh()

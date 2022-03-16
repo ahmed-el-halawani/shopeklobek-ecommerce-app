@@ -2,8 +2,8 @@ package com.stash.shopeklobek.model.entities
 
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.stash.shopeklobek.utils.latLngFromJson
 import kotlinx.parcelize.Parcelize
 import com.paypal.checkout.order.Address as paypalAddress
 
@@ -22,14 +22,12 @@ data class Address(
     @SerializedName("city")
     val city: String? = "",
 
-    @SerializedName( "country")
+    @SerializedName("country")
     val country: String? = "",
 
-    @SerializedName("latitude")
-    var latitude: String? = "",
 
-    @SerializedName("longitude")
-    var longitude: String? = "",
+    @SerializedName("company")
+    val latLng: String? = "",
 
     @SerializedName("first_name")
     val firstName: String? = "",
@@ -48,22 +46,31 @@ data class Address(
 
     ) : Parcelable {
 
-    fun getCityCountryAddress(){
-
-    }
-
     fun generateAddressLine(): String {
-        return "$city, $address"
+        return address1 ?: ""
     }
 
     fun toPaypalAddress(): paypalAddress = paypalAddress(
         countryCode = "EG",
-        addressLine1 = address,
+        addressLine1 = address1,
         addressLine2 = address,
         postalCode = zip,
-        adminArea1 = address,
-        adminArea2 = address,
+        adminArea1 = country,
+        adminArea2 = city,
     )
+
+    fun getLatitude(): String? {
+        return latLng?.latLngFromJson()?.latitude?.toString()
+    }
+
+    fun getLongitude(): String? {
+        return latLng?.latLngFromJson()?.longitude?.toString()
+    }
+
+    fun getLatLng():LatLng?{
+        return latLng?.latLngFromJson()
+    }
+
 
 
 }

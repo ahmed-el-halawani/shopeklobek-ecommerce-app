@@ -14,7 +14,7 @@ object OnlineMapImageHelper {
 
 
 
-    fun getImageFromLatLon(latLng: LatLng,zoom:Int=14):String{
+    fun getImageFromLatLon(latLng: LatLng,zoom:Int=16):String{
        return "https://$BASE_URL/v1/staticmap?apiKey=$API_KEY&marker=${generateMarker(latLng)}&zoom=$zoom&center=${getCenter(latLng)}&style=$STYLE"
     }
 

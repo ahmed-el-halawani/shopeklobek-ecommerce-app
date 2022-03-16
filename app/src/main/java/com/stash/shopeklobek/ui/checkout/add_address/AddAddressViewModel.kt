@@ -6,12 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.model.LatLng
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Address
 import com.stash.shopeklobek.model.entities.AddressModel
 import com.stash.shopeklobek.model.entities.autocomplete_places_2.Feature
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.utils.toJson
 
 
 class AddAddressViewModel(application: Application, val productRepo: ProductRepo) :
@@ -39,8 +41,12 @@ class AddAddressViewModel(application: Application, val productRepo: ProductRepo
                 city = future.properties.city,
                 country = future.properties.country,
                 address1 = future.properties.generateAddress(),
-                latitude = future.properties.lat.toString(),
-                longitude = future.properties.lon.toString(),
+                latLng = future.properties.let {
+                    if (it.lat == null || it.lon == null)
+                        null
+                    else
+                        LatLng(it.lat, it.lon)
+                }?.toJson(),
             )
             addressLiveData.value = addressSource
         }

@@ -71,8 +71,10 @@ class FinishFragment : CheckoutBaseFragment<FragmentFinishBinding>(FragmentFinis
         binding.run {
             mainViewModel.run {
                 cvCurrentLocation.run {
-                    address = selectedAddress?.generateAddressLine()
+                    address = selectedAddress?.address1
+                    address2 = selectedAddress?.address
                     title = selectedAddress?.city
+                    setImageFromUrl(selectedAddress?.getLatLng())
                     refresh()
                 }
             }

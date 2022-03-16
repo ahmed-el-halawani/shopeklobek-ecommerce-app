@@ -25,10 +25,11 @@ class HistoryOfAddressesAdapter : RecyclerView.Adapter<HistoryOfAddressesAdapter
 
         holder.addressCardView.apply {
             title = addressData.city
-            address = addressData.generateAddressLine()
+            address = addressData.address1
+            address2 = addressData.address
             setOnClickListener { onItemClickListener?.invoke(addressData) }
+            setImageFromUrl(addressData.getLatLng())
             refresh()
-
 //            setImageFromUrl(getImageFromLatLon(LatLng(30.0778, 31.2852)))
             //setLocationImageResource(R.drawable.map)
         }

@@ -36,7 +36,11 @@
     <string name="no_discount_added">لم تقم بإضافة أي كود خصم</string>
     <string name="Wrong_Code">رمز خاطئ</string>
     <string name="do_u_want_remove_product">هل تريد إزالة هذا المنتج؟</string>
+    <string name="do_u_want_remove_address">هل تريد إزالة هذا العنوان؟</string>
+
     <string name="product_deleted">تم حذف المنتج بنجاح</string>
+    <string name="address_deleted">تم حذف العنوان بنجاح</string>
+
     <string name="confirm_order">تأكد من الطلب</string>
 
     <string-array name="checkout_stepper_list">

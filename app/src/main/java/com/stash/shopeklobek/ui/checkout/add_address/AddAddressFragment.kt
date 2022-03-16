@@ -92,20 +92,12 @@ class AddAddressFragment : Fragment() {
 
             etCity.setOnClickListener {
                 val bottomSheet = SearchPlaceFragment()
-                bottomSheet.show(parentFragmentManager, "TAG")
+                bottomSheet.show(parentFragmentManager, "SearchPlaceFragment")
             }
 
             etAddressLine.doOnTextChanged { s, _, _, _ ->
                 vm.addressLiveData.value = vm.addressSource.apply {
                     vm.addressSource = this.copy(address = s.toString())
-                }
-            }
-
-            etCity.doOnTextChanged { s, start, before, count ->
-                vm.addressLiveData.value = vm.addressSource.apply {
-                    vm.addressSource = this.copy(
-                        city = s.toString()
-                    )
                 }
             }
 

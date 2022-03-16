@@ -1,6 +1,8 @@
 package com.stash.shopeklobek.utils
 
 import android.content.Context
+import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 import com.paypal.checkout.createorder.CurrencyCode
 import com.paypal.checkout.order.Items
 import com.paypal.checkout.order.UnitAmount
@@ -33,6 +35,18 @@ fun List<RoomCart>.toItems(): List<Items> {
 
     }
 
+}
+
+fun LatLng.toJson(): String {
+    return Gson().toJson(this)
+}
+
+fun String.latLngFromJson(): LatLng? {
+    return try {
+        Gson().fromJson(this, LatLng::class.java)
+    } catch (t: Throwable) {
+        null
+    }
 }
 
 fun List<RoomCart>.toOrderDetails(): List<OrderDetails> {
@@ -86,8 +100,8 @@ fun Address.toBillingShippingAddress(): BillingShippingAddress {
         city = city,
         country = city,
         phone = phone,
-        latitude = latitude,
-        longitude = longitude,
+        latitude = getLatitude(),
+        longitude = getLongitude(),
         address1 = address1,
     )
 }
