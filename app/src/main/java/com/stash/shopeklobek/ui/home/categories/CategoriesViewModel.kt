@@ -24,6 +24,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
+    var firstPriceFilter = MutableLiveData<Float>()
+    var secondPriceFilter = MutableLiveData<Float>()
 
     val loadingLiveData = MutableLiveData<Boolean>(false)
 
@@ -33,6 +35,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     init {
         getMainCategory()
         getAllCategory()
+        firstPriceFilter.value=0f
+        secondPriceFilter.value=1000f
     }
 
     private fun getMainCategory() {

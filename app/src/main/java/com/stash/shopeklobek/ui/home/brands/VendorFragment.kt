@@ -35,7 +35,6 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
     private val brandsViewModel: BrandsViewModel by activityViewModels()
     private lateinit var adapter: VendorAdapter
     private lateinit var recyclerView: RecyclerView
-    var searching : MutableLiveData<String> = MutableLiveData()
 
 
 
@@ -48,17 +47,38 @@ override fun onCreateView(
         brandsViewModel.getProductsByVendor(args.vendor)
         recyclerView = binding.vendorRecyclerView
 
-        binding.searchTextView.addTextChangedListener {
-            searching.value = binding.searchTextView.text.toString()
-        }
-
         binding.filterImageView.setOnClickListener {
             val priceBottomSheet = PriceBottomSheet()
             priceBottomSheet.show(parentFragmentManager,"TAG")
         }
+
+        binding.searchTextView.addTextChangedListener {
+            brandsViewModel.searching.value = binding.searchTextView.text.toString()
+            brandsViewModel.searching.observe(viewLifecycleOwner, Observer { it2 ->
+                brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+                    when(it1) {
+                        is Either.Success -> {
+                                var list: MutableList<Products> = mutableListOf()
+                                for (i in 0..it1.data.product.size.minus(1)) {
+                                    var string = binding.searchTextView.text
+                                    if (it1.data.product[i].title!!.contains(string, ignoreCase = true)) {
+                                        list.add(it1.data.product[i])
+                                    }
+                                }
+                                checkFavoriteList(list)
+                            }
+                        is Either.Error -> when (it1.errorCode) {
+                            RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
+                            RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            })
+        }
+
         recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
 
-        brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+        /*brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
             when(it1) {
                 is Either.Success -> {
                     checkFavoriteList(it1.data.product)
@@ -68,9 +88,9 @@ override fun onCreateView(
                     RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        })*/
 
-        searching.observe(viewLifecycleOwner, Observer { it2 ->
+        brandsViewModel.searching.observe(viewLifecycleOwner, Observer { it2 ->
             brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
                 when(it1) {
                     is Either.Success -> {

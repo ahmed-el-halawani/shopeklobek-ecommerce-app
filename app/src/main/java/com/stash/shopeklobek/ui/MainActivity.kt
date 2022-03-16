@@ -153,6 +153,7 @@ class MainActivity : AppCompatActivity() {
         editor.putString(Constants.FIRST_FILTER_CATEGORIES, "women")
         editor.putString(Constants.SECOND_FILTER_CATEGORIES, "all")
         editor.putString(Constants.FIRST_FILTER_PRICE, "all")
+        editor.putString(Constants.CATEGORY_FILTER_PRICE, "all")
         editor.apply()
 
     }

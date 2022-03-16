@@ -24,6 +24,8 @@ class BrandsViewModel(application: Application) : AndroidViewModel(application) 
     var discounts = MutableLiveData<Either<DiscountModel,RepoErrors>>()
     var firstPriceFilter = MutableLiveData<Float>()
     var secondPriceFilter = MutableLiveData<Float>()
+    var searching : MutableLiveData<String> = MutableLiveData()
+
 
     val loadingLiveData = MutableLiveData<Boolean>(false)
 
