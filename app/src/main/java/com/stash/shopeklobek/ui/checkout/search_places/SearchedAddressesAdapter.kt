@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.model.LatLng
+import com.stash.shopeklobek.model.entities.autocomplete_places_2.Feature
 import com.stash.shopeklobek.model.entities.places.PlacesResultItem
 import com.stash.shopeklobek.utils.ViewHelpers
 import com.stash.shopeklobek.utils.customviews.AddressCardView
@@ -26,9 +27,9 @@ class SearchedAddressesAdapter : RecyclerView.Adapter<SearchedAddressesAdapter.V
         val addressData = differ.currentList[position]
 
         holder.addressCardView.apply {
-            title = addressData.country?.name
-            address = addressData.generateAddress()
-            addressData.getLatLng()?.let { setImageFromUrl(it) }
+            title = addressData.properties.country
+            address = addressData.properties.generateAddress()
+            addressData.properties.getLatLng()?.let { setImageFromUrl(it) }
             setOnClickListener { onItemClickListener?.invoke(addressData) }
             refresh()
         }
@@ -39,17 +40,17 @@ class SearchedAddressesAdapter : RecyclerView.Adapter<SearchedAddressesAdapter.V
 
 
     //    // set listeners
-    fun setOnItemClickListener(onItemClickListener: ((PlacesResultItem) -> Unit)?) {
+    fun setOnItemClickListener(onItemClickListener: ((Feature) -> Unit)?) {
         this.onItemClickListener = onItemClickListener
     }
 
     // using DiffUtil to update our recycle
     // when update or change list of items
-    private val differCallback = object : DiffUtil.ItemCallback<PlacesResultItem>() {
-        override fun areItemsTheSame(oldItem: PlacesResultItem, newItem: PlacesResultItem): Boolean =
-            oldItem.id == newItem.id
+    private val differCallback = object : DiffUtil.ItemCallback<Feature>() {
+        override fun areItemsTheSame(oldItem: Feature, newItem: Feature): Boolean =
+            oldItem.properties.place_id == newItem.properties.place_id
 
-        override fun areContentsTheSame(oldItem: PlacesResultItem, newItem: PlacesResultItem): Boolean =
+        override fun areContentsTheSame(oldItem: Feature, newItem: Feature): Boolean =
             oldItem == newItem
     }
 
@@ -57,7 +58,7 @@ class SearchedAddressesAdapter : RecyclerView.Adapter<SearchedAddressesAdapter.V
 
 
     // private vars
-    private var onItemClickListener: ((PlacesResultItem) -> Unit)? = null
+    private var onItemClickListener: ((Feature) -> Unit)? = null
 
     data class ViewHolder(val addressCardView: AddressCardView) : RecyclerView.ViewHolder(addressCardView)
 

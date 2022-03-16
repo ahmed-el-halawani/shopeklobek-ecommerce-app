@@ -7,6 +7,9 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -19,6 +22,56 @@ import com.stash.shopeklobek.ui.checkout.add_address.AddAddressViewModel
 
 class SearchPlaceFragment() : BottomSheetDialogFragment() {
 
+    val binding by lazy {
+        FragmentSearchPlaceBinding.inflate(layoutInflater)
+    }
+
+
+    val vm by lazy {
+        SearchPlacesViewModel.create(this)
+    }
+
+    val vmShared by lazy {
+        AddAddressViewModel.getInstance(this)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if(savedInstanceState==null){
+            binding.etSearchPlaces.requestFocus();
+//            val imm: InputMethodManager? = getSystemService(
+//                requireContext(),
+//                InputMethodManager::class.java
+//            )
+//            imm?.showSoftInput(binding.etSearchPlaces, InputMethodManager.SHOW_IMPLICIT)
+            dialog?.window?.setSoftInputMode(SOFT_INPUT_STATE_VISIBLE);
+
+        }
+
+        vm.loading.observe(viewLifecycleOwner) {
+            when (it) {
+                true -> {
+                    binding.pbLoading.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.pbLoading.visibility = View.GONE
+                }
+            }
+        }
+
+        setupRecyclerView()
+
+        binding.run {
+            btnClose.setOnClickListener {
+                dismiss()
+            }
+            etSearchPlaces.doOnTextChanged { s, _, _, _ ->
+                vm.findAddress(s.toString())
+            }
+        }
+
+    }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -29,7 +82,6 @@ class SearchPlaceFragment() : BottomSheetDialogFragment() {
 
         return dialog
     }
-
 
     private fun setupFullHeight(bottomSheetDialog: BottomSheetDialog) {
         bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
@@ -69,19 +121,6 @@ class SearchPlaceFragment() : BottomSheetDialogFragment() {
         return displayMetrics.heightPixels
     }
 
-    val binding by lazy {
-        FragmentSearchPlaceBinding.inflate(layoutInflater)
-    }
-
-
-    val vm by lazy {
-        SearchPlacesViewModel.create(this)
-    }
-
-    val vmShared by lazy {
-        AddAddressViewModel.create(this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -93,7 +132,7 @@ class SearchPlaceFragment() : BottomSheetDialogFragment() {
     private val searchResultAdapter by lazy {
         SearchedAddressesAdapter().apply {
             vm.addressList.observe(viewLifecycleOwner) {
-                differ.submitList(it)
+                differ.submitList(it.features)
             }
             setOnItemClickListener {
                 vmShared.setSearchedAddress(it)
@@ -106,33 +145,6 @@ class SearchPlaceFragment() : BottomSheetDialogFragment() {
         binding.rvSearchedPlaces.apply {
             adapter = searchResultAdapter
             layoutManager = LinearLayoutManager(activity)
-        }
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        vm.loading.observe(viewLifecycleOwner){
-            when(it){
-                true -> {
-                    binding.pbLoading.visibility = View.VISIBLE
-                }
-                false -> {
-                    binding.pbLoading.visibility = View.GONE
-                }
-            }
-        }
-
-        setupRecyclerView()
-
-        binding.run {
-            btnClose.setOnClickListener {
-                dismiss()
-            }
-            etSearchPlaces.doOnTextChanged { s, _, _, _ ->
-                vm.findAddress(s.toString())
-            }
         }
 
     }

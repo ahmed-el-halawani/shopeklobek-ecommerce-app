@@ -35,6 +35,8 @@
                 android:drawableStart="@drawable/ic_search"
                 android:ems="10"
                 android:focusedByDefault="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:hint="@string/search_here"
                 android:inputType="textAutoComplete"
                 android:minHeight="48dp"

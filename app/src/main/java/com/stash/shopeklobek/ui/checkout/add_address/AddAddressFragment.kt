@@ -145,7 +145,7 @@ class AddAddressFragment : Fragment() {
         vm.searchedAddress.observe(viewLifecycleOwner) {
             binding.apply {
                 if (it != null) {
-                    etCity.setText(vm.placesResult?.generateAddress())
+                    etCity.setText(vm.placesResult?.properties?.generateAddress())
                 }
             }
         }

@@ -28,6 +28,12 @@ object Constants {
     const val X_RapidAPI_Key = "c9ad1973cfmsh551a25db61acd9ap16ef38jsn45c817d30aee"
 
 
+    //places 2
+    const val BASE_PLACES2_URL = "https://api.geoapify.com/v1/geocode/"
+    const val PLACES2_API_KEY_URL = "c1afab10544748dea1164cea3c06a4c2"
+
+
+
     //room
     const val FAVORITES_TABLE = "FAVORITES_TABLE"
     const val CART_TABLE = "CART_TABLE"
