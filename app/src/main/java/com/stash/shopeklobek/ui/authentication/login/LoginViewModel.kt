@@ -26,23 +26,25 @@ class LoginViewModel(application: Application, val AuthRepo: AuthenticationRepo)
             when (response) {
                 is Either.Error -> when (response.errorCode) {
                     LoginErrors.NoInternetConnection -> {
+                        loginSuccess.postValue(false)
                         Toast.makeText(
                             getApplication(),
                             "NoInternetConnection" + response.message,
                             Toast.LENGTH_SHORT
                         ).show()
-                        loginSuccess.postValue(false)
+
                     }
                     LoginErrors.ServerError -> {
-
+                        loginSuccess.postValue(false)
                         Toast.makeText(
                             getApplication(),
                             "ServerError" + response.message,
                             Toast.LENGTH_SHORT
                         ).show()
-                        loginSuccess.postValue(false)
+
                     }
                     LoginErrors.IncorrectEmailOrPassword->{
+                        loginSuccess.postValue(false)
                         Toast.makeText(
                             getApplication(),
                             "CustomerNotFound" + response.message,
@@ -50,16 +52,16 @@ class LoginViewModel(application: Application, val AuthRepo: AuthenticationRepo)
                         ).show()
                     }
                     LoginErrors.CustomerNotFound -> {
+                        loginSuccess.postValue(false)
                         Toast.makeText(
                             getApplication(),
                             "CustomerNotFound" + response.message,
                             Toast.LENGTH_SHORT
                         ).show()
-                        loginSuccess.postValue(false)
+
                     }
                 }
                 is Either.Success -> {
-                    Log.d("haa", "" + response.data)
                     loginSuccess.postValue(true)
                 }
             }

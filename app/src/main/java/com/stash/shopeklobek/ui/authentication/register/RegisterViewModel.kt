@@ -23,11 +23,14 @@ class RegisterViewModel(application: Application,val authenticationRepo: Authent
             when(response){
                 is Either.Error -> when(response.errorCode){
                     RepoErrors.NoInternetConnection -> {
+                        signupSuccess.postValue(false)
                         Toast.makeText(getApplication(), "NoInternetConnection"+response.message, Toast.LENGTH_SHORT).show()
                     }
                     RepoErrors.ServerError -> {
 
+                        signupSuccess.postValue(false)
                         Toast.makeText(getApplication(), "ServerError"+response.message, Toast.LENGTH_SHORT).show()
+
                     }
                 }
                 is Either.Success -> {

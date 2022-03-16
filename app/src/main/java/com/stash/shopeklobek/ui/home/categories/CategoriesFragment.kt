@@ -37,7 +37,9 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
         super.onViewCreated(view, savedInstanceState)
 
         binding.filterLayout.setOnClickListener {
-            val filterBottomSheet = FilterBottomSheet(hashMap)
+            categoriesViewModel.hashmap = hashMap
+            //val filterBottomSheet = FilterBottomSheet(hashMap)
+            val filterBottomSheet = FilterBottomSheet()
             filterBottomSheet.show(parentFragmentManager,"TAG")
         }
 
@@ -53,8 +55,8 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                     }
                 }
                 is Either.Error -> when (it.errorCode) {
-                    RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
-                    RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                    RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(),resources.getString(R.string.errornoconnection) , Toast.LENGTH_SHORT).show()
+                    RepoErrors.ServerError -> Toast.makeText(requireContext(), resources.getString(R.string.errorloading), Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -72,8 +74,8 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                     checkFavoriteList(it.data.product)
                 }
                 is Either.Error -> when (it.errorCode) {
-                    RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
-                    RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                    RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), resources.getString(R.string.errornoconnection), Toast.LENGTH_SHORT).show()
+                    RepoErrors.ServerError -> Toast.makeText(requireContext(), resources.getString(R.string.errorloading), Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -100,8 +102,8 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
                         }
                     }
                     is Either.Error -> when (it1.errorCode) {
-                        RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
-                        RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                        RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), resources.getString(R.string.errornoconnection), Toast.LENGTH_SHORT).show()
+                        RepoErrors.ServerError -> Toast.makeText(requireContext(), resources.getString(R.string.errorloading), Toast.LENGTH_SHORT).show()
                     }
                 }
             })

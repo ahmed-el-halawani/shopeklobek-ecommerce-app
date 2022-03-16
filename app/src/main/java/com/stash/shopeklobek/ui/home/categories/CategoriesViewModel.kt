@@ -20,6 +20,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     val category = MutableLiveData<Either<MainCategories, RepoErrors>>()
     var products = MutableLiveData<Either<ProductsModel,RepoErrors>>()
+    var hashmap = HashMap<String,Long>()
 
     var firstFilter = MutableLiveData<String>()
     var secondFilter = MutableLiveData<String>()
