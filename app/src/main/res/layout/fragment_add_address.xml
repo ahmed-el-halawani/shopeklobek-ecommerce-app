@@ -18,14 +18,16 @@
             android:padding="10dp"
             android:orientation="vertical">
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etCityLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                app:startIconDrawable="@drawable/ic_baseline_map_24"
+                android:layout_margin="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -34,14 +36,20 @@
                     android:focusable="false"
                     android:hint="@string/city"
                     android:inputType="text"
-                    android:minHeight="48dp" />
+                    android:minHeight="48dp"
+                    />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etAddressLineLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                app:startIconDrawable="@drawable/ic_baseline_map_24"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
 
                 <EditText
                     android:id="@+id/etAddressLine"
@@ -51,13 +59,15 @@
                     android:ems="10"
                     android:hint="@string/additional_address_details"
                     android:inputType="text"
-                    android:minHeight="48dp" />
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -65,7 +75,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_account_circle"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <EditText
                         android:id="@+id/etFirstName"
@@ -75,7 +88,8 @@
                         android:ems="10"
                         android:hint="@string/first_name"
                         android:inputType="textPersonName"
-                        android:minHeight="48dp" />
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +97,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_account_circle"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <EditText
                         android:id="@+id/etLastName"
@@ -94,7 +111,8 @@
 
                         android:hint="@string/last_name"
                         android:inputType="textPersonName"
-                        android:minHeight="48dp" />
+                        android:minHeight="48dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -103,7 +121,11 @@
                 android:id="@+id/etPhoneLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                app:startIconDrawable="@drawable/ic_baseline_phone_iphone_24"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
 
                 <EditText
                     android:id="@+id/etPhone"
@@ -114,7 +136,8 @@
 
                     android:hint="@string/phone"
                     android:inputType="phone"
-                    android:minHeight="48dp" />
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -136,7 +159,8 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#E91E63"
-                    android:text="@string/cancel_it" />
+                    android:text="@string/cancel_it"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnSave"
@@ -145,7 +169,8 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#4CAF50"
-                    android:text="@string/save" />
+                    android:text="@string/save"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

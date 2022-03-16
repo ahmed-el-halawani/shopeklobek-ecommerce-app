@@ -64,11 +64,11 @@
     <string name="please_login">please login</string>
     <string name="login">LOGIN</string>
     <string name="search">Search....</string>
-    <string name="city">City*</string>
+    <string name="city">City, Country*</string>
     <string name="address_line">Address Line*</string>
     <string name="first_name">First Name*</string>
     <string name="last_name">Last Name</string>
-    <string name="phone">Phone*</string>
+    <string name="phone">Phone Number*</string>
     <string name="set_as_default_address">Set As Default Address</string>
     <string name="cancel_it">Cancel</string>
     <string name="save">Save</string>
@@ -152,7 +152,9 @@
     <string name="place_holder">fsdfsdfsdjddddddddddddddddddddddddddddddddd d d d d d d d d d d d dfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c</string>
     <string name="location">Location*</string>
     <string name="search_here">Search here</string>
-    <string name="additional_address_details">Additional Address Details</string>
+    <string name="additional_address_details">Additional Address Details*</string>
+    <string name="empty_cart">Empty Cart</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت</string>
 
 
 </resources>

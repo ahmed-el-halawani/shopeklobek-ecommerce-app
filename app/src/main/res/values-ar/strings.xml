@@ -8,7 +8,7 @@
     <string name="apply">تطبيق</string>
     <string name="language">اللغه</string>
     <string name="pound">جنية</string>
-    <string name="city">المدينة*</string>
+    <string name="city">المدينة, البلد*</string>
     <string name="address_line">عنوان الشارع*</string>
     <string name="first_name">الاسم الاول*</string>
     <string name="last_name">اسم العائلة</string>
@@ -130,6 +130,8 @@
     <string name="place_holder">fsdfsdfsdjddddddddddddddddddddddddddddddddd d d d d d d d d d d d dfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c fsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324cfsdfsdfsdjfmiodfodsiofmdskf,pos dfeprokfer fefiwf fnwe fwefwer wer ef wef wer crfwedqwacdwe rcvwecfweqwe rcqwercqrc wecr4tcv34 wrcw4c3r qw3crq324c</string>
     <string name="location">الموقع*</string>
     <string name="search_here">ابحث هنا</string>
-    <string name="additional_address_details">تفاصيل العنوان الإضافية</string>
+    <string name="additional_address_details">تفاصيل العنوان الإضافية*</string>
+    <string name="empty_cart">العربة فارغة</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالانترنت</string>
 
 </resources>
