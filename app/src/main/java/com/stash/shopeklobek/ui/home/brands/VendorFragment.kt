@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentVendorBinding
 import com.stash.shopeklobek.model.entities.Products
 import com.stash.shopeklobek.model.utils.Either
@@ -102,8 +103,8 @@ override fun onCreateView(
                             checkFavoriteList(it1.data.product)
                         }
                         is Either.Error -> when (it1.errorCode) {
-                            RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
-                            RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                            RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), resources.getString(R.string.errornoconnection), Toast.LENGTH_SHORT).show()
+                            RepoErrors.ServerError -> Toast.makeText(requireContext(), resources.getString(R.string.errorloading), Toast.LENGTH_SHORT).show()
                         }
                     }
                 })
@@ -148,17 +149,17 @@ override fun onCreateView(
 
     override fun onPause() {
         super.onPause()
-        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
+        /*val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(Constants.FIRST_FILTER_PRICE,"all")
-        editor.apply()
+        editor.apply()*/
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        brandsViewModel.firstPriceFilter.value=0f
+       /* brandsViewModel.firstPriceFilter.value=0f
         brandsViewModel.secondPriceFilter.value=1000f
-        brandsViewModel.vendors.value=null
+        brandsViewModel.vendors.value=null*/
     }
 
 }

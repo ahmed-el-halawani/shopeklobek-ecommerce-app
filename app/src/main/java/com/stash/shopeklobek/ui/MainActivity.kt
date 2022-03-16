@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
        AppBarConfiguration(
             setOf(
                 R.id.nav_profile, R.id.nav_settings, R.id.nav_home,R.id.nav_login,R.id
-                    .nav_register,R.id.completeAction
+                    .nav_register,R.id.completeAction,R.id.nav_search
             ),drawerLayout
         )
     }
