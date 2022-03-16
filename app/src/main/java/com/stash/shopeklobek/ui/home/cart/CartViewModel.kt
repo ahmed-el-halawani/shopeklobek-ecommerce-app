@@ -1,16 +1,14 @@
 package com.stash.shopeklobek.ui.home.cart
 
 import android.app.Application
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.Customer
+import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.repositories.ProductRepo
-import com.stash.shopeklobek.model.shareprefrances.Settings
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
-import com.stash.shopeklobek.model.utils.Either
 import kotlinx.coroutines.launch
 
 class CartViewModel(application: Application, val productRepo: ProductRepo) : AndroidViewModel(application) {
@@ -20,8 +18,8 @@ class CartViewModel(application: Application, val productRepo: ProductRepo) : An
         productRepo.getSettingsLiveData()
     }
 
-    var isSettingsChanged: Boolean = true
     var oldCustomer:Customer? = null
+    var oldCurrency:Currency? = null
 
 
 
@@ -35,9 +33,14 @@ class CartViewModel(application: Application, val productRepo: ProductRepo) : An
 
 
     fun isNeedToRefresh(customer: Customer?):Boolean{
-        return ((oldCustomer==null||oldCustomer!=customer)||isSettingsChanged).also {
+        return ((oldCustomer==null||oldCustomer!=customer)).also {
             oldCustomer = customer
-            isSettingsChanged = false
+        }
+    }
+
+    fun isNeedToRebuild(currency: Currency?):Boolean{
+        return ((oldCurrency==null||oldCurrency!=currency)).also {
+            oldCurrency = currency
         }
     }
 

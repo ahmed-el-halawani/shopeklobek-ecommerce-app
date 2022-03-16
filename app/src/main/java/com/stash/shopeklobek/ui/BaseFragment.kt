@@ -1,5 +1,6 @@
 package com.stash.shopeklobek.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ abstract class BaseFragment<T : ViewBinding>(val viewBindingInflater:(LayoutInfl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mainActivity.activityPermissionResultData.observe(viewLifecycleOwner){
             if(it!=null)
                 onRequestPermissionsResult(it)

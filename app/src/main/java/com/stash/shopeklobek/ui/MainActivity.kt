@@ -1,46 +1,30 @@
 package com.stash.shopeklobek.ui
 
 import android.app.AlertDialog
-import android.app.Application
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.widget.Toast
-import com.google.android.material.navigation.NavigationView
-import androidx.navigation.findNavController
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import com.orhanobut.hawk.Hawk
+import com.google.android.material.navigation.NavigationView
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.ActivityMainBinding
-import com.stash.shopeklobek.model.shareprefrances.ISettingsPreferences
-import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
+import com.stash.shopeklobek.ui.home.HomeFragmentDirections
 import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.NavigationExtension.findNavController2
-
-import com.stash.shopeklobek.utils.ViewHelpers
 import com.stash.shopeklobek.utils.ViewHelpers.getLocale
-import com.stash.shopeklobek.utils.ViewHelpers.localeFromLanguage
 import com.stash.shopeklobek.utils.ViewHelpers.setAppLocale
 import kotlinx.coroutines.launch
-
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,29 +34,29 @@ class MainActivity : AppCompatActivity() {
 
     var onBackNavController: NavController? = null
 
-    val drawerLayout by lazy{
+    val drawerLayout by lazy {
         binding.drawerLayout
     }
 
     val bottomNavAppBarConfiguration by lazy {
-       AppBarConfiguration(
+        AppBarConfiguration(
             setOf(
                 R.id.brandsFragment, R.id.cartFragment, R.id.favoritesFragment,
-                R.id.categoriesFragment,R.id.completeAction
-            ),drawerLayout
+                R.id.categoriesFragment, R.id.completeAction
+            ), drawerLayout
         )
     }
 
     private val drawerAppBarConfiguration by lazy {
-       AppBarConfiguration(
+        AppBarConfiguration(
             setOf(
-                R.id.nav_profile, R.id.nav_settings, R.id.nav_home,R.id.nav_login,R.id
-                    .nav_register,R.id.completeAction,R.id.nav_search
-            ),drawerLayout
+                R.id.nav_profile, R.id.nav_settings, R.id.nav_home, R.id.nav_login, R.id
+                    .nav_register, R.id.completeAction
+            ), drawerLayout
         )
     }
 
-    val mainNavController by lazy{
+    val mainNavController by lazy {
         binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
     }
 
@@ -82,15 +66,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState==null){
+        if (savedInstanceState == null) {
             lifecycleScope.launch {
                 viewmodel.productRepo.updateCurrency()
             }
 
         }
 
-        if(getLocale().language!= resources.configuration.locale.language){
-            setAppLocale(this,resources)
+        if (getLocale().language != resources.configuration.locale.language) {
+            setAppLocale(this, resources)
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -104,15 +88,27 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(mainNavController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        menuInflater.inflate(R.menu.main, menu)
+//        return true
+//    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_search -> {
+                mainNavController.navigate(HomeFragmentDirections.actionNavHomeToNavSearch())
+                false
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = binding.appBarMain.navHostFragmentContentMain.findNavController2(this)
-        return (navController.currentDestination?.id == R.id.nav_home && onBackNavController?.navigateUp(bottomNavAppBarConfiguration)?:false)||
+        return (navController.currentDestination?.id == R.id.nav_home && onBackNavController?.navigateUp(
+            bottomNavAppBarConfiguration
+        ) ?: false) ||
                 navController.navigateUp(drawerAppBarConfiguration) || super.onSupportNavigateUp()
     }
 
@@ -129,12 +125,18 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        activityPermissionResultData.postValue(ActivityPermissionResultData(requestCode, permissions, grantResults))
+        activityPermissionResultData.postValue(
+            ActivityPermissionResultData(
+                requestCode,
+                permissions,
+                grantResults
+            )
+        )
         activityPermissionResultData.postValue(null)
     }
 
-    fun showLoading(message:String?) {
-        dialog = ProgressDialog.show(this, "",message?:"Loading. Please wait...", true);
+    fun showLoading(message: String?) {
+        dialog = ProgressDialog.show(this, "", message ?: "Loading. Please wait...", true);
     }
 
     fun hideLoading() {
@@ -143,18 +145,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val sharedPreferences: SharedPreferences = applicationContext.getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = applicationContext.getSharedPreferences(
+            Constants.FILE_NAME,
+            Context.MODE_PRIVATE
+        )
         val editor = sharedPreferences.edit()
-        editor.putString(Constants.FIRST_FILTER_CATEGORIES,"women")
-        editor.putString(Constants.SECOND_FILTER_CATEGORIES,"all")
-        editor.putString(Constants.FIRST_FILTER_PRICE,"all")
+        editor.putString(Constants.FIRST_FILTER_CATEGORIES, "women")
+        editor.putString(Constants.SECOND_FILTER_CATEGORIES, "all")
+        editor.putString(Constants.FIRST_FILTER_PRICE, "all")
         editor.apply()
 
     }
 
 
     data class ActivityResultData(val requestCode: Int, val resultCode: Int, val data: Intent?)
-    data class ActivityPermissionResultData(val requestCode: Int, val permissions: Array<out String>,val grantResults: IntArray) {
+    data class ActivityPermissionResultData(
+        val requestCode: Int,
+        val permissions: Array<out String>,
+        val grantResults: IntArray
+    ) {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
@@ -179,7 +188,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var dialog: AlertDialog? = null
-
 
 
 }

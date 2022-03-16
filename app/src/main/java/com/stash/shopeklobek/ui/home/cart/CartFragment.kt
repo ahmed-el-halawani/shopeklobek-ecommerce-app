@@ -4,9 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,6 +17,7 @@ import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.checkout.CheckoutActivity
 import com.stash.shopeklobek.utils.CurrencyUtil
+import com.stash.shopeklobek.utils.NetworkingHelper.hasInternet
 import com.stash.shopeklobek.utils.ViewHelpers
 import kotlinx.coroutines.launch
 
@@ -86,43 +85,55 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         binding.run {
             cartViewModel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner) {
                 if (it.customer == null) {
-                    cartViewModel.isSettingsChanged = true
                     cvCartDetails.visibility = View.GONE
                     findNavController().navigate(R.id.action_cartFragment_to_completeAction)
                 } else {
+                    if (cartViewModel.isNeedToRebuild(it.currancy)) {
+                        setupRecycleView()
+                    }
+
                     if (cartViewModel.isNeedToRefresh(it.customer)) {
                         cartViewModel.getCartProductsEither()
                     }
-                    cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
-                        if(roomCarts.isEmpty()){
-                            cvCartDetails.visibility =  View.GONE
-                            emptyCartGroup.visibility = View.VISIBLE
-                        }else{
-                            cvCartDetails.visibility =  View.VISIBLE
-                            emptyCartGroup.visibility = View.GONE
-                        }
 
-                        cartProductAdapter.differ.submitList(roomCarts)
+                }
 
-                        var price = 0.0
-                        var count = 0
-                        roomCarts.forEach {
-                            price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
-                            count += it.count
-                        }
 
-                        tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(
-                            price.toString(), requireContext()
-                        )
-                        tvTotalItems.text = count.toString()
+                cartViewModel.cartLiveData.observe(viewLifecycleOwner) { roomCarts ->
+                    if (roomCarts.isEmpty()) {
+                        cvCartDetails.visibility = View.GONE
+                        emptyCartGroup.visibility = View.VISIBLE
+                    } else {
+                        cvCartDetails.visibility = View.VISIBLE
+                        emptyCartGroup.visibility = View.GONE
                     }
 
+                    cartProductAdapter.differ.submitList(roomCarts)
+
+                    var price = 0.0
+                    var count = 0
+                    roomCarts.forEach {
+                        price += (it.variant()?.price?.toDouble() ?: 0.0) * it.count
+                        count += it.count
+                    }
+
+                    tvTotalProductsPrice.text = CurrencyUtil.convertCurrency(
+                        price.toString(), requireContext()
+                    )
+                    tvTotalItems.text = count.toString()
                 }
             }
 
 
+
             btnProceedToCheckout.setOnClickListener {
-                startActivity(Intent(context, CheckoutActivity::class.java))
+                if (hasInternet(requireContext().applicationContext))
+                    startActivity(Intent(context, CheckoutActivity::class.java))
+                else
+                    Toast.makeText(
+                        context, getString(R.string.no_internet_connection), Toast
+                            .LENGTH_SHORT
+                    ).show()
             }
 
             ItemTouchHelper(ViewHelpers.SwipeToRemove { position ->

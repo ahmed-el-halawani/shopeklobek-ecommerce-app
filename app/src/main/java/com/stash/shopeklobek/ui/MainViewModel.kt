@@ -29,13 +29,6 @@ class MainViewModel(val app: Application, val productRepo: ProductRepo) : Androi
     val settingsLiveData = productRepo.getSettingsLiveData()
 
 
-    init {
-        viewModelScope.launch {
-
-        }
-    }
-
-
     class Factory(private val application: Application,val productRepo: ProductRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MainViewModel(application,productRepo) as T

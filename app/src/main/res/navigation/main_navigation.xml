@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.stash.shopeklobek.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_search"
+            app:destination="@id/nav_search" />
+    </fragment>
     <fragment
         android:id="@+id/OrdersDetailsFragmentNav"
         android:name="com.stash.shopeklobek.ui.profile.orders_details.OrdersDetailsFragment"

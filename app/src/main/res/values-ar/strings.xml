@@ -8,7 +8,7 @@
     <string name="apply">تطبيق</string>
     <string name="language">اللغه</string>
     <string name="pound">جنية</string>
-    <string name="city">المدينة*</string>
+    <string name="city">المدينة, البلد*</string>
     <string name="address_line">عنوان الشارع*</string>
     <string name="first_name">الاسم الاول*</string>
     <string name="last_name">اسم العائلة</string>
@@ -132,12 +132,15 @@
     <string name="errornoconnection">لا يوجد اتصال بالشبكة</string>
     <string name="location">الموقع*</string>
     <string name="search_here">ابحث هنا</string>
-    <string name="additional_address_details">تفاصيل العنوان الإضافية</string>
+    <string name="additional_address_details">تفاصيل العنوان الإضافية*</string>
+    <string name="empty_cart">العربة فارغة</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالانترنت</string>
     <string name="phone2">"رفم الهاتف : "</string>
     <string name="name">"الأسم : "</string>
     <string name="counter2">"العدد : "</string>
     <string name="address2">"العنوان : "</string>
     <string name="discount2">"الخصم : "</string>
 
+>>>>>>> main
 
 </resources>
