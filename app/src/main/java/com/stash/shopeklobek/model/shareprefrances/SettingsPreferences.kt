@@ -7,6 +7,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.entities.Customer
 import com.stash.shopeklobek.model.entities.currencies.Currency
 import com.stash.shopeklobek.utils.Constants.ALL_DATA_ROUTE
@@ -93,7 +94,13 @@ data class Settings(
         fun getDefault(): Settings = Settings(
             Language.Default,
             null,
-            CurrencyUtil.getCurrency(CurrenciesEnum.USD)
+            Currency(
+                "United States Dollar",
+                CurrencyUtil.application?.getString(R.string.usd_symbol) ?: """$""",
+                "USD",
+                CurrenciesEnum.USD,
+                R.string.usd_symbol
+            )
         )
     }
 }

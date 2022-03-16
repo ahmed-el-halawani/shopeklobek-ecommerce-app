@@ -77,7 +77,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     is Either.Success -> {
                         res.data.observe(viewLifecycleOwner) {
                             binding.allFavorites.text = "${it.size}"
-                            adapterFavorite.setFavorite(it.take(4))
+                            adapterFavorite.setFavorite(it.take(2))
                         }
                     }
                 }
@@ -90,7 +90,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
                 profileViewModel.getOrders().observe(viewLifecycleOwner) {
                     binding.allOrders.text = it.size.toString()
-                    adapterOrder.setOrders(it.take(2))
+                    adapterOrder.setOrders(it.take(1))
                 }
 
 

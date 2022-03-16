@@ -29,9 +29,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             }
         }
         binding.btnRegister.setOnClickListener {
-            binding.progress.visibility=View.VISIBLE
-            if (validateFrem()) {
 
+            if (validateFrem()) {
+                binding.progress.visibility=View.VISIBLE
                 val customer = CustomerModel(
                     Customer(
                         firstName = firstName,
@@ -52,11 +52,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                         ).show()
 
                     }
-                    else  Toast.makeText(
+                    else {
+                        binding.progress.visibility=View.GONE
+                        Toast.makeText(
                         requireContext(),
                         "Unsuccessfull Register",
                         Toast.LENGTH_LONG
-                    ).show()
+                    ).show()}
                 }
             }
         }

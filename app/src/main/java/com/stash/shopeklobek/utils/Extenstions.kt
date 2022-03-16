@@ -9,6 +9,7 @@ import com.stash.shopeklobek.model.entities.retroOrder.Order
 import com.stash.shopeklobek.model.entities.retroOrder.OrderDetails
 import com.stash.shopeklobek.model.entities.room.RoomCart
 import com.stash.shopeklobek.model.entities.room.RoomOrder
+import kotlin.math.absoluteValue
 
 fun List<RoomCart>.getPrice(): Double {
     var price = 0.0
@@ -71,7 +72,7 @@ fun PriceRule.toDiscountCodes(): List<DiscountCodes>? {
     return listOf(
         DiscountCodes(
             code = title,
-            amount = value,
+            amount = value?.toDouble()?.absoluteValue.toString(),
             type = targetType
         )
     )
@@ -85,8 +86,10 @@ fun Address.toBillingShippingAddress(): BillingShippingAddress {
         city = city,
         country = city,
         phone = phone,
-
-        )
+        latitude = latitude,
+        longitude = longitude,
+        address1 = address1,
+    )
 }
 
 fun Double.toCurrency(context: Context): String {
