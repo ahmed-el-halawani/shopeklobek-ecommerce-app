@@ -3,25 +3,31 @@ package com.stash.shopeklobek.ui.home.categories
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentFilterBottomSheetBinding
 import com.stash.shopeklobek.utils.Constants.FILE_NAME
 import com.stash.shopeklobek.utils.Constants.FIRST_FILTER_CATEGORIES
 import com.stash.shopeklobek.utils.Constants.SECOND_FILTER_CATEGORIES
 
 
-class FilterBottomSheet(var hashMap: HashMap<String,Long>) : BottomSheetDialogFragment(){
+class FilterBottomSheet() : BottomSheetDialogFragment(){
 
     private val categoriesViewModel: CategoriesViewModel by activityViewModels()
     lateinit var binding : FragmentFilterBottomSheetBinding
+    private lateinit var hashMap : HashMap<String,Long>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentFilterBottomSheetBinding.inflate(inflater, container, false)
+
+        hashMap = categoriesViewModel.hashmap
 
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
         when(sharedPreferences.getString(FIRST_FILTER_CATEGORIES,"women")){
@@ -62,25 +68,42 @@ class FilterBottomSheet(var hashMap: HashMap<String,Long>) : BottomSheetDialogFr
         return (binding.root)
     }
 
-    private fun setFilter(firstFilter: String){
-        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
+    private fun setFilter(firstFilter: String) {
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        if(binding.allRadioButton.isChecked) {
-            categoriesViewModel.getProductsByGender(hashMap.getValue(firstFilter),firstFilter)
-            editor.putString(SECOND_FILTER_CATEGORIES,"all")
+        if (!hashMap.isEmpty()) {
+            if (binding.allRadioButton.isChecked) {
+                categoriesViewModel.getProductsByGender(hashMap.getValue(firstFilter), firstFilter)
+                editor.putString(SECOND_FILTER_CATEGORIES, "all")
+            }
+            if (binding.shoesRadioButton.isChecked) {
+                categoriesViewModel.getProductsFromType(
+                    hashMap.getValue(firstFilter),
+                    "SHOES",
+                    firstFilter
+                )
+                editor.putString(SECOND_FILTER_CATEGORIES, "SHOES")
+            }
+            if (binding.accessoriesRadioButton.isChecked) {
+                categoriesViewModel.getProductsFromType(
+                    hashMap.getValue(firstFilter),
+                    "ACCESSORIES",
+                    firstFilter
+                )
+                editor.putString(SECOND_FILTER_CATEGORIES, "ACCESSORIES")
+            }
+            if (binding.clothesRadioButton.isChecked) {
+                categoriesViewModel.getProductsFromType(
+                    hashMap.getValue(firstFilter),
+                    "T-SHIRTS",
+                    firstFilter
+                )
+                editor.putString(SECOND_FILTER_CATEGORIES, "T-SHIRTS")
+            }
+            editor.apply()
+        }else{
+            Toast.makeText(requireContext(), resources.getString(R.string.errorloading), Toast.LENGTH_SHORT).show()
         }
-        if(binding.shoesRadioButton.isChecked) {
-            categoriesViewModel.getProductsFromType(hashMap.getValue(firstFilter),"SHOES",firstFilter)
-            editor.putString(SECOND_FILTER_CATEGORIES,"SHOES")
-        }
-        if(binding.accessoriesRadioButton.isChecked) {
-            categoriesViewModel.getProductsFromType(hashMap.getValue(firstFilter),"ACCESSORIES",firstFilter)
-            editor.putString(SECOND_FILTER_CATEGORIES,"ACCESSORIES")
-        }
-        if(binding.clothesRadioButton.isChecked) {
-            categoriesViewModel.getProductsFromType(hashMap.getValue(firstFilter),"T-SHIRTS",firstFilter)
-            editor.putString(SECOND_FILTER_CATEGORIES,"T-SHIRTS")
-        }
-        editor.apply()
     }
 }
