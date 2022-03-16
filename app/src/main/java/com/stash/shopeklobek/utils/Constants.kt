@@ -11,9 +11,9 @@ object Constants {
 
     //api
 
-     const val apiKey = "bfe73f4cd7e7f8737d5928b2a439022e"
-     const val password = "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"
-    const val BASE_URL = "https://$apiKey:$password@jets2022.myshopify.com/admin/api/2022-01/"
+     const val apiKey = "f36da23eb91a2fd4cba11b9a30ff124f"
+     const val password = "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"
+    const val BASE_URL = "https://jets-ismailia.myshopify.com/admin/api/2022-01/"
     const val CURRENCY_CONVERTER_API_KEY = "3e3890a19a7caef23423"
     const val CURRENCY_CONVERTER_API_BASE_URL= "https://free.currconv.com/api/v7/convert/"
     const val EXCHANGE_CURRENCY_CONVERTER_API_BASE_URL= "https://v6.exchangerate-api.com/v6/e2eb8a1d8527b64e0a070175/"
