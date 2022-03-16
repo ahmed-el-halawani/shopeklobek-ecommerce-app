@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.stash.shopeklobek.model.api.PlacesApi
+import com.stash.shopeklobek.model.api.PlacesApi2
 import com.stash.shopeklobek.model.api.ShopifyApi
+import com.stash.shopeklobek.model.entities.autocomplete_places_2.PlacesResult2
 import com.stash.shopeklobek.model.entities.places.PlacesResult
 import com.stash.shopeklobek.model.repositories.ProductRepo
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
@@ -18,7 +20,7 @@ class SearchPlacesViewModel(application: Application, val productRepo: ProductRe
 
     val loading = MutableLiveData(false)
 
-    val addressList = MutableLiveData<PlacesResult>()
+    val addressList = MutableLiveData<PlacesResult2>()
 
 
     var job: Job? = null
@@ -29,8 +31,8 @@ class SearchPlacesViewModel(application: Application, val productRepo: ProductRe
             job = null
             job = viewModelScope.launch {
 
-                delay(500)
-                val res = PlacesApi.findPlaceApi.getAutoCompletePlaces(query)
+                delay(100)
+                val res = PlacesApi2.findPlaceApi.getAutoCompletePlaces(query)
                 if (res.isSuccessful) {
                     addressList.postValue(res.body())
                 }
