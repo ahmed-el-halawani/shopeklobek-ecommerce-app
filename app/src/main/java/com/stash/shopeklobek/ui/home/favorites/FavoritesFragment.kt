@@ -3,12 +3,9 @@ package com.stash.shopeklobek.ui.home.favorites
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stash.shopeklobek.R
@@ -35,9 +32,17 @@ class FavoritesFragment :
             editor.commit()
 
         }
-        adapterFavorite = AdapterFavorite(ArrayList(), favoritesViewModel)
+        adapterFavorite = AdapterFavorite(ArrayList(),{
+            favoritesViewModel.deleteFavorite(it.id)
+        }) {
+            val action =
+                FavoritesFragmentDirections.actionFavoritesFragmentToProductDetailsFragment(
+                    it
+                )
+            findNavController().navigate(action)
+        }
         binding.reFavorite.layoutManager = GridLayoutManager(context, 2)
-        binding?.reFavorite?.adapter = adapterFavorite
+        binding.reFavorite.adapter = adapterFavorite
 
         // get data from room
         favoritesViewModel.repo.getSettingsLiveData().observe(viewLifecycleOwner) {
@@ -49,21 +54,16 @@ class FavoritesFragment :
             } else {
                 binding.tvLoginFavorite.visibility = View.GONE
                 binding.ivEmptyFavorite.visibility = View.GONE
-                when( val res=favoritesViewModel.getFavorites())
-                {
-                    is Either.Error -> {
-                        TODO()
-                    }
+                when (val res = favoritesViewModel.getFavorites()) {
+                    is Either.Error -> { }
                     is Either.Success -> {
-                        res.data.observe(viewLifecycleOwner){
-                            if (!it.isEmpty()) {
-                                adapterFavorite.setFavorite(it)
-                                binding.ivEmptyFavorite.visibility = View.GONE
-                              } else {
-                                binding.ivEmptyFavorite.visibility = View.VISIBLE
-                                Log.d("onViewCreated", "nullll")
-
-                            }
+                        res.data.observe(viewLifecycleOwner) {
+                            adapterFavorite.setFavorite(it)
+                            binding.ivEmptyFavorite.visibility =
+                                if (it.isNotEmpty())
+                                    View.GONE
+                                else
+                                    View.VISIBLE
 
                         }
 

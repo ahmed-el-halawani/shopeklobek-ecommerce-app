@@ -85,13 +85,13 @@
     <string name="add_to_cart" >اضافه الي العربة</string>
     <string name="favorite" >المفضلة</string>
     <string name="cart" >العربة</string>
-    <string name="orders">الطلابات</string>
+    <string name="orders">الطلبات</string>
     <string name="price" >السعر :</string>
     <string name="state">الحالة :</string>
     <string name="date" >التاريخ :</string>
     <string name="more">المزيد</string>
     <string name="sighn_out">تسجيل الخروج</string>
-    <string name="favorite_list">قائة المفضلة</string>
+    <string name="favorite_list">قائمة المفضلة</string>
     <string name="filter" >تصنيف</string>
     <string name="shoes" >أحذية</string>
     <string name="accessories" >أكسسورارات</string>

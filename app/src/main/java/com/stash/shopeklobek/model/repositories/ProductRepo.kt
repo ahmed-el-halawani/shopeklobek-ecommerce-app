@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.stash.shopeklobek.model.api.CurrencyApi.currencyConverterApi
 import com.stash.shopeklobek.model.api.ExchangeCurrencyApi.exchangerateConverterApi
 import com.stash.shopeklobek.model.entities.*
+import com.stash.shopeklobek.model.entities.currencies.CurrencyConverterResult
 import com.stash.shopeklobek.model.entities.retroOrder.Order
 import com.stash.shopeklobek.model.entities.retroOrder.SendOrderModel
 import com.stash.shopeklobek.model.entities.retroOrder.SendedOrder
@@ -515,10 +516,9 @@ class ProductRepo(
         }
     }
 
-    // end currency repo
-
     private suspend fun <S, R> callErrorsHandler(
-        application: Application, suspendedCall: suspend () -> Response<S>,
+        application: Application,
+        suspendedCall: suspend () -> Response<S>,
         noErrors: suspend ((S) -> Either<R, RepoErrors>)
     ): Either<R, RepoErrors> {
         if (hasInternet(application)) {

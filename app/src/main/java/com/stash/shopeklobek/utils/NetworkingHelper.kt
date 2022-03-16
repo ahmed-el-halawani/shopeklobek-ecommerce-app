@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.*
 
 object NetworkingHelper {
-
     fun hasInternet(context: Context): Boolean {
         try {
             val connectivityManager = context.getSystemService(
@@ -23,5 +22,4 @@ object NetworkingHelper {
             return false
         }
     }
-
 }

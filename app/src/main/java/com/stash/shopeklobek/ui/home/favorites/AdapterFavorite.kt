@@ -23,7 +23,8 @@ import com.stash.shopeklobek.utils.toCurrency
 
 class AdapterFavorite(
     var listFavorites: List<RoomFavorite>,
-    var favoritesViewModel: FavoritesViewModel?
+    var setOnClickListener:((RoomFavorite)->Unit)?=null,
+    var setNavigation:((Products)->Unit)?=null
 ) :
     RecyclerView.Adapter<AdapterFavorite.ViewHolder>() {
 
@@ -65,7 +66,7 @@ class AdapterFavorite(
                     d.dismiss()
                 }
                 setPositiveButton("yes") { d, i ->
-                    favoritesViewModel?.deleteFavorite(listFavorites.get(position).id)
+                    setOnClickListener?.invoke(listFavorites.get(position))
                     Toast.makeText(
                         holder.imageItem.context,
                         holder.imageItem.context.getString(R.string.product_deleted),
@@ -81,34 +82,18 @@ class AdapterFavorite(
 
         }
 
-
-        // open product details fragment
-        holder.tvTitle.context?.let {
-            val sharedPreferences: SharedPreferences = it.getSharedPreferences(
-                "sharedPrefFile",
-                Context.MODE_PRIVATE
-            )
-            holder.content_favorite.setOnClickListener {
-                if (sharedPreferences.getInt(Constants.ONCLICK_PROFILE, -1).equals(2)) {
-                    val action =
-                        FavoritesFragmentDirections.actionFavoritesFragmentToProductDetailsFragment(
-                            listFavorites.get(position).product
-                        )
-                    it.findNavController().navigate(action)
-                }
-            }
+        holder.content_favorite.setOnClickListener {
+            setNavigation?.invoke(listFavorites[position].product)
         }
+        // open product details fragment
+
 
 
     }
 
     fun setFavorite(favorite: List<RoomFavorite>) {
-        if (!favorite.isEmpty()) {
             this.listFavorites = favorite
             notifyDataSetChanged()
-        } else
-            notifyDataSetChanged()
-
     }
 
 

@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.ui.BaseFragment
 import com.stash.shopeklobek.ui.home.favorites.AdapterFavorite
 import com.stash.shopeklobek.utils.Constants
+import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
@@ -102,7 +105,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         }
 
-        adapterFavorite = AdapterFavorite(ArrayList(), null)
+        adapterFavorite = AdapterFavorite(ArrayList(), {
+            lifecycleScope.launch {
+                profileViewModel.productRepo.deleteFromFavorite(it.id)
+            }
+        }){
+            findNavController().navigate(
+                ProfileFragmentDirections.actionNavProfileToProductDetailsFragment(it)
+            )
+        }
 
         binding.reFavorite.layoutManager =
             GridLayoutManager(context, 2)

@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_nav_profile_to_loogin"
             app:destination="@id/completeAction" />
+        <action
+            android:id="@+id/action_nav_profile_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/OrdersFragment"
