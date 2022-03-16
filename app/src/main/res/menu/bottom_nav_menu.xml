@@ -14,12 +14,14 @@
         />
 
     <item
-        android:id="@+id/cartFragment"
-        android:icon="@drawable/ic_shopping_cart_"
-        android:title="@string/cart" />
-    <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_baseline_favorite"
         android:title="@string/favorites" />
+
+    <item
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/ic_shopping_cart_"
+        android:title="@string/cart" />
+
 
 </menu>
