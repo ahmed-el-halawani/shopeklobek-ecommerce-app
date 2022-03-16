@@ -77,13 +77,13 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 is Either.Error -> when (it.errorCode) {
                     RepoErrors.NoInternetConnection -> Toast.makeText(
                         requireContext(),
-                        "No Connection",
+                        resources.getString(R.string.errornoconnection),
                         Toast.LENGTH_SHORT
                     )
                         .show()
                     RepoErrors.ServerError -> Toast.makeText(
                         requireContext(),
-                        "Error!",
+                        resources.getString(R.string.errorloading),
                         Toast.LENGTH_SHORT
                     ).show()
                     RepoErrors.EmptyBody -> Toast.makeText(

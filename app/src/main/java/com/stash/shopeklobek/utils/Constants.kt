@@ -22,6 +22,12 @@ object Constants {
     //paypal
     const val PAYPAL_CLIENT_ID = "AbUpfUV90zq_ES0bzQVCb5f2UPXPsXZA3xsG2CQTUDyD3q8RLZjCZMcwLIWfExuPzcqziEjwZHtVlQma"
 
+    //places
+    const val BASE_PLACES_URL = "https://spott.p.rapidapi.com/places/"
+    const val X_RapidAPI_Host = "spott.p.rapidapi.com"
+    const val X_RapidAPI_Key = "c9ad1973cfmsh551a25db61acd9ap16ef38jsn45c817d30aee"
+
+
     //room
     const val FAVORITES_TABLE = "FAVORITES_TABLE"
     const val CART_TABLE = "CART_TABLE"
