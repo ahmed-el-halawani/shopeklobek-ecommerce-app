@@ -38,6 +38,7 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
         val imageList = ArrayList<SlideModel>()
         val saleDiscountCode = ArrayList<String>()
 
+
         brandsViewModel.discounts.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Either.Success -> {
@@ -106,5 +107,10 @@ class BrandsFragment : BaseFragment<FragmentBrandsBinding>(FragmentBrandsBinding
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 }

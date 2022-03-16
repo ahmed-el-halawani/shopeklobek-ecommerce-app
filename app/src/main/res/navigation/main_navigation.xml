@@ -129,6 +129,10 @@
         android:id="@+id/nav_search"
         android:name="com.stash.shopeklobek.ui.search.SearchFragment"
         android:label="@string/search_Menu"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
 
 </navigation>

@@ -48,7 +48,7 @@ class SearchAdapter (var listProducts: List<Products>, var addToFavorite: (Produ
         }
 
         holder.categoryConstrainLayout.setOnClickListener {
-            val action = VendorFragmentDirections.actionVendorFragmentToProductDetailsFragment(listProducts[position])
+            val action = SearchFragmentDirections.actionNavSearchToProductDetailsFragment(listProducts[position])
             it.findNavController().navigate(action)
         }
 

@@ -35,7 +35,6 @@ class VendorFragment : BaseFragment<FragmentVendorBinding>(FragmentVendorBinding
     private val brandsViewModel: BrandsViewModel by activityViewModels()
     private lateinit var adapter: VendorAdapter
     private lateinit var recyclerView: RecyclerView
-    var searching : MutableLiveData<String> = MutableLiveData()
 
 
 
@@ -47,18 +46,40 @@ override fun onCreateView(
 
         brandsViewModel.getProductsByVendor(args.vendor)
         recyclerView = binding.vendorRecyclerView
+    Log.i(TAG, "onCreateView: "+brandsViewModel.searching.value)
 
-        binding.searchTextView.addTextChangedListener {
-            searching.value = binding.searchTextView.text.toString()
-        }
 
-        binding.filterImageView.setOnClickListener {
+    binding.filterImageView.setOnClickListener {
             val priceBottomSheet = PriceBottomSheet()
             priceBottomSheet.show(parentFragmentManager,"TAG")
         }
+
+        binding.searchTextView.addTextChangedListener {
+            brandsViewModel.searching.value = binding.searchTextView.text.toString()
+            brandsViewModel.searching.observe(viewLifecycleOwner, Observer { it2 ->
+                brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+                    when(it1) {
+                        is Either.Success -> {
+                            var list: MutableList<Products> = mutableListOf()
+                                for (i in 0..it1.data.product.size.minus(1)) {
+                                    if (it1.data.product[i].title!!.contains(it2, ignoreCase = true)) {
+                                        list.add(it1.data.product[i])
+                                    }
+                                }
+                                checkFavoriteList(list)
+                            }
+                        is Either.Error -> when (it1.errorCode) {
+                            RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), "No Connection", Toast.LENGTH_SHORT).show()
+                            RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            })
+        }
+
         recyclerView.layoutManager = GridLayoutManager(requireContext(),2, RecyclerView.VERTICAL,false)
 
-        brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+        /*brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
             when(it1) {
                 is Either.Success -> {
                     checkFavoriteList(it1.data.product)
@@ -68,16 +89,17 @@ override fun onCreateView(
                     RepoErrors.ServerError -> Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        })*/
 
-        searching.observe(viewLifecycleOwner, Observer { it2 ->
             brandsViewModel.vendors.observe(viewLifecycleOwner, Observer { it1 ->
+                brandsViewModel.searching.observe(viewLifecycleOwner, Observer { it2 ->
                 when(it1) {
                     is Either.Success -> {
                         if(it2 == null){
+                            Log.i(TAG, "onCreateView: ")
                             checkFavoriteList(it1.data.product)
                         }else {
-                            var list: MutableList<Products> = mutableListOf()
+                            var list: ArrayList<Products> = ArrayList()
                             for (i in 0..it1.data.product.size.minus(1)) {
                                 var string = binding.searchTextView.text
                                 if (it1.data.product[i].title!!.contains(string, ignoreCase = true)) {
@@ -145,21 +167,6 @@ override fun onCreateView(
                 }
             }
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        /*val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences(Constants.FILE_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString(Constants.FIRST_FILTER_PRICE,"all")
-        editor.apply()*/
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-       /* brandsViewModel.firstPriceFilter.value=0f
-        brandsViewModel.secondPriceFilter.value=1000f
-        brandsViewModel.vendors.value=null*/
     }
 
 }

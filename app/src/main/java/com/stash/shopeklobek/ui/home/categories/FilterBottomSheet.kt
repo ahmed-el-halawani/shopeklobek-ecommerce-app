@@ -12,9 +12,11 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.stash.shopeklobek.R
 import com.stash.shopeklobek.databinding.FragmentFilterBottomSheetBinding
+import com.stash.shopeklobek.utils.Constants
 import com.stash.shopeklobek.utils.Constants.FILE_NAME
 import com.stash.shopeklobek.utils.Constants.FIRST_FILTER_CATEGORIES
 import com.stash.shopeklobek.utils.Constants.SECOND_FILTER_CATEGORIES
+import com.stash.shopeklobek.utils.toCurrency
 
 
 class FilterBottomSheet() : BottomSheetDialogFragment(){
@@ -42,6 +44,18 @@ class FilterBottomSheet() : BottomSheetDialogFragment(){
             "ACCESSORIES" -> binding.accessoriesRadioButton.isChecked = true
             "sale" -> binding.saleRadioButton.isChecked = true
         }
+        when(sharedPreferences.getString(Constants.CATEGORY_FILTER_PRICE,"all")){
+            "all" -> binding.allPriceCategoryRadioButton.isChecked = true
+            "first" -> binding.firstPriceCategoryRadioButton.isChecked = true
+            "second" -> binding.secondPriceCategoryRadioButton.isChecked = true
+            "third" -> binding.thirdPriceCategoryRadioButton.isChecked = true
+        }
+
+        binding.firstPriceCategoryRadioButton.text = "0".toCurrency(requireContext())
+        binding.firstPriceCategoryTextView.text = "100".toCurrency(requireContext())
+        binding.secondPriceCategoryRadioButton.text = "100".toCurrency(requireContext())
+        binding.secondPriceCategoryTextView.text = "200".toCurrency(requireContext())
+        binding.thirdPriceCategoryRadioButton.text = "200".toCurrency(requireContext())
 
 
         binding.applyTextView.setOnClickListener {
@@ -61,6 +75,27 @@ class FilterBottomSheet() : BottomSheetDialogFragment(){
             if(binding.saleRadioButton.isChecked) {
                 setFilter("sale")
                 editor.putString(FIRST_FILTER_CATEGORIES,"sale")
+            }
+            if(binding.allPriceCategoryRadioButton.isChecked){
+                categoriesViewModel.firstPriceFilter.value=0f
+                categoriesViewModel.secondPriceFilter.value=1000f
+                editor.putString(Constants.CATEGORY_FILTER_PRICE,"all")
+
+            }
+            if(binding.firstPriceCategoryRadioButton.isChecked){
+                categoriesViewModel.firstPriceFilter.value=0f
+                categoriesViewModel.secondPriceFilter.value=100f
+                editor.putString(Constants.CATEGORY_FILTER_PRICE,"first")
+            }
+            if(binding.secondPriceCategoryRadioButton.isChecked){
+                categoriesViewModel.firstPriceFilter.value=100f
+                categoriesViewModel.secondPriceFilter.value=200f
+                editor.putString(Constants.CATEGORY_FILTER_PRICE,"second")
+            }
+            if(binding.thirdPriceCategoryRadioButton.isChecked){
+                categoriesViewModel.firstPriceFilter.value=200f
+                categoriesViewModel.secondPriceFilter.value=1000f
+                editor.putString(Constants.CATEGORY_FILTER_PRICE,"third")
             }
             editor.apply()
             dismiss()

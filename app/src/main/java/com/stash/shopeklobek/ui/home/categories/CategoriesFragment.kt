@@ -109,6 +109,22 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
             })
         })
 
+        categoriesViewModel.firstPriceFilter.observe(viewLifecycleOwner, Observer { first ->
+            categoriesViewModel.secondPriceFilter.observe(viewLifecycleOwner, Observer { second ->
+                categoriesViewModel.products.observe(viewLifecycleOwner, Observer { it1 ->
+                    when(it1) {
+                        is Either.Success -> {
+                            checkFavoriteList(it1.data.product)
+                        }
+                        is Either.Error -> when (it1.errorCode) {
+                            RepoErrors.NoInternetConnection -> Toast.makeText(requireContext(), resources.getString(R.string.errornoconnection), Toast.LENGTH_SHORT).show()
+                            RepoErrors.ServerError -> Toast.makeText(requireContext(), resources.getString(R.string.errorloading), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            })
+        })
+
         categoriesViewModel.firstFilter.observe(viewLifecycleOwner, Observer {
             when(it){
                 "women" -> binding.filterTextView.text = resources.getString(R.string.women)
@@ -142,13 +158,21 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>(FragmentCateg
     }
 
     fun checkFavoriteList(listOfProducts : List<Products> ){
+        var listOfProductsWithFilter = ArrayList<Products>()
+        val firstFilter = categoriesViewModel.firstPriceFilter.value
+        val secondFilter = categoriesViewModel.secondPriceFilter.value
+        for( i in 0.. listOfProducts.size.minus(1)){
+            if(listOfProducts[i].variants[0]?.price?.toFloat() ?: 0f >= firstFilter!! && listOfProducts[i].variants[0]?.price?.toFloat() ?: 0f < secondFilter!! ){
+                listOfProductsWithFilter.add(listOfProducts[i])
+            }
+        }
         when(val favorite = categoriesViewModel.getFavorites()){
             is Either.Error -> {
-                categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite,emptyList())
+                categoryAdapter = CategoryAdapter(listOfProductsWithFilter,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite,emptyList())
                 recyclerView.adapter = categoryAdapter}
             is Either.Success -> {
                 favorite.data.observeOnce(viewLifecycleOwner){
-                    categoryAdapter = CategoryAdapter(listOfProducts,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite, it)
+                    categoryAdapter = CategoryAdapter(listOfProductsWithFilter,categoriesViewModel::addToFavorite,categoriesViewModel::deleteFavorite, it)
                     recyclerView.adapter = categoryAdapter
                 }
             }
