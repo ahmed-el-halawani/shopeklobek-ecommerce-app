@@ -28,10 +28,10 @@
          android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_item" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_name_item"
+        android:id="@+id/tvOrderNumber"
         android:layout_width="0dp"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
     <TextView
-        android:id="@+id/tvOrderNumber"
+        android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -114,17 +114,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
-    <TextView
-        android:id="@+id/tvZip"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Zip : 3500"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <TextView
             android:id="@+id/total_price"
@@ -138,7 +128,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvZip" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

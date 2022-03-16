@@ -155,6 +155,11 @@
     <string name="location">Location*</string>
     <string name="search_here">Search here</string>
     <string name="additional_address_details">Additional Address Details</string>
+    <string name="phone2">"phone : "</string>
+    <string name="name">"name : "</string>
+    <string name="counter2">"counter : "</string>
+    <string name="address2">"address : "</string>
+    <string name="discount2">"discount : "</string>
 
 
 </resources>

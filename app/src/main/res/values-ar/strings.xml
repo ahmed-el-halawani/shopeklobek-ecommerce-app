@@ -133,6 +133,11 @@
     <string name="location">الموقع*</string>
     <string name="search_here">ابحث هنا</string>
     <string name="additional_address_details">تفاصيل العنوان الإضافية</string>
+    <string name="phone2">"رفم الهاتف : "</string>
+    <string name="name">"الأسم : "</string>
+    <string name="counter2">"العدد : "</string>
+    <string name="address2">"العنوان : "</string>
+    <string name="discount2">"الخصم : "</string>
 
 
 </resources>
