@@ -1,10 +1,7 @@
 package com.stash.shopeklobek.ui.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.stash.shopeklobek.R
@@ -26,6 +23,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true);
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,13 +40,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         setupBottomNavBar()
 
-        mainActivity.viewmodel.productRepo.getCart().observe(viewLifecycleOwner){
-            binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.size
-        }
+
 
     }
 
     private fun setupBottomNavBar() {
+        binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).isVisible = false
+        mainActivity.viewmodel.productRepo.getSettingsLiveData().observe(viewLifecycleOwner){settings->
+            mainActivity.viewmodel.productRepo.getCart().observe(viewLifecycleOwner) {
+                if (settings.customer != null) {
+                    binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).number = it.size
+                    binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).isVisible =
+                        it.isNotEmpty()
+                } else {
+                    binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment).isVisible = false
+                }
+            }
+        }
+
         setupActionBarWithNavController(
             mainActivity,
             navController,
@@ -50,14 +67,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.bottomNavigationView.setupWithNavController2(navController)
 
 
-
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.main, menu)
-//        return true
-//    }
+    //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    //        // Inflate the menu; this adds items to the action bar if it is present.
+    //        menuInflater.inflate(R.menu.main, menu)
+    //        return true
+    //    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -65,7 +81,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main,menu)
+        inflater.inflate(R.menu.main, menu)
     }
 
 

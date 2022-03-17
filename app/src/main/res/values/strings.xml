@@ -168,8 +168,10 @@
     <string name="registered_successfully">Registered successfully</string>
     <string name="required">Required</string>
     <string name="more_than_eight">password must be more than 8 characters</string>
-    <string name="doesnt_exist">password doesn't match</string>
+    <string name="doesnt_exist">password doesn\'t match</string>
     <string name="server_error">Server Error</string>
+    <string name="no">No</string>
+    <string name="yes">yes</string>
 
 
 </resources>

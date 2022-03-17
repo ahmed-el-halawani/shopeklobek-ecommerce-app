@@ -157,11 +157,14 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
 
     private fun deleteProductDialog(roomCart: RoomCart) {
         AlertDialog.Builder(context).apply {
-            setNegativeButton("No") { d, i ->
+            setOnCancelListener {
+                cartProductAdapter.notifyDataSetChanged()
+            }
+            setNegativeButton(getString(R.string.no)) { d, i ->
                 cartProductAdapter.notifyDataSetChanged()
                 d.dismiss()
             }
-            setPositiveButton("yes") { d, i ->
+            setPositiveButton(getString(R.string.yes)) { d, i ->
                 cartViewModel.deleteCartProduct(roomCart.id)
                 d.dismiss()
                 Toast.makeText(
@@ -177,7 +180,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
 
     private fun messageDialog() {
         AlertDialog.Builder(context).apply {
-            setNeutralButton("ok") { d, i ->
+            setNeutralButton(getString(R.string.ok)) { d, i ->
                 d.dismiss()
             }
             setTitle(getString(R.string.no_more_stock))

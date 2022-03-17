@@ -59,13 +59,15 @@ class AdapterFavorite(
         holder.tvPrice.text =
             listFavorites.get(position).product.variants[0]?.price?.toCurrency(holder.imageItem.context)
 
+        val context = holder.itemView.context
         holder.ivDeleteFavorite.setOnClickListener {
 
             AlertDialog.Builder(holder.imageItem.context).apply {
-                setNegativeButton("No") { d, i ->
+                setNegativeButton(context.getString(R.string.no)) { d, i ->
                     d.dismiss()
                 }
-                setPositiveButton("yes") { d, i ->
+
+                setPositiveButton(context.getString(R.string.yes)) { d, i ->
                     setOnClickListener?.invoke(listFavorites.get(position))
                     Toast.makeText(
                         holder.imageItem.context,

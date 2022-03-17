@@ -150,6 +150,8 @@
     <string name="more_than_eight">يجب أن تكون كلمة المرور أكثر من 8 أحرف</string>
     <string name="doesnt_exist">كلمة المرور غير متطابقة</string>
     <string name="server_error">خطأ في الخادم</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
 
     >>>>>>> main
 
