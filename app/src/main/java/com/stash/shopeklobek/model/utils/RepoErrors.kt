@@ -9,6 +9,16 @@ enum class RepoErrors {
 
 }
 
+enum class SignUpErrors {
+    NoInternetConnection,
+    ServerError,
+    EmptyBody,
+    NullValue,
+    NoLoginCustomer,
+    EmailAlreadyExist
+}
+
+
 enum class DiscountError{
     NoInternetConnection,
     ServerError,

@@ -164,6 +164,12 @@
     <string name="counter2">"counter : "</string>
     <string name="address2">"address : "</string>
     <string name="discount2">"discount : "</string>
+    <string name="email_already_exist">email Already Exist</string>
+    <string name="registered_successfully">Registered successfully</string>
+    <string name="required">Required</string>
+    <string name="more_than_eight">password must be more than 8 characters</string>
+    <string name="doesnt_exist">password doesn't match</string>
+    <string name="server_error">Server Error</string>
 
 
 </resources>

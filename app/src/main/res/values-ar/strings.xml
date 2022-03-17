@@ -144,7 +144,13 @@
     <string name="counter2">"العدد : "</string>
     <string name="address2">"العنوان : "</string>
     <string name="discount2">"الخصم : "</string>
+    <string name="email_already_exist">البريد الالكتروني موجود مسبقا</string>
+    <string name="registered_successfully">تم التسجيل بنجاح</string>
+    <string name="required">مطلوب</string>
+    <string name="more_than_eight">يجب أن تكون كلمة المرور أكثر من 8 أحرف</string>
+    <string name="doesnt_exist">كلمة المرور غير متطابقة</string>
+    <string name="server_error">خطأ في الخادم</string>
 
->>>>>>> main
+    >>>>>>> main
 
 </resources>

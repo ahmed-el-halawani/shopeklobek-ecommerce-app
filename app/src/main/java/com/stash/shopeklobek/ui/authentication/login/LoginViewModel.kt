@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import com.stash.shopeklobek.R
 import com.stash.shopeklobek.model.api.ShopifyApi
 import com.stash.shopeklobek.model.entities.CustomerLoginModel
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
@@ -47,18 +48,9 @@ class LoginViewModel(application: Application, val AuthRepo: AuthenticationRepo)
                         loginSuccess.postValue(false)
                         Toast.makeText(
                             getApplication(),
-                            "CustomerNotFound" + response.message,
+                            R.string.correct_email_or_password,
                             Toast.LENGTH_SHORT
                         ).show()
-                    }
-                    LoginErrors.CustomerNotFound -> {
-                        loginSuccess.postValue(false)
-                        Toast.makeText(
-                            getApplication(),
-                            "CustomerNotFound" + response.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
                     }
                 }
                 is Either.Success -> {

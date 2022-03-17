@@ -11,36 +11,13 @@ import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.RepoErrors
 import com.stash.shopeklobek.model.entities.CustomerModel
 import com.stash.shopeklobek.model.repositories.AuthenticationRepo
+import com.stash.shopeklobek.model.utils.SignUpErrors
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(application: Application,val authenticationRepo: AuthenticationRepo) : AndroidViewModel(application) {
     val signupSuccess: MutableLiveData<Boolean?> = MutableLiveData()
 
-    fun postData(customer:CustomerModel){
-        viewModelScope.launch {
-            val response : Either<CustomerModel, RepoErrors> = authenticationRepo.signUp(customer)
-
-            when(response){
-                is Either.Error -> when(response.errorCode){
-                    RepoErrors.NoInternetConnection -> {
-                        signupSuccess.postValue(false)
-                        Toast.makeText(getApplication(), "NoInternetConnection"+response.message, Toast.LENGTH_SHORT).show()
-                    }
-                    RepoErrors.ServerError -> {
-
-                        signupSuccess.postValue(false)
-                        Toast.makeText(getApplication(), "ServerError"+response.message, Toast.LENGTH_SHORT).show()
-
-                    }
-                }
-                is Either.Success -> {
-                    signupSuccess.postValue(true)
-                }
-            }
-        }
-    }
-
-
+    suspend fun postData(customer:CustomerModel) = authenticationRepo.signUp(customer)
 
     class Factory(private val application: Application,val authenticationRepo: AuthenticationRepo) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

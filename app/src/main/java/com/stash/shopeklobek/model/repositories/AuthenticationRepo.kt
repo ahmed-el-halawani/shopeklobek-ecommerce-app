@@ -8,7 +8,7 @@ import com.stash.shopeklobek.model.interfaces.ShopifyServices
 import com.stash.shopeklobek.model.shareprefrances.SettingsPreferences
 import com.stash.shopeklobek.model.utils.Either
 import com.stash.shopeklobek.model.utils.LoginErrors
-import com.stash.shopeklobek.model.utils.RepoErrors
+import com.stash.shopeklobek.model.utils.SignUpErrors
 import com.stash.shopeklobek.utils.NetworkingHelper
 
 class AuthenticationRepo(
@@ -18,11 +18,12 @@ class AuthenticationRepo(
 ) {
 
 
-    suspend fun signUp(customer: CustomerModel): Either<CustomerModel, RepoErrors> {
+    suspend fun signUp(customer: CustomerModel): Either<CustomerModel, SignUpErrors> {
         return try {
             return if (NetworkingHelper.hasInternet(application.applicationContext)) {
                 val res = api.register(customer)
                 if (res.isSuccessful) {
+
                     settingsPreferences.update {
                         it.copy(
                             customer = res.body()?.customer
@@ -30,13 +31,19 @@ class AuthenticationRepo(
                     }
 
                     Either.Success(res.body()!!)
-                } else
-                    Either.Error(RepoErrors.ServerError, res.message())
+                } else {
+                    if (res.code() == 422) {
+                        Either.Error(SignUpErrors.EmailAlreadyExist, res.message())
+                    } else {
+                        Either.Error(SignUpErrors.ServerError, res.message())
+                    }
+                }
+
             } else
-                Either.Error(RepoErrors.NoInternetConnection, "NoInternetConnection")
+                Either.Error(SignUpErrors.NoInternetConnection, "NoInternetConnection")
 
         } catch (t: Throwable) {
-            Either.Error(RepoErrors.ServerError, t.message)
+            Either.Error(SignUpErrors.ServerError, t.message)
         }
     }
 

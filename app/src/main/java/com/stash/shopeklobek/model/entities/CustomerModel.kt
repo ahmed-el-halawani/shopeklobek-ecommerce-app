@@ -6,7 +6,7 @@ data class CustomerModel (
     @SerializedName( "customer")
     val customer: Customer?,
 
-    @SerializedName( "error")
+    @SerializedName( "errors")
     val error: Error? = null,
 )
 
