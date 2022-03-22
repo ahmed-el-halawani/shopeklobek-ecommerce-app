@@ -23,7 +23,7 @@ Use locale Database
 
 ## Demo application is available in <a href="https://github.com/ahmedgomaa97/shopeklobek-ecommerce-app/releases/tag/v2.0">Release</a>
 
-## Video Preview <a href="https://www.linkedin.com/posts/ahmed-gomaa-780539134_iti-shopify-android-activity-6912048121254465536-KQO_?utm_source=linkedin_share&utm_medium=member_desktop_web"></a>
+## Video Preview <a href="https://www.linkedin.com/posts/ahmed-gomaa-780539134_iti-shopify-android-activity-6912048121254465536-KQO_?utm_source=linkedin_share&utm_medium=member_desktop_web">video link</a>
 
 
 
