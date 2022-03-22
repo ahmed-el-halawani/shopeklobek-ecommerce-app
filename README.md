@@ -23,6 +23,10 @@ Use locale Database
 
 ## Demo application is available in <a href="https://github.com/ahmedgomaa97/shopeklobek-ecommerce-app/releases/tag/v2.0">Release</a>
 
+## Video Preview <a href="https://www.linkedin.com/posts/ahmed-gomaa-780539134_iti-shopify-android-activity-6912048121254465536-KQO_?utm_source=linkedin_share&utm_medium=member_desktop_web"></a>
+
+
+
 ## Screenshot
 
 <img src="Images/1.jpg" alt="1" height="300"/> <img src="Images/2.jpg" alt="1" height="300"/> <img src="Images/3.jpg" alt="1" height="300"/> <img src="Images/4.jpg" alt="1" height="300"/> <img src="Images/5.jpg" alt="1" height="300"/> <img src="Images/6.jpg" alt="1" height="300"/> <img src="Images/7.jpg" alt="1" height="300"/> <img src="Images/8.jpg" alt="1" height="300"/> <img src="Images/9.jpg" alt="1" height="300"/> <img src="Images/10.jpg" alt="1" height="300"/> <img src="Images/11.jpg" alt="1" height="300"/> <img src="Images/12.jpg" alt="1" height="300"/> <img src="Images/13.jpg" alt="1" height="300"/> <img src="Images/14.jpg" alt="1" height="300"/> <img src="Images/15.jpg" alt="1" height="300"/> <img src="Images/16.jpg" alt="1" height="300"/> <img src="Images/17.jpg" alt="1" height="300"/> <img src="Images/18.jpg" alt="1" height="300"/> <img src="Images/19.jpg" alt="1" height="300"/> <img src="Images/20.jpg" alt="1" height="300"/>
