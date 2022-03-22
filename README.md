@@ -15,11 +15,11 @@ Supports API Level +26
 ## Highlights
 
 Use shopify API  
-Use geoapify API for places autocomplete
-Support two language. English & Arabic 
-Support dark mode
-Support multi currency converter
-Use locale Database
+Use geoapify API for places autocomplete  
+Support two language. English & Arabic  
+Support dark mode  
+Support multi currency converter  
+Use locale Database  
 
 ## Demo application is available in <a href="https://github.com/ahmedgomaa97/shopeklobek-ecommerce-app/releases/tag/v2.0">Release</a>
 
@@ -31,9 +31,9 @@ Use locale Database
 
 Navigation  
 Shared Preferences  
-viewModel
+viewModel  
 LiveData  
-coroutine
+coroutine  
 View Binding  
 RoomDB  
 Retrofit  
