@@ -1,5 +1,6 @@
 package com.stash.shopeklobek.utils
 
+// all api keys are free and any one can use it
 
 object Constants {
 
