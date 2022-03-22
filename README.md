@@ -2,7 +2,7 @@
 
 shopeklobek is an application that turns a Shopify-based store into a mobile app. shopeklobek syncs with Shopify store and transfers a product catalog and user data to a mobile app. The app provides features like promo codes, add location with places api, and convenient payments with popular digital wallets like Paypal
   
-<img src="Images/poster.png" alt="1"/>
+<img src="Images/poster.jpg" alt="1"/>
 
 ## Requirements
 
